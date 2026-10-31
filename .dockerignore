@@ -1,0 +1,9 @@
+node_modules
+.next
+.git
+.agents
+scratch
+data-sources
+docs-data
+*.log
+.DS_Store

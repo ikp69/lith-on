@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --background: #FAFAF8;
+    --foreground: #111827;
+    --card: #FFFFFF;
+    --card-foreground: #111827;
+    --popover: #FFFFFF;
+    --popover-foreground: #111827;
+    --primary: #F74530;
+    --primary-foreground: #FFFFFF;
+    --secondary: #0B3388;
+    --secondary-foreground: #FFFFFF;
+    --muted: #F3F4F6;
+    --muted-foreground: #4B5563;
+    --accent: #F74530;
+    --accent-foreground: #FFFFFF;
+    --destructive: #EF4444;
+    --destructive-foreground: #FFFFFF;
+    --border: #E5E7EB;
+    --input: #E5E7EB;
+    --ring: #F74530;
+    --radius: 0.75rem;
+  }
+}
+
+@theme inline {
+  --font-sans: var(--font-manrope), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --color-lithon-red: #F74530;
+  --color-lithon-red-hover: #D83522;
+  --color-lithon-blue: #0B3388;
+  --color-lithon-blue-hover: #082666;
+  --color-canvas-pure: #FFFFFF;
+  --color-canvas-offwhite: #FAFAF8;
+  --color-surface-light: #F3F4F6;
+  --color-surface-blue-grey: #F0F4F8;
+  --color-border-subtle: #E5E7EB;
+  --color-text-charcoal: #111827;
+  --color-text-secondary: #4B5563;
+  --color-text-muted: #6B7280;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  overflow-x: hidden;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+/* Floating frosted capsule navbar (from reference design) */
+.glass-pill {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06);
+}
+
+/* Floating translucent panel (from reference hero mid-card & tri-shelf) */
+.glass-panel-light {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.08);
+}
+
+/* Architectural clean white card */
+.card-architectural {
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 1rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-architectural:hover {
+  border-color: #D1D5DB;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.06), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+  transform: translateY(-2px);
+}
+
+/* Subtle architectural grid pattern */
+.bg-architectural-grid {
+  background-size: 48px 48px;
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+}
+
+@keyframes flowDash {
+  to {
+    stroke-dashoffset: -28;
+  }
+}
+
+.animate-flow-dash {
+  animation: flowDash 1.2s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-flow-dash {
+    animation: none;
+  }
+}
+
