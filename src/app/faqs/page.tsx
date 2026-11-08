@@ -123,7 +123,7 @@ const FAQ_DATA: FAQItem[] = [
     id: "q16",
     category: "Installation & Warranty",
     question: "Can Lith-On battery storage work with my existing inverters?",
-    answer: "Yes. Lith-On BESS supports standard open industrial protocols including Modbus TCP/RTU, CAN, and IEC 61850, allowing seamless communication with leading bi-directional commercial inverters, solar charge controllers, and SCADA networks."
+    answer: "Yes. Lith-On BESS supports standard open industrial protocols including Modbus TCP/RTU, CAN, and IEC 61850, allowing direct communication with leading bi-directional commercial inverters, solar charge controllers, and SCADA networks."
   },
   {
     id: "q17",

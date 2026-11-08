@@ -6,7 +6,7 @@ import { Camera } from "lucide-react";
 
 interface GalleryItem {
   id: string;
-  category: "Installations" | "Factory" | "Testing" | "Products";
+  category: "Deployments" | "Microgrids" | "Factory" | "Testing" | "Products";
   title: string;
   location: string;
   capacity: string;
@@ -17,16 +17,16 @@ interface GalleryItem {
 const GALLERY_ITEMS: GalleryItem[] = [
   {
     id: "g1",
-    category: "Installations",
-    title: "1 MWh BESS Yard at Invertis University",
-    location: "Invertis University, Bareilly, UP",
+    category: "Deployments",
+    title: "1 MWh Invertis BESS Yard",
+    location: "Bareilly, UP",
     capacity: "1.0 MWh / 4 Cabinets + PCS",
     image: "/images/installations/invertis-bess-yard.jpg",
-    description: "Four integrated Lith-On BESS outdoor cabinets and central PCS unit providing sub-10ms UPS switchover across 700+ hostel rooms and 140 classrooms."
+    description: "Four BESS outdoor skids delivering sub-10ms campus cutover across 700+ rooms."
   },
   {
     id: "g2",
-    category: "Installations",
+    category: "Microgrids",
     title: "900 kW Campus Rooftop Solar PV",
     location: "Bareilly Campus, Uttar Pradesh",
     capacity: "900 kWp Solar Generation",
@@ -35,16 +35,16 @@ const GALLERY_ITEMS: GalleryItem[] = [
   },
   {
     id: "g3",
-    category: "Installations",
-    title: "Commercial & Industrial Campus BESS Bank",
-    location: "Enterprise Manufacturing Facility",
+    category: "Deployments",
+    title: "C&I Campus BESS Bank",
+    location: "Industrial Campus",
     capacity: "Multi-MW Turnkey Containers",
     image: "/images/installations/commercial-campus-bess.jpg",
-    description: "Outdoor containerized BESS line providing continuous ToD peak demand shaving and eliminating penalty surcharges for heavy C&I operations."
+    description: "Containerized BESS skids for continuous ToD peak demand arbitrage."
   },
   {
     id: "g4",
-    category: "Installations",
+    category: "Microgrids",
     title: "Wind + Solar Hybrid Microgrid Skid",
     location: "Renewable Generation Substation",
     capacity: "Utility-Scale Hybrid Firming",
@@ -53,12 +53,12 @@ const GALLERY_ITEMS: GalleryItem[] = [
   },
   {
     id: "g5",
-    category: "Installations",
-    title: "High-Altitude Mountain Defense Off-Grid BESS",
-    location: "Ladakh & Kashmir Mountain Outposts",
+    category: "Deployments",
+    title: "Mountain Defense Off-Grid BESS",
+    location: "Ladakh Outpost",
     capacity: "Extreme Cold -30°C Tolerant",
     image: "/images/installations/mountain-defense-offgrid.jpg",
-    description: "Ruggedized weatherproof BESS with IceBattery® thermal retention and solar pairing, powering strategic off-grid defense facilities."
+    description: "Ruggedized -30°C skid with IceBattery® ceramic thermal protection."
   },
   {
     id: "g6",
@@ -108,9 +108,9 @@ const GALLERY_ITEMS: GalleryItem[] = [
 ];
 
 export function InstallationGallery() {
-  const [activeCategory, setActiveCategory] = useState<string>("All");
+  const [activeCategory, setActiveCategory] = useState<string>("Deployments");
 
-  const categories = ["All", "Installations", "Factory", "Testing", "Products"];
+  const categories = ["Deployments", "Microgrids", "Factory", "Testing", "All"];
 
   const filteredItems = activeCategory === "All"
     ? GALLERY_ITEMS
@@ -120,15 +120,15 @@ export function InstallationGallery() {
     <section className="py-16 sm:py-24 bg-white border-t border-gray-200" id="photo-gallery">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50/80 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-[#0B3388]">
-            <Camera className="h-3.5 w-3.5 text-[#0B3388]" />
+          <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50/80 px-3.5 py-1 text-xs font-medium text-lithon-blue">
+            <Camera className="h-3.5 w-3.5 text-lithon-blue" />
             <span>Visual Evidence of Work</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-light text-gray-900 mt-3 tracking-tight">
-            Deployments, Factory &amp; <span className="font-semibold text-[#0B3388]">Testing Gallery</span>
+          <h2 className="text-3xl sm:text-4xl font-light text-gray-900 mt-3 tracking-tight text-balance">
+            Deployments, Factory &amp; <span className="font-semibold text-lithon-blue">Testing Gallery</span>
           </h2>
           <p className="mt-3 text-sm text-gray-600 font-normal">
-            Real photographic proof of Lith-On hardware being engineered in Noida, stress-tested in conformance labs, and deployed at mission-critical client sites.
+            Verified photographic proof of Lith-On BESS manufacturing, conformance testing labs, and field deployments.
           </p>
 
           {/* Filter Tabs */}
@@ -140,9 +140,9 @@ export function InstallationGallery() {
                 role="tab"
                 aria-selected={activeCategory === cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`rounded-full px-5 py-2 text-xs font-semibold transition-all ${
+                className={`min-h-[44px] whitespace-nowrap rounded-full px-5 py-2 text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lithon-blue ${
                   activeCategory === cat
-                    ? "bg-[#0B3388] text-white shadow-sm"
+                    ? "bg-lithon-blue text-white shadow-sm"
                     : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                 }`}
               >
@@ -157,7 +157,7 @@ export function InstallationGallery() {
           {filteredItems.map((item) => (
             <div
               key={item.id}
-              className="rounded-3xl border border-gray-200 bg-[#FAFAF8] overflow-hidden shadow-sm hover:shadow-lg hover:border-blue-200 transition-all flex flex-col justify-between"
+              className="rounded-3xl border border-gray-200 bg-canvas-offwhite overflow-hidden shadow-sm hover:shadow-lg hover:border-blue-200 transition-all flex flex-col justify-between"
             >
               <div className="relative aspect-[16/10] w-full bg-slate-900">
                 <Image
@@ -167,19 +167,19 @@ export function InstallationGallery() {
                   className="object-cover opacity-90 hover:opacity-100 transition-opacity"
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-slate-950/30 pointer-events-none" />
                 <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs text-white">
-                  <span className="rounded-full bg-black/60 px-3 py-1 font-mono text-[10px] backdrop-blur-md border border-white/20">
+                  <span className="rounded-full bg-black/60 px-3 py-1 font-mono text-xs backdrop-blur-md border border-white/20">
                     {item.capacity}
                   </span>
-                  <span className="rounded-full bg-[#0B3388] px-2.5 py-0.5 text-[10px] font-semibold text-white">
+                  <span className="rounded-full bg-lithon-blue px-2.5 py-0.5 text-xs font-semibold text-white">
                     {item.category}
                   </span>
                 </div>
               </div>
 
               <div className="p-6 space-y-2">
-                <div className="text-[11px] font-mono text-gray-500 uppercase tracking-wider">
+                <div className="text-xs font-mono text-gray-500">
                   {item.location}
                 </div>
                 <h3 className="text-base font-bold text-gray-900 leading-snug">

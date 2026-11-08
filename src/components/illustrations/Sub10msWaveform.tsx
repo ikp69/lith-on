@@ -7,31 +7,28 @@ export function Sub10msWaveform() {
   const [selectedSystem, setSelectedSystem] = useState<"bess" | "dg">("bess");
 
   return (
-    <div className="rounded-2xl border border-gray-200 bg-white p-6 sm:p-8 shadow-sm">
+    <div className="rounded-2xl border border-gray-200 bg-white p-5 sm:p-8 shadow-sm">
       {/* Header and Switcher */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-100 pb-5">
         <div>
-          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#0B3388]">
+          <div className="flex items-center gap-2 text-xs font-semibold text-lithon-blue">
             <Activity className="h-4 w-4" />
-            <span>Power Quality &amp; Resilience</span>
+            <span>Real-Time Power Quality Telemetry</span>
           </div>
-          <h3 className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight mt-1">
-            Sub-10ms Instantaneous UPS Switchover
-          </h3>
-          <p className="text-xs text-gray-600 mt-1 max-w-xl">
-            Real-time grid loss detection and seamless phase synchronization without operational blackout.
+          <p className="text-xs text-gray-500 mt-1">
+            Compare phase cutover between Lith-On BESS and conventional diesel generators.
           </p>
         </div>
 
         {/* Toggle */}
-        <div className="inline-flex rounded-xl border border-gray-200 bg-gray-50 p-1">
+        <div className="grid grid-cols-1 sm:inline-flex rounded-xl border border-gray-200 bg-gray-50 p-1 gap-1 sm:gap-0 w-full sm:w-auto">
           <button
             type="button"
             onClick={() => setSelectedSystem("bess")}
-            className={`flex items-center gap-1.5 rounded-lg px-3.5 py-2 text-xs font-semibold transition-all ${
+            className={`min-h-[44px] flex items-center justify-center sm:justify-start gap-1.5 rounded-lg px-3.5 py-2 text-xs font-semibold whitespace-nowrap transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lithon-blue ${
               selectedSystem === "bess"
-                ? "bg-[#0B3388] text-white shadow-sm"
-                : "text-gray-600 hover:text-gray-900"
+                 ? "bg-lithon-blue text-white shadow-sm"
+                 : "text-gray-600 hover:text-gray-900"
             }`}
           >
             <Zap className="h-3.5 w-3.5 text-amber-300" />
@@ -40,10 +37,10 @@ export function Sub10msWaveform() {
           <button
             type="button"
             onClick={() => setSelectedSystem("dg")}
-            className={`flex items-center gap-1.5 rounded-lg px-3.5 py-2 text-xs font-semibold transition-all ${
+            className={`min-h-[44px] flex items-center justify-center sm:justify-start gap-1.5 rounded-lg px-3.5 py-2 text-xs font-semibold whitespace-nowrap transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lithon-red ${
               selectedSystem === "dg"
-                ? "bg-[#F74530] text-white shadow-sm"
-                : "text-gray-600 hover:text-gray-900"
+                 ? "bg-lithon-red text-white shadow-sm"
+                 : "text-gray-600 hover:text-gray-900"
             }`}
           >
             <AlertOctagon className="h-3.5 w-3.5" />
@@ -54,18 +51,6 @@ export function Sub10msWaveform() {
 
       {/* Oscilloscope Screen */}
       <div className="mt-6 rounded-xl border border-gray-900 bg-[#090D16] p-5 relative overflow-hidden shadow-inner">
-        {/* Oscilloscope Grid Background */}
-        <div 
-          className="absolute inset-0 opacity-15 pointer-events-none"
-          style={{
-            backgroundImage: `
-              linear-gradient(to right, #38BDF8 1px, transparent 1px),
-              linear-gradient(to bottom, #38BDF8 1px, transparent 1px)
-            `,
-            backgroundSize: "25px 25px"
-          }}
-        />
-
         {/* Telemetry Header */}
         <div className="relative z-10 flex items-center justify-between text-xs font-mono text-slate-400 border-b border-white/10 pb-3">
           <div className="flex items-center gap-4">
@@ -73,10 +58,10 @@ export function Sub10msWaveform() {
               <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
               CH1: 415V 50Hz 3-PHASE
             </span>
-            <span className="hidden sm:inline text-slate-500">TIMEBASE: 2ms/DIV</span>
+            <span className="hidden sm:inline text-slate-300">TIMEBASE: 2ms/DIV</span>
           </div>
           <div className="text-right">
-            <span className="text-slate-500">GRID LOSS TRIGGER: </span>
+            <span className="text-slate-300">GRID LOSS TRIGGER: </span>
             <span className="text-[#F74530] font-bold">t = 0.00ms</span>
           </div>
         </div>
@@ -154,22 +139,22 @@ export function Sub10msWaveform() {
         {/* Real-world Impact Grid */}
         <div className="relative z-10 grid grid-cols-1 sm:grid-cols-3 gap-3 border-t border-white/10 pt-4 text-xs font-mono">
           <div className="rounded-lg bg-slate-900/90 p-3 border border-white/5">
-            <span className="text-slate-400 block text-[10px] uppercase font-sans">Elevator &amp; Lifts</span>
-            <span className={selectedSystem === "bess" ? "text-emerald-400 font-bold block mt-1" : "text-[#F74530] font-bold block mt-1"}>
+            <span className="text-slate-400 block text-xs font-sans font-medium">Elevator &amp; Lifts</span>
+            <span className={selectedSystem === "bess" ? "text-emerald-400 font-bold block mt-1" : "text-lithon-red font-bold block mt-1"}>
               {selectedSystem === "bess" ? "0 Trips / Smooth Operation" : "42 Lifts Halted Between Floors"}
             </span>
           </div>
 
           <div className="rounded-lg bg-slate-900/90 p-3 border border-white/5">
-            <span className="text-slate-400 block text-[10px] uppercase font-sans">IT &amp; Data Server Racks</span>
-            <span className={selectedSystem === "bess" ? "text-emerald-400 font-bold block mt-1" : "text-[#F74530] font-bold block mt-1"}>
+            <span className="text-slate-400 block text-xs font-sans font-medium">IT &amp; Data Server Racks</span>
+            <span className={selectedSystem === "bess" ? "text-emerald-400 font-bold block mt-1" : "text-lithon-red font-bold block mt-1"}>
               {selectedSystem === "bess" ? "Zero Reboot / Zero Packet Loss" : "Cold Reboot &amp; Data Corruption"}
             </span>
           </div>
 
           <div className="rounded-lg bg-slate-900/90 p-3 border border-white/5">
-            <span className="text-slate-400 block text-[10px] uppercase font-sans">Water Pump &amp; Fire Systems</span>
-            <span className={selectedSystem === "bess" ? "text-emerald-400 font-bold block mt-1" : "text-[#F74530] font-bold block mt-1"}>
+            <span className="text-slate-400 block text-xs font-sans font-medium">Water Pump &amp; Fire Systems</span>
+            <span className={selectedSystem === "bess" ? "text-emerald-400 font-bold block mt-1" : "text-lithon-red font-bold block mt-1"}>
               {selectedSystem === "bess" ? "Continuous Pressure Maintained" : "Pressure Loss / Water Hammer"}
             </span>
           </div>

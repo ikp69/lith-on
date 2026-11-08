@@ -17,11 +17,11 @@ const MOATS: MoatItem[] = [
   {
     id: 1,
     title: "Dual Geographic Advantage",
-    subtitle: "Noida 20,000 sq. ft. Plant + Foshan Hub",
+    subtitle: "Noida Plant + Foshan Sourcing Hub",
     tag: "Supply Chain",
-    competitorBarrier: "Local Make in India customs incentives + direct raw cell Tier-1 Chinese pricing.",
+    competitorBarrier: "Make in India incentives + direct Tier-1 cell procurement pricing.",
     metric: "250 MWh Annual Capacity",
-    description: "Rapid domestic delivery, custom Indian engineering, and zero single-country supply vulnerabilities."
+    description: "Fast domestic delivery, custom engineering, and zero single-country supply risk."
   },
   {
     id: 2,
@@ -39,7 +39,7 @@ const MOATS: MoatItem[] = [
     tag: "Power Electronics",
     competitorBarrier: "Standard DGs require 10–30s cranking delay, stranding elevators and crashing IT server racks.",
     metric: "<10ms Cutover",
-    description: "Seamless grid-loss detection and automatic phase synchronization preventing critical equipment trip."
+    description: "Sub-10ms autonomous grid-loss detection and phase synchronization preventing equipment trips."
   },
   {
     id: 4,
@@ -85,54 +85,49 @@ export function SevenMoatsStack() {
   return (
     <div className="rounded-2xl border border-gray-200 bg-white p-6 sm:p-8 shadow-sm">
       <div className="border-b border-gray-100 pb-5">
-        <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#0B3388]">
+        <div className="flex items-center gap-2 text-xs font-medium text-lithon-blue">
           <ShieldCheck className="h-4 w-4" />
-          <span>Competitive Moats &amp; Engineering Defensibility</span>
+          <span>Defensible Engineering Moats</span>
         </div>
-        <h3 className="text-2xl font-bold text-gray-900 tracking-tight mt-1">
+        <h3 className="text-2xl font-bold text-gray-900 tracking-tight mt-1 text-balance">
           The 7 Structural Lith-On Moats
         </h3>
-        <p className="text-xs text-gray-600 mt-1 max-w-2xl">
-          Why leading enterprises, housing societies, and universities choose Lith-On over legacy DG backup and generic BESS assemblers.
+        <p className="text-xs text-gray-500 mt-1">
+          Structural engineering advantages separating Lith-On from legacy DG backup.
         </p>
       </div>
 
       <div className="grid gap-8 lg:grid-cols-12 mt-8 items-start">
         {/* Left Stack Stepper List */}
-        <div className="lg:col-span-6 space-y-2.5">
+        <div className="lg:col-span-6 space-y-2.5" role="tablist" aria-label="Lith-On 7 Structural Engineering Moats">
           {MOATS.map((moat) => {
             const isSelected = selectedMoat.id === moat.id;
             return (
               <button
                 key={moat.id}
                 type="button"
+                role="tab"
+                aria-selected={isSelected}
                 onClick={() => setSelectedMoat(moat)}
-                className={`w-full text-left rounded-xl p-3.5 border transition-all flex items-center justify-between ${
+                className={`w-full text-left rounded-xl p-3.5 border transition-all flex items-center justify-between min-h-[44px] ${
                   isSelected
-                    ? "bg-[#0B3388] text-white border-[#0B3388] shadow-md"
+                    ? "bg-lithon-blue text-white border-lithon-blue shadow-md"
                     : "bg-white border-gray-200 hover:border-gray-300 hover:bg-gray-50 text-gray-900"
                 }`}
               >
                 <div className="flex items-center gap-3">
                   <div className={`flex h-8 w-8 items-center justify-center rounded-lg font-bold text-xs ${
-                    isSelected ? "bg-white text-[#0B3388]" : "bg-gray-100 text-gray-600"
+                    isSelected ? "bg-white text-lithon-blue" : "bg-gray-100 text-gray-600"
                   }`}>
                     0{moat.id}
                   </div>
                   <div>
-                    <div className={`text-sm font-bold ${isSelected ? "text-white" : "text-gray-900"}`}>{moat.title}</div>
-                    <div className={`text-[11px] ${isSelected ? "text-blue-100" : "text-gray-500"}`}>{moat.subtitle}</div>
+                    <div className={`text-sm font-semibold ${isSelected ? "text-white" : "text-gray-900"}`}>{moat.title}</div>
+                    <div className={`text-xs ${isSelected ? "text-blue-100" : "text-gray-500"}`}>{moat.tag}</div>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2">
-                  <span className={`hidden sm:inline rounded px-2 py-0.5 text-[10px] font-mono ${
-                    isSelected ? "bg-white/20 text-white" : "bg-gray-100 text-gray-600"
-                  }`}>
-                    {moat.tag}
-                  </span>
-                  <ChevronRight className={`h-4 w-4 transition-transform ${isSelected ? "text-white translate-x-1" : "text-gray-400"}`} />
-                </div>
+                <ChevronRight className={`h-4 w-4 transition-transform shrink-0 ${isSelected ? "text-white translate-x-1" : "text-gray-400"}`} />
               </button>
             );
           })}
@@ -140,9 +135,9 @@ export function SevenMoatsStack() {
 
         {/* Right Active Moat Detailed Card */}
         <div className="lg:col-span-6 sticky top-24">
-          <div className="rounded-xl border border-gray-200 bg-[#F8FAFC] p-6 shadow-sm">
+          <div className="rounded-xl border border-gray-200 bg-surface-light p-6 shadow-sm">
             <div className="flex items-center justify-between border-b border-gray-200 pb-4">
-              <span className="rounded-full bg-[#0B3388]/10 border border-[#0B3388]/20 text-[#0B3388] text-xs px-3 py-1 font-semibold">
+              <span className="rounded-full bg-lithon-blue/10 border border-lithon-blue/20 text-lithon-blue text-xs px-3 py-1 font-semibold">
                 Moat #0{selectedMoat.id} • {selectedMoat.tag}
               </span>
               <span className="text-xs font-mono font-bold text-emerald-700">
@@ -158,8 +153,8 @@ export function SevenMoatsStack() {
             </p>
 
             <div className="mt-6 rounded-lg bg-red-50/70 border border-red-200 p-4">
-              <span className="text-[11px] font-bold text-[#F74530] uppercase tracking-wider block">
-                Competitor Defense Barrier
+              <span className="text-xs font-semibold text-red-700 block">
+                Competitor Barrier
               </span>
               <p className="text-xs text-gray-700 mt-1.5 leading-relaxed">
                 {selectedMoat.competitorBarrier}
@@ -167,11 +162,11 @@ export function SevenMoatsStack() {
             </div>
 
             <div className="mt-6 border-t border-gray-200 pt-4 flex items-center justify-between text-xs text-gray-500">
-              <span className="flex items-center gap-1.5 text-emerald-600 font-medium">
+              <span className="flex items-center gap-1.5 text-emerald-800 font-semibold">
                 <CheckCircle2 className="h-4 w-4" />
                 Audited &amp; Standardized
               </span>
-              <span className="font-medium text-gray-600">LITH-ON Proprietary Advantage</span>
+              <span className="font-medium text-gray-600">Lith-On Defense</span>
             </div>
           </div>
         </div>

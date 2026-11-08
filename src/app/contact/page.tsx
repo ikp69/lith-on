@@ -50,7 +50,7 @@ export default function ContactPage() {
       {/* 1. Header Banner */}
       <section className="border-b border-gray-200 bg-white px-6 pt-16 pb-20">
         <div className="mx-auto max-w-7xl">
-          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#0B3388] mb-3">
+          <div className="flex items-center gap-2 text-xs font-medium text-lithon-blue mb-3">
             <Link href="/" className="hover:text-gray-900 transition-colors">Home</Link>
             <span className="text-gray-400">/</span>
             <span>Contact &amp; Global Offices</span>
@@ -58,7 +58,7 @@ export default function ContactPage() {
 
           <h1 className="text-4xl font-light text-gray-900 sm:text-5xl lg:text-6xl tracking-tight leading-tight">
             Contact Lith-On Bharat Energy <br className="hidden sm:block" />
-            <span className="font-semibold text-[#0B3388]">
+            <span className="font-semibold text-lithon-blue">
               Technical Consultation &amp; System Sizing
             </span>
           </h1>
@@ -77,10 +77,10 @@ export default function ContactPage() {
           <div className="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm flex flex-col justify-between">
             <div>
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <span className="rounded-full bg-[#0B3388]/10 border border-[#0B3388]/20 text-[#0B3388] text-xs font-bold px-3 py-1">
+                <span className="rounded-full bg-blue-50 border border-blue-200 text-lithon-blue text-xs font-semibold px-3 py-1">
                   Global Headquarters &amp; Manufacturing Plant
                 </span>
-                <span className="text-xs font-mono text-gray-500">Sector 136, Noida</span>
+                <span className="text-xs font-normal text-gray-500">Sector 136, Noida</span>
               </div>
 
               <h2 className="text-2xl font-bold text-gray-900 mt-4">
@@ -89,7 +89,7 @@ export default function ContactPage() {
 
               <div className="mt-5 space-y-3 text-xs text-gray-600">
                 <div className="flex items-start gap-2.5">
-                  <MapPin className="h-4 w-4 text-[#0B3388] shrink-0 mt-0.5" />
+                  <MapPin className="h-4 w-4 text-lithon-blue shrink-0 mt-0.5" />
                   <span>
                     Arihant Business Centre, Sector 136, Noida - 201304, Uttar Pradesh, India
                   </span>
@@ -99,13 +99,13 @@ export default function ContactPage() {
                   <span>20,000 sq. ft. Plant • 250 MWh Annual Production Throughput</span>
                 </div>
                 <div className="flex items-center gap-2.5">
-                  <Phone className="h-4 w-4 text-[#F74530] shrink-0" />
+                  <Phone className="h-4 w-4 text-lithon-red shrink-0" />
                   <a href="tel:+917000013009" className="hover:text-gray-900 font-semibold transition-colors py-1 inline-block">+91-7000013009</a>
                   <span className="text-gray-400">/</span>
                   <a href="tel:+917000017005" className="hover:text-gray-900 transition-colors py-1 inline-block">+91-7000017005</a>
                 </div>
                 <div className="flex items-center gap-2.5">
-                  <Mail className="h-4 w-4 text-[#0B3388] shrink-0" />
+                  <Mail className="h-4 w-4 text-lithon-blue shrink-0" />
                   <a href="mailto:tech@lith-onbharat.com" className="hover:text-gray-900 transition-colors py-1 inline-block">
                     tech@lith-onbharat.com
                   </a>
@@ -115,10 +115,10 @@ export default function ContactPage() {
 
             <div className="mt-8 border-t border-gray-100 pt-4 flex items-center justify-between text-xs text-gray-500">
               <span className="flex items-center gap-1.5 text-emerald-700 font-medium">
-                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="h-2 w-2 rounded-full bg-emerald-500 motion-safe:animate-pulse" />
                 Factory Open For Audits
               </span>
-              <span>Mon–Sat 9:00 AM – 7:00 PM IST</span>
+              <span>Mon to Sat 9:00 AM to 7:00 PM IST</span>
             </div>
           </div>
 
@@ -126,10 +126,10 @@ export default function ContactPage() {
           <div className="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm flex flex-col justify-between">
             <div>
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <span className="rounded-full bg-blue-50 border border-blue-200 text-[#0B3388] text-xs font-bold px-3 py-1">
+                <span className="rounded-full bg-blue-50 border border-blue-200 text-lithon-blue text-xs font-semibold px-3 py-1">
                   International Innovation &amp; Supply Hub
                 </span>
-                <span className="text-xs font-mono text-gray-500">Guangdong, China</span>
+                <span className="text-xs font-normal text-gray-500">Guangdong, China</span>
               </div>
 
               <h2 className="text-2xl font-bold text-gray-900 mt-4">
@@ -138,7 +138,7 @@ export default function ContactPage() {
 
               <div className="mt-5 space-y-3 text-xs text-gray-600">
                 <div className="flex items-start gap-2.5">
-                  <MapPin className="h-4 w-4 text-[#0B3388] shrink-0 mt-0.5" />
+                  <MapPin className="h-4 w-4 text-lithon-blue shrink-0 mt-0.5" />
                   <span>
                     C11-6, Foshan Innovation Torchpark, Jihua 2 Road, Chancheng, Foshan, Guangdong, China
                   </span>
@@ -148,7 +148,7 @@ export default function ContactPage() {
                   <span>Tier-1 Cell Procurement, Raw Material Testing &amp; Export Logistics</span>
                 </div>
                 <div className="flex items-center gap-2.5">
-                  <Mail className="h-4 w-4 text-[#0B3388] shrink-0" />
+                  <Mail className="h-4 w-4 text-lithon-blue shrink-0" />
                   <a href="mailto:tech@lith-onbharat.com" className="hover:text-gray-900 transition-colors">
                     tech@lith-onbharat.com
                   </a>
@@ -167,7 +167,7 @@ export default function ContactPage() {
       <section className="px-6">
         <div className="mx-auto max-w-4xl rounded-2xl border border-gray-200 bg-white p-8 sm:p-12 shadow-sm">
           <div className="border-b border-gray-200 pb-6 mb-8">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#0B3388]">
+            <span className="text-xs font-medium text-lithon-blue">
               Engineering Intake Form
             </span>
             <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl mt-1">
@@ -192,7 +192,7 @@ export default function ContactPage() {
                 <button
                   type="button"
                   onClick={() => setSubmitted(false)}
-                  className="rounded-full bg-[#0B3388] hover:bg-[#082666] px-5 py-2.5 text-xs font-semibold text-white transition-colors"
+                  className="rounded-full bg-lithon-blue hover:bg-lithon-blue-hover px-5 py-2.5 text-xs font-semibold text-white transition-colors"
                 >
                   Submit Another Project
                 </button>
@@ -211,7 +211,7 @@ export default function ContactPage() {
                     required
                     value={formData.facilityType}
                     onChange={(e) => setFormData({ ...formData, facilityType: e.target.value })}
-                    className="w-full rounded-lg border border-gray-300 bg-white px-3.5 py-3 sm:py-2.5 text-base sm:text-sm text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B3388]"
+                    className="w-full rounded-lg border border-gray-300 bg-white px-3.5 py-3 sm:py-2.5 text-base sm:text-sm text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lithon-blue"
                   >
                     {FACILITY_TYPES.map((t) => (
                       <option key={t} value={t}>{t}</option>
@@ -230,7 +230,7 @@ export default function ContactPage() {
                     placeholder="e.g. Gurugram, Haryana"
                     value={formData.city}
                     onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                    className="w-full rounded-lg border border-gray-300 bg-white px-3.5 py-3 sm:py-2.5 text-base sm:text-sm text-gray-900 placeholder-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B3388]"
+                    className="w-full rounded-lg border border-gray-300 bg-white px-3.5 py-3 sm:py-2.5 text-base sm:text-sm text-gray-900 placeholder-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lithon-blue"
                   />
                 </div>
               </div>
@@ -247,7 +247,7 @@ export default function ContactPage() {
                     placeholder="e.g. 500"
                     value={formData.sanctionedLoadKw}
                     onChange={(e) => setFormData({ ...formData, sanctionedLoadKw: e.target.value })}
-                    className="w-full rounded-lg border border-gray-300 bg-white px-3.5 py-3 sm:py-2.5 text-base sm:text-sm text-gray-900 placeholder-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B3388]"
+                    className="w-full rounded-lg border border-gray-300 bg-white px-3.5 py-3 sm:py-2.5 text-base sm:text-sm text-gray-900 placeholder-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lithon-blue"
                   />
                 </div>
 
@@ -261,7 +261,7 @@ export default function ContactPage() {
                     placeholder="e.g. 750"
                     value={formData.dgCapacityKva}
                     onChange={(e) => setFormData({ ...formData, dgCapacityKva: e.target.value })}
-                    className="w-full rounded-lg border border-gray-300 bg-white px-3.5 py-3 sm:py-2.5 text-base sm:text-sm text-gray-900 placeholder-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B3388]"
+                    className="w-full rounded-lg border border-gray-300 bg-white px-3.5 py-3 sm:py-2.5 text-base sm:text-sm text-gray-900 placeholder-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lithon-blue"
                   />
                 </div>
 
@@ -276,7 +276,7 @@ export default function ContactPage() {
                     placeholder="e.g. 3"
                     value={formData.dailyOutageHours}
                     onChange={(e) => setFormData({ ...formData, dailyOutageHours: e.target.value })}
-                    className="w-full rounded-lg border border-gray-300 bg-white px-3.5 py-3 sm:py-2.5 text-base sm:text-sm text-gray-900 placeholder-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B3388]"
+                    className="w-full rounded-lg border border-gray-300 bg-white px-3.5 py-3 sm:py-2.5 text-base sm:text-sm text-gray-900 placeholder-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lithon-blue"
                   />
                 </div>
               </div>
@@ -294,7 +294,7 @@ export default function ContactPage() {
                     placeholder="Full Name"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full rounded-lg border border-gray-300 bg-white px-3.5 py-3 sm:py-2.5 text-base sm:text-sm text-gray-900 placeholder-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B3388]"
+                    className="w-full rounded-lg border border-gray-300 bg-white px-3.5 py-3 sm:py-2.5 text-base sm:text-sm text-gray-900 placeholder-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lithon-blue"
                   />
                 </div>
 
@@ -309,7 +309,7 @@ export default function ContactPage() {
                     placeholder="Company or RWA Name"
                     value={formData.org}
                     onChange={(e) => setFormData({ ...formData, org: e.target.value })}
-                    className="w-full rounded-lg border border-gray-300 bg-white px-3.5 py-3 sm:py-2.5 text-base sm:text-sm text-gray-900 placeholder-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B3388]"
+                    className="w-full rounded-lg border border-gray-300 bg-white px-3.5 py-3 sm:py-2.5 text-base sm:text-sm text-gray-900 placeholder-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lithon-blue"
                   />
                 </div>
 
@@ -324,7 +324,7 @@ export default function ContactPage() {
                     placeholder="+91-XXXXX-XXXXX"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full rounded-lg border border-gray-300 bg-white px-3.5 py-3 sm:py-2.5 text-base sm:text-sm text-gray-900 placeholder-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B3388]"
+                    className="w-full rounded-lg border border-gray-300 bg-white px-3.5 py-3 sm:py-2.5 text-base sm:text-sm text-gray-900 placeholder-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lithon-blue"
                   />
                 </div>
 
@@ -339,7 +339,7 @@ export default function ContactPage() {
                     placeholder="name@company.com"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full rounded-lg border border-gray-300 bg-white px-3.5 py-3 sm:py-2.5 text-base sm:text-sm text-gray-900 placeholder-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B3388]"
+                    className="w-full rounded-lg border border-gray-300 bg-white px-3.5 py-3 sm:py-2.5 text-base sm:text-sm text-gray-900 placeholder-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lithon-blue"
                   />
                 </div>
               </div>
@@ -355,14 +355,14 @@ export default function ContactPage() {
                   placeholder="Share details on rooftop solar capacity, basement space constraints, elevator quantities, etc."
                   value={formData.notes}
                   onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                  className="w-full rounded-lg border border-gray-300 bg-white px-3.5 py-3 sm:py-2.5 text-base sm:text-sm text-gray-900 placeholder-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B3388]"
+                  className="w-full rounded-lg border border-gray-300 bg-white px-3.5 py-3 sm:py-2.5 text-base sm:text-sm text-gray-900 placeholder-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lithon-blue"
                 />
               </div>
 
               <div className="pt-2">
                 <button
                   type="submit"
-                  className="w-full sm:w-auto min-h-[48px] inline-flex items-center justify-center gap-2 rounded-full bg-[#F74530] hover:bg-[#d83522] px-8 py-3.5 text-sm font-bold uppercase tracking-wider text-white shadow-md transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F74530]"
+                  className="w-full sm:w-auto min-h-[48px] inline-flex items-center justify-center gap-2 rounded-full bg-lithon-red hover:bg-lithon-red-hover px-8 py-3.5 text-sm font-semibold text-white shadow-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lithon-red"
                 >
                   <Send className="h-4 w-4" />
                   <span>Submit Sizing Request</span>

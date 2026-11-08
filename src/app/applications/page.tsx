@@ -52,7 +52,7 @@ const SECTOR_APPLICATIONS = [
       "Zero millisecond interruption for life-support systems and surgical robotic arms",
       "100% fume-free and vibration-free installation directly adjacent to ward buildings",
       "Scalable multi-hour duration sustains full hospital operations during city outages",
-      "Seamless integration with medical gas alarms and central monitoring panels"
+      "Direct interface with medical gas alarms and central monitoring panels"
     ]
   },
   {
@@ -81,7 +81,7 @@ const SECTOR_APPLICATIONS = [
     highlights: [
       "Absorbs excess wind/solar production and discharges instantly during load surges",
       "Eliminates requirement for spinning diesel generators running at 30% partial loads",
-      "Delivers seamless transition between grid-connected and islanded microgrid operation",
+      "Delivers autonomous transition between grid-connected and islanded microgrid operation",
       "IEC 61850 protocol integration with substation teleprotection and EMS SCADA"
     ]
   }

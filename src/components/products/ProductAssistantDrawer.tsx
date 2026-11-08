@@ -43,7 +43,7 @@ export function ProductAssistantDrawer({
         slug: "lithon-50",
         capacity: "48 kWh (Scalable to 192 kWh)",
         powerRating: "30 kW / 50 kW",
-        switchover: "<10 ms Seamless Transfer",
+        switchover: "<10 ms Instantaneous Cutover",
         annualSavings: "₹14.5 Lakh / year",
         payback: "1.8 Years",
         dieselDisplaced: "18,500 L / year"
@@ -95,9 +95,9 @@ export function ProductAssistantDrawer({
           setOpen(true);
           calculateRecommendation();
         }}
-        className="inline-flex items-center gap-2 rounded-full border border-blue-300 bg-blue-50/80 hover:bg-blue-100/80 px-4 py-2 text-xs font-semibold text-[#0B3388] transition-all shadow-sm"
+        className="inline-flex items-center gap-2 rounded-full border border-blue-300 bg-blue-50/80 hover:bg-blue-100/80 px-4 py-2 text-xs font-semibold text-lithon-blue transition-all shadow-sm"
       >
-        <Bot className="h-4 w-4 text-[#0B3388]" />
+        <Bot className="h-4 w-4 text-lithon-blue" />
         <span>{triggerLabel}</span>
       </button>
 
@@ -109,7 +109,7 @@ export function ProductAssistantDrawer({
               {/* Header */}
               <div className="flex items-center justify-between border-b border-gray-100 pb-4">
                 <div className="flex items-center gap-2">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-50 text-[#0B3388]">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-50 text-lithon-blue">
                     <Bot className="h-5 w-5" />
                   </div>
                   <div>
@@ -158,7 +158,7 @@ export function ProductAssistantDrawer({
                         }}
                         className={`p-3 rounded-xl border text-left font-medium transition-all ${
                           facilityType === item.id
-                            ? "border-[#0B3388] bg-blue-50/60 text-[#0B3388] font-bold"
+                            ? "border-lithon-blue bg-blue-50/60 text-lithon-blue font-bold"
                             : "border-gray-200 text-gray-700 hover:bg-gray-50"
                         }`}
                       >
@@ -169,7 +169,7 @@ export function ProductAssistantDrawer({
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-gray-700 mb-2">
+                  <label className="block text-xs font-medium text-gray-700 mb-2">
                     2. Power Scale / Displaced DG Capacity
                   </label>
                   <div className="grid grid-cols-3 gap-2 text-xs font-mono">
@@ -187,7 +187,7 @@ export function ProductAssistantDrawer({
                         }}
                         className={`p-2.5 rounded-xl border text-center font-bold transition-all ${
                           powerScale === scale.id
-                            ? "border-[#0B3388] bg-[#0B3388] text-white"
+                            ? "border-lithon-blue bg-lithon-blue text-white"
                             : "border-gray-200 text-gray-700 hover:bg-gray-50"
                         }`}
                       >
@@ -202,7 +202,7 @@ export function ProductAssistantDrawer({
                   <div className="rounded-2xl border border-blue-200 bg-gradient-to-br from-blue-50/80 to-white p-5 space-y-4">
                     <div className="flex items-center justify-between border-b border-blue-100 pb-3">
                       <div>
-                        <span className="text-[10px] uppercase font-mono text-[#0B3388] font-bold tracking-wider block">
+                        <span className="text-xs font-mono text-lithon-blue font-semibold block">
                           Recommended System Architecture
                         </span>
                         <h4 className="text-lg font-bold text-gray-900 mt-0.5">{result.productName}</h4>
@@ -214,26 +214,26 @@ export function ProductAssistantDrawer({
 
                     <div className="grid grid-cols-2 gap-2 text-xs font-mono">
                       <div className="bg-white p-2.5 rounded-xl border border-gray-200">
-                        <span className="text-[10px] text-gray-500 block">Storage Capacity:</span>
-                        <strong className="text-sm font-bold text-[#0B3388]">{result.capacity}</strong>
+                        <span className="text-xs text-gray-500 block">Storage Capacity:</span>
+                        <strong className="text-sm font-bold text-lithon-blue">{result.capacity}</strong>
                       </div>
                       <div className="bg-white p-2.5 rounded-xl border border-gray-200">
-                        <span className="text-[10px] text-gray-500 block">Rated Power:</span>
+                        <span className="text-xs text-gray-500 block">Rated Power:</span>
                         <strong className="text-sm font-bold text-gray-900">{result.powerRating}</strong>
                       </div>
                     </div>
 
                     <div className="grid grid-cols-3 gap-2 text-center text-xs">
                       <div className="bg-emerald-50 border border-emerald-200 p-2 rounded-xl">
-                        <span className="text-[10px] text-emerald-700 block font-medium">Est. Savings</span>
+                        <span className="text-xs text-emerald-700 block font-medium">Est. Savings</span>
                         <strong className="text-xs font-bold text-emerald-800">{result.annualSavings}</strong>
                       </div>
                       <div className="bg-blue-50 border border-blue-200 p-2 rounded-xl">
-                        <span className="text-[10px] text-blue-700 block font-medium">Payback</span>
-                        <strong className="text-xs font-bold text-[#0B3388]">{result.payback}</strong>
+                        <span className="text-xs text-blue-700 block font-medium">Payback</span>
+                        <strong className="text-xs font-bold text-lithon-blue">{result.payback}</strong>
                       </div>
                       <div className="bg-gray-100 border border-gray-200 p-2 rounded-xl">
-                        <span className="text-[10px] text-gray-600 block font-medium">Diesel Displaced</span>
+                        <span className="text-xs text-gray-600 block font-medium">Diesel Displaced</span>
                         <strong className="text-xs font-bold text-gray-900">{result.dieselDisplaced}</strong>
                       </div>
                     </div>
@@ -254,7 +254,7 @@ export function ProductAssistantDrawer({
                   <Link
                     href={`/products/${result.slug}`}
                     onClick={() => setOpen(false)}
-                    className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-xl bg-[#0B3388] hover:bg-[#082666] px-4 py-3 text-xs font-semibold uppercase tracking-wider text-white shadow-sm transition-all"
+                    className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-xl bg-lithon-blue hover:bg-lithon-blue-hover px-4 py-3 text-xs font-semibold text-white shadow-sm transition-all"
                   >
                     <span>View System Specs</span>
                     <ArrowRight className="h-3.5 w-3.5" />
@@ -272,7 +272,7 @@ export function ProductAssistantDrawer({
               </div>
               <div className="flex items-center justify-between text-xs text-gray-500 pt-1 px-1">
                 <span>Noida Plant Technical Desk:</span>
-                <a href="tel:+917000013009" className="font-semibold text-[#0B3388]">
+                <a href="tel:+917000013009" className="font-semibold text-lithon-blue">
                   +91-7000013009
                 </a>
               </div>

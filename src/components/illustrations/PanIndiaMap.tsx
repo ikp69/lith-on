@@ -33,7 +33,7 @@ const DEPLOYMENTS: ProjectNode[] = [
     type: "Institutional Solar + BESS",
     capacity: "1.0 MWh BESS + 900 kW Solar",
     metrics: "₹2.26 Cr/yr Savings | 4.29-yr Payback",
-    description: "Complete campus green transition eliminating peak grid tariffs and high-cost diesel backup."
+    description: "Campus microgrid eliminating peak tariffs and diesel backup."
   },
   {
     id: "gurugram-society",
@@ -83,7 +83,7 @@ export function PanIndiaMap() {
   return (
     <div className="rounded-2xl border border-gray-200 bg-white p-6 sm:p-8 shadow-sm">
       <div className="border-b border-gray-100 pb-4">
-        <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#0B3388]">
+        <div className="flex items-center gap-2 text-xs font-medium text-lithon-blue">
           <MapPin className="h-4 w-4" />
           <span>Pan-India Strategic Footprint</span>
         </div>
@@ -97,10 +97,7 @@ export function PanIndiaMap() {
 
       <div className="grid gap-8 lg:grid-cols-12 mt-6 items-center">
         {/* Interactive Vector Map Representation */}
-        <div className="lg:col-span-7 relative aspect-[4/3] w-full rounded-xl border border-gray-200 bg-[#F8FAFC] p-4 flex items-center justify-center overflow-hidden">
-          {/* Subtle Background Radial */}
-          <div className="absolute inset-0 bg-radial from-[#0B3388]/5 via-transparent to-transparent pointer-events-none" />
-
+        <div className="lg:col-span-7 relative aspect-[4/3] w-full rounded-xl border border-gray-200 bg-surface-light p-4 flex items-center justify-center overflow-hidden">
           {/* India Vector Outline SVG */}
           <svg className="w-full h-full max-h-[380px]" viewBox="0 0 500 550" fill="none" xmlns="http://www.w3.org/2000/svg">
             <title>Lith-On Pan-India Deployment Map</title>
@@ -164,9 +161,9 @@ export function PanIndiaMap() {
 
         {/* Selected Deployment Detail Card */}
         <div className="lg:col-span-5">
-          <div className="rounded-xl border border-gray-200 bg-[#F8FAFC] p-6 shadow-sm">
+          <div className="rounded-xl border border-gray-200 bg-surface-light p-6 shadow-sm">
             <div className="flex items-center justify-between">
-              <span className="rounded-full bg-[#0B3388]/10 border border-[#0B3388]/20 px-3 py-1 text-[11px] font-semibold text-[#0B3388]">
+              <span className="rounded-full bg-lithon-blue/10 border border-lithon-blue/20 px-3 py-1 text-xs font-semibold text-lithon-blue">
                 {selectedNode.type}
               </span>
               <span className="text-xs text-gray-500 font-medium">{selectedNode.location}</span>
@@ -179,7 +176,7 @@ export function PanIndiaMap() {
 
             <div className="mt-5 space-y-2.5 border-t border-gray-200 pt-4">
               <div className="flex items-center gap-2 text-xs">
-                <Zap className="h-4 w-4 text-[#0B3388] shrink-0" />
+                <Zap className="h-4 w-4 text-lithon-blue shrink-0" />
                 <span className="text-gray-500">Capacity:</span>
                 <span className="font-semibold text-gray-900">{selectedNode.capacity}</span>
               </div>
@@ -192,18 +189,20 @@ export function PanIndiaMap() {
 
             {/* Quick selector buttons for all deployments */}
             <div className="mt-6 border-t border-gray-200 pt-4">
-              <span className="text-[11px] uppercase tracking-wider text-gray-500 block mb-2 font-semibold">
+              <span className="text-xs text-gray-500 block mb-2 font-medium">
                 Explore Deployments:
               </span>
-              <div className="flex flex-wrap gap-1.5">
+              <div className="flex flex-wrap gap-1.5" role="tablist" aria-label="Explore Strategic Deployments">
                 {DEPLOYMENTS.map((item) => (
                   <button
                     key={item.id}
                     type="button"
+                    role="tab"
+                    aria-selected={selectedNode.id === item.id}
                     onClick={() => setSelectedNode(item)}
-                    className={`rounded-lg px-2.5 py-1.5 text-[11px] font-medium transition-all ${
+                    className={`min-h-[44px] inline-flex items-center rounded-lg px-3 py-2 text-xs font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lithon-blue ${
                       selectedNode.id === item.id
-                        ? "bg-[#0B3388] text-white shadow-sm"
+                        ? "bg-lithon-blue text-white shadow-sm"
                         : "bg-white border border-gray-200 text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                     }`}
                   >

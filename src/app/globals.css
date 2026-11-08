@@ -2,91 +2,198 @@
 
 @layer base {
   :root {
-    --background: #FAFAF8;
-    --foreground: #111827;
+    --background: #FFFFFF;
+    --foreground: #101828;
     --card: #FFFFFF;
-    --card-foreground: #111827;
+    --card-foreground: #101828;
     --popover: #FFFFFF;
-    --popover-foreground: #111827;
+    --popover-foreground: #101828;
     --primary: #F74530;
     --primary-foreground: #FFFFFF;
     --secondary: #0B3388;
     --secondary-foreground: #FFFFFF;
-    --muted: #F3F4F6;
-    --muted-foreground: #4B5563;
+    --muted: #F7F8FA;
+    --muted-foreground: #475467;
     --accent: #F74530;
     --accent-foreground: #FFFFFF;
-    --destructive: #EF4444;
+    --destructive: #D92D20;
     --destructive-foreground: #FFFFFF;
-    --border: #E5E7EB;
-    --input: #E5E7EB;
+    --border: #E4E7EC;
+    --input: #E4E7EC;
     --ring: #F74530;
-    --radius: 0.75rem;
+    --radius: 0.875rem;
   }
 }
 
 @theme inline {
   --font-sans: var(--font-manrope), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 400;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 600;
+  --font-weight-extrabold: 600;
   --color-lithon-red: #F74530;
   --color-lithon-red-hover: #D83522;
   --color-lithon-blue: #0B3388;
   --color-lithon-blue-hover: #082666;
   --color-canvas-pure: #FFFFFF;
   --color-canvas-offwhite: #FAFAF8;
-  --color-surface-light: #F3F4F6;
-  --color-surface-blue-grey: #F0F4F8;
-  --color-border-subtle: #E5E7EB;
-  --color-text-charcoal: #111827;
-  --color-text-secondary: #4B5563;
-  --color-text-muted: #6B7280;
+  --color-surface-light: #F7F8FA;
+  --color-surface-blue-grey: #F0F5FF;
+  --color-border-subtle: #E4E7EC;
+  --color-text-charcoal: #101828;
+  --color-text-secondary: #475467;
+  --color-text-muted: #667085;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: clip;
+}
+
+/* Suppress default browser focus outline on SVG interactive elements */
+svg:focus,
+svg *:focus,
+svg *:focus-visible {
+  outline: none !important;
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
-  overflow-x: hidden;
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  line-height: 1.6;
 }
 
-/* Floating frosted capsule navbar (from reference design) */
+strong,
+b {
+  font-weight: 600;
+}
+
+/* Floating frosted capsule navbar */
 .glass-pill {
-  background: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.85);
-  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06);
+  border: 1px solid rgba(228, 231, 236, 0.85);
+  box-shadow: 0 4px 20px -2px rgba(16, 24, 40, 0.05);
 }
 
-/* Floating translucent panel (from reference hero mid-card & tri-shelf) */
+/* Floating translucent panel */
 .glass-panel-light {
-  background: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.55);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.65);
-  box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 10px 30px -5px rgba(16, 24, 40, 0.08);
 }
 
-/* Architectural clean white card */
+/* Standardized Architectural Card */
 .card-architectural {
   background: #FFFFFF;
-  border: 1px solid #E5E7EB;
-  border-radius: 1rem;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid #E4E7EC;
+  border-radius: 0.875rem; /* ~14px */
+  box-shadow: 0 1px 3px 0 rgba(16, 24, 40, 0.03), 0 1px 2px -1px rgba(16, 24, 40, 0.03);
+  transition: border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .card-architectural:hover {
-  border-color: #D1D5DB;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.06), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+  border-color: #D0D5DD;
+  box-shadow: 0 10px 25px -5px rgba(16, 24, 40, 0.06), 0 8px 10px -6px rgba(16, 24, 40, 0.03);
   transform: translateY(-2px);
+}
+
+/* Shared Button Design System Tokens */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: #F74530;
+  color: #FFFFFF;
+  font-weight: 600;
+  font-size: 0.8125rem; /* 13px */
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.75rem 1.75rem;
+  min-height: 44px;
+  border-radius: 9999px;
+  box-shadow: 0 1px 2px 0 rgba(16, 24, 40, 0.05);
+  transition: background-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, transform 0.15s ease-in-out;
+}
+.btn-primary:hover {
+  background-color: #D83522;
+  box-shadow: 0 4px 12px rgba(247, 69, 48, 0.25);
+  transform: translateY(-1px);
+}
+.btn-primary:focus-visible {
+  outline: 2px solid #F74530;
+  outline-offset: 2px;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: #0B3388;
+  color: #FFFFFF;
+  font-weight: 600;
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.75rem 1.75rem;
+  min-height: 44px;
+  border-radius: 9999px;
+  box-shadow: 0 1px 2px 0 rgba(16, 24, 40, 0.05);
+  transition: background-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, transform 0.15s ease-in-out;
+}
+.btn-secondary:hover {
+  background-color: #082666;
+  box-shadow: 0 4px 12px rgba(11, 51, 136, 0.25);
+  transform: translateY(-1px);
+}
+.btn-secondary:focus-visible {
+  outline: 2px solid #0B3388;
+  outline-offset: 2px;
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: #FFFFFF;
+  border: 1px solid #D0D5DD;
+  color: #344054;
+  font-weight: 600;
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.75rem 1.75rem;
+  min-height: 44px;
+  border-radius: 9999px;
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+.btn-outline:hover {
+  background-color: #F9FAFB;
+  border-color: #98A2B3;
+  color: #101828;
+}
+.btn-outline:focus-visible {
+  outline: 2px solid #98A2B3;
+  outline-offset: 2px;
 }
 
 /* Subtle architectural grid pattern */
 .bg-architectural-grid {
   background-size: 48px 48px;
   background-image: 
-    linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+    linear-gradient(to right, rgba(16, 24, 40, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(16, 24, 40, 0.02) 1px, transparent 1px);
 }
 
 @keyframes flowDash {
@@ -105,3 +212,40 @@ body {
   }
 }
 
+/* Continuous moving text ribbon (marquee) */
+@keyframes tickerScroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-ticker {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: tickerScroll 38s linear infinite;
+}
+
+.animate-ticker:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-ticker {
+    animation: none;
+    transform: none;
+  }
+}
+
+/* Slide progress indicator */
+@keyframes progressFill {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}

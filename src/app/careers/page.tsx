@@ -39,7 +39,7 @@ const OPEN_ROLES = [
     location: "Noida Plant / Hybrid",
     type: "Full-Time",
     experience: "4–7 Years",
-    description: "Develop cell-level telemetry firmware, active balancing algorithms, and IEC 61850 substation teleprotection protocols for seamless utility SCADA integration."
+    description: "Develop cell-level telemetry firmware, active balancing algorithms, and IEC 61850 substation teleprotection protocols for direct utility SCADA telemetry."
   },
   {
     id: "field-commissioning-mgr",

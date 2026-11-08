@@ -78,12 +78,12 @@ export function GlobalExportsShowcase() {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50/80 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-[#0B3388]">
-              <Globe2 className="h-3.5 w-3.5 text-[#0B3388]" />
+            <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50/80 px-3.5 py-1 text-xs font-medium text-lithon-blue">
+              <Globe2 className="h-3.5 w-3.5 text-lithon-blue" />
               <span>International Deployment Footprint</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-light text-gray-900 mt-3 tracking-tight">
-              Engineering Deployed Across <span className="font-semibold text-[#0B3388]">25+ Countries</span>
+              Engineering Deployed Across <span className="font-semibold text-lithon-blue">25+ Countries</span>
             </h2>
             <p className="mt-2 text-sm text-gray-600 max-w-2xl font-normal">
               Over 500+ MWh of operational storage engineered in Noida and shipped globally. From rural Kenyan school microgrids to Middle Eastern industrial hubs withstanding 60°C heat.
@@ -92,7 +92,7 @@ export function GlobalExportsShowcase() {
 
           <div className="flex items-center gap-3 font-mono text-xs text-gray-500">
             <span className="flex items-center gap-1.5 rounded-full bg-gray-100 px-3 py-1 font-semibold text-gray-800">
-              <Ship className="h-3.5 w-3.5 text-[#0B3388]" />
+              <Ship className="h-3.5 w-3.5 text-lithon-blue" />
               Nhava Sheva &amp; Mundra Export Skids
             </span>
           </div>
@@ -110,7 +110,7 @@ export function GlobalExportsShowcase() {
                 className="object-cover opacity-85 transition-all duration-500"
                 sizes="(max-width: 1024px) 100vw, 60vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-transparent to-slate-950/30" />
+              <div className="absolute inset-0 bg-slate-950/40 pointer-events-none" />
 
               <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between text-white">
                 <div className="rounded-full bg-white/20 backdrop-blur-md border border-white/30 px-3.5 py-1.5 text-xs font-mono font-semibold">
@@ -144,7 +144,7 @@ export function GlobalExportsShowcase() {
 
               {/* Country Selection Pills */}
               <div className="space-y-3 pt-4 border-t border-gray-200">
-                <span className="text-[11px] font-mono font-semibold uppercase tracking-wider text-gray-500 block">
+                <span className="text-xs font-medium text-gray-500 block">
                   Select Regional Case Study:
                 </span>
                 <div className="grid grid-cols-2 gap-2 text-xs">
@@ -155,12 +155,12 @@ export function GlobalExportsShowcase() {
                       onClick={() => setActiveProject(proj)}
                       className={`p-3 rounded-xl border text-left font-medium transition-all ${
                         activeProject.id === proj.id
-                          ? "border-[#0B3388] bg-blue-50/70 text-[#0B3388] font-bold shadow-sm"
+                          ? "border-lithon-blue bg-blue-50/70 text-lithon-blue font-bold shadow-sm"
                           : "border-gray-200 bg-white text-gray-700 hover:bg-gray-50"
                       }`}
                     >
                       <div className="font-bold">{proj.country}</div>
-                      <div className="text-[10px] text-gray-500 truncate">{proj.region}</div>
+                      <div className="text-xs text-gray-500 truncate">{proj.region}</div>
                     </button>
                   ))}
                 </div>
@@ -168,7 +168,7 @@ export function GlobalExportsShowcase() {
                 <div className="pt-3 flex items-center justify-between">
                   <Link
                     href="/case-studies"
-                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#0B3388] hover:underline"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-lithon-blue hover:text-lithon-red transition-colors"
                   >
                     <span>View Audited Deployments</span>
                     <ArrowRight className="h-3.5 w-3.5" />
@@ -176,7 +176,7 @@ export function GlobalExportsShowcase() {
 
                   <Link
                     href="/distributor"
-                    className="inline-flex items-center gap-1 rounded-full bg-[#0B3388] hover:bg-[#082666] px-4 py-2 text-xs font-semibold text-white shadow-sm transition-colors"
+                    className="inline-flex items-center gap-1 rounded-full bg-lithon-blue hover:bg-lithon-blue-hover px-4 py-2 text-xs font-semibold text-white shadow-sm transition-colors"
                   >
                     <span>Export Inquiries</span>
                   </Link>

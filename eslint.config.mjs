@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "**/scratch/**",
     "**/data-sources/**",
     "**/node_modules/**",
+    "**/.agents/**",
+    "**/.hallmark/**",
   ]),
   ...nextVitals,
   ...nextTs,

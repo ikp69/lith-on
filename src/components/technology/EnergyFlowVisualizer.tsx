@@ -12,6 +12,7 @@ type OperatingMode = "solar-charge" | "peak-shaving" | "blackout-ups" | "ev-buff
 interface ModeConfig {
   id: OperatingMode;
   name: string;
+  shortName: string;
   tagline: string;
   description: string;
   solarKw: number;
@@ -27,9 +28,10 @@ const MODES: Record<OperatingMode, ModeConfig> = {
   "solar-charge": {
     id: "solar-charge",
     name: "Solar Self-Consumption & BESS Storing",
+    shortName: "Solar Storage",
     tagline: "100% Green Microgrid — Zero Grid Dependency",
     description:
-      "Midday peak solar generation supplies 100% of factory operational machinery, with 400 kW excess solar redirected into the Lith-On BESS for evening dispatch.",
+      "Peak solar supplies 100% of factory operations while storing 400 kW excess for evening dispatch.",
     solarKw: 900,
     bessFlowKw: 400, // charging
     gridKw: 0,
@@ -41,6 +43,7 @@ const MODES: Record<OperatingMode, ModeConfig> = {
   "peak-shaving": {
     id: "peak-shaving",
     name: "ToD Peak Demand Shaving",
+    shortName: "Peak Shaving",
     tagline: "Arbitrage Highest DISCOM Tariff Surcharges",
     description:
       "During peak evening hours (6:00 PM - 10:00 PM) when DISCOM tariff surges up to ₹14/kWh, Lith-On BESS discharges 500 kW to eliminate peak demand penalties.",
@@ -55,6 +58,7 @@ const MODES: Record<OperatingMode, ModeConfig> = {
   "blackout-ups": {
     id: "blackout-ups",
     name: "Sub-10ms Instantaneous UPS Islanding",
+    shortName: "<10ms UPS Islanding",
     tagline: "Zero Blackout — Computers & Lifts Never Trip",
     description:
       "The 11kV utility grid suddenly drops. In under 10 milliseconds, Lith-On BESS microgrid inverter takes over full campus load with synchronous 50Hz sine-wave continuity.",
@@ -69,6 +73,7 @@ const MODES: Record<OperatingMode, ModeConfig> = {
   "ev-buffer": {
     id: "ev-buffer",
     name: "EV High-Power Fast-Charging Buffer",
+    shortName: "EV Fast Buffer",
     tagline: "Fast Charging Without Costly Substation Upgrades",
     description:
       "Dual 180 kW DC fast chargers activate simultaneously. Instead of tripping factory transformer capacity, Lith-On BESS provides instant high-discharge buffering.",
@@ -90,21 +95,13 @@ export function EnergyFlowVisualizer() {
     <div className="rounded-2xl border border-gray-200 bg-white p-6 sm:p-8 shadow-sm">
       {/* Header and Mode Selector */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-100 pb-5">
-        <div>
-          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#0B3388]">
-            <Activity className="h-4 w-4" />
-            <span>Smart Microgrid Orchestration</span>
-          </div>
-          <h3 className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight mt-1">
-            Dynamic Energy Flow &amp; Dispatch Simulation
-          </h3>
-          <p className="text-xs text-gray-600 mt-1 max-w-xl">
-            Simulate how Lith-On BESS autonomously directs power vectors across solar arrays, utility grids, factory loads, and EV charging stations.
-          </p>
+        <div className="flex items-center gap-2 text-xs font-semibold text-lithon-blue">
+          <Activity className="h-4 w-4" />
+          <span>Select Dispatch Simulation Mode:</span>
         </div>
 
         {/* Mode Selector Tabs */}
-        <div className="flex flex-wrap gap-1.5">
+        <div className="flex flex-wrap gap-2" role="tablist" aria-label="Microgrid Dispatch Modes">
           {(Object.keys(MODES) as OperatingMode[]).map((mKey) => {
             const isSelected = activeMode === mKey;
             return (
@@ -112,13 +109,13 @@ export function EnergyFlowVisualizer() {
                 key={mKey}
                 type="button"
                 onClick={() => setActiveMode(mKey)}
-                className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-all ${
+                className={`min-h-[44px] whitespace-nowrap rounded-lg px-3.5 py-2 text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lithon-blue ${
                   isSelected
-                    ? "bg-[#0B3388] text-white shadow-sm"
+                    ? "bg-lithon-blue text-white shadow-sm"
                     : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                 }`}
               >
-                {MODES[mKey].name.split("&")[0]}
+                {MODES[mKey].shortName}
               </button>
             );
           })}
@@ -126,7 +123,7 @@ export function EnergyFlowVisualizer() {
       </div>
 
       {/* Interactive Flow Schematic */}
-      <div className="relative mt-6 rounded-xl border border-gray-200 bg-gradient-to-b from-slate-50 to-white p-6 overflow-hidden">
+      <div className="relative mt-6 rounded-xl border border-gray-200 bg-surface-light p-6 overflow-hidden">
         {/* Status Bar */}
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-gray-200/80 pb-4 text-xs font-medium">
           <div className="flex items-center gap-2">
@@ -353,7 +350,7 @@ export function EnergyFlowVisualizer() {
           </div>
 
           <div className="rounded-xl bg-white p-4 border border-gray-200 shadow-sm">
-            <span className="text-[11px] font-medium text-gray-500 uppercase tracking-wider block">
+            <span className="text-xs font-medium text-gray-500 block">
               Active Strategy
             </span>
             <p className="text-xs text-gray-700 mt-1 leading-relaxed">
@@ -362,11 +359,11 @@ export function EnergyFlowVisualizer() {
           </div>
 
           <div className="rounded-xl bg-white p-4 border border-gray-200 shadow-sm">
-            <span className="text-[11px] font-medium text-gray-500 uppercase tracking-wider block">
+            <span className="text-xs font-medium text-gray-500 block">
               Grid Resilience
             </span>
-            <div className="text-xs font-semibold text-[#0B3388] mt-1 flex items-center gap-1">
-              <ShieldCheck className="h-4 w-4 text-[#0B3388] shrink-0" />
+            <div className="text-xs font-semibold text-lithon-blue mt-1 flex items-center gap-1">
+              <ShieldCheck className="h-4 w-4 text-lithon-blue shrink-0" />
               <span>{mode.tagline}</span>
             </div>
           </div>

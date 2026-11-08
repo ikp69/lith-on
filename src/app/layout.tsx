@@ -7,7 +7,7 @@ import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 
 const manrope = Manrope({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
+  weight: ["300", "400", "600"],
   variable: "--font-manrope",
   display: "swap",
 });
@@ -99,8 +99,8 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className={`${manrope.variable} font-sans scroll-smooth`}>
-      <body className="min-h-screen bg-[#FAFAF8] text-gray-900 antialiased selection:bg-[#F74530] selection:text-white flex flex-col justify-between">
+    <html lang="en" data-scroll-behavior="smooth" className={`${manrope.variable} font-sans scroll-smooth overflow-x-hidden`}>
+      <body className="min-h-screen bg-canvas-offwhite text-gray-900 antialiased selection:bg-lithon-red selection:text-white flex flex-col justify-between overflow-x-hidden">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

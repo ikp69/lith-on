@@ -6,13 +6,17 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "hallmark:lint": "node .agents/skills/hallmark/scripts/sloplint.mjs ./src/app",
+    "hallmark:render": "node .agents/skills/hallmark/scripts/sloplint.mjs --url http://localhost:3000 --render"
   },
   "dependencies": {
+    "@gsap/react": "^2.1.2",
     "@radix-ui/react-accordion": "^1.2.2",
     "@radix-ui/react-dialog": "^1.1.4",
     "@radix-ui/react-tabs": "^1.1.2",
     "clsx": "^2.1.1",
+    "gsap": "^3.15.0",
     "lucide-react": "^0.475.0",
     "motion": "^12.4.7",
     "next": "16.4.3",

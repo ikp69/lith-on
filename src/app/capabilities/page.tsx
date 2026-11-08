@@ -78,7 +78,7 @@ export default function CapabilitiesPage() {
       {/* 1. Header Banner */}
       <section className="border-b border-gray-200 bg-white px-6 pt-16 pb-20">
         <div className="mx-auto max-w-7xl">
-          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#0B3388] mb-3">
+          <div className="flex items-center gap-2 text-xs font-medium text-lithon-blue mb-3">
             <Link href="/" className="hover:text-gray-900 transition-colors">Home</Link>
             <span className="text-gray-400">/</span>
             <span>Capabilities &amp; Factory</span>
@@ -86,7 +86,7 @@ export default function CapabilitiesPage() {
 
           <h1 className="text-4xl font-light text-gray-900 sm:text-5xl lg:text-6xl tracking-tight leading-tight">
             In-House Manufacturing, <br className="hidden sm:block" />
-            <span className="font-semibold text-[#0B3388]">
+            <span className="font-semibold text-lithon-blue">
               Engineering &amp; Quality Infrastructure
             </span>
           </h1>
@@ -106,20 +106,20 @@ export default function CapabilitiesPage() {
           <div className="grid gap-6 md:grid-cols-2">
             <div className="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
               <div className="flex items-center justify-between">
-                <span className="rounded-full bg-[#0B3388]/10 border border-[#0B3388]/20 px-3 py-1 text-xs font-bold text-[#0B3388]">
+                <span className="rounded-full bg-blue-50 border border-blue-200 px-3 py-1 text-xs font-semibold text-lithon-blue">
                   Primary Manufacturing Plant
                 </span>
-                <span className="text-xs font-mono text-gray-500">Sector 136, Noida, UP</span>
+                <span className="text-xs font-normal text-gray-500">Sector 136, Noida, UP</span>
               </div>
               <h2 className="text-2xl font-bold text-gray-900 mt-4">20,000 sq. ft. Noida Assembly &amp; Testing Facility</h2>
               <div className="mt-4 grid grid-cols-2 gap-3 text-xs">
-                <div className="rounded-xl bg-[#F8FAFC] p-3 border border-gray-200">
-                  <span className="text-gray-500 block text-[10px] uppercase font-mono">Total Annual Capacity</span>
-                  <span className="text-xl font-bold text-gray-900 mt-0.5 block">250 MWh</span>
+                <div className="rounded-xl bg-surface-light p-3 border border-gray-200">
+                  <span className="text-gray-500 block text-xs font-medium">Total Annual Capacity</span>
+                  <span className="text-xl font-bold font-mono text-gray-900 mt-0.5 block">250 MWh</span>
                 </div>
-                <div className="rounded-xl bg-[#F8FAFC] p-3 border border-gray-200">
-                  <span className="text-gray-500 block text-[10px] uppercase font-mono">BESS &amp; Pack Split</span>
-                  <span className="text-xl font-bold text-[#0B3388] mt-0.5 block">50 + 200 MWh</span>
+                <div className="rounded-xl bg-surface-light p-3 border border-gray-200">
+                  <span className="text-gray-500 block text-xs font-medium">BESS &amp; Pack Split</span>
+                  <span className="text-xl font-bold font-mono text-lithon-blue mt-0.5 block">50 + 200 MWh</span>
                 </div>
               </div>
               <p className="text-xs text-gray-600 mt-4 leading-relaxed">
@@ -130,14 +130,14 @@ export default function CapabilitiesPage() {
 
             <div className="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
               <div className="flex items-center justify-between">
-                <span className="rounded-full bg-blue-50 border border-blue-200 px-3 py-1 text-xs font-bold text-[#0B3388]">
+                <span className="rounded-full bg-blue-50 border border-blue-200 px-3 py-1 text-xs font-semibold text-lithon-blue">
                   International Sourcing Hub
                 </span>
-                <span className="text-xs font-mono text-gray-500">Foshan, Guangdong, China</span>
+                <span className="text-xs font-normal text-gray-500">Foshan, Guangdong, China</span>
               </div>
               <h2 className="text-2xl font-bold text-gray-900 mt-4">Foshan Innovation &amp; Supply Center</h2>
-              <div className="mt-4 rounded-xl bg-[#F8FAFC] p-3 border border-gray-200 text-xs">
-                <span className="text-gray-500 block text-[10px] uppercase font-mono">Strategic Location</span>
+              <div className="mt-4 rounded-xl bg-surface-light p-3 border border-gray-200 text-xs">
+                <span className="text-gray-500 block text-xs font-medium">Strategic Location</span>
                 <span className="text-sm font-semibold text-gray-800 mt-0.5 block">
                   C11-6, Foshan Innovation Torchpark, Jihua 2 Road, Chancheng, Foshan
                 </span>
@@ -155,7 +155,7 @@ export default function CapabilitiesPage() {
       <section className="px-6">
         <div className="mx-auto max-w-7xl">
           <div className="border-b border-gray-200 pb-4 mb-8">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#0B3388]">
+            <span className="text-xs font-medium text-lithon-blue">
               Standardized Assembly Workflow
             </span>
             <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl mt-1">
@@ -174,7 +174,7 @@ export default function CapabilitiesPage() {
               >
                 <div>
                   <div className="flex items-center justify-between">
-                    <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#0B3388] text-white text-xs font-mono font-bold">
+                    <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-lithon-blue text-white text-xs font-mono font-bold">
                       {step.step}
                     </span>
                     <Layers className="h-4 w-4 text-gray-400" />
@@ -184,7 +184,7 @@ export default function CapabilitiesPage() {
                     {step.description}
                   </p>
                 </div>
-                <div className="mt-5 border-t border-gray-100 pt-3 text-[11px] text-emerald-700 font-medium flex items-center gap-1.5">
+                <div className="mt-5 border-t border-gray-100 pt-3 text-xs text-emerald-700 font-medium flex items-center gap-1.5">
                   <CheckCircle2 className="h-3.5 w-3.5" />
                   <span>Quality Assurance Checkpoint Passed</span>
                 </div>
@@ -198,7 +198,7 @@ export default function CapabilitiesPage() {
       <section className="px-6">
         <div className="mx-auto max-w-7xl rounded-2xl border border-gray-200 bg-white p-8 sm:p-10 shadow-sm">
           <div className="border-b border-gray-200 pb-4 mb-8">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#0B3388]">
+            <span className="text-xs font-medium text-lithon-blue">
               Rigorous Quality Validation
             </span>
             <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl mt-1">
@@ -212,8 +212,8 @@ export default function CapabilitiesPage() {
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {LAB_TESTS.map((test) => (
-              <div key={test.title} className="rounded-xl bg-[#F8FAFC] p-5 border border-gray-200">
-                <span className="text-xs font-mono font-bold text-[#0B3388]">{test.spec}</span>
+              <div key={test.title} className="rounded-xl bg-surface-light p-5 border border-gray-200">
+                <span className="text-xs font-mono font-bold text-lithon-blue">{test.spec}</span>
                 <h3 className="text-base font-bold text-gray-900 mt-2">{test.title}</h3>
                 <p className="text-xs text-gray-600 mt-2 leading-relaxed">{test.description}</p>
               </div>
@@ -226,7 +226,7 @@ export default function CapabilitiesPage() {
       <section className="px-6">
         <div className="mx-auto max-w-7xl">
           <div className="border-b border-gray-200 pb-4 mb-8">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#0B3388]">
+            <span className="text-xs font-medium text-lithon-blue">
               End-to-End Implementation
             </span>
             <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl mt-1">
@@ -240,7 +240,7 @@ export default function CapabilitiesPage() {
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
             {EPC_WORKFLOW.map((item) => (
               <div key={item.step} className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#0B3388]/10 text-[#0B3388] text-xs font-bold font-mono">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-50 text-lithon-blue text-xs font-bold font-mono">
                   {item.step}
                 </span>
                 <h3 className="text-sm font-bold text-gray-900 mt-3">{item.title}</h3>
@@ -253,7 +253,7 @@ export default function CapabilitiesPage() {
 
       {/* 6. Factory Visit & Audit CTA */}
       <section className="px-6">
-        <div className="mx-auto max-w-7xl rounded-3xl bg-[#0B3388] text-white p-8 sm:p-12 shadow-lg flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+        <div className="mx-auto max-w-7xl rounded-3xl bg-lithon-blue text-white p-8 sm:p-12 shadow-lg flex flex-col sm:flex-row sm:items-center justify-between gap-6">
           <div>
             <h3 className="text-2xl font-bold sm:text-3xl">Schedule a Factory Visit to Noida</h3>
             <p className="text-sm text-blue-100 mt-2 max-w-xl">
@@ -263,7 +263,7 @@ export default function CapabilitiesPage() {
           </div>
           <Link
             href="/contact?type=factory-visit"
-            className="inline-flex items-center justify-center gap-2 rounded-full bg-[#F74530] px-6 py-3.5 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#d83522] transition-all shadow-md shrink-0"
+            className="inline-flex items-center justify-center gap-2 rounded-full bg-lithon-red px-6 py-3.5 text-xs font-semibold text-white hover:bg-lithon-red-hover transition-colors shadow-md shrink-0 min-h-[44px]"
           >
             <span>Book Facility Tour</span>
             <ArrowRight className="h-4 w-4" />

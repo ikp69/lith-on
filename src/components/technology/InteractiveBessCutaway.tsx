@@ -152,7 +152,7 @@ export function InteractiveBessCutaway() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-100 pb-5">
         <div>
-          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#0B3388]">
+          <div className="flex items-center gap-2 text-xs font-medium text-lithon-blue">
             <Layers className="h-4 w-4" />
             <span>Hardware Architecture &amp; Subsystems</span>
           </div>
@@ -165,17 +165,19 @@ export function InteractiveBessCutaway() {
         </div>
 
         {/* Quick selector pill badges */}
-        <div className="flex flex-wrap gap-1.5">
+        <div className="flex flex-wrap gap-1.5" role="tablist" aria-label="BESS Subsystems Quick Selector">
           {SUBSYSTEMS.map((sub) => {
             const isSelected = activeSubsystem.id === sub.id;
             return (
               <button
                 key={sub.id}
                 type="button"
+                role="tab"
+                aria-selected={isSelected}
                 onClick={() => setActiveSubsystem(sub)}
-                className={`rounded-lg px-2.5 py-1 text-xs font-medium transition-all ${
+                className={`min-h-[44px] inline-flex items-center rounded-lg px-3 py-2 text-xs font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lithon-blue ${
                   isSelected
-                    ? "bg-[#0B3388] text-white shadow-sm"
+                    ? "bg-lithon-blue text-white shadow-sm"
                     : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                 }`}
               >
@@ -187,7 +189,7 @@ export function InteractiveBessCutaway() {
       </div>
 
       {/* 3D Cutaway Interactive Canvas */}
-      <div className="relative mt-6 rounded-xl border border-gray-200 bg-gradient-to-b from-gray-50/60 to-white p-4 sm:p-6 overflow-hidden">
+      <div className="relative mt-6 rounded-xl border border-gray-200 bg-surface-light p-4 sm:p-6 overflow-hidden">
         <div className="relative aspect-[16/7] w-full min-h-[260px] sm:min-h-[380px] rounded-lg overflow-hidden flex items-center justify-center">
           {/* Authentic 3D Cutaway Graphic */}
           <Image
@@ -207,7 +209,7 @@ export function InteractiveBessCutaway() {
                 key={sub.id}
                 type="button"
                 onClick={() => setActiveSubsystem(sub)}
-                className="group absolute -translate-x-1/2 -translate-y-1/2 focus:outline-none"
+                className="group absolute -translate-x-1/2 -translate-y-1/2 focus:outline-none flex h-11 w-11 items-center justify-center"
                 style={{
                   left: `${sub.xPercent}%`,
                   top: `${sub.yPercent}%`,
@@ -217,7 +219,7 @@ export function InteractiveBessCutaway() {
                 {/* Ping animation */}
                 <span
                   className={`absolute -inset-2 rounded-full opacity-75 animate-ping ${
-                    isSelected ? "bg-[#F74530]" : "bg-[#0B3388] group-hover:bg-[#F74530]"
+                    isSelected ? "bg-lithon-red" : "bg-lithon-blue group-hover:bg-lithon-red"
                   }`}
                   style={{ animationDuration: isSelected ? "1.8s" : "3s" }}
                 />
@@ -226,8 +228,8 @@ export function InteractiveBessCutaway() {
                 <span
                   className={`relative flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full border-2 border-white shadow-md text-white transition-all transform ${
                     isSelected
-                      ? "scale-110 bg-[#F74530] ring-4 ring-[#F74530]/20"
-                      : "bg-[#0B3388] group-hover:scale-110 group-hover:bg-[#F74530]"
+                      ? "scale-110 bg-lithon-red ring-4 ring-lithon-red/20"
+                      : "bg-lithon-blue group-hover:scale-110 group-hover:bg-lithon-red"
                   }`}
                 >
                   <sub.icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
@@ -254,7 +256,7 @@ export function InteractiveBessCutaway() {
                 <activeSubsystem.icon className="h-5 w-5" />
               </div>
               <div>
-                <span className="text-[11px] font-semibold uppercase tracking-wider text-gray-500">
+                <span className="text-xs font-medium text-gray-500">
                   {activeSubsystem.category}
                 </span>
                 <h4 className="text-lg font-bold text-gray-900 leading-tight">
@@ -268,9 +270,9 @@ export function InteractiveBessCutaway() {
               {activeSubsystem.compliance.map((cert) => (
                 <span
                   key={cert}
-                  className="inline-flex items-center gap-1 rounded-md bg-blue-50 px-2 py-0.5 text-[11px] font-medium text-[#0B3388] border border-blue-100"
+                  className="inline-flex items-center gap-1 rounded-md bg-blue-50 px-2 py-0.5 text-[11px] font-medium text-lithon-blue border border-blue-100"
                 >
-                  <CheckCircle2 className="h-3 w-3 text-[#0B3388]" />
+                  <CheckCircle2 className="h-3 w-3 text-lithon-blue" />
                   <span>{cert}</span>
                 </span>
               ))}
@@ -288,7 +290,7 @@ export function InteractiveBessCutaway() {
                 key={spec.label}
                 className="rounded-lg bg-gray-50 p-2.5 border border-gray-100"
               >
-                <span className="text-[10px] font-medium text-gray-500 uppercase block tracking-wider">
+                <span className="text-xs font-medium text-gray-500 block">
                   {spec.label}
                 </span>
                 <span className="text-xs font-bold text-gray-900 block mt-0.5">

@@ -57,7 +57,7 @@ export default function TechnologyPage() {
       {/* 1. Header Banner */}
       <section className="px-6">
         <div className="mx-auto max-w-7xl">
-          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#0B3388] mb-3">
+          <div className="flex items-center gap-2 text-xs font-medium text-lithon-blue mb-3">
             <Link href="/" className="hover:text-gray-900 transition-colors">Home</Link>
             <span className="text-gray-400">/</span>
             <span>Technology &amp; R&amp;D</span>
@@ -65,7 +65,7 @@ export default function TechnologyPage() {
 
           <h1 className="text-4xl font-light text-gray-900 sm:text-5xl lg:text-6xl tracking-tight leading-tight">
             Advanced Engineering &amp; <br className="hidden sm:block" />
-            <span className="font-bold text-[#0B3388]">
+            <span className="font-bold text-lithon-blue">
               Proprietary Energy Storage Technology
             </span>
           </h1>
@@ -89,7 +89,7 @@ export default function TechnologyPage() {
       <section className="px-6">
         <div className="mx-auto max-w-7xl space-y-8">
           <div className="border-b border-gray-200 pb-4">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#0B3388]">
+            <span className="text-xs font-medium text-lithon-blue">
               Thermodynamic Innovation
             </span>
             <h2 className="text-2xl font-bold text-gray-900 tracking-tight sm:text-3xl mt-1">
@@ -119,7 +119,7 @@ export default function TechnologyPage() {
               </div>
 
               <div className="w-full md:w-1/2 space-y-3">
-                <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#0B3388]">
+                <span className="text-xs font-semibold text-lithon-blue">
                   Thermodynamic Mechanism
                 </span>
                 <h3 className="text-xl font-bold text-gray-900">
@@ -130,12 +130,12 @@ export default function TechnologyPage() {
                 </p>
                 <ul className="space-y-2 text-xs text-gray-700">
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-[#0B3388] shrink-0 mt-0.5" />
+                    <CheckCircle2 className="h-4 w-4 text-lithon-blue shrink-0 mt-0.5" />
                     <span><strong>Solar Rejection:</strong> 90%+ of near-infrared radiation is bounced off the exterior before substrate absorption occurs.</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-[#0B3388] shrink-0 mt-0.5" />
-                    <span><strong>Deep Space Radiation:</strong> Radiates internal thermal accumulation outward as far-infrared rays through the 8–14µm atmospheric transparency window.</span>
+                    <CheckCircle2 className="h-4 w-4 text-lithon-blue shrink-0 mt-0.5" />
+                    <span><strong>Deep Space Radiation:</strong> Radiates internal thermal accumulation outward as far-infrared rays through the 8 to 14µm atmospheric transparency window.</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
@@ -149,31 +149,31 @@ export default function TechnologyPage() {
           {/* Thermodynamic Key Pillars */}
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 pt-4">
             <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-              <span className="text-xs font-mono font-bold text-[#0B3388]">01. NIR Solar Reflectance</span>
+              <span className="text-xs font-semibold text-lithon-blue">01. NIR Solar Reflectance</span>
               <h3 className="text-base font-bold text-gray-900 mt-2">&gt;90% Heat Reflected</h3>
               <p className="text-xs text-gray-600 mt-2 leading-relaxed">
-                Blocks near-infrared solar wavelengths (700nm–2500nm), preventing cabinet walls from absorbing thermal energy.
+                Blocks near-infrared solar wavelengths (700nm to 2500nm), preventing cabinet walls from absorbing thermal energy.
               </p>
             </div>
 
             <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-              <span className="text-xs font-mono font-bold text-blue-600">02. Deep Space Radiative Cooling</span>
-              <h3 className="text-base font-bold text-gray-900 mt-2">8–13µm Atmospheric Window</h3>
+              <span className="text-xs font-semibold text-lithon-blue">02. Radiative Cooling</span>
+              <h3 className="text-base font-bold text-gray-900 mt-2">8 to 13µm Atmospheric Window</h3>
               <p className="text-xs text-gray-600 mt-2 leading-relaxed">
                 Exhibits emissivity &gt;0.92, radiating internal thermal accumulation directly into the cold vacuum of space.
               </p>
             </div>
 
             <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-              <span className="text-xs font-mono font-bold text-emerald-700">03. Temperature Delta</span>
-              <h3 className="text-base font-bold text-gray-900 mt-2">15°C–30°C Cooler Core</h3>
+              <span className="text-xs font-semibold text-lithon-blue">03. Temperature Delta</span>
+              <h3 className="text-base font-bold text-gray-900 mt-2">15°C to 30°C Cooler Core</h3>
               <p className="text-xs text-gray-600 mt-2 leading-relaxed">
                 Maintains internal cells within optimal operating zones, dramatically reducing thermal stress and extending cell life.
               </p>
             </div>
 
             <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-              <span className="text-xs font-mono font-bold text-[#F74530]">04. Parasitic Load Reduction</span>
+              <span className="text-xs font-semibold text-lithon-red">04. Parasitic Load Reduction</span>
               <h3 className="text-base font-bold text-gray-900 mt-2">&gt;20% HVAC Energy Saved</h3>
               <p className="text-xs text-gray-600 mt-2 leading-relaxed">
                 Reduces continuous compressor load, increasing project net round-trip efficiency and lowering lifetime OPEX.
@@ -187,7 +187,7 @@ export default function TechnologyPage() {
       <section className="px-6">
         <div className="mx-auto max-w-7xl space-y-8">
           <div className="border-b border-gray-200 pb-4">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#0B3388]">
+            <span className="text-xs font-medium text-lithon-blue">
               Power Electronics &amp; Resilience
             </span>
             <h2 className="text-2xl font-bold text-gray-900 tracking-tight sm:text-3xl mt-1">
@@ -209,7 +209,7 @@ export default function TechnologyPage() {
       <section className="px-6">
         <div className="mx-auto max-w-7xl space-y-8">
           <div className="border-b border-gray-200 pb-4">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#0B3388]">
+            <span className="text-xs font-medium text-lithon-blue">
               Unified Firmware Architecture
             </span>
             <h2 className="text-2xl font-bold text-gray-900 tracking-tight sm:text-3xl mt-1">
@@ -229,11 +229,11 @@ export default function TechnologyPage() {
             {OPERATING_MODES.map((m) => (
               <div 
                 key={m.mode}
-                className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm flex flex-col justify-between hover:border-[#0B3388] transition-all"
+                className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm flex flex-col justify-between hover:border-lithon-blue transition-colors"
               >
                 <div>
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono font-bold text-[#0B3388]">MODE {m.mode}</span>
+                    <span className="text-xs font-mono font-bold text-lithon-blue">MODE {m.mode}</span>
                     <Cpu className="h-4 w-4 text-gray-400" />
                   </div>
                   <h3 className="text-lg font-bold text-gray-900 mt-3">{m.name}</h3>
@@ -241,7 +241,7 @@ export default function TechnologyPage() {
                     {m.description}
                   </p>
                 </div>
-                <div className="mt-5 border-t border-gray-100 pt-3 text-[11px] text-emerald-700 font-semibold flex items-center gap-1.5">
+                <div className="mt-5 border-t border-gray-100 pt-3 text-xs text-emerald-700 font-semibold flex items-center gap-1.5">
                   <CheckCircle2 className="h-3.5 w-3.5" />
                   <span>Autonomous Edge Firmware Execution</span>
                 </div>
@@ -256,7 +256,7 @@ export default function TechnologyPage() {
         <div className="mx-auto max-w-7xl rounded-2xl border border-gray-200 bg-white p-8 sm:p-10 shadow-sm">
           <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
             <div className="lg:col-span-8">
-              <span className="text-xs font-semibold uppercase tracking-wider text-[#0B3388]">
+              <span className="text-xs font-medium text-lithon-blue">
                 Electrochemistry Excellence
               </span>
               <h2 className="text-2xl font-bold text-gray-900 tracking-tight sm:text-3xl mt-1">
@@ -270,24 +270,24 @@ export default function TechnologyPage() {
 
               <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-4 border-t border-gray-100 pt-6">
                 <div>
-                  <span className="text-[10px] text-gray-500 uppercase font-mono">Cycle Longevity</span>
-                  <span className="text-2xl font-black text-gray-900 mt-1 block">&gt;6,000</span>
-                  <span className="text-[10px] text-gray-500">@ 88%–90% DoD, 25°C</span>
+                  <span className="text-xs text-gray-500 font-medium">Cycle Longevity</span>
+                  <span className="text-2xl font-black font-mono text-gray-900 mt-1 block">&gt;6,000</span>
+                  <span className="text-xs text-gray-500">@ 88% to 90% DoD, 25°C</span>
                 </div>
                 <div>
-                  <span className="text-[10px] text-gray-500 uppercase font-mono">Standard Warranty</span>
-                  <span className="text-2xl font-black text-[#0B3388] mt-1 block">10 Years</span>
-                  <span className="text-[10px] text-gray-500">Comprehensive SLA</span>
+                  <span className="text-xs text-gray-500 font-medium">Standard Warranty</span>
+                  <span className="text-2xl font-black font-mono text-lithon-blue mt-1 block">10 Years</span>
+                  <span className="text-xs text-gray-500">Comprehensive SLA</span>
                 </div>
                 <div>
-                  <span className="text-[10px] text-gray-500 uppercase font-mono">Coulombic Efficiency</span>
-                  <span className="text-2xl font-black text-emerald-700 mt-1 block">&gt;98%</span>
-                  <span className="text-[10px] text-gray-500">Cell-level efficiency</span>
+                  <span className="text-xs text-gray-500 font-medium">Coulombic Efficiency</span>
+                  <span className="text-2xl font-black font-mono text-emerald-700 mt-1 block">&gt;98%</span>
+                  <span className="text-xs text-gray-500">Cell-level efficiency</span>
                 </div>
                 <div>
-                  <span className="text-[10px] text-gray-500 uppercase font-mono">Self-Discharge</span>
-                  <span className="text-2xl font-black text-gray-900 mt-1 block">&lt;2.5%</span>
-                  <span className="text-[10px] text-gray-500">Per month idle loss</span>
+                  <span className="text-xs text-gray-500 font-medium">Self-Discharge</span>
+                  <span className="text-2xl font-black font-mono text-gray-900 mt-1 block">&lt;2.5%</span>
+                  <span className="text-xs text-gray-500">Per month idle loss</span>
                 </div>
               </div>
             </div>
@@ -299,7 +299,7 @@ export default function TechnologyPage() {
                 <p className="text-xs text-gray-600 mt-1">
                   Chemical bond strength of P-O covalent bond prevents thermal decomposition up to 270°C.
                 </p>
-                <div className="mt-4 rounded-full bg-[#0B3388]/10 border border-[#0B3388]/20 py-1.5 px-3 text-[11px] font-semibold text-[#0B3388]">
+                <div className="mt-4 rounded-full bg-blue-50 border border-blue-200 py-1.5 px-3 text-xs font-semibold text-lithon-blue">
                   Trifecta Certified: IEC 61508 SIL 2/3
                 </div>
               </div>
@@ -310,7 +310,7 @@ export default function TechnologyPage() {
 
       {/* 6. Bottom CTA */}
       <section className="px-6">
-        <div className="mx-auto max-w-7xl rounded-3xl bg-[#0B3388] text-white p-8 sm:p-12 shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+        <div className="mx-auto max-w-7xl rounded-3xl bg-lithon-blue text-white p-8 sm:p-12 shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-6">
           <div>
             <h3 className="text-2xl font-bold text-white sm:text-3xl tracking-tight">Discuss Your Technical Requirements</h3>
             <p className="text-sm text-blue-100 mt-2 max-w-xl">
@@ -320,7 +320,7 @@ export default function TechnologyPage() {
           </div>
           <Link
             href="/contact"
-            className="inline-flex items-center justify-center gap-2 rounded-full bg-[#F74530] hover:bg-[#d63623] px-6 py-3.5 text-xs font-bold uppercase tracking-wider text-white transition-all shrink-0 shadow-md"
+            className="inline-flex items-center justify-center gap-2 rounded-full bg-lithon-red hover:bg-lithon-red-hover px-6 py-3.5 text-xs font-semibold text-white transition-colors shrink-0 shadow-md min-h-[44px]"
           >
             <span>Consult an Engineer</span>
             <ArrowRight className="h-4 w-4" />
