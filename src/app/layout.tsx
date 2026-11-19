@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import "./globals.css";
+import { SmoothScroll } from "@/components/motion/SmoothScroll";
+import { MOTION_BOOT_SCRIPT } from "@/components/motion/motion-env";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 
 const manrope = Manrope({
   subsets: ["latin"],
-  weight: ["300", "400", "600"],
+  weight: ["300", "400", "500", "600"],
   variable: "--font-manrope",
   display: "swap",
 });
@@ -15,7 +17,7 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   title: "Lith-On Bharat Energy | Industrial BESS & Lithium Battery Systems",
   description:
-    "Lith-On manufactures utility-scale and commercial BESS, solar-storage microgrids, and heavy-duty lithium battery packs with patented IceBattery® thermal management and sub-10ms UPS switchover.",
+    "Lith-On manufactures utility-scale and commercial BESS, solar-storage microgrids, and heavy-duty lithium battery packs with proprietary IceBattery® thermal management and sub-10ms UPS switchover.",
   keywords: [
     "BESS",
     "Battery Energy Storage System",
@@ -70,7 +72,7 @@ export default function RootLayout({
         ],
         address: {
           "@type": "PostalAddress",
-          streetAddress: "Sector 136",
+          streetAddress: "Arihant Business Centre, Sector 136",
           addressLocality: "Noida",
           addressRegion: "Uttar Pradesh",
           postalCode: "201304",
@@ -88,7 +90,7 @@ export default function RootLayout({
         email: "tech@lith-onbharat.com",
         address: {
           "@type": "PostalAddress",
-          streetAddress: "Sector 136",
+          streetAddress: "Arihant Business Centre, Sector 136",
           addressLocality: "Noida",
           addressRegion: "Uttar Pradesh",
           postalCode: "201304",
@@ -99,8 +101,11 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" data-scroll-behavior="smooth" className={`${manrope.variable} font-sans scroll-smooth overflow-x-hidden`}>
-      <body className="min-h-screen bg-canvas-offwhite text-gray-900 antialiased selection:bg-lithon-red selection:text-white flex flex-col justify-between overflow-x-hidden">
+    <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth" className={`${manrope.variable} font-sans scroll-smooth overflow-x-clip`}>
+      <body className="min-h-screen bg-canvas-offwhite text-gray-900 antialiased selection:bg-lithon-red-ink selection:text-white flex flex-col justify-between overflow-x-clip">
+        {/* Enables entrance motion before first paint unless reduced motion is preferred */}
+        <script dangerouslySetInnerHTML={{ __html: MOTION_BOOT_SCRIPT }} />
+        <SmoothScroll />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

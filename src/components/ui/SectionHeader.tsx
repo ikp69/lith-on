@@ -28,7 +28,7 @@ export function SectionHeader({
 
   return (
     <div
-      className={`mb-10 sm:mb-12 ${
+      className={`mb-12 sm:mb-16 ${
         isCenter ? "text-center max-w-3xl mx-auto" : "flex flex-col sm:flex-row sm:items-end justify-between gap-6 border-b border-gray-200/80 pb-6"
       } ${className}`}
     >
@@ -47,7 +47,7 @@ export function SectionHeader({
         </h2>
 
         {subtitle && (
-          <p className="mt-2.5 text-sm sm:text-base text-gray-600 font-normal leading-relaxed text-pretty">
+          <p className="mt-4 text-sm sm:text-base text-gray-600 font-normal leading-relaxed text-pretty">
             {subtitle}
           </p>
         )}
@@ -57,7 +57,7 @@ export function SectionHeader({
         <div className="shrink-0 pt-2 sm:pt-0">
           <Link
             href={action.href}
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-lithon-blue hover:text-lithon-red transition-colors group"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-lithon-blue hover:text-lithon-red-ink transition-colors group"
           >
             <span>{action.label}</span>
             <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />

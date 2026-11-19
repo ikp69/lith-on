@@ -95,9 +95,9 @@ export function ProductAssistantDrawer({
           setOpen(true);
           calculateRecommendation();
         }}
-        className="inline-flex items-center gap-2 rounded-full border border-blue-300 bg-blue-50/80 hover:bg-blue-100/80 px-4 py-2 text-xs font-semibold text-lithon-blue transition-all shadow-sm"
+        className="inline-flex min-h-11 items-center gap-2 text-small font-[500] text-lithon-blue underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lithon-blue"
       >
-        <Bot className="h-4 w-4 text-lithon-blue" />
+        <Bot className="h-4 w-4" aria-hidden="true" />
         <span>{triggerLabel}</span>
       </button>
 
@@ -126,7 +126,7 @@ export function ProductAssistantDrawer({
                 <Dialog.Close asChild>
                   <button
                     type="button"
-                    className="rounded-lg p-1.5 text-gray-400 hover:text-gray-900 hover:bg-gray-100"
+                    className="rounded-lg p-1.5 text-gray-600 hover:text-gray-900 hover:bg-gray-100"
                     aria-label="Close assistant"
                   >
                     <X className="h-5 w-5" />
@@ -137,7 +137,7 @@ export function ProductAssistantDrawer({
               {/* Sizing Form Controls */}
               <div className="mt-6 space-y-5">
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-gray-700 mb-2">
+                  <label className="block text-xs font-semibold text-gray-700 mb-2">
                     1. Select Facility Profile
                   </label>
                   <div className="grid grid-cols-2 gap-2 text-xs">
@@ -239,7 +239,7 @@ export function ProductAssistantDrawer({
                     </div>
 
                     <div className="flex items-center gap-2 text-xs text-emerald-800 pt-1">
-                      <Check className="h-4 w-4 text-emerald-600 shrink-0" />
+                      <Check className="h-4 w-4 text-emerald-700 shrink-0" />
                       <span>{result.switchover} • 100% CAQM GRAP Compliant</span>
                     </div>
                   </div>

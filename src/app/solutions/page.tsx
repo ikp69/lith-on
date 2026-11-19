@@ -1,265 +1,228 @@
+import { ChevronDown } from "lucide-react";
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
-import { 
-  Download, 
-  Check, 
-  Layers, 
-  Server,
-  FileSpreadsheet,
-  Cpu,
-  Zap,
-  Snowflake,
-  Clock,
-  ShieldCheck
-} from "lucide-react";
-import { PRODUCTS_DATA } from "@/data/products";
-import { ProductCard } from "@/components/products/ProductCard";
-import { SectionHeader } from "@/components/ui/SectionHeader";
-import { CallToAction } from "@/components/ui/CallToAction";
+import type { ReactNode } from "react";
+import { DieselVisual, OutageVisual, PeakVisual, SolarVisual } from "@/components/home/ChallengeVisuals";
+import { Button } from "@/components/system/Button";
+import { ClosingCTA } from "@/components/system/ClosingCTA";
+import { CompareSection } from "@/components/system/CompareTable";
+import { PageHero } from "@/components/system/PageHero";
+import { ScrollStory, type StoryChapter } from "@/components/system/ScrollStory";
+import { SectionIntro } from "@/components/system/SectionIntro";
+import { Stat } from "@/components/system/Stat";
+import { DG_VS_BESS } from "@/data/comparisons";
 
 export const metadata: Metadata = {
-  title: "BESS & Lithium Battery Solutions | Lith-On Product Catalog",
+  title: "Battery Storage Solutions for Facilities | Lith-On Bharat Energy",
   description:
-    "Explore Lith-On's comprehensive lineup of Battery Energy Storage Systems: Magna-C&I 260 kWh, Lith-On-50 48 kWh, LT215 Container 215 kWh, and Max-20HC 5.0 MWh utility storage.",
+    "Diesel replacement, peak demand shaving, backup power, solar shifting and microgrids: how Lith-On battery energy storage cuts energy cost and keeps power on, with documented project results.",
 };
 
-const COMPARISON_ROWS = [
-  { label: "Nominal Energy Capacity", magna: "260 kWh", lo50: "48 kWh (scalable)", lt215: "215 kWh", max20: "5,000 kWh (5.0 MWh)" },
-  { label: "Rated Output Power", magna: "125 kW", lo50: "48 kW", lt215: "110 kW", max20: "1,250 kW (1.25 MW)" },
-  { label: "Cell Chemistry", magna: "LiFePO4 (LFP)", lo50: "LiFePO4 (LFP)", lt215: "LiFePO4 (1P240S)", max20: "LiFePO4 (314Ah cells)" },
-  { label: "Depth of Discharge (DoD)", magna: "90%", lo50: "90%", lt215: "88%–90%", max20: "90%" },
-  { label: "Cycle Life (@ 88% DoD)", magna: ">6,000 Cycles", lo50: ">6,000 Cycles", lt215: ">6,000 Cycles", max20: ">6,500 Cycles" },
-  { label: "Round-Trip Efficiency", magna: ">95% to 98%", lo50: ">98%", lt215: ">95%", max20: ">95%" },
-  { label: "Thermal Management", magna: "IceBattery® + Liquid/Air", lo50: "IceBattery® + Forced Air", lt215: "IceBattery® + Liquid Loop", max20: "IceBattery® + Dual HVAC" },
-  { label: "Operating Ambient Temp", magna: "-10°C to +60°C", lo50: "-10°C to +55°C", lt215: "-20°C to +60°C", max20: "-25°C to +60°C" },
-  { label: "UPS Switchover Time", magna: "<10 ms", lo50: "<10 ms", lt215: "<10 ms", max20: "<20 ms" },
-  { label: "Enclosure Ingress Rating", magna: "IP55 Outdoor", lo50: "IP54 / IP20", lt215: "IP55 / IP67", max20: "ISO 20ft Container IP55" },
-  { label: "SCADA Protocols", magna: "Modbus, CAN, IEC 61850", lo50: "Modbus RTU, CAN", lt215: "Modbus TCP, IEC 61850", max20: "IEC 61850, IEC 60870-5-104" },
-  { label: "Standard Performance Warranty", magna: "10 Years", lo50: "10 Years", lt215: "10 Years", max20: "10 Years" },
+/**
+ * /solutions (audit §6.3). Image hero (SOL-01) → five solutions as a scroll
+ * story with live diagrams (SOL-02) → DG vs BESS comparison (catalogue) →
+ * DC systems split (SOL-03) → statement closing (SOL-05). SOL-04 removed.
+ * Figures from LITHON_DATA_VAULT.md §2–5 only; chapter ids keep the anchors
+ * used by navigation and the homepage.
+ */
+
+function Detail({ stat, points, caseLink }: { stat?: React.ComponentProps<typeof Stat>; points: ReactNode[]; caseLink?: { href: string; label: string } }) {
+  return (
+    <div className="border-t border-line pt-6">
+      {stat && <Stat {...stat} />}
+      <details className="group mt-5">
+        <summary className="inline-flex min-h-11 cursor-pointer list-none items-center gap-2 text-small font-[500] text-lithon-blue [&::-webkit-details-marker]:hidden">
+          How it works
+          <ChevronDown className="h-4 w-4 transition-transform group-open:rotate-180 motion-reduce:transition-none" aria-hidden="true" />
+        </summary>
+        <ul className="mt-3 space-y-2 border-l-2 border-line pl-4 text-small text-ink-2">
+          {points.map((p, i) => (
+            // biome-ignore lint/suspicious/noArrayIndexKey: static ordered list
+            <li key={i}>{p}</li>
+          ))}
+        </ul>
+      </details>
+      {caseLink && (
+        <div className="mt-4">
+          <Button href={caseLink.href} variant="tertiary">
+            {caseLink.label}
+          </Button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+const CHAPTERS: StoryChapter[] = [
+  {
+    id: "dg-reduction",
+    title: "Diesel replacement",
+    body: "Diesel backup is expensive to run and restricted under CAQM GRAP in Delhi-NCR. Storage charges from the grid or solar and takes over silently when the grid fails.",
+    visual: <DieselVisual />,
+    aside: (
+      <Detail
+        stat={{ value: 73, unit: "%", label: "Lower annual energy cost", note: "500-flat society in Gurugram: ₹6.52 Cr to ₹1.76 Cr a year" }}
+        points={[
+          "Takes over in under 10 milliseconds when the grid fails, so lifts and pumps keep running.",
+          "Compliant with CAQM GRAP Stages I–IV, which restrict diesel generators in Delhi-NCR during air-quality emergencies.",
+          "The energy management system runs a diesel-minimisation mode where a generator is kept for long outages.",
+        ]}
+        caseLink={{ href: "/case-studies/residential-society-500", label: "Gurugram case study" }}
+      />
+    ),
+  },
+  {
+    id: "peak-shaving",
+    title: "Peak demand shaving",
+    body: "A few short spikes set the maximum demand charge for the month. The battery discharges through each spike, so grid draw stays under the contracted limit.",
+    visual: <PeakVisual />,
+    aside: (
+      <Detail
+        stat={{ value: 100, unit: "%", label: "Of demand charges removed", note: "Highway EV fast-charging hub, storage-only model" }}
+        points={[
+          "At the EV hub, maximum demand charges made up 40–60% of the electricity bill.",
+          "Storage only: ₹12.91 lakh saved a year, with payback in about four years.",
+          "With 75 kWp of solar added: ₹20.26 lakh a year and a 3.9-year payback.",
+        ]}
+        caseLink={{ href: "/case-studies/ev-charging-hub", label: "EV hub case study" }}
+      />
+    ),
+  },
+  {
+    id: "backup-power",
+    title: "Backup power",
+    body: "The system switches from grid to battery in under 10 milliseconds. Lifts keep moving, servers keep running, and nothing needs restarting.",
+    visual: <OutageVisual />,
+    aside: (
+      <Detail
+        stat={{ value: 10, prefix: "<", unit: "ms", label: "Grid-to-battery cutover", note: "A diesel generator leaves 10–30 seconds without power" }}
+        points={[
+          "Wi-Fi routers do not reboot and IT servers run through the outage without a separate double-conversion UPS.",
+          "A dedicated critical-backup mode in the energy management system reserves charge for outages.",
+          "Used for station power at fuel retail sites in Lucknow, Ghaziabad and Patna.",
+        ]}
+      />
+    ),
+  },
+  {
+    id: "solar-shifting",
+    title: "Solar shifting",
+    body: "Midday surplus is stored instead of exported cheaply, then released in the evening when tariffs are highest.",
+    visual: <SolarVisual />,
+    aside: (
+      <Detail
+        stat={{ value: 2.26, decimals: 2, prefix: "₹", unit: "Cr a year", label: "Saved at Invertis University", note: "1 MWh of storage with 900 kWp of rooftop solar" }}
+        points={[
+          "Annual energy cost fell from ₹4.14 Cr with diesel generators to ₹1.88 Cr with storage and solar.",
+          "Round-trip efficiency above 95%, so little of the stored solar is lost.",
+          "A solar self-consumption mode in the energy management system schedules charge and discharge automatically.",
+        ]}
+        caseLink={{ href: "/case-studies/invertis-university", label: "Invertis case study" }}
+      />
+    ),
+  },
+  {
+    id: "microgrids",
+    title: "Microgrids",
+    body: "For remote and off-grid sites, storage with solar cuts the diesel that has to be trucked in and keeps power steady when there is no grid at all.",
+    image: { src: "/images/installations/catalogue/indian-army-jk.webp", alt: "Two Lith-On outdoor storage cabinets installed for the Indian Army in Jammu and Kashmir" },
+    aside: (
+      <Detail
+        points={[
+          "Installed for the Indian Army at forward operational bases in Srinagar and Jammu & Kashmir.",
+          "The IceBattery® thermal shield allows full-power operation at ambient temperatures up to 60 °C.",
+          "In-house battery management, power conversion and control software, monitored remotely over cloud SCADA.",
+        ]}
+      />
+    ),
+  },
 ];
 
 export default function SolutionsPage() {
   return (
-    <div className="space-y-16 sm:space-y-24 pb-20 bg-white">
-      {/* 1. Header Banner */}
-      <section className="border-b border-gray-200 bg-canvas-offwhite px-4 sm:px-6 pt-16 sm:pt-20 pb-20 sm:pb-24">
-        <div className="mx-auto max-w-7xl">
-          <div className="flex items-center gap-2 text-xs font-medium text-lithon-blue mb-3">
-            <Link href="/" className="hover:text-gray-900 transition-colors">Home</Link>
-            <span className="text-gray-400">/</span>
-            <span>Product Catalog</span>
-          </div>
+    <div className="bg-canvas">
+      {/* SOL-01 Hero */}
+      <PageHero
+        variant="image"
+        breadcrumb={[{ label: "Home", href: "/" }, { label: "Solutions" }]}
+        title={["What storage does", "for your site"]}
+        lead="Five ways a Lith-On system cuts energy cost and keeps the power on."
+        primary={{ label: "Request sizing", href: "/contact?type=assessment" }}
+        secondary={{ label: "Compare with diesel", href: "#dg-vs-bess" }}
+        image={{ src: "/images/scenes/solutions-industrial.webp", alt: "Battery storage cabinets under a canopy at an industrial site", illustrative: true }}
+      />
 
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-light text-gray-900 tracking-tight leading-tight">
-            Advanced Energy Storage &amp; <br className="hidden sm:block" />
-            <span className="font-semibold text-lithon-blue">
-              Lithium Battery Solutions
-            </span>
-          </h1>
-
-          <p className="mt-5 text-base sm:text-lg text-gray-600 max-w-3xl leading-relaxed font-normal">
-            Lith-On manufactures and integrates energy storage systems across four dedicated tiers—from 
-            compact 48 kWh commercial cabinets to 5.0 MWh containerized utility infrastructure. 
-            All systems utilize Tier-1 Lithium Iron Phosphate (LiFePO4) chemistry, patented 
-            <strong className="text-gray-900 font-semibold"> IceBattery® thermal management</strong>, and our integrated in-house BMS/PCS/EMS stack.
-          </p>
-
-          {/* Catalog Dimension Badges */}
-          <div className="mt-7 flex flex-wrap items-center gap-3 text-xs">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-white border border-gray-300 px-3.5 py-1.5 font-medium text-gray-700 shadow-sm">
-              <Zap className="h-3.5 w-3.5 text-amber-500" />
-              <span>48 kWh to 5.0 MWh Range</span>
-            </span>
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-white border border-gray-300 px-3.5 py-1.5 font-medium text-gray-700 shadow-sm">
-              <Snowflake className="h-3.5 w-3.5 text-cyan-600" />
-              <span>IceBattery® 60°C Resilience</span>
-            </span>
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-white border border-gray-300 px-3.5 py-1.5 font-medium text-gray-700 shadow-sm">
-              <Clock className="h-3.5 w-3.5 text-blue-600" />
-              <span>Sub-10ms Instant Cutover</span>
-            </span>
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-white border border-gray-300 px-3.5 py-1.5 font-medium text-gray-700 shadow-sm">
-              <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
-              <span>Trifecta Certified (IEC / BIS)</span>
-            </span>
-          </div>
-        </div>
-      </section>
-
-      {/* 2. Hardware Product Grid */}
-      <section className="px-4 sm:px-6">
-        <div className="mx-auto max-w-7xl">
-          <SectionHeader
-            eyebrow="BESS Enclosure Families"
-            eyebrowIcon={Cpu}
-            title={
-              <>
-                Standardized <span className="font-semibold text-lithon-blue">System Hardware</span>
-              </>
-            }
-            subtitle="Pre-tested, skid-mounted, and turnkey factory integrated at our Noida Sector 136 plant."
+      {/* SOL-02 Five solutions */}
+      <section aria-labelledby="solutions-title" className="section">
+        <div className="container-site">
+          <SectionIntro
+            title={<span id="solutions-title">Five solutions</span>}
+            lead="Each one shows the problem, how storage answers it, and a result from a documented project where there is one."
+            split
           />
-
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-            {PRODUCTS_DATA.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
+          <ScrollStory chapters={CHAPTERS} mediaAspect="5/4" />
         </div>
       </section>
 
-      {/* 3. Comprehensive Technical Specifications Matrix */}
-      <section className="px-4 sm:px-6">
-        <div className="mx-auto max-w-7xl rounded-2xl border border-gray-200 bg-white p-6 sm:p-10 shadow-sm">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-200/80 pb-6 mb-8">
-            <div>
-              <div className="flex items-center gap-2 text-xs font-medium text-lithon-blue mb-1.5">
-                <FileSpreadsheet className="h-4 w-4" />
-                <span>Audited Technical Datasheet</span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight">
-                Side-by-Side Specifications Matrix
-              </h2>
-              <p className="text-xs sm:text-sm text-gray-500 mt-1">
-                Direct comparative parameters for facility directors and solar EPC electrical engineers.
-              </p>
+      {/* DG vs BESS comparison (catalogue) */}
+      <div className="pb-20 lg:pb-32">
+        <CompareSection data={DG_VS_BESS} />
+      </div>
+
+      {/* SOL-03 DC systems */}
+      <section aria-labelledby="dc-title" className="section bg-canvas-warm">
+        <div className="container-site grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-6">
+          <div className="lg:col-span-5">
+            <div className="relative isolate flex aspect-[4/5] items-center justify-center overflow-hidden rounded-media bg-surface">
+              <Image
+                src="/images/products/catalogue/magna-utl.webp"
+                alt="Magna-UTL DC outdoor battery cabinet"
+                width={708}
+                height={1113}
+                sizes="(min-width: 1024px) 40vw, 90vw"
+                className="h-[80%] w-auto object-contain drop-shadow-[0_18px_18px_rgb(15_23_42/0.12)]"
+              />
             </div>
-            <Link
-              href="/resources"
-              className="btn-secondary"
-            >
-              <Download className="h-4 w-4" />
-              <span>Download E-Catalogue</span>
-            </Link>
           </div>
-
-          <div className="overflow-x-auto rounded-xl border border-gray-200">
-            <table className="w-full text-left text-xs sm:text-sm border-collapse min-w-[700px]">
-              <thead>
-                <tr className="border-b border-gray-200 bg-canvas-offwhite text-gray-800">
-                  <th scope="col" className="p-4 font-bold text-xs">Technical Parameter</th>
-                  <th scope="col" className="p-4 font-bold text-lithon-blue text-xs">Magna-C&amp;I (260 kWh)</th>
-                  <th scope="col" className="p-4 font-bold text-gray-700 text-xs">Lith-On-50 (48 kWh)</th>
-                  <th scope="col" className="p-4 font-bold text-gray-700 text-xs">LT215 (215 kWh)</th>
-                  <th scope="col" className="p-4 font-bold text-lithon-red text-xs">Max-20HC (5.0 MWh)</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100 font-mono text-xs sm:text-sm">
-                {COMPARISON_ROWS.map((row, idx) => (
-                  <tr 
-                    key={row.label} 
-                    className={`transition-colors hover:bg-blue-50/40 ${idx % 2 === 0 ? "bg-white" : "bg-canvas-offwhite/60"}`}
-                  >
-                    <td className="p-4 font-sans font-medium text-gray-900">{row.label}</td>
-                    <td className="p-4 text-lithon-blue font-bold">{row.magna}</td>
-                    <td className="p-4 text-gray-700">{row.lo50}</td>
-                    <td className="p-4 text-gray-700">{row.lt215}</td>
-                    <td className="p-4 text-lithon-red font-bold">{row.max20}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. Standalone Battery Modules & Telecom Power */}
-      <section className="px-4 sm:px-6">
-        <div className="mx-auto max-w-7xl">
-          <SectionHeader
-            eyebrow="Modular DC Subsystems"
-            eyebrowIcon={Layers}
-            title={
-              <>
-                Lithium Battery Modules &amp; <span className="font-semibold text-lithon-blue">Telecom Power</span>
-              </>
-            }
-            subtitle="Engineered for telecommunications tower sites, distributed data nodes, and custom commercial microgrids."
-          />
-
-          <div className="grid gap-6 md:grid-cols-2">
-            <div className="rounded-2xl border border-gray-200 bg-white p-7 sm:p-8 shadow-sm flex flex-col justify-between">
+          <div className="lg:col-span-6 lg:col-start-7">
+            <h2 id="dc-title" className="text-heading-1 text-ink">
+              DC systems for telecom and large sites
+            </h2>
+            <p className="mt-4 text-lead text-ink-2">For sites that already have their own inverters or power conversion.</p>
+            <div className="mt-10 grid gap-8 border-t border-line pt-8 sm:grid-cols-2 sm:gap-6">
               <div>
-                <div className="flex items-center gap-3">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-lithon-blue/10 text-lithon-blue">
-                    <Server className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-gray-900">48V / 51.2V Telecom Lithium Modules</h3>
-                    <span className="text-xs text-gray-500 font-mono">100Ah &amp; 200Ah Standard 19-inch Rack</span>
-                  </div>
-                </div>
-                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed mt-4 font-normal">
-                  Direct drop-in replacement for degraded lead-acid and VRLA battery banks at telecom tower sites. 
-                  Offers 3x higher usable energy density, 5x longer cycle life, and integrated BMS communications with standard DC rectifiers.
+                <h3 className="text-heading-3 text-ink">Telecom</h3>
+                <p className="mt-2 text-small text-ink-2">
+                  480 V lithium battery systems for tower sites, rated in the catalogue for over 3,000 cycles at 80% depth of discharge, and the Tele-Rack 100 rack module.
                 </p>
-                <ul className="mt-5 space-y-2.5 text-xs sm:text-sm text-gray-700">
-                  <li className="flex items-center gap-2">
-                    <Check className="h-4 w-4 text-emerald-600 shrink-0" />
-                    <span>Fits standard 19-inch / 23-inch telecom cabinets</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check className="h-4 w-4 text-emerald-600 shrink-0" />
-                    <span>Built-in cell balancing, over-voltage, and short-circuit protection</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check className="h-4 w-4 text-emerald-600 shrink-0" />
-                    <span>RS485 / CAN telemetry for remote NOC monitoring</span>
-                  </li>
-                </ul>
+                <Link href="/products/tele-rack-100" className="mt-3 inline-flex min-h-11 items-center text-small font-[500] text-lithon-blue hover:underline">
+                  Tele-Rack 100
+                </Link>
               </div>
-            </div>
-
-            <div className="rounded-2xl border border-gray-200 bg-white p-7 sm:p-8 shadow-sm flex flex-col justify-between">
               <div>
-                <div className="flex items-center gap-3">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-red-50 text-lithon-red">
-                    <Layers className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-gray-900">High-Voltage Battery Rack Systems</h3>
-                    <span className="text-xs text-gray-500 font-mono">200V DC up to 1000V DC Scalable Strings</span>
-                  </div>
-                </div>
-                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed mt-4 font-normal">
-                  Custom DC energy storage racks designed to integrate directly with third-party commercial solar inverters, 
-                  hybrid PCS units, and heavy industrial microgrids requiring high-voltage DC bus architectures.
-                </p>
-                <ul className="mt-5 space-y-2.5 text-xs sm:text-sm text-gray-700">
-                  <li className="flex items-center gap-2">
-                    <Check className="h-4 w-4 text-emerald-600 shrink-0" />
-                    <span>Master-Slave BMS architecture with high-voltage DC contactors</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check className="h-4 w-4 text-emerald-600 shrink-0" />
-                    <span>Integrated fuse protection and pyro-switch emergency disconnect</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check className="h-4 w-4 text-emerald-600 shrink-0" />
-                    <span>Supports multi-rack parallel scalability for multi-megawatt configurations</span>
-                  </li>
-                </ul>
+                <h3 className="text-heading-3 text-ink">DC outdoor cabinets</h3>
+                <p className="mt-2 text-small text-ink-2">Magna-UTL cabinets store 373 or 418 kWh at 900–1500 V DC and connect in series with a power conversion system.</p>
+                <Link href="/products/magna-utl-418" className="mt-3 inline-flex min-h-11 items-center text-small font-[500] text-lithon-blue hover:underline">
+                  Magna-UTL
+                </Link>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 5. Bottom Conversion CTA */}
-      <CallToAction
-        eyebrow="Custom Electrical Sizing & SLD"
-        title="Need a Site-Specific Engineering Proposal?"
-        description="Provide your facility load profile, transformer rating, and daily generator operating hours. Our Noida engineering team delivers an engineering-grade BESS sizing analysis and Single Line Diagram (SLD) within 24 hours."
-        primaryAction={{
-          label: "Request Custom Proposal",
-          href: "/contact",
-        }}
-        secondaryAction={{
-          label: "+91-7000013009",
-          href: "tel:+917000013009",
-          isPhone: true,
-        }}
-        variant="contrast"
+      {/* SOL-05 Closing */}
+      <ClosingCTA
+        variant="statement"
+        title={["Find the right", "solution for your site"]}
+        lead="Share your diesel run hours or maximum demand. Our engineers will recommend a system and estimate the payback."
+        primary={{ label: "Request sizing", href: "/contact?type=assessment" }}
+        links={[
+          { label: "Browse products", href: "/products", description: "From 10 kWh modules to 10 MWh containers" },
+          { label: "See case studies", href: "/case-studies", description: "Documented results from installed systems" },
+          { label: "Call +91 70000 13009", href: "tel:+917000013009", description: "Sector 136, Noida" },
+        ]}
       />
     </div>
   );

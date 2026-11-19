@@ -39,7 +39,7 @@ export function Sub10msWaveform() {
             onClick={() => setSelectedSystem("dg")}
             className={`min-h-[44px] flex items-center justify-center sm:justify-start gap-1.5 rounded-lg px-3.5 py-2 text-xs font-semibold whitespace-nowrap transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lithon-red ${
               selectedSystem === "dg"
-                 ? "bg-lithon-red text-white shadow-sm"
+                 ? "bg-lithon-red-ink text-white shadow-sm"
                  : "text-gray-600 hover:text-gray-900"
             }`}
           >
@@ -52,17 +52,17 @@ export function Sub10msWaveform() {
       {/* Oscilloscope Screen */}
       <div className="mt-6 rounded-xl border border-gray-900 bg-[#090D16] p-5 relative overflow-hidden shadow-inner">
         {/* Telemetry Header */}
-        <div className="relative z-10 flex items-center justify-between text-xs font-mono text-slate-400 border-b border-white/10 pb-3">
+        <div className="relative z-10 flex flex-wrap items-center justify-between gap-x-4 gap-y-1 text-xs font-mono text-slate-400 border-b border-white/10 pb-3">
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1.5 text-emerald-400 font-medium">
               <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-              CH1: 415V 50Hz 3-PHASE
+              CH1: 415V 50Hz 3-phase
             </span>
-            <span className="hidden sm:inline text-slate-300">TIMEBASE: 2ms/DIV</span>
+            <span className="hidden sm:inline text-slate-300">Timebase: 2ms/div</span>
           </div>
-          <div className="text-right">
-            <span className="text-slate-300">GRID LOSS TRIGGER: </span>
-            <span className="text-[#F74530] font-bold">t = 0.00ms</span>
+          <div className="sm:text-right">
+            <span className="text-slate-300">Grid loss trigger: </span>
+            <span className="text-lithon-red font-bold">t = 0.00ms</span>
           </div>
         </div>
 
@@ -76,7 +76,7 @@ export function Sub10msWaveform() {
 
             {/* Grid Loss Threshold Line */}
             <line x1="220" y1="0" x2="220" y2="160" stroke="#F74530" strokeWidth="1.5" strokeDasharray="4 2" />
-            <text x="225" y="20" fill="#F74530" fontSize="10" fontFamily="monospace" fontWeight="bold">GRID TRIP DETECTED</text>
+            <text x="225" y="20" fill="#F74530" fontSize="10" fontFamily="monospace" fontWeight="bold">Grid trip detected</text>
 
             {/* Section 1: Normal Grid Sine Wave (0 to 220) */}
             <path
@@ -108,7 +108,7 @@ export function Sub10msWaveform() {
                 {/* Annotation marker */}
                 <rect x="230" y="115" width="140" height="26" rx="4" fill="#0B3388" fillOpacity="0.95" />
                 <text x="300" y="132" textAnchor="middle" fill="#FFFFFF" fontSize="10" fontFamily="monospace" fontWeight="bold">
-                  BESS CUTOVER: 8.2ms
+                  BESS cutover: 8.2ms
                 </text>
               </>
             ) : (
@@ -129,7 +129,7 @@ export function Sub10msWaveform() {
                 {/* Annotation marker */}
                 <rect x="250" y="45" width="220" height="26" rx="4" fill="#F74530" fillOpacity="0.95" />
                 <text x="360" y="62" textAnchor="middle" fill="#FFFFFF" fontSize="10" fontFamily="monospace" fontWeight="bold">
-                  BLACKOUT DELAY: 10–30 SECONDS
+                  Blackout delay: 10–30 seconds
                 </text>
               </>
             )}
@@ -138,21 +138,21 @@ export function Sub10msWaveform() {
 
         {/* Real-world Impact Grid */}
         <div className="relative z-10 grid grid-cols-1 sm:grid-cols-3 gap-3 border-t border-white/10 pt-4 text-xs font-mono">
-          <div className="rounded-lg bg-slate-900/90 p-3 border border-white/5">
+          <div className="border-t border-white/10 pt-3">
             <span className="text-slate-400 block text-xs font-sans font-medium">Elevator &amp; Lifts</span>
             <span className={selectedSystem === "bess" ? "text-emerald-400 font-bold block mt-1" : "text-lithon-red font-bold block mt-1"}>
               {selectedSystem === "bess" ? "0 Trips / Smooth Operation" : "42 Lifts Halted Between Floors"}
             </span>
           </div>
 
-          <div className="rounded-lg bg-slate-900/90 p-3 border border-white/5">
+          <div className="border-t border-white/10 pt-3">
             <span className="text-slate-400 block text-xs font-sans font-medium">IT &amp; Data Server Racks</span>
             <span className={selectedSystem === "bess" ? "text-emerald-400 font-bold block mt-1" : "text-lithon-red font-bold block mt-1"}>
               {selectedSystem === "bess" ? "Zero Reboot / Zero Packet Loss" : "Cold Reboot &amp; Data Corruption"}
             </span>
           </div>
 
-          <div className="rounded-lg bg-slate-900/90 p-3 border border-white/5">
+          <div className="border-t border-white/10 pt-3">
             <span className="text-slate-400 block text-xs font-sans font-medium">Water Pump &amp; Fire Systems</span>
             <span className={selectedSystem === "bess" ? "text-emerald-400 font-bold block mt-1" : "text-lithon-red font-bold block mt-1"}>
               {selectedSystem === "bess" ? "Continuous Pressure Maintained" : "Pressure Loss / Water Hammer"}

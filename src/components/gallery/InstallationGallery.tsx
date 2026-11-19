@@ -39,7 +39,7 @@ const GALLERY_ITEMS: GalleryItem[] = [
     title: "C&I Campus BESS Bank",
     location: "Industrial Campus",
     capacity: "Multi-MW Turnkey Containers",
-    image: "/images/installations/commercial-campus-bess.jpg",
+    image: "/images/installations/commercial-campus-bess-photo.jpg",
     description: "Containerized BESS skids for continuous ToD peak demand arbitrage."
   },
   {
@@ -66,7 +66,7 @@ const GALLERY_ITEMS: GalleryItem[] = [
     title: "Cleanroom Battery Pack & Harness Assembly",
     location: "Noida 20,000 sq. ft. Facility — Bay 1",
     capacity: "250 MWh Annual Pack Throughput",
-    image: "/images/factory/battery-pack-assembly.jpg",
+    image: "/images/factory/battery-pack-assembly-photo.jpg",
     description: "Skilled technicians assembling high-reliability LFP cell packs with laser-welded busbars and automotive-grade BMS wire looms."
   },
   {
@@ -75,7 +75,7 @@ const GALLERY_ITEMS: GalleryItem[] = [
     title: "Integrated Outdoor Cabinet Assembly Bay",
     location: "Noida Integrated Manufacturing Line",
     capacity: "IP55 / NEMA 3R Outdoor Rated",
-    image: "/images/factory/integrated-bess-assembly.jpg",
+    image: "/images/factory/integrated-bess-assembly-photo.jpg",
     description: "Heavy mechanical assembly integrating rack structural steel, aerosol fire suppression manifolds, and IceBattery® exterior coating."
   },
   {
@@ -84,7 +84,7 @@ const GALLERY_ITEMS: GalleryItem[] = [
     title: "High-Voltage Telemetry & QA Rig",
     location: "Noida Conformance Testing Lab",
     capacity: "IEC 61508 SIL-2 & BIS Verification",
-    image: "/images/factory/testing-quality-assurance.jpg",
+    image: "/images/factory/testing-quality-assurance-photo.jpg",
     description: "Full active load cycling, insulation dielectric breakdown testing, and sub-10ms automatic transfer switch certification."
   },
   {
@@ -119,7 +119,7 @@ export function InstallationGallery() {
   return (
     <section className="py-16 sm:py-24 bg-white border-t border-gray-200" id="photo-gallery">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-12">
+        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
           <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50/80 px-3.5 py-1 text-xs font-medium text-lithon-blue">
             <Camera className="h-3.5 w-3.5 text-lithon-blue" />
             <span>Visual Evidence of Work</span>
@@ -153,11 +153,11 @@ export function InstallationGallery() {
         </div>
 
         {/* Gallery Grid */}
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="-mx-4 px-4 flex gap-4 overflow-x-auto snap-x snap-mandatory pb-2 sm:mx-0 sm:px-0 sm:pb-0 sm:grid sm:gap-6 sm:grid-cols-2 lg:grid-cols-3 sm:overflow-visible">
           {filteredItems.map((item) => (
             <div
               key={item.id}
-              className="rounded-3xl border border-gray-200 bg-canvas-offwhite overflow-hidden shadow-sm hover:shadow-lg hover:border-blue-200 transition-all flex flex-col justify-between"
+              className="w-[85%] shrink-0 snap-start sm:w-auto rounded-3xl border border-gray-200 bg-canvas-offwhite overflow-hidden shadow-sm hover:shadow-lg hover:border-blue-200 transition-all flex flex-col justify-between"
             >
               <div className="relative aspect-[16/10] w-full bg-slate-900">
                 <Image

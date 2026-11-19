@@ -27,7 +27,7 @@ const FACTORY_SLIDES: FactorySlide[] = [
     tag: "Robotic & Hand-Crafted QA",
     facility: "Noida 20,000 sq. ft. Plant — Bay 1",
     description: "Precision cell alignment and copper busbar wiring ensuring ultra-low contact resistance (<15 µΩ) across cell interconnections.",
-    image: "/images/factory/battery-pack-assembly.jpg",
+    image: "/images/factory/battery-pack-assembly-photo.jpg",
     stats: "250 MWh Annual Capacity"
   },
   {
@@ -36,7 +36,7 @@ const FACTORY_SLIDES: FactorySlide[] = [
     tag: "Thermal Physics & Enclosure",
     facility: "Noida Integrated Assembly Bay",
     description: "Application of proprietary 300–400µm inorganic ceramic coating (>0.92 emissivity), reducing internal cabinet temperatures by 15°C–30°C in 60°C peak ambient heat.",
-    image: "/images/factory/integrated-bess-assembly.jpg",
+    image: "/images/factory/integrated-bess-assembly-photo.jpg",
     stats: "15°C–30°C Thermal Drop"
   },
   {
@@ -45,7 +45,7 @@ const FACTORY_SLIDES: FactorySlide[] = [
     tag: "Active Conformance Bench",
     facility: "Noida QA & Conformance Lab",
     description: "3,000V DC insulation withstand tests, cell-level telemetry calibration, and multi-tier BMS ground fault trip verification before packaging into turnkey BESS skids.",
-    image: "/images/factory/testing-quality-assurance.jpg",
+    image: "/images/factory/testing-quality-assurance-photo.jpg",
     stats: "IEC 61508 SIL-2 / BIS"
   },
   {
@@ -54,7 +54,7 @@ const FACTORY_SLIDES: FactorySlide[] = [
     tag: "Turnkey Skid Integration",
     facility: "Noida Facility Commissioning Bay",
     description: "Full turnkey integration of battery racks, bi-directional PCS inverters, aerosol fire suppression, and sub-10ms automatic transfer switches for rapid plug-and-play hookup.",
-    image: "/images/factory/noida-facility-bench.jpg",
+    image: "/images/factory/noida-facility-bench-photo.jpg",
     stats: "500+ MWh Deployed"
   }
 ];
@@ -180,7 +180,7 @@ export function FactoryVideoReel() {
                 <div className="flex items-center justify-between pt-2">
                   <Link
                     href="/capabilities"
-                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-lithon-blue hover:text-lithon-red transition-colors"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-lithon-blue hover:text-lithon-red-ink transition-colors"
                   >
                     <span>Tour Noida Facility</span>
                     <ExternalLink className="h-3.5 w-3.5" />

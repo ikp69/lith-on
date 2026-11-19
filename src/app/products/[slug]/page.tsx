@@ -1,412 +1,354 @@
+import { ArrowRight, ChevronDown } from "lucide-react";
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { PRODUCTS_DATA } from "@/data/products";
-import { InteractiveBessCutaway } from "@/components/technology/InteractiveBessCutaway";
-import { 
-  ArrowRight, 
-  Download, 
-  Check, 
-  Clock, 
-  FileText,
-  Phone,
-  MessageSquare
-} from "lucide-react";
+import { notFound } from "next/navigation";
+import { LineReveal } from "@/components/motion/LineReveal";
+import { Reveal } from "@/components/motion/Reveal";
 import { ProductAssistantDrawer } from "@/components/products/ProductAssistantDrawer";
+import { ProductCard } from "@/components/products/ProductCard";
+import { ProductJsonLd } from "@/components/seo/ProductJsonLd";
+import { Button } from "@/components/system/Button";
+import { HorizontalRail, RailItem } from "@/components/system/HorizontalRail";
+import { SectionIntro } from "@/components/system/SectionIntro";
+import { PRODUCTS_DATA, type ProductDetail } from "@/data/products";
 
 interface Props {
   params: Promise<{ slug: string }>;
 }
 
-export async function generateStaticParams() {
-  return PRODUCTS_DATA.map((product) => ({
-    slug: product.slug,
-  }));
+/** Values that mean "not published": rows with these are hidden from the datasheet. */
+const UNPUBLISHED = ["Contact us for details", "—", ""];
+const known = (v: string) => !UNPUBLISHED.includes(v.trim());
+
+function splitCapacity(capacity: string) {
+  const at = capacity.indexOf(" @ ");
+  if (at !== -1) {
+    return { main: capacity.slice(0, at), note: `Rated at ${capacity.slice(at + 3)}` };
+  }
+  const i = capacity.indexOf(" (");
+  return i === -1 ? { main: capacity, note: "" } : { main: capacity.slice(0, i), note: capacity.slice(i + 2, -1) };
+}
+
+export function generateStaticParams() {
+  return PRODUCTS_DATA.map((product) => ({ slug: product.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const product = PRODUCTS_DATA.find((p) => p.slug === slug);
-  if (!product) return {};
-
+  if (!product) {
+    return {};
+  }
   return {
-    title: `${product.name} | Technical Specifications & Datasheet | Lith-On`,
-    description: `${product.tagline}. Storage capacity: ${product.capacity}, Rated Power: ${product.powerRating}, LiFePO4 chemistry with sub-10ms switchover.`,
+    title: `${product.name}: Specifications and Datasheet | Lith-On`,
+    description: `${product.tagline}. Capacity ${product.capacity}, power ${product.powerRating}. Assembled and tested by Lith-On in Noida.`,
   };
+}
+
+function SpecGroups(product: ProductDetail) {
+  return [
+    {
+      title: "Electrical",
+      rows: [
+        ["Capacity", product.capacity],
+        ["Power", product.powerRating],
+        ["AC voltage", product.acVoltage],
+        ["DC voltage / configuration", product.dcVoltage],
+        ["Efficiency", product.efficiency],
+        ["Grid-to-battery cutover", product.switchoverTime],
+      ],
+    },
+    {
+      title: "Battery",
+      rows: [
+        ["Chemistry", product.chemistry],
+        ["Cycle life", product.cycleLife],
+        ["Scalability", product.scalability],
+      ],
+    },
+    {
+      title: "Thermal",
+      rows: [
+        ["Cooling", product.coolingMethod],
+        ["Thermal protection", product.thermalTech],
+        ["Operating temperature", product.operatingTemp],
+      ],
+    },
+    {
+      title: "Mechanical",
+      rows: [
+        ["Enclosure", product.enclosureRating],
+        ["Format", product.formFactor],
+        ["Dimensions", product.dimensions],
+        ["Weight", product.weight],
+      ],
+    },
+    {
+      title: "Standards and warranty",
+      rows: [
+        ["Standards", product.certifications.join(" · ")],
+        ["Warranty", product.warranty],
+      ],
+    },
+  ]
+    .map((g) => ({ ...g, rows: g.rows.filter(([, v]) => known(v)) }))
+    .filter((g) => g.rows.length > 0);
 }
 
 export default async function ProductDetailPage({ params }: Props) {
   const { slug } = await params;
   const product = PRODUCTS_DATA.find((p) => p.slug === slug);
-
   if (!product) {
     notFound();
   }
 
+  const { main, note } = splitCapacity(product.capacity);
+  const groups = SpecGroups(product);
+  const hiddenRows = [product.acVoltage, product.efficiency, product.switchoverTime, product.cycleLife, product.thermalTech].some((v) => !known(v));
+  const datasheet = product.documents.find((d) => d.type === "datasheet");
+  const quoteHref = `/contact?type=assessment&product=${product.slug}`;
+  const related = [...PRODUCTS_DATA.filter((p) => p.id !== product.id && p.category === product.category), ...PRODUCTS_DATA.filter((p) => p.id !== product.id && p.category !== product.category)].slice(0, 6);
+
   return (
-    <div className="bg-white">
-      {/* Breadcrumb Navigation */}
-      <div className="border-b border-gray-100 bg-[#FAFAF8] py-4">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <nav className="flex items-center gap-2 text-xs text-gray-500" aria-label="Breadcrumb">
-            <Link href="/" className="hover:text-[#0B3388] transition-colors">Home</Link>
-            <span>/</span>
-            <Link href="/products" className="hover:text-[#0B3388] transition-colors">Products</Link>
-            <span>/</span>
-            <span className="font-semibold text-gray-900">{product.name}</span>
-          </nav>
-        </div>
-      </div>
+    <div className="bg-canvas">
+      <ProductJsonLd product={product} />
 
-      {/* Hero Section */}
-      <section className="relative border-b border-gray-200 py-12 sm:py-20 bg-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-12 lg:grid-cols-12 items-start">
-            {/* Left Column: Product Information */}
-            <div className="lg:col-span-7 space-y-6">
-              <div className="flex flex-wrap items-center gap-2.5">
-                <span className="rounded-full bg-blue-50 border border-blue-200 px-3.5 py-1 text-xs font-bold text-[#0B3388]">
-                  {product.category} Energy Storage
-                </span>
-                <span className="font-mono text-xs font-semibold text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
-                  Model: {product.modelCode}
-                </span>
-                <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 border border-emerald-200 px-3 py-1 text-xs font-semibold text-emerald-700">
-                  <Clock className="h-3.5 w-3.5" />
-                  {product.switchoverTime}
-                </span>
-              </div>
-
-              <h1 className="text-3xl sm:text-5xl font-light tracking-tight text-gray-900">
-                {product.name}
-              </h1>
-
-              <p className="text-base sm:text-lg text-gray-600 font-normal leading-relaxed">
-                {product.tagline}
-              </p>
-
-              {/* Quick Metrics Grid */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 rounded-2xl bg-[#FAFAF8] p-5 border border-gray-200 font-mono text-xs">
-                <div>
-                  <span className="text-[10px] text-gray-500 uppercase tracking-wider block">Storage Capacity</span>
-                  <span className="text-xl font-bold text-[#0B3388] mt-1 block">{product.capacity}</span>
-                </div>
-                <div>
-                  <span className="text-[10px] text-gray-500 uppercase tracking-wider block">Rated Power</span>
-                  <span className="text-xl font-bold text-gray-900 mt-1 block">{product.powerRating}</span>
-                </div>
-                <div>
-                  <span className="text-[10px] text-gray-500 uppercase tracking-wider block">Chemistry</span>
-                  <span className="text-xs font-bold text-gray-800 mt-1 block">Tier-1 LiFePO4</span>
-                </div>
-                <div>
-                  <span className="text-[10px] text-gray-500 uppercase tracking-wider block">Cycle Life</span>
-                  <span className="text-xs font-bold text-gray-800 mt-1 block">&gt;6,000 Cycles</span>
-                </div>
-              </div>
-
-              {/* CTAs */}
-              <div className="flex flex-wrap items-center gap-4 pt-2">
-                <Link
-                  href={`/contact?product=${encodeURIComponent(product.name)}`}
-                  className="inline-flex items-center gap-2 rounded-full bg-[#0B3388] hover:bg-[#082666] px-7 py-3.5 text-xs font-semibold uppercase tracking-wider text-white shadow-md hover:shadow-lg transition-all"
-                >
-                  <span>Talk to an Expert / Request RFQ</span>
-                  <ArrowRight className="h-4 w-4" />
+      {/* PDP-01/02 Buying hero with breadcrumb */}
+      <section className="pt-8 pb-16 lg:pt-10 lg:pb-24">
+        <div className="container-site">
+          <nav aria-label="Breadcrumb" className="text-small text-ink-3">
+            <ol className="flex flex-wrap items-center gap-x-2">
+              <li>
+                <Link href="/" className="hover:text-ink">
+                  Home
                 </Link>
+              </li>
+              <li aria-hidden="true">/</li>
+              <li>
+                <Link href="/products" className="hover:text-ink">
+                  Products
+                </Link>
+              </li>
+              <li aria-hidden="true">/</li>
+              <li aria-current="page" className="text-ink-2">
+                {product.name}
+              </li>
+            </ol>
+          </nav>
 
-                <a
-                  href={`#technical-datasheet`}
-                  className="inline-flex items-center gap-2 rounded-full border border-gray-300 bg-white hover:bg-gray-50 px-6 py-3.5 text-xs font-semibold uppercase tracking-wider text-gray-700 transition-colors"
-                >
-                  <Download className="h-4 w-4 text-[#0B3388]" />
-                  <span>Download Datasheet</span>
-                </a>
+          <div className="mt-8 grid gap-10 lg:mt-12 lg:grid-cols-12 lg:items-center lg:gap-6">
+            <div className="lg:col-span-6 lg:pr-6">
+              <p className="text-small text-ink-3">
+                {product.category} · Model {product.modelCode}
+              </p>
+              <LineReveal as="h1" lines={[product.name]} className="mt-3 text-display-l text-balance text-ink [overflow-wrap:anywhere]" />
+              <p className="mt-4 text-lead text-ink-2">{product.tagline}</p>
 
-                <ProductAssistantDrawer preselectedProduct={product.name} triggerLabel="Instant Sizing Assistant" />
+              <div className="mt-8 border-t border-line pt-6">
+                <p className="tabular text-stat-xl leading-none text-ink">{main}</p>
+                {note && <p className="mt-2 text-small text-ink-3">{note}</p>}
+                <dl className="mt-6 grid grid-cols-[auto_1fr] gap-x-6 gap-y-2 text-small">
+                  <dt className="text-ink-3">Power</dt>
+                  <dd className="tabular text-ink">{product.powerRating}</dd>
+                  <dt className="text-ink-3">Enclosure</dt>
+                  <dd className="text-ink">{product.enclosureRating}</dd>
+                  <dt className="text-ink-3">Cooling</dt>
+                  <dd className="text-ink">{product.coolingMethod}</dd>
+                </dl>
+              </div>
+
+              <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+                <Button href={quoteHref} arrow>
+                  Request a quote
+                </Button>
+                <Button href={datasheet?.downloadUrl ?? quoteHref} variant="tertiary">
+                  {datasheet ? "Get the datasheet" : "Ask for the datasheet"}
+                </Button>
               </div>
             </div>
 
-            {/* Right Column: Authentic Product Photography & Highlights */}
-            <div className="lg:col-span-5 rounded-3xl border border-gray-200 bg-[#FAFAF8] p-7 sm:p-8 space-y-6">
-              {/* Authentic Product Photography Frame */}
-              <div className="relative h-64 sm:h-72 w-full rounded-2xl bg-white p-4 border border-gray-200 flex items-center justify-center overflow-hidden shadow-inner">
-                <Image
-                  src={product.image}
-                  alt={`${product.name} Hardware Enclosure`}
-                  fill
-                  priority
-                  className="object-contain p-2"
-                  sizes="(max-width: 1024px) 100vw, 500px"
-                />
-                <div className="absolute bottom-3 left-3 rounded-full bg-white/90 backdrop-blur-sm border border-gray-200 px-3 py-1 text-[11px] font-mono text-gray-700 shadow-sm flex items-center gap-1.5">
-                  <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-                  Verified Hardware
+            <div className="order-first lg:order-none lg:col-span-6">
+              <Reveal distance={32}>
+                <div className="relative isolate flex aspect-[4/3] items-center justify-center overflow-hidden rounded-media bg-surface">
+                  <Image
+                    src={product.image}
+                    alt={`${product.name}`}
+                    width={900}
+                    height={900}
+                    priority
+                    sizes="(min-width: 1024px) 55vw, 100vw"
+                    className="h-[78%] w-auto max-w-[86%] object-contain mix-blend-multiply"
+                  />
                 </div>
-              </div>
-
-              <div className="border-b border-gray-200 pb-3">
-                <span className="text-xs font-semibold uppercase tracking-wider text-[#0B3388]">
-                  System Engineering Highlights
-                </span>
-                <h2 className="text-lg font-bold text-gray-900 mt-1">Noida Plant Built Architecture</h2>
-              </div>
-
-              <ul className="space-y-3 text-xs text-gray-700">
-                {product.keyFeatures.map((feat) => (
-                  <li key={feat} className="flex items-start gap-2.5">
-                    <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-                    <span className="leading-relaxed">{feat}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="rounded-2xl bg-white p-4 border border-gray-200 space-y-2 text-xs">
-                <div className="flex justify-between py-1 border-b border-gray-100">
-                  <span className="text-gray-500">Nominal AC Voltage</span>
-                  <span className="font-mono font-medium text-gray-900">{product.acVoltage}</span>
-                </div>
-                <div className="flex justify-between py-1 border-b border-gray-100">
-                  <span className="text-gray-500">DC Bus Architecture</span>
-                  <span className="font-mono font-medium text-gray-900">{product.dcVoltage}</span>
-                </div>
-                <div className="flex justify-between py-1 border-b border-gray-100">
-                  <span className="text-gray-500">Round-Trip Efficiency</span>
-                  <span className="font-mono font-medium text-emerald-700">{product.efficiency}</span>
-                </div>
-                <div className="flex justify-between py-1 border-b border-gray-100">
-                  <span className="text-gray-500">Enclosure Protection</span>
-                  <span className="font-mono font-medium text-gray-900">{product.enclosureRating}</span>
-                </div>
-                <div className="flex justify-between py-1">
-                  <span className="text-gray-500">Factory Warranty</span>
-                  <span className="font-mono font-medium text-[#0B3388]">{product.warranty}</span>
-                </div>
-              </div>
+              </Reveal>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Interactive Subsystem Architecture Section */}
-      <section className="py-16 sm:py-20 bg-[#FAFAF8] border-b border-gray-200">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mb-10">
-            <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50/80 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-[#0B3388]">
-              <span>Hardware Cross-Section</span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-light text-gray-900 tracking-tight mt-3">
-              Internal Architecture of <span className="font-semibold text-[#0B3388]">{product.name}</span>
+      {/* Highlights and applications */}
+      <section aria-labelledby="pdp-highlights" className="section-tight bg-canvas-warm">
+        <div className="container-site grid gap-12 lg:grid-cols-12 lg:gap-6">
+          <div className="lg:col-span-7">
+            <h2 id="pdp-highlights" className="text-heading-2 text-ink">
+              Highlights
             </h2>
-            <p className="mt-2 text-sm text-gray-600 leading-relaxed font-normal">
-              Inspect the core internal subsystems engineered into Lith-On energy storage platforms—including high-voltage LFP rack modules, in-house digital BMS, bi-directional PCS inverters, and IceBattery® passive thermal coating.
-            </p>
+            <p className="mt-4 max-w-2xl text-body text-ink-2">{product.overview}</p>
+            <ul className="mt-8 border-t border-line">
+              {product.keyFeatures.map((f) => (
+                <li key={f} className="border-b border-line py-4 text-body text-ink">
+                  {f}
+                </li>
+              ))}
+            </ul>
           </div>
-          <InteractiveBessCutaway />
-        </div>
-      </section>
-
-      {/* Comprehensive Technical Specifications Table */}
-      <section className="py-16 sm:py-20 bg-white" id="technical-datasheet">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mb-12">
-            <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50/70 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-[#0B3388]">
-              <FileText className="h-3.5 w-3.5 text-[#0B3388]" />
-              <span>Verified Engineering Parameters</span>
-            </div>
-            <h2 className="text-3xl font-light text-gray-900 tracking-tight mt-3">
-              Full Technical <span className="font-semibold text-[#0B3388]">Datasheet</span>
-            </h2>
-            <p className="mt-2 text-sm text-gray-600">
-              Verified test parameters for model {product.modelCode}. Compliant with IEC 61508, IEC 61850, and BIS domestic requirements.
-            </p>
-          </div>
-
-          <div className="overflow-x-auto rounded-2xl border border-gray-200 bg-white shadow-sm">
-            <table className="w-full border-collapse text-left text-xs">
-              <tbody className="divide-y divide-gray-100">
-                <tr className="bg-gray-50/80">
-                  <th scope="col" colSpan={2} className="p-4 font-bold text-gray-900 uppercase tracking-wider text-[11px]">
-                    1. Electrical &amp; Battery Characteristics
-                  </th>
-                </tr>
-                <tr>
-                  <td className="p-4 font-medium text-gray-600 w-1/3">Storage Capacity (Nominal)</td>
-                  <td className="p-4 font-mono font-bold text-[#0B3388]">{product.capacity}</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-medium text-gray-600">Continuous Rated Power</td>
-                  <td className="p-4 font-mono font-medium text-gray-900">{product.powerRating}</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-medium text-gray-600">Cell Chemistry</td>
-                  <td className="p-4 text-gray-900">{product.chemistry} (Intrinsic thermal stability, zero nickel/cobalt)</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-medium text-gray-600">AC Output Voltage</td>
-                  <td className="p-4 font-mono text-gray-900">{product.acVoltage}</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-medium text-gray-600">DC Bus Voltage</td>
-                  <td className="p-4 font-mono text-gray-900">{product.dcVoltage}</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-medium text-gray-600">Round-Trip Efficiency</td>
-                  <td className="p-4 font-mono text-emerald-700 font-semibold">{product.efficiency}</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-medium text-gray-600">Cycle Life</td>
-                  <td className="p-4 text-gray-900">{product.cycleLife} (15–20 Year Design Lifespan)</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-medium text-gray-600">Grid Cutover Speed</td>
-                  <td className="p-4 font-mono font-bold text-[#F74530]">{product.switchoverTime}</td>
-                </tr>
-
-                <tr className="bg-gray-50/80">
-                  <th scope="col" colSpan={2} className="p-4 font-bold text-gray-900 uppercase tracking-wider text-[11px]">
-                    2. Thermal Architecture &amp; Environmental
-                  </th>
-                </tr>
-                <tr>
-                  <td className="p-4 font-medium text-gray-600">Cooling Technology</td>
-                  <td className="p-4 text-gray-900">{product.coolingMethod}</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-medium text-gray-600">Proprietary Thermal Shield</td>
-                  <td className="p-4 text-gray-900">{product.thermalTech}</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-medium text-gray-600">Ambient Operating Temperature</td>
-                  <td className="p-4 font-mono text-blue-700">{product.operatingTemp}</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-medium text-gray-600">Enclosure Protection Rating</td>
-                  <td className="p-4 font-mono text-gray-900">{product.enclosureRating}</td>
-                </tr>
-
-                <tr className="bg-gray-50/80">
-                  <th scope="col" colSpan={2} className="p-4 font-bold text-gray-900 uppercase tracking-wider text-[11px]">
-                    3. Mechanical Dimensions &amp; Scaling
-                  </th>
-                </tr>
-                <tr>
-                  <td className="p-4 font-medium text-gray-600">External Dimensions (W × D × H)</td>
-                  <td className="p-4 font-mono text-gray-900">{product.dimensions}</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-medium text-gray-600">Approximate Weight</td>
-                  <td className="p-4 font-mono text-gray-900">{product.weight}</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-medium text-gray-600">System Scalability</td>
-                  <td className="p-4 text-gray-900">{product.scalability}</td>
-                </tr>
-
-                <tr className="bg-gray-50/80">
-                  <th scope="col" colSpan={2} className="p-4 font-bold text-gray-900 uppercase tracking-wider text-[11px]">
-                    4. Standards, Testing &amp; Warranty
-                  </th>
-                </tr>
-                <tr>
-                  <td className="p-4 font-medium text-gray-600">Compliance &amp; Certifications</td>
-                  <td className="p-4">
-                    <div className="flex flex-wrap gap-1.5">
-                      {product.certifications.map((c) => (
-                        <span key={c} className="rounded-md bg-gray-100 px-2 py-0.5 text-[11px] font-medium text-gray-800">
-                          {c}
-                        </span>
-                      ))}
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-medium text-gray-600">Manufacturer Performance Warranty</td>
-                  <td className="p-4 font-bold text-[#0B3388]">{product.warranty}</td>
-                </tr>
-              </tbody>
-            </table>
+          <div className="lg:col-span-4 lg:col-start-9">
+            <h2 className="text-heading-3 text-ink">Used for</h2>
+            <ul className="mt-4 space-y-2 text-body text-ink-2">
+              {product.applications.map((a) => (
+                <li key={a}>{a}</li>
+              ))}
+            </ul>
+            <p className="mt-6 text-small text-ink-3">{product.typicalUser}</p>
           </div>
         </div>
       </section>
 
-      {/* Product-Specific FAQs (as required by Section 5) */}
-      <section className="border-t border-gray-200 bg-[#FAFAF8] py-16 sm:py-20">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#0B3388]">
-              Product FAQs
-            </span>
-            <h2 className="text-3xl font-light text-gray-900 mt-2">
-              Frequently Asked Questions for <span className="font-semibold">{product.name}</span>
-            </h2>
-          </div>
-
-          <div className="space-y-4">
-            {product.faqs.map((faq, idx) => (
-              <div key={idx} className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-                <h3 className="text-base font-bold text-gray-900">{faq.question}</h3>
-                <p className="mt-2 text-sm text-gray-600 leading-relaxed font-normal">{faq.answer}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Product Inquiry & Chatbot Section */}
-      <section className="py-16 sm:py-24 bg-white border-t border-gray-200">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="rounded-3xl border border-blue-200 bg-[#FAFAF8] p-8 sm:p-14">
-            <div className="grid gap-8 lg:grid-cols-12 items-center">
-              <div className="lg:col-span-7 space-y-4">
-                <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#0B3388]">
-                  <MessageSquare className="h-4 w-4" />
-                  <span>Technical Sizing &amp; RFQ</span>
-                </div>
-                <h2 className="text-3xl sm:text-4xl font-light text-gray-900">
-                  Ready to deploy <span className="font-semibold text-[#0B3388]">{product.name}</span>?
-                </h2>
-                <p className="text-sm text-gray-600 leading-relaxed max-w-xl">
-                  Connect directly with Lith-On&apos;s BESS engineering team in Noida. We will calculate your exact peak shaving potential, CAQM GRAP compliance payback, and furnish complete SLD drawings within 24 hours.
-                </p>
-                <div className="flex flex-wrap items-center gap-4 pt-2">
-                  <Link
-                    href={`/contact?product=${encodeURIComponent(product.name)}`}
-                    className="inline-flex items-center gap-2 rounded-full bg-[#0B3388] hover:bg-[#082666] px-6 py-3.5 text-xs font-semibold uppercase tracking-wider text-white shadow"
-                  >
-                    <span>Request Technical Sizing</span>
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
-                  <a
-                    href="tel:+917000013009"
-                    className="inline-flex items-center gap-2 rounded-full border border-gray-300 bg-white px-6 py-3.5 text-xs font-semibold uppercase tracking-wider text-gray-700 hover:bg-gray-50"
-                  >
-                    <Phone className="h-3.5 w-3.5 text-[#0B3388]" />
-                    <span>Call +91-7000013009</span>
-                  </a>
-                </div>
-              </div>
-
-              <div className="lg:col-span-5 rounded-2xl bg-white border border-gray-200 p-6 shadow-sm space-y-4">
-                <h3 className="text-sm font-bold text-gray-900">Related BESS Models</h3>
-                <div className="space-y-3">
-                  {PRODUCTS_DATA.filter((p) => p.id !== product.id).slice(0, 3).map((rel) => (
-                    <Link
-                      key={rel.id}
-                      href={`/products/${rel.slug}`}
-                      className="flex items-center justify-between p-3 rounded-xl border border-gray-100 hover:border-blue-200 hover:bg-blue-50/30 transition-all text-xs"
-                    >
-                      <div>
-                        <div className="font-bold text-gray-900">{rel.name}</div>
-                        <div className="text-[11px] text-gray-500 font-mono">{rel.capacity} • {rel.powerRating}</div>
-                      </div>
-                      <ArrowRight className="h-3.5 w-3.5 text-gray-400" />
-                    </Link>
+      {/* PDP-03 Configuration */}
+      {product.standardConfigurations.length > 0 && (
+        <section aria-labelledby="pdp-config" className="section-tight">
+          <div className="container-site">
+            <SectionIntro title={<span id="pdp-config">Configuration</span>} className="mb-8 lg:mb-10" />
+            <div className="grid gap-10 md:grid-cols-2 md:gap-6">
+              <div>
+                <h3 className="text-small font-[500] text-ink-3">Included</h3>
+                <ul className="mt-3 border-t border-line">
+                  {product.standardConfigurations.map((c) => (
+                    <li key={c} className="border-b border-line py-3.5 text-body text-ink">
+                      {c}
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
+              {product.optionalConfigurations.length > 0 && (
+                <div>
+                  <h3 className="text-small font-[500] text-ink-3">Optional</h3>
+                  <ul className="mt-3 border-t border-line">
+                    {product.optionalConfigurations.map((c) => (
+                      <li key={c} className="border-b border-line py-3.5 text-body text-ink-2">
+                        {c}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
+          </div>
+        </section>
+      )}
+
+      {/* PDP-05 Datasheet */}
+      <section id="specifications" aria-labelledby="pdp-specs" className="section-tight scroll-mt-24">
+        <div className="container-site">
+          <div className="mb-8 flex flex-wrap items-end justify-between gap-4 lg:mb-10">
+            <h2 id="pdp-specs" className="text-heading-1 text-ink">
+              Specifications
+            </h2>
+            <Button href={datasheet?.downloadUrl ?? quoteHref} variant="tertiary">
+              {datasheet ? "Get the datasheet" : "Ask for the datasheet"}
+            </Button>
+          </div>
+          <table className="w-full border-collapse text-left">
+            <caption className="sr-only">Specifications for {product.name}</caption>
+            {groups.map((g, gi) => (
+              <tbody key={g.title}>
+                <tr>
+                  <th scope="colgroup" colSpan={2} className={`${gi === 0 ? "pt-0" : "pt-10"} pb-2 text-small font-[500] text-ink-3`}>
+                    {g.title}
+                  </th>
+                </tr>
+                {g.rows.map(([label, value]) => (
+                  <tr key={label} className="border-t border-line align-top">
+                    <th scope="row" className="w-[38%] py-3.5 pr-6 text-small font-[500] text-ink md:w-[30%]">
+                      {label}
+                    </th>
+                    <td className="tabular py-3.5 text-small text-ink-2">{value}</td>
+                  </tr>
+                ))}
+              </tbody>
+            ))}
+          </table>
+          {hiddenRows && <p className="mt-6 text-small text-ink-3">Other specifications are available on request.</p>}
+        </div>
+      </section>
+
+      {/* PDP-04 Cutaway link */}
+      <section aria-label="See inside a Lith-On system" className="pb-16 lg:pb-24">
+        <div className="container-site">
+          <Link
+            href="/technology#cutaway"
+            className="group grid items-center gap-6 border-y border-line py-6 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lithon-blue sm:grid-cols-[200px_1fr_auto]"
+          >
+            <span className="relative block aspect-[16/9] overflow-hidden rounded-control bg-stage-dark">
+              <Image src="/images/products/bess-3d-cutaway.jpg" alt="" fill sizes="200px" className="object-cover" />
+            </span>
+            <span>
+              <span className="block text-body font-[500] text-ink group-hover:text-lithon-blue">See inside a Lith-On system</span>
+              <span className="mt-1 block text-small text-ink-3">Cells, battery management, power conversion and the IceBattery® shield (illustrative render).</span>
+            </span>
+            <ArrowRight className="h-5 w-5 text-lithon-blue transition-transform group-hover:translate-x-1 motion-reduce:transition-none" aria-hidden="true" />
+          </Link>
+        </div>
+      </section>
+
+      {/* PDP-06 FAQ */}
+      {product.faqs.length > 0 && (
+        <section aria-labelledby="pdp-faq" className="section-tight bg-canvas-warm">
+          <div className="container-site">
+            <SectionIntro title={<span id="pdp-faq">Questions</span>} className="mb-8 lg:mb-10" />
+            <div className="grid gap-x-10 md:grid-cols-2">
+              {product.faqs.map((f) => (
+                <details key={f.question} className="group border-t border-line py-4 last:border-b md:[&:nth-last-child(2)]:border-b">
+                  <summary className="flex min-h-11 cursor-pointer list-none items-start justify-between gap-4 text-body font-[500] text-ink [&::-webkit-details-marker]:hidden">
+                    {f.question}
+                    <ChevronDown className="mt-1 h-4 w-4 shrink-0 text-ink-3 transition-transform group-open:rotate-180 motion-reduce:transition-none" aria-hidden="true" />
+                  </summary>
+                  <p className="mt-3 text-small text-ink-2">{f.answer}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* PDP-07 Closing + related */}
+      <section aria-labelledby="pdp-next" className="section">
+        <div className="container-site">
+          <div className="flex flex-col gap-6 border-y border-line py-8 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <h2 id="pdp-next" className="text-heading-2 text-ink">
+                Talk to an engineer about the {product.name}
+              </h2>
+              <p className="mt-2 text-body text-ink-2">We size the system to your load profile and send a quotation.</p>
+            </div>
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+              <Button href={quoteHref} arrow>
+                Request a quote
+              </Button>
+              <ProductAssistantDrawer preselectedProduct={product.name} triggerLabel="Sizing assistant" />
+            </div>
+          </div>
+
+          <div className="mt-16 lg:mt-20">
+            <h2 className="mb-8 text-heading-2 text-ink">Related products</h2>
+            <HorizontalRail label="Related products">
+              {related.map((p) => (
+                <RailItem key={p.id} className="w-[min(80vw,340px)] lg:w-[340px]">
+                  <ProductCard product={p} />
+                </RailItem>
+              ))}
+            </HorizontalRail>
           </div>
         </div>
       </section>

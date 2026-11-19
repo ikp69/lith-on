@@ -33,7 +33,7 @@ export const SECTORS_HERO_DATA: SectorHeroSlide[] = [
     primaryCtaText: "Talk to an Expert",
     primaryCtaHref: "/contact?sector=healthcare",
     secondaryCtaText: "Explore Healthcare BESS",
-    secondaryCtaHref: "/applications#healthcare",
+    secondaryCtaHref: "/industries#healthcare",
   },
   {
     id: "industrial",
@@ -69,7 +69,7 @@ export const SECTORS_HERO_DATA: SectorHeroSlide[] = [
     primaryCtaText: "Talk to an Expert",
     primaryCtaHref: "/contact?sector=residential",
     secondaryCtaText: "View Society Model",
-    secondaryCtaHref: "/case-studies#residential",
+    secondaryCtaHref: "/case-studies#residential_society_500",
   },
   {
     id: "campus",
@@ -87,7 +87,7 @@ export const SECTORS_HERO_DATA: SectorHeroSlide[] = [
     primaryCtaText: "Talk to an Expert",
     primaryCtaHref: "/contact?sector=education",
     secondaryCtaText: "Read University Case Study",
-    secondaryCtaHref: "/case-studies#invertis",
+    secondaryCtaHref: "/case-studies#invertis_university",
   },
   {
     id: "commercial",
@@ -111,32 +111,32 @@ export const SECTORS_HERO_DATA: SectorHeroSlide[] = [
 
 export const HERO_TICKER_ITEMS: { sector: string; highlight: string; spec: string }[] = [
   {
-    sector: "HOSPITALS & HEALTHCARE",
+    sector: "Hospitals & healthcare",
     highlight: "Sub-10ms cutover for ICUs, neonatal & surgical suites",
     spec: "Zero Fumes • <55 dB Silent",
   },
   {
-    sector: "HEAVY MANUFACTURING",
+    sector: "Heavy manufacturing",
     highlight: "Zero production line tripouts & batch spoilage protection",
     spec: "1.5–3 Year ROI • High Surge Support",
   },
   {
-    sector: "HIGH-RISE RESIDENTIAL",
+    sector: "High-rise residential",
     highlight: "100% CAQM GRAP winter compliant silent elevator backup",
     spec: "Saves ₹4.76 Cr/Year • 1.6-Yr Payback",
   },
   {
-    sector: "UNIVERSITIES & CAMPUSES",
+    sector: "Universities & campuses",
     highlight: "Solar-hybrid microgrids for research labs & student hostels",
     spec: "1 MWh Deployed • ₹2.26 Cr/Year Saved",
   },
   {
-    sector: "EV FAST-CHARGING HUBS",
+    sector: "EV fast-charging hubs",
     highlight: "Buffers 60 kW–350 kW simultaneous vehicle charging spikes",
     spec: "Clips Max Demand Penalties",
   },
   {
-    sector: "DEFENSE & BORDER POSTS",
+    sector: "Defense & border posts",
     highlight: "Ruggedized containerized microgrids for Indian Army in J&K",
     spec: "IceBattery® -20°C to +60°C Extreme",
   },

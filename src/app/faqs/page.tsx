@@ -2,13 +2,14 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { 
-  Search, 
-  ChevronDown, 
-  ArrowRight, 
+import {
+  Search,
+  ChevronDown,
+  ArrowRight,
   Phone
 } from "lucide-react";
 import * as Accordion from "@radix-ui/react-accordion";
+import { FaqJsonLd } from "@/components/seo/FaqJsonLd";
 
 interface FAQItem {
   id: string;
@@ -23,7 +24,7 @@ const FAQ_DATA: FAQItem[] = [
     id: "q1",
     category: "Battery Tech & Lifespan",
     question: "What battery chemistry does Lith-On use, and why?",
-    answer: "Lith-On exclusively utilizes Tier-1 Lithium Iron Phosphate (LiFePO4 / LFP). LFP is selected for its superior thermal stability, non-combustible olivine crystal structure, zero cobalt/nickel dependencies, and outstanding cycle life. It does not suffer from thermal runaway under standard nail puncture, crushing, or overcharging conditions."
+    answer: "Lith-On exclusively utilizes Tier-1 Lithium Iron Phosphate (LiFePO4 / LFP). LFP is selected for its intrinsic thermal stability, stable olivine crystal structure, zero cobalt/nickel dependencies, and outstanding cycle life, and is recognised for non-combustion under puncture testing."
   },
   {
     id: "q2",
@@ -162,13 +163,14 @@ export default function FAQsPage() {
   });
 
   return (
-    <div className="space-y-16 py-10 sm:py-16">
+    <div className="space-y-20 sm:space-y-28 lg:space-y-36 pt-28 sm:pt-36 pb-28 lg:pb-36">
+      <FaqJsonLd faqs={FAQ_DATA.map((f) => ({ question: f.question, answer: f.answer }))} />
       {/* 1. Header Banner */}
-      <section className="px-6">
+      <section className="px-4 sm:px-6">
         <div className="mx-auto max-w-7xl">
-          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#0B3388] mb-3">
+          <div className="flex items-center gap-2 text-xs font-semibold text-[#0B3388] mb-3">
             <Link href="/" className="hover:text-gray-900 transition-colors">Home</Link>
-            <span className="text-gray-400">/</span>
+            <span className="text-gray-500">/</span>
             <span>Frequently Asked Questions</span>
           </div>
 
@@ -186,20 +188,20 @@ export default function FAQsPage() {
 
           {/* Search Input */}
           <div className="mt-8 max-w-xl relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" />
             <input
               type="text"
               placeholder="Search questions (e.g., GRAP, payback, warranty, elevators)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-2xl border border-gray-200 bg-white pl-12 pr-4 py-3.5 text-sm text-gray-900 placeholder-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B3388] shadow-sm"
+              className="w-full rounded-2xl border border-gray-200 bg-white pl-12 pr-4 py-3.5 text-base sm:text-sm text-gray-900 placeholder-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B3388] shadow-sm"
             />
           </div>
         </div>
       </section>
 
       {/* 2. Category Filter Pills */}
-      <section className="px-6">
+      <section className="px-4 sm:px-6">
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-wrap gap-2 pb-2">
             {CATEGORIES.map((cat) => (
@@ -225,7 +227,7 @@ export default function FAQsPage() {
       </section>
 
       {/* 3. Accordion Questions List */}
-      <section className="px-6">
+      <section className="px-4 sm:px-6">
         <div className="mx-auto max-w-7xl">
           {filteredFAQs.length > 0 ? (
             <Accordion.Root type="single" collapsible className="space-y-4">
@@ -237,13 +239,13 @@ export default function FAQsPage() {
                 >
                   <Accordion.Header className="flex">
                     <Accordion.Trigger className="flex flex-1 items-center justify-between p-5 text-left text-sm font-bold text-gray-900 transition-all hover:text-[#0B3388] [&[data-state=open]>svg]:rotate-180">
-                      <div className="flex items-center gap-3 pr-4">
+                      <div className="flex min-w-0 flex-col items-start gap-2 pr-4 sm:flex-row sm:items-center sm:gap-3">
                         <span className="rounded bg-gray-100 px-2 py-0.5 text-[10px] text-gray-600 font-mono shrink-0">
                           {faq.category}
                         </span>
-                        <span>{faq.question}</span>
+                        <span className="min-w-0">{faq.question}</span>
                       </div>
-                      <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200 text-gray-400" />
+                      <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200 text-gray-500" />
                     </Accordion.Trigger>
                   </Accordion.Header>
                   <Accordion.Content className="border-t border-gray-100 bg-[#F8FAFC] p-5 text-xs text-gray-600 leading-relaxed">
@@ -261,7 +263,7 @@ export default function FAQsPage() {
       </section>
 
       {/* 4. Bottom Support CTA */}
-      <section className="px-6">
+      <section className="px-4 sm:px-6">
         <div className="mx-auto max-w-7xl rounded-3xl bg-[#0B3388] text-white p-8 sm:p-12 shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-6">
           <div>
             <h3 className="text-2xl font-bold text-white sm:text-3xl tracking-tight">Have a Question Not Listed Here?</h3>
@@ -272,14 +274,14 @@ export default function FAQsPage() {
           <div className="flex flex-wrap items-center gap-3 shrink-0">
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#F74530] hover:bg-[#d63623] px-6 py-3.5 text-xs font-bold uppercase tracking-wider text-white transition-all shadow-md"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-lithon-red-ink hover:bg-lithon-red-ink-hover px-6 py-3.5 text-xs font-bold text-white transition-all shadow-md"
             >
               <span>Submit Inquiry</span>
               <ArrowRight className="h-4 w-4" />
             </Link>
             <a
               href="tel:+917000013009"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/30 bg-white/10 px-6 py-3.5 text-xs font-bold uppercase tracking-wider text-white hover:bg-white/20 transition-all"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/30 bg-white/10 px-6 py-3.5 text-xs font-bold text-white hover:bg-white/20 transition-all"
             >
               <Phone className="h-4 w-4 text-white" />
               <span>+91-7000013009</span>

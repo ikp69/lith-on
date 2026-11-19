@@ -65,10 +65,10 @@ export default function CareersPage() {
   return (
     <div className="bg-white">
       {/* Editorial Header */}
-      <section className="relative border-b border-gray-200 bg-[#FAFAF8] py-16 sm:py-24">
+      <section className="relative border-b border-gray-200 bg-[#FAFAF8] pt-10 sm:pt-36 pb-14 sm:pb-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50/80 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-[#0B3388]">
+            <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50/80 px-3.5 py-1 text-xs font-semibold text-[#0B3388]">
               <Briefcase className="h-3.5 w-3.5 text-[#0B3388]" />
               <span>Engineering Careers</span>
             </div>
@@ -86,7 +86,7 @@ export default function CareersPage() {
       <section className="border-b border-amber-200 bg-amber-50/70 py-6">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-start gap-3 text-xs text-amber-900">
-            <AlertTriangle className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
+            <AlertTriangle className="h-5 w-5 text-amber-700 shrink-0 mt-0.5" />
             <div>
               <strong className="font-bold">Official Public Notice Regarding Recruitment Fraud:</strong> Lith-On Bharat Energy Private Limited follows a strict zero-fee policy. We NEVER solicit fees, registration charges, or security deposits at any stage of recruitment. All official offers originate exclusively from <code>@lith-onbharat.com</code> or <code>@lith-on.com</code>.
             </div>
@@ -95,10 +95,10 @@ export default function CareersPage() {
       </section>
 
       {/* Open Roles Section */}
-      <section className="py-16 sm:py-24 bg-white" id="openings">
+      <section className="py-20 sm:py-28 lg:py-32 bg-white" id="openings">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mb-12">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#0B3388]">
+            <span className="text-xs font-semibold text-[#0B3388]">
               Current Opportunities
             </span>
             <h2 className="text-3xl font-light text-gray-900 mt-2">
@@ -130,11 +130,11 @@ export default function CareersPage() {
 
                   <div className="flex flex-wrap items-center gap-4 text-xs text-gray-500 pt-2 font-mono">
                     <span className="flex items-center gap-1">
-                      <MapPin className="h-3.5 w-3.5 text-gray-400" />
+                      <MapPin className="h-3.5 w-3.5 text-gray-500" />
                       {role.location}
                     </span>
                     <span className="flex items-center gap-1">
-                      <Clock className="h-3.5 w-3.5 text-gray-400" />
+                      <Clock className="h-3.5 w-3.5 text-gray-500" />
                       Experience: {role.experience}
                     </span>
                   </div>
@@ -143,7 +143,7 @@ export default function CareersPage() {
                 <div className="shrink-0">
                   <a
                     href={`mailto:tech@lith-onbharat.com?subject=Job%20Application%3A%20${encodeURIComponent(role.title)}`}
-                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0B3388] hover:bg-[#082666] px-5 py-3 text-xs font-semibold uppercase tracking-wider text-white shadow-sm transition-all"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0B3388] hover:bg-[#082666] px-5 py-3 text-xs font-semibold text-white shadow-sm transition-all"
                   >
                     <span>Apply via Email</span>
                     <ArrowRight className="h-4 w-4" />
@@ -156,11 +156,11 @@ export default function CareersPage() {
       </section>
 
       {/* General Resume Submission Banner */}
-      <section className="border-t border-gray-200 bg-[#FAFAF8] py-16">
+      <section className="border-t border-gray-200 bg-[#FAFAF8] py-20 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="rounded-3xl border border-blue-200 bg-white p-8 sm:p-12 flex flex-col md:flex-row items-center justify-between gap-8 shadow-sm">
             <div className="max-w-xl">
-              <span className="text-xs font-semibold uppercase tracking-wider text-[#0B3388]">Spontaneous Applications</span>
+              <span className="text-xs font-semibold text-[#0B3388]">Spontaneous Applications</span>
               <h3 className="text-2xl font-bold text-gray-900 mt-1">Don&apos;t See Your Exact Role?</h3>
               <p className="text-xs sm:text-sm text-gray-600 mt-2 leading-relaxed">
                 We are constantly looking for talented power electronics engineers, thermal simulation researchers, and battery chemists. Send your CV and portfolio directly to our engineering desk.
@@ -168,7 +168,7 @@ export default function CareersPage() {
             </div>
             <a
               href="mailto:tech@lith-onbharat.com?subject=Spontaneous%20Engineering%20Application"
-              className="inline-flex items-center gap-2 rounded-full bg-[#F74530] hover:bg-[#d83522] px-7 py-3.5 text-xs font-semibold uppercase tracking-wider text-white shadow-md transition-all shrink-0"
+              className="inline-flex items-center gap-2 rounded-full bg-lithon-red-ink hover:bg-lithon-red-ink-hover px-7 py-3.5 text-xs font-semibold text-white shadow-md transition-all shrink-0"
             >
               <Mail className="h-4 w-4" />
               <span>Send CV to tech@lith-onbharat.com</span>

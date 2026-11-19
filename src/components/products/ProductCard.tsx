@@ -1,135 +1,57 @@
-import React from "react";
+import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, CheckCircle2, Clock } from "lucide-react";
+import type { ProductDetail } from "@/data/products";
 
-export interface UnifiedProduct {
-  id: string;
-  slug?: string;
-  name: string;
-  modelCode: string;
-  tagline: string;
-  category: "Commercial" | "Industrial" | "Utility" | "Modular" | string;
-  image?: string;
-  capacity: string;
-  powerRating: string;
-  switchoverTime?: string;
-  coolingMethod?: string;
-  highlights?: string[];
-  keyFeatures?: string[];
-  specs?: { label: string; value: string }[];
+/** Split "48 kWh (Scalable to 192 kWh)" into a headline figure and a note. */
+function splitCapacity(capacity: string) {
+  const at = capacity.indexOf(" @ ");
+  if (at !== -1) {
+    return { main: capacity.slice(0, at), note: `Rated at ${capacity.slice(at + 3)}` };
+  }
+  const i = capacity.indexOf(" (");
+  return i === -1 ? { main: capacity, note: "" } : { main: capacity.slice(0, i), note: capacity.slice(i + 2, -1) };
 }
 
-interface ProductCardProps {
-  product: UnifiedProduct;
-  featured?: boolean;
-}
-
-export function ProductCard({ product, featured = false }: ProductCardProps) {
-  const productSlug = product.slug || product.id;
-  const features = product.keyFeatures || product.highlights || [];
-  const productImage =
-    product.image ||
-    (product.id === "magna-ci"
-      ? "/images/products/magna-ci-cabinet.png"
-      : product.id === "lithon-50"
-      ? "/images/products/lithon-50-module.png"
-      : "/images/products/lt215-container.png");
-
+/**
+ * PRD-02 product card (design.md §16): large image on a light stage, the
+ * capacity as the headline figure, two specs and one link. The whole card is
+ * the link; hover lifts the product (M8).
+ */
+export function ProductCard({ product }: { product: ProductDetail }) {
+  const { main, note } = splitCapacity(product.capacity);
   return (
-    <div
-      className={`group flex flex-col justify-between rounded-2xl border border-gray-200/90 bg-white p-6 sm:p-7 shadow-sm hover:shadow-lg hover:border-blue-200/80 transition-all duration-200 ${
-        featured ? "ring-1 ring-lithon-blue/30" : ""
-      }`}
+    <Link
+      href={`/products/${product.slug}`}
+      className="group flex h-full flex-col rounded-media focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lithon-blue"
     >
-      <div>
-        {/* Header: Category Badge & Model Code */}
-        <div className="flex items-center justify-between border-b border-gray-100 pb-3.5">
-          <span className="rounded-full bg-blue-50/80 border border-blue-100 px-3 py-0.5 text-xs font-semibold text-lithon-blue">
-            {product.category}
-          </span>
-          <div className="flex items-center gap-2">
-            {product.switchoverTime && (
-              <span className="hidden sm:inline-flex items-center gap-1 text-xs font-medium text-emerald-700">
-                <Clock className="h-3 w-3" />
-                {product.switchoverTime.replace(" Instantaneous UPS Transition", "").replace(" Seamless Transfer", "").replace(" Instantaneous Cutover", "").replace(" Industrial UPS Transfer", "")}
-              </span>
-            )}
-            <span className="text-xs font-mono font-medium text-gray-500">
-              {product.modelCode}
-            </span>
-          </div>
-        </div>
-
-        {/* Product Packshot */}
-        <div className="relative my-4 aspect-[16/10] w-full rounded-xl bg-canvas-offwhite border border-gray-100 flex items-center justify-center overflow-hidden p-3">
-          <Image
-            src={productImage}
-            alt={product.name}
-            fill
-            className="object-contain p-2 transition-transform duration-300 group-hover:scale-105"
-            sizes="(max-width: 768px) 100vw, 360px"
-          />
-        </div>
-
-        {/* Product Title & One-Line Value */}
-        <h3 className="text-xl font-bold text-gray-900 tracking-tight mt-1 text-balance">
-          {product.name}
-        </h3>
-        <p className="text-xs sm:text-sm text-gray-600 mt-1.5 leading-relaxed">
-          {product.tagline}
-        </p>
-
-        {/* Capacity & Power Metrics Shelf */}
-        <div className="mt-4 grid grid-cols-2 gap-2.5 rounded-xl bg-gray-50/90 p-3 border border-gray-100 font-mono">
-          <div>
-            <span className="text-xs text-gray-500 block font-sans">
-              Energy Capacity
-            </span>
-            <strong className="text-base sm:text-lg font-bold text-lithon-blue mt-0.5 block">
-              {product.capacity}
-            </strong>
-          </div>
-          <div>
-            <span className="text-xs text-gray-500 block font-sans">
-              Rated Power
-            </span>
-            <strong className="text-base sm:text-lg font-bold text-gray-900 mt-0.5 block">
-              {product.powerRating}
-            </strong>
-          </div>
-        </div>
-
-        {/* Differentiating Key Feature (1 primary) */}
-        <ul className="mt-4 space-y-2 text-xs text-gray-700">
-          {features.slice(0, 1).map((feat) => (
-            <li key={feat} className="flex items-start gap-2">
-              <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-              <p className="leading-relaxed m-0 text-gray-700">{feat}</p>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      {/* Action Buttons */}
-      <div className="mt-6 pt-4 border-t border-gray-100 flex items-center gap-2.5">
-        <Link
-          href={`/products/${productSlug}`}
-          className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-full bg-lithon-blue hover:bg-lithon-blue-hover px-4 py-2.5 text-xs font-semibold text-white shadow-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lithon-blue min-h-[44px]"
-        >
-          <span>View Specs</span>
-          <ArrowUpRight className="h-3.5 w-3.5" />
-        </Link>
-        <Link
-          href={`/contact?product=${encodeURIComponent(product.name)}`}
-          className="inline-flex items-center justify-center rounded-full border border-gray-300 bg-white hover:bg-gray-50 px-4 py-2.5 text-xs font-semibold text-gray-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 min-h-[44px]"
-        >
-          RFQ
-        </Link>
-      </div>
-    </div>
+      <span className="relative isolate flex aspect-[4/3] items-center justify-center overflow-hidden rounded-media bg-surface">
+        <Image
+          src={product.image}
+          alt={`${product.name}`}
+          width={640}
+          height={640}
+          sizes="(min-width: 1280px) 400px, (min-width: 768px) 45vw, 90vw"
+          className="h-[72%] w-auto max-w-[80%] object-contain mix-blend-multiply transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04] motion-reduce:transition-none"
+        />
+        <span className="absolute top-4 left-4 rounded-full bg-white px-2.5 py-1 text-[12px] text-ink-2">{product.category}</span>
+      </span>
+      <span className="mt-5 flex flex-1 flex-col">
+        <span className="tabular block text-stat-l leading-none text-ink">{main}</span>
+        {note && <span className="mt-1 block text-small text-ink-3">{note}</span>}
+        <span className="mt-3 block text-heading-3 text-ink group-hover:text-lithon-blue">{product.name}</span>
+        <span className="mt-1 block text-small text-ink-2">{product.tagline}</span>
+        <span className="mt-4 grid grid-cols-[auto_1fr] gap-x-5 gap-y-1.5 border-t border-line pt-4 text-small">
+          <span className="text-ink-3">Power</span>
+          <span className="tabular text-ink">{product.powerRating}</span>
+          <span className="text-ink-3">Enclosure</span>
+          <span className="text-ink">{product.enclosureRating}</span>
+        </span>
+        <span className="mt-auto inline-flex items-center gap-2 pt-5 text-small font-[500] text-lithon-blue">
+          View product
+          <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transition-none" aria-hidden="true" />
+        </span>
+      </span>
+    </Link>
   );
 }
-
-// Retain BESSProduct type export for backwards compatibility
-export type BESSProduct = UnifiedProduct;

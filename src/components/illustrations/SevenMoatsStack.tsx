@@ -19,13 +19,13 @@ const MOATS: MoatItem[] = [
     title: "Dual Geographic Advantage",
     subtitle: "Noida Plant + Foshan Sourcing Hub",
     tag: "Supply Chain",
-    competitorBarrier: "Make in India incentives + direct Tier-1 cell procurement pricing.",
+    competitorBarrier: "Direct Tier-1 cell procurement pricing.",
     metric: "250 MWh Annual Capacity",
     description: "Fast domestic delivery, custom engineering, and zero single-country supply risk."
   },
   {
     id: 2,
-    title: "Patented IceBattery® Ceramic Shield",
+    title: "Proprietary IceBattery® Ceramic Shield",
     subtitle: "Passive Radiative Space Cooling",
     tag: "Thermal Physics",
     competitorBarrier: "Competitors require 30–50% oversized HVAC chillers prone to desert thermal tripping.",
@@ -127,7 +127,7 @@ export function SevenMoatsStack() {
                   </div>
                 </div>
 
-                <ChevronRight className={`h-4 w-4 transition-transform shrink-0 ${isSelected ? "text-white translate-x-1" : "text-gray-400"}`} />
+                <ChevronRight className={`h-4 w-4 transition-transform shrink-0 ${isSelected ? "text-white translate-x-1" : "text-gray-500"}`} />
               </button>
             );
           })}
@@ -135,7 +135,7 @@ export function SevenMoatsStack() {
 
         {/* Right Active Moat Detailed Card */}
         <div className="lg:col-span-6 sticky top-24">
-          <div className="rounded-xl border border-gray-200 bg-surface-light p-6 shadow-sm">
+          <div className="border-t border-gray-200 pt-6">
             <div className="flex items-center justify-between border-b border-gray-200 pb-4">
               <span className="rounded-full bg-lithon-blue/10 border border-lithon-blue/20 text-lithon-blue text-xs px-3 py-1 font-semibold">
                 Moat #0{selectedMoat.id} • {selectedMoat.tag}
@@ -152,7 +152,7 @@ export function SevenMoatsStack() {
               {selectedMoat.description}
             </p>
 
-            <div className="mt-6 rounded-lg bg-red-50/70 border border-red-200 p-4">
+            <div className="mt-6 border-l-2 border-red-300 pl-4">
               <span className="text-xs font-semibold text-red-700 block">
                 Competitor Barrier
               </span>

@@ -134,7 +134,7 @@ export function ProductComparison() {
                 <p className="text-xs text-gray-600 mt-1 leading-relaxed">{p.typicalUser}</p>
               </div>
 
-              <div className="grid grid-cols-2 gap-2 rounded-xl bg-gray-50 p-3 border border-gray-100 font-mono text-xs">
+              <div className="grid grid-cols-2 gap-2 border-y border-gray-200 py-3 font-mono text-xs">
                 <div>
                   <span className="text-xs text-gray-500 block">Capacity</span>
                   <strong className="text-sm font-bold text-lithon-blue">{p.capacity}</strong>

@@ -1,6 +1,18 @@
 {
   "version": 1,
   "skills": {
+    "animating-icons": {
+      "source": "SoraLabsOSS/skills",
+      "sourceType": "github",
+      "skillPath": "skills/animating-icons/SKILL.md",
+      "computedHash": "4e672c36d19dd139414d54d31326f9546abd25294956f4677caee5ac548269c3"
+    },
+    "find-animation-opportunities": {
+      "source": "emilkowalski/skills",
+      "sourceType": "github",
+      "skillPath": "skills/find-animation-opportunities/SKILL.md",
+      "computedHash": "c6673fadf179233cc0a52c978ea9acc9b82a210665c749307a571a86ed4c092e"
+    },
     "frontend-design": {
       "source": "anthropics/skills",
       "sourceType": "github",
@@ -12,6 +24,36 @@
       "sourceType": "github",
       "skillPath": "skills/frontend-skill/SKILL.md",
       "computedHash": "f95658c726f5397b0e4fb29ed7e00f91b0b75f2f3aa578a0f2ac80db04c7e5c1"
+    },
+    "frontend-ui-engineering": {
+      "source": "addyosmani/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/frontend-ui-engineering/SKILL.md",
+      "computedHash": "cd191bdd08c5ec373c6bc98a4ad5435c50fa7453a2276095e52a6ea7e1000c9d"
+    },
+    "gsap-performance": {
+      "source": "greensock/gsap-skills",
+      "sourceType": "github",
+      "skillPath": "skills/gsap-performance/SKILL.md",
+      "computedHash": "da73dbf11663abb1a880e1796367f84b19877db4a16186b36d1dce96fe0ce983"
+    },
+    "gsap-react": {
+      "source": "greensock/gsap-skills",
+      "sourceType": "github",
+      "skillPath": "skills/gsap-react/SKILL.md",
+      "computedHash": "255206fb6a4a079ad73b4a12e7c63197dc451a8549c7ac4e852b50ff74ef3bd6"
+    },
+    "gsap-scrolltrigger": {
+      "source": "greensock/gsap-skills",
+      "sourceType": "github",
+      "skillPath": "skills/gsap-scrolltrigger/SKILL.md",
+      "computedHash": "358dd3381c74fc4be8db5a94e0cd008bf0fa7c1ccd45999671b0d61b9d9ffd9b"
+    },
+    "gsap-timeline": {
+      "source": "greensock/gsap-skills",
+      "sourceType": "github",
+      "skillPath": "skills/gsap-timeline/SKILL.md",
+      "computedHash": "e7c07909bb427f74e1bda1ff716bd97ae166269382f7abbd649c0d1ba8f6e0ec"
     },
     "hallmark": {
       "source": "nutlope/hallmark",
@@ -37,11 +79,23 @@
       "skillPath": "skills/icon-set-generator/SKILL.md",
       "computedHash": "16f544ca46f431f0cb026fd957a04a0b3b223da6c837f7a70132d893c7faf823"
     },
+    "make-interfaces-feel-better": {
+      "source": "jakubkrehel/make-interfaces-feel-better",
+      "sourceType": "github",
+      "skillPath": "skills/make-interfaces-feel-better/SKILL.md",
+      "computedHash": "ee95073d274bd8f792f917a2b2c2963d46c1b31c81723e6ef3c63ffe33bd681c"
+    },
     "motion": {
       "source": "motiondivision/ai-kit",
       "sourceType": "github",
       "skillPath": "plugins/motion/skills/motion/SKILL.md",
       "computedHash": "524a2737c7edd60f949cdf51d254f0e28a13439af44caaf6bba44236c4d92ee6"
+    },
+    "motion-meaning": {
+      "source": "SoraLabsOSS/skills",
+      "sourceType": "github",
+      "skillPath": "skills/motion-meaning/SKILL.md",
+      "computedHash": "71f1b22948c60521c324fc27946d4c0b28e6676c6f0eb3301aedb62dafc4ad3d"
     },
     "next-best-practices": {
       "source": "vercel-labs/openreview",

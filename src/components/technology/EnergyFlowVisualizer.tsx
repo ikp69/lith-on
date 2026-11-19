@@ -21,7 +21,7 @@ interface ModeConfig {
   facilityLoadKw: number;
   evKw: number;
   savingsPerHour: string;
-  gridStatus: "Normal" | "Peak Tariff Alert" | "GRID OUTAGE / ISLANDED" | "Transformer High Load";
+  gridStatus: "Normal" | "Peak Tariff Alert" | "Grid outage / islanded" | "Transformer High Load";
 }
 
 const MODES: Record<OperatingMode, ModeConfig> = {
@@ -68,7 +68,7 @@ const MODES: Record<OperatingMode, ModeConfig> = {
     facilityLoadKw: 500,
     evKw: 0,
     savingsPerHour: "Prevented ₹12 Lakh machinery downtime & lift panic",
-    gridStatus: "GRID OUTAGE / ISLANDED",
+    gridStatus: "Grid outage / islanded",
   },
   "ev-buffer": {
     id: "ev-buffer",
@@ -123,7 +123,7 @@ export function EnergyFlowVisualizer() {
       </div>
 
       {/* Interactive Flow Schematic */}
-      <div className="relative mt-6 rounded-xl border border-gray-200 bg-surface-light p-6 overflow-hidden">
+      <div className="relative mt-6 border-t border-gray-200 pt-6 overflow-hidden">
         {/* Status Bar */}
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-gray-200/80 pb-4 text-xs font-medium">
           <div className="flex items-center gap-2">
@@ -135,8 +135,8 @@ export function EnergyFlowVisualizer() {
             <span className="text-gray-500">Grid Status:</span>
             <span
               className={`inline-flex items-center gap-1 rounded-md px-2 py-0.5 font-bold ${
-                mode.gridStatus === "GRID OUTAGE / ISLANDED"
-                  ? "bg-red-50 text-[#F74530] border border-red-200"
+                mode.gridStatus === "Grid outage / islanded"
+                  ? "bg-red-50 text-lithon-red-ink border border-red-200"
                   : mode.gridStatus === "Peak Tariff Alert"
                   ? "bg-amber-50 text-amber-700 border border-amber-200"
                   : "bg-emerald-50 text-emerald-700 border border-emerald-200"
@@ -232,7 +232,7 @@ export function EnergyFlowVisualizer() {
                 fontWeight="bold"
                 fontFamily="sans-serif"
               >
-                LITH-ON BESS
+                Lith-On BESS
               </text>
               <text
                 textAnchor="middle"
@@ -251,7 +251,7 @@ export function EnergyFlowVisualizer() {
                 fontSize="8"
                 fontWeight="600"
               >
-                {mode.bessFlowKw > 0 ? "CHARGING" : "DISCHARGING"}
+                {mode.bessFlowKw > 0 ? "Charging" : "Discharging"}
               </text>
             </g>
 
@@ -259,7 +259,7 @@ export function EnergyFlowVisualizer() {
             <g transform="translate(110, 60)">
               <circle r="34" fill="#FFFFFF" stroke="#10B981" strokeWidth="2.5" />
               <text textAnchor="middle" y="-6" fill="#10B981" fontSize="9" fontWeight="bold">
-                SOLAR PV
+                Solar PV
               </text>
               <text textAnchor="middle" y="10" fill="#047857" fontSize="12" fontWeight="bold" fontFamily="monospace">
                 {mode.solarKw} kW
@@ -281,7 +281,7 @@ export function EnergyFlowVisualizer() {
                 fontSize="9"
                 fontWeight="bold"
               >
-                11kV GRID
+                11kV grid
               </text>
               <text
                 textAnchor="middle"
@@ -299,7 +299,7 @@ export function EnergyFlowVisualizer() {
             <g transform="translate(110, 220)">
               <circle r="34" fill="#FFFFFF" stroke="#0F172A" strokeWidth="2.5" />
               <text textAnchor="middle" y="-6" fill="#0F172A" fontSize="9" fontWeight="bold">
-                FACTORY LOAD
+                Factory load
               </text>
               <text textAnchor="middle" y="10" fill="#0F172A" fontSize="12" fontWeight="bold" fontFamily="monospace">
                 {mode.facilityLoadKw} kW
@@ -321,7 +321,7 @@ export function EnergyFlowVisualizer() {
                 fontSize="9"
                 fontWeight="bold"
               >
-                EV CHARGERS
+                EV chargers
               </text>
               <text
                 textAnchor="middle"
@@ -337,19 +337,48 @@ export function EnergyFlowVisualizer() {
           </svg>
         </div>
 
+        {/* Phone readout: the diagram's labels are too small to read under 640px */}
+        <dl className="-mt-2 mb-6 grid grid-cols-2 gap-2 text-sm sm:hidden">
+          <div className="col-span-2 border-t border-gray-200 pt-2">
+            <dt className="text-xs text-gray-500">Lith-On BESS</dt>
+            <dd className={`font-semibold ${mode.bessFlowKw < 0 ? "text-lithon-red-ink" : "text-lithon-blue"}`}>
+              {mode.bessFlowKw > 0 ? `+${mode.bessFlowKw} kW` : `${mode.bessFlowKw} kW`}{" "}
+              <span className="font-normal text-gray-500">
+                {mode.bessFlowKw > 0 ? "charging" : "discharging"}
+              </span>
+            </dd>
+          </div>
+          <div className="border-t border-gray-200 pt-2">
+            <dt className="text-xs text-gray-500">Solar PV</dt>
+            <dd className="font-semibold text-gray-900">{mode.solarKw} kW</dd>
+          </div>
+          <div className="border-t border-gray-200 pt-2">
+            <dt className="text-xs text-gray-500">11kV grid</dt>
+            <dd className="font-semibold text-gray-900">{mode.gridKw} kW</dd>
+          </div>
+          <div className="border-t border-gray-200 pt-2">
+            <dt className="text-xs text-gray-500">Factory load</dt>
+            <dd className="font-semibold text-gray-900">{mode.facilityLoadKw} kW</dd>
+          </div>
+          <div className="border-t border-gray-200 pt-2">
+            <dt className="text-xs text-gray-500">EV chargers</dt>
+            <dd className="font-semibold text-gray-900">{mode.evKw} kW</dd>
+          </div>
+        </dl>
+
         {/* Real-time Impact Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 border-t border-gray-200/80 pt-4">
-          <div className="rounded-xl bg-white p-4 border border-gray-200 shadow-sm">
-            <span className="text-[11px] font-medium text-gray-500 uppercase tracking-wider block">
+          <div className="border-t border-gray-200 pt-4">
+            <span className="text-[11px] font-medium text-gray-500 block">
               Economic Impact
             </span>
             <div className="text-sm sm:text-base font-bold text-gray-900 mt-1 flex items-center gap-1.5">
-              <TrendingUp className="h-4 w-4 text-emerald-600 shrink-0" />
+              <TrendingUp className="h-4 w-4 text-emerald-700 shrink-0" />
               <span>{mode.savingsPerHour}</span>
             </div>
           </div>
 
-          <div className="rounded-xl bg-white p-4 border border-gray-200 shadow-sm">
+          <div className="border-t border-gray-200 pt-4">
             <span className="text-xs font-medium text-gray-500 block">
               Active Strategy
             </span>
@@ -358,7 +387,7 @@ export function EnergyFlowVisualizer() {
             </p>
           </div>
 
-          <div className="rounded-xl bg-white p-4 border border-gray-200 shadow-sm">
+          <div className="border-t border-gray-200 pt-4">
             <span className="text-xs font-medium text-gray-500 block">
               Grid Resilience
             </span>

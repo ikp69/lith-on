@@ -128,7 +128,7 @@ export function SectorHeroCarousel() {
 
           {/* Headline with Dynamic Highlight */}
           <div className="text-white">
-            <span className="text-xs sm:text-sm font-medium tracking-wider uppercase text-blue-200/90 block mb-1">
+            <span className="text-xs sm:text-sm font-medium text-blue-200/90 block mb-1">
               Lith-On Bharat Energy • Sector Sizing
             </span>
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-light tracking-tight text-white leading-[1.15] text-balance">
@@ -189,7 +189,7 @@ export function SectorHeroCarousel() {
               className="inline-flex items-center gap-2.5 mx-6 text-xs text-slate-200 shrink-0 font-medium tracking-wide"
             >
               <span className="h-1.5 w-1.5 rounded-full bg-lithon-red" />
-              <span className="font-semibold text-white uppercase tracking-wider">{item.sector}:</span>
+              <span className="font-semibold text-white">{item.sector}:</span>
               <span className="text-slate-300">{item.highlight}</span>
               <span className="rounded bg-white/15 border border-white/20 px-2 py-0.5 text-[11px] font-mono text-blue-200">
                 {item.spec}
@@ -204,7 +204,7 @@ export function SectorHeroCarousel() {
               className="inline-flex items-center gap-2.5 mx-6 text-xs text-slate-200 shrink-0 font-medium tracking-wide"
             >
               <span className="h-1.5 w-1.5 rounded-full bg-lithon-red" />
-              <span className="font-semibold text-white uppercase tracking-wider">{item.sector}:</span>
+              <span className="font-semibold text-white">{item.sector}:</span>
               <span className="text-slate-300">{item.highlight}</span>
               <span className="rounded bg-white/15 border border-white/20 px-2 py-0.5 text-[11px] font-mono text-blue-200">
                 {item.spec}
@@ -219,7 +219,7 @@ export function SectorHeroCarousel() {
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-3 border-b border-white/15">
             <div className="flex items-center gap-2">
-              <span className="text-xs uppercase tracking-widest text-slate-400 font-semibold">
+              <span className="text-xs text-slate-400 font-semibold">
                 Explore Target Sectors:
               </span>
               <span className="text-xs font-mono text-white">
@@ -280,7 +280,7 @@ export function SectorHeroCarousel() {
                       <span className="h-1.5 w-1.5 rounded-full bg-lithon-red" />
                     )}
                   </div>
-                  <div className={`text-xs font-semibold mt-1 truncate ${isActive ? "text-white" : "text-slate-200"}`}>
+                  <div className={`text-xs font-semibold mt-1 ${isActive ? "text-white" : "text-slate-200"}`}>
                     {sector.tabLabel}
                   </div>
 
@@ -288,7 +288,7 @@ export function SectorHeroCarousel() {
                   {isActive && isPlaying && !isHovered && (
                     <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-white/20 overflow-hidden rounded-b-xl">
                       <div 
-                        className="h-full bg-lithon-red"
+                        className="h-full bg-lithon-red-ink"
                         style={{
                           animation: `progressFill ${SLIDE_DURATION_MS}ms linear infinite`
                         }}

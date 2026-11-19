@@ -18,7 +18,7 @@ export function IceBatteryThermal() {
         <div>
           <div className="flex items-center gap-2 text-xs font-medium text-lithon-blue">
             <Sparkles className="h-4 w-4" />
-            <span>Patented Thermal Physics</span>
+            <span>Proprietary Thermal Physics</span>
           </div>
           <h3 className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight mt-1 text-balance">
             IceBattery® Passive Ceramic Shield
@@ -51,7 +51,7 @@ export function IceBatteryThermal() {
             onClick={() => setActiveMode("conventional")}
             className={`min-h-[44px] flex items-center gap-1.5 rounded-lg px-3.5 py-2 text-xs font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lithon-red ${
               activeMode === "conventional"
-                ? "bg-lithon-red text-white shadow-sm"
+                ? "bg-lithon-red-ink text-white shadow-sm"
                 : "text-gray-600 hover:text-gray-900"
             }`}
           >
@@ -62,11 +62,11 @@ export function IceBatteryThermal() {
       </div>
 
       {/* Interactive Visual Canvas / SVG */}
-      <div className="relative mt-6 rounded-xl border border-gray-200 bg-surface-light p-6 overflow-hidden">
+      <div className="relative mt-6 border-t border-gray-200 pt-6 overflow-hidden">
         {/* Ambient Sun & Radiation Vectors */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-amber-50 border border-amber-200 text-amber-600">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-amber-50 border border-amber-200 text-amber-700">
               <Sun className="h-5 w-5 animate-spin" style={{ animationDuration: "20s" }} />
             </div>
             <div>
@@ -81,7 +81,7 @@ export function IceBatteryThermal() {
               {activeMode === "icebattery" ? (
                 <span className="text-lithon-blue">&gt;90% Near-Infrared Reflected</span>
               ) : (
-                <span className="text-lithon-red">85% Solar Radiation Absorbed</span>
+                <span className="text-lithon-red-ink">85% Solar Radiation Absorbed</span>
               )}
             </div>
           </div>
@@ -159,18 +159,18 @@ export function IceBatteryThermal() {
 
         {/* Comparison Result Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 border-t border-gray-200 pt-4">
-          <div className="rounded-xl bg-white p-4 border border-gray-200 shadow-sm">
+          <div className="border-t border-gray-200 pt-4">
             <span className="text-xs font-medium text-gray-500">Internal Enclosure Temp</span>
             <div className="text-xl font-bold text-gray-900 mt-0.5">
               {activeMode === "icebattery" ? `${iceBatteryInternal}°C` : `${conventionalInternal}°C`}
             </div>
-            <div className="text-xs text-emerald-600 mt-1 flex items-center gap-1 font-medium">
+            <div className="text-xs text-emerald-700 mt-1 flex items-center gap-1 font-medium">
               <CheckCircle2 className="h-3 w-3 shrink-0" />
               <span>{activeMode === "icebattery" ? `${deltaT}°C cooler core` : "HVAC thermal stress"}</span>
             </div>
           </div>
 
-          <div className="rounded-xl bg-white p-4 border border-gray-200 shadow-sm">
+          <div className="border-t border-gray-200 pt-4">
             <span className="text-xs font-medium text-gray-500">HVAC Parasitic Load</span>
             <div className="text-xl font-bold text-lithon-blue mt-0.5">
               {activeMode === "icebattery" ? ">20% Saved" : "Continuous 100% Load"}
@@ -180,7 +180,7 @@ export function IceBatteryThermal() {
             </div>
           </div>
 
-          <div className="rounded-xl bg-white p-4 border border-gray-200 shadow-sm">
+          <div className="border-t border-gray-200 pt-4">
             <span className="text-xs font-medium text-gray-500">Maximum Ambient Rating</span>
             <div className="text-xl font-bold text-gray-900 mt-0.5">60°C Tolerance</div>
             <div className="text-xs text-emerald-700 mt-1 font-semibold">

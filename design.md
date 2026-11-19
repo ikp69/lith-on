@@ -1,8 +1,9 @@
 # Design System & Visual Specification — Lith-On Website
 
 **Status:** Authoritative Design Specification  
-**Version:** 2.0 (Light-First Architectural & Editorial Direction)  
-**Date:** October 30, 2026  
+**Version:** 3.0 (Visual, UX & Motion system, approved 17 November 2026)  
+**Date:** November 17, 2026  
+**Companion documents:** `docs/visual-audit/LITHON_VISUAL_UX_MOTION_AUDIT.md` (section-by-section plan), `docs/MOTION_SYSTEM.md` (motion implementation)  
 **Target Brand:** Lith-On Bharat Energy Private Limited  
 
 ---
@@ -27,9 +28,11 @@ The website must convey high engineering credibility and sophisticated visual pr
 Directly inspired by the approved reference design (the clean, architectural solar & storage hero composition):
 
 ### Architectural Hero Anatomy (The Reference Structure)
+
+> **Superseded in v3.0 where it conflicts with §8:** the hero now carries a headline, one sentence and at most two actions. Floating chip clusters and badge shelves are no longer used; keep the reference only for its light, architectural mood.
 1. **Floating Capsule / Pill Navigation**:
    - A floating pill-shaped container (`rounded-full bg-white/40 backdrop-blur-md border border-white/50 shadow-sm px-6 py-2.5`) suspended over the top canvas.
-   - Brand logo on the left, centered clean text navigation links, and a high-contrast pill CTA on the right (`START RFQ →`).
+   - Brand logo on the left, centered clean text navigation links, and a high-contrast pill CTA on the right (`Start RFQ`).
 2. **Split Oversized Typography**:
    - Massive, confident headlines split across the left and right flanks (e.g., `Industrial ⚡` on the left, `Storage` or `Infrastructure` on the right) in clean Manrope light/regular weight (`font-light tracking-tight text-white`).
    - The central installation photography rises up naturally between the two words, creating a 3D architectural framing effect.
@@ -37,7 +40,7 @@ Directly inspired by the approved reference design (the clean, architectural sol
    - A floating frosted translucent panel (`rounded-2xl bg-white/30 backdrop-blur-md border border-white/40 p-5 text-white`) positioned on the mid-left:
      - High-emphasis sub-label (e.g., `MAGNA-C&I 260 kWh` in Lith-On Red `#F74530` or gold accent).
      - Concise 2-line technical description (sub-10ms switchover, 60°C ambient tolerance).
-     - Circular micro-CTA link (`VIEW DATASHEET ↗`).
+     - Circular micro-CTA link (`View datasheet`).
 4. **Bottom Tri-Panel Architectural Shelf**:
    - Three cohesive, rounded cards resting along the lower viewport edge:
      - **Panel 1 (Left — Institutional Proof)**: Metric callout (`500+ MWh Deployed`, `25+ Countries`, or verified institutional client trust).
@@ -57,6 +60,7 @@ Lith-On's brand colours are precision accents, **not** full-page flood fills.
 | Token Name | Hex Code | Role & Usage Rules |
 | :--- | :--- | :--- |
 | **Lith-On Red** | `#F74530` | **Primary Brand Accent**: High-emphasis calls to action (primary buttons), active status indicators, key numerical callouts, and subtle interactive details. Use sparingly so it remains visually punchy. |
+| **Lith-On Red Ink** | `#C2301E` (hover `#A32716`) | **Accessible red**: the brand red measures only 3.59:1 on white, so small red text (under 24px) and filled red buttons carrying white text use this deeper shade (5.6:1). `#F74530` stays for large display numbers, icons, status dots, borders and red text on dark surfaces. |
 | **Lith-On Blue** | `#0B3388` | **Secondary Brand Accent**: Technical highlights, selected links, engineering icons, certification badges, and subtle brand reinforcement. Establishes trust and engineering credibility. |
 
 ### Colour Usage Rules
@@ -87,40 +91,49 @@ The site is built upon a light-first, natural architectural neutral system:
 | **Primary Text (Charcoal)** | `#111827` (Slate 900) | High-contrast, near-black tone for all headings, body copy, and data values. |
 | **Secondary Text (Neutral)** | `#4B5563` (Gray 600) | Calm, readable neutral tone for supporting descriptions, subtitles, and captions. |
 | **Muted Metadata** | `#6B7280` (Gray 500) | Low-emphasis labels, timestamps, and breadcrumbs. |
+| **Stage Dark** (`stage-dark`) | `#0E1116` | The single permitted dark photographic band per page (§11). Never a CTA background. |
+| **Strong Line** (`line-strong`) | `#D1D5DB` | Secondary-button outlines and emphasised dividers. |
 
 ---
 
 ## 5. Typography System
 
-The preferred typography family for the Lith-On website is **Manrope**, loaded via Next.js Google Fonts (`next/font/google`) with system sans-serif fallbacks (`-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`).
+**Manrope is the only typeface**, loaded through `next/font/google` as `--font-manrope`. Do not add fonts. Monospace is reserved for model codes (LO-MC-260) and true tabular data inside spec tables; everywhere else numbers use Manrope with tabular figures.
 
-### Type Scale & Hierarchy
+### Type scale (tokens in `src/app/globals.css`, utilities `text-display-xl` … `text-label`)
 
-| Element | Weight | Size (Desktop) | Size (Mobile) | Line Height | Tracking | Colour |
+| Token / utility | Desktop | Phone | Weight | Line height | Tracking | Use |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Hero Headline (H1)** | Light (`300`) / Regular (`400`) | 48px – 64px (`text-4xl` to `text-6xl`) | 32px – 40px | 1.1 – 1.15 | `-0.025em` | `#111827` |
-| **Section Title (H2)** | Regular (`400`) / Medium (`500`) | 32px – 40px (`text-3xl` to `text-4xl`) | 24px – 28px | 1.2 – 1.25 | `-0.02em` | `#111827` |
-| **Subsection Header (H3)** | Medium (`500`) / Semibold (`600`) | 20px – 24px (`text-xl` to `text-2xl`) | 18px – 20px | 1.3 | `-0.01em` | `#111827` |
-| **Feature Lead / Intro** | Regular (`400`) | 18px – 20px (`text-lg` to `text-xl`) | 16px – 17px | 1.6 | Normal | `#4B5563` |
-| **Body Paragraph** | Regular (`400`) | 15px – 16px (`text-sm` to `text-base`) | 15px | 1.65 – 1.7 | Normal | `#374151` |
-| **Technical Label / Tag** | Medium (`500`) / Semibold (`600`) | 11px – 12px (`text-xs`) | 11px | 1.4 | `+0.05em` (Uppercase) | `#0B3388` or `#4B5563` |
-| **Key Metric Number** | Regular (`400`) / Medium (`500`) | 36px – 56px (`text-4xl` to `text-5xl`) | 32px – 36px | 1.0 | `-0.02em` | `#111827` or `#F74530` |
-| **Button Text** | Medium (`500`) / Semibold (`600`) | 13px – 14px (`text-xs` to `text-sm`) | 14px | 1.0 | `+0.02em` | Text color per button variant |
+| `display-xl` | 88px | 44px | 300 | 0.98 | -0.035em | Homepage hero only |
+| `display-l` | 64px | 36px | 300 | 1.02 | -0.03em | Inner-page heroes |
+| `heading-1` | 48px | 30px | 400 | 1.08 | -0.025em | Section headings |
+| `heading-2` | 32px | 24px | 500 | 1.15 | -0.02em | Sub-sections, feature titles |
+| `heading-3` | 22px | 19px | 500 | 1.25 | -0.01em | Item titles |
+| `lead` | 20px | 17px | 400 | 1.55 | normal | One-sentence section intros |
+| `body` | 17px | 16px | 400 | 1.65 | normal | Running text |
+| `small` | 14px | 14px | 400 | 1.5 | normal | Captions, metadata |
+| `label` | 13px | 13px | 600 | 1.3 | normal | Labels, tabs, tags |
+| `stat-xl` | 120px | 64px | 300 | 0.9 | -0.04em | Hero statistics (tabular figures) |
+| `stat-l` | 64px | 40px | 300 | 1 | -0.03em | Inline statistics |
+
+Sizes scale fluidly between 375px and 1440px with `clamp()`.
+
+### Rules
+- Headlines aim for 7 words or fewer.
+- **The two-tone headline (second line in Lith-On Blue, weight 500) is used at most once per page**, for that page's main statement.
+- Body text is never smaller than 16px; captions never smaller than 13px.
+- **Case rule:** labels, tags, table heads, captions, nav links and buttons are sentence case with normal tracking. Uppercase only for acronyms (BESS, IEC, CAQM GRAP), model codes and the registered company name.
+- Muted text is never lighter than `ink-3` (#6B7280) on light surfaces (4.5:1).
 
 ---
 
-## 6. Spacing & Grid System
+## 6. Spacing, Grid & Containers
 
-- **Base Unit:** 4px / 8px scale.
-- **Section Vertical Padding:**
-  - Desktop: `py-20` to `py-28` (80px to 112px).
-  - Mobile: `py-12` to `py-16` (48px to 64px).
-- **Maximum Content Container Width:**
-  - Standard: `max-w-7xl` (1280px) centered with `px-6` or `px-8` horizontal gutters.
-  - Editorial / Reading Width: `max-w-3xl` (768px) to maintain a comfortable reading line length of 65–75 characters.
-- **Gap Spacing:**
-  - Grids: `gap-8` to `gap-12` (32px to 48px).
-  - Component internals: `gap-3` to `gap-6` (12px to 24px).
+- **Base scale (8px):** 4, 8, 12, 16, 24, 32, 48, 64, 96, 128, 160.
+- **Section rhythm** (utilities `section`, `section-tight`, `section-loose`): default 128px desktop / 72px phone; tight 96px / 56px between closely related sections; loose 160px / 96px around a statement section. Vary the rhythm deliberately; never one gap everywhere.
+- **Grid:** 12 columns, 24px gutters (16px on phones).
+- **Container** (`container-site`): max 1360px, centred, 24px side padding (16px on phones). Reading measure (`measure`): 68ch. Full-bleed media breaks out of the container on purpose.
+- **Radii, one per level:** `radius-media` 20px (large media, panels), `radius-control` 12px (inputs, small cards), full round for buttons and tags only.
 
 ---
 
@@ -139,59 +152,67 @@ The preferred typography family for the Lith-On website is **Manrope**, loaded v
 
 ## 8. Hero-Section Guidelines
 
-The Hero section sets the tone for the entire brand:
-- **Visual Foundation**: High-resolution authentic image of a Lith-On commercial or industrial installation (e.g., commercial solar microgrid with Magna-C&I BESS enclosure).
-- **Composition**: Left-aligned or split architectural layout.
-- **Headline**: Restrained, confident typography (e.g., *"Engineered Energy Storage for Commercial & Industrial Infrastructure"*).
-- **Supporting Copy**: 2–3 sentences stating verified capability: Noida 20,000 sq. ft. plant, 250 MWh throughput, sub-10ms UPS cutover, and 60°C ambient tolerance.
-- **Calls to Action**:
-  - Primary: *"Request Technical Sizing & RFQ"* in Lith-On Red (`#F74530`) or Lith-On Blue (`#0B3388`).
-  - Secondary: *"Explore BESS Hardware"* with subtle light border or text link.
-- **Overlays**: Minimal and translucent. The photography must remain clearly legible; do not obscure equipment with heavy gradients.
+Every page uses one of four `PageHero` variants (`src/components/system/PageHero.tsx`). The variant is chosen by the page's material, and neighbouring pages in the same nav group should not all use the same one.
+
+| Variant | Composition | Use for |
+| :--- | :--- | :--- |
+| **Product** | Product cut-out large on a light stage, headline and one sentence beside it | Homepage, Products, product detail |
+| **Image** | Full-bleed photograph, headline on a gentle scrim | Solutions, Industries, About, Case study detail, Services |
+| **Editorial** | Very large statement with a supporting visual or numbered index | Technology, Why Lith-On, Warranty, Financing |
+| **Utility** | Compact headline and lead, no visual | Contact, FAQs, Certifications, Legal, Calculator |
+
+Rules:
+- Headline, one sentence and at most two actions (primary + secondary). No chip clusters.
+- The headline, sentence and primary action are visible at 1280 × 800 without scrolling.
+- **Rendered environments must carry the visible label "Illustrative scene"** (`MediaFrame` / `PageHero` `illustrative` prop) and must never be described as an installation.
+- Overlays: a black-to-transparent scrim of at most 60% only behind text.
 
 ---
 
-## 9. Navigation & Header Styling
+## 9. Navigation & Header
 
-- **Background**: Pure white (`#FFFFFF`) or translucent off-white (`bg-white/90 backdrop-blur-md`) with a delicate bottom border (`border-b border-gray-200`).
-- **Brand Identity**: Official Lith-On dark logo (`/images/logo/logo-dark.png`) positioned on the left.
-- **Navigation Links**: Clean charcoal text (`text-gray-700 hover:text-[#0B3388] transition-colors`) with clear active state indicators.
-- **Utility Micro-Bar**: Top strip with subtle off-white background (`bg-gray-50 border-b border-gray-200`) indicating facility status, direct engineering phone (`+91-7000013009`), and Trifecta certification badge.
-- **Primary Header CTA**: Crisp button with Lith-On Red (`#F74530`) accent or Lith-On Blue (`#0B3388`).
-- **Mobile Menu**: Lightweight slide-down drawer with clean white background, accessible touch targets, and keyboard escape handling.
-
----
-
-## 10. Button & Interactive Control Styles
-
-1. **Primary Action Button (High Emphasis)**:
-   - Background: `bg-[#F74530] hover:bg-[#d83522]` (Lith-On Red).
-   - Text: `text-white font-medium text-sm`.
-   - Padding: `px-6 py-3 rounded-lg`.
-   - Shadow: Subtle natural shadow (`shadow-sm hover:shadow transition-all`).
-   - Focus: `focus-visible:ring-2 focus-visible:ring-[#F74530] focus-visible:ring-offset-2`.
-2. **Secondary Button (Technical / Navigation)**:
-   - Background: `bg-[#0B3388] hover:bg-[#082666]` (Lith-On Blue).
-   - Text: `text-white font-medium text-sm`.
-   - Padding: `px-6 py-3 rounded-lg`.
-   - Focus: `focus-visible:ring-2 focus-visible:ring-[#0B3388] focus-visible:ring-offset-2`.
-3. **Tertiary / Outline Button**:
-   - Background: `bg-white hover:bg-gray-50 border border-gray-300`.
-   - Text: `text-gray-800 font-medium text-sm`.
-   - Padding: `px-6 py-3 rounded-lg`.
-   - Focus: `focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2`.
-4. **Text Link with Arrow**:
-   - Styling: `text-[#0B3388] hover:text-[#F74530] font-medium inline-flex items-center gap-1.5 transition-colors`.
+- **Five primary items:** Products · Solutions · Industries · Technology · Company. Supporting pages live inside their groups: Company holds About, Capabilities, Why Lith-On, Case Studies, Certifications, Sustainability, Careers and Contact; Products holds Resources, Calculator and Warranty; Solutions holds Services, Grid Services and Financing.
+- **Header:** white, compact; becomes translucent (`bg-white/85` + blur) with a hairline after scrolling. Logo left, nav centre, one primary action right ("Get quote"). The phone number lives inside the menus, not in the bar.
+- **Mega-menus:** full-width panels that can show product cut-outs or a featured image; open on hover and on keyboard focus; close on Escape.
+- **Mobile:** full-screen sheet with large rows and the primary action anchored at the bottom.
+- **Page transitions:** a subtle fade + rise via React `<ViewTransition>` (see `docs/MOTION_SYSTEM.md`). The header is anchored and never moves during a transition.
 
 ---
 
-## 11. Cards, Surfaces & Overlays
+## 10. Buttons & Interactive Controls
 
-- **Surface Treatment**: Crisp pure white (`#FFFFFF`) or off-white (`#FAFAF8`).
-- **Border**: Subtle 1px solid neutral (`border border-gray-200/80`). Avoid thick or brightly colored borders.
-- **Corner Radii**: Restrained architectural corners (`rounded-xl` / 8px–12px). Do not use pill-shaped or exaggerated radii.
-- **Shadows**: Soft, natural ambient diffusion (`shadow-[0_2px_8px_rgba(0,0,0,0.04)]` or Tailwind `shadow-sm`). Never use harsh, dark drop shadows or colored neon glows.
-- **Frosted Overlays**: Use translucent white (`bg-white/85 backdrop-blur-md`) selectively for floating data chips or sticky headers. Do not make every card glassmorphic.
+One `Button` component (`src/components/system/Button.tsx`) with three variants, 48px tall (40px small), pill-shaped, sentence case, with all states (default, hover, focus-visible, active, disabled, loading):
+
+| Variant | Look | Use |
+| :--- | :--- | :--- |
+| `primary` | Lith-On Red Ink `#C2301E` fill, white text; hover `#A32716` | The one main action in a view |
+| `secondary` | Ink outline on light; white outline on dark | Second action |
+| `tertiary` | Text link with an arrow icon spaced 8px from the label; underline grows on hover | Inline navigation, "View product" |
+
+- Never two filled buttons side by side.
+- Focus ring: 2px Lith-On Blue, 2px offset (white on dark surfaces), appearing instantly.
+- Hover feedback uses colour and a 4px arrow nudge, never layout shifts.
+
+---
+
+## 11. Surfaces, Cards & Dark Sections
+
+### Surfaces
+`canvas` #FFFFFF · `canvas-warm` #FAFAF8 · `surface` #F3F4F6 (spec tables, inputs, behind product cut-outs) · `line` #E5E7EB hairlines.
+
+### Cards are the exception, not the default
+Use a card only when the information genuinely benefits from being grouped (a product in a catalogue, a selectable option, a form). Prefer, in this order: open layouts with hairline separators, asymmetric editorial splits, full-width photography, large typography, horizontal rails, interactive diagrams. Product photography is shown without containers wherever possible.
+
+When a card is used: `radius-control` or `radius-media`, a 1px `line` border **or** a soft shadow (never both), and no card inside a card.
+
+### Dark photographic band (`stage-dark` #0E1116)
+- **At most one per page.**
+- Used for visual contrast and storytelling: a full-bleed photograph, a dramatic statistic, a defence or extreme-environment story.
+- **Never for closing calls to action**, and never simply as a replacement for the old blue banners.
+- Text on it uses white and `#C9CED6`; the red accent stays `#F74530` (it has more contrast on dark).
+
+### Closing sections
+Each page ends with one of three light, editorial `ClosingCTA` variants: **Statement** (large type + action), **Split** (image + action), **Inline** (one line + action). Rotate variants across pages.
 
 ---
 
@@ -209,20 +230,37 @@ The Hero section sets the tone for the entire brand:
 
 ---
 
-## 13. Motion & Animation Guidelines
+## 13. Motion & Interaction
 
-- **Principle**: Motion is functional, subtle, and restrained. It aids spatial comprehension; it never acts as decoration.
-- **Allowed Motion**:
-  - Micro-transitions on buttons and links (`transition-colors duration-150`).
-  - Gentle fade-in and subtle vertical translation on viewport enter (`opacity: 0 -> 1`, `y: 12px -> 0px` over 0.3s).
-  - Smooth expansion for Radix accordions (`transition-all duration-200 ease-out`).
-  - Interactive technical schematics (e.g., IceBattery thermal temperature toggle, oscilloscope waveform switch).
-- **Strictly Prohibited Motion**:
-  - Aggressive parallax scrolling.
-  - Constant floating or bouncing elements.
-  - Slow entrance reveals that block reading.
-  - Heavy 3D WebGL scenes that cause CPU throttling or battery drain.
-- **Accessibility**: Strict adherence to `prefers-reduced-motion: reduce`. All content must be fully visible and navigable without motion.
+Motion is a design language of its own and is used **intentionally, not maximally**. Full specification and API: `docs/MOTION_SYSTEM.md`.
+
+### Budget
+- On any page: **at most two sophisticated scroll experiences** (pinned story or scroll-driven rail), a few interactive components, subtle entrances elsewhere, and **some sections completely static**.
+- At most one entrance reveal per section. Nothing animates continuously (no pulsing, floating or looping), except a diagram the visitor is actively interacting with.
+
+### The nine patterns (the only ones allowed)
+| # | Pattern | Library |
+| :--- | :--- | :--- |
+| M1 | Reveal: fade + 24px rise, once | Motion |
+| M2 | Line reveal: headline lines rise from a mask | Motion |
+| M3 | Count-up: numbers count to their value with tabular figures | Motion |
+| M4 | Scroll story: media pins while chapters scroll past (desktop only) | GSAP ScrollTrigger |
+| M5 | Scroll rail: vertical scroll drives a horizontal track (desktop); native swipe on phones | GSAP ScrollTrigger |
+| M6 | Parallax media: image drifts inside its frame | GSAP ScrollTrigger |
+| M7 | Diagram draw: SVG strokes and values animate in view | GSAP or Motion |
+| M8 | Hover: image scale 1.03 inside a clipped frame, arrow nudge, underline grow | CSS |
+| M9 | Page transition: subtle fade + 12px rise | React `<ViewTransition>` |
+
+Smooth scrolling: **Lenis**, synchronised with ScrollTrigger, disabled for reduced motion and on touch devices (native scrolling is kept on phones).
+
+### Tokens
+Durations `fast` 250ms, `standard` 500ms, `relaxed` 800ms, `deliberate` 1200ms; ease-out `cubic-bezier(0.16,1,0.3,1)`; ease-in-out `power3.inOut`; stagger 60ms (lines) / 90ms (items).
+
+### Rules
+- Animate `transform` and `opacity` only.
+- `prefers-reduced-motion: reduce` makes M1–M3 instant, turns M4/M5 into ordinary stacked/swipe layouts, and disables M6, M9 and Lenis.
+- All content is present and readable without JavaScript; motion only enhances.
+- Desktop and phone are designed as separate experiences: pinned stories become stacked chapters with their own images, scroll rails become native swipe, hover interactions become tap interactions. Never sacrifice phone usability to keep a desktop animation.
 
 ---
 
@@ -243,4 +281,32 @@ The Hero section sets the tone for the entire brand:
 4. **NO Neon Gradients**: Avoid cybernetic gradients (e.g., cyan-to-purple or electric neon lines).
 5. **NO Repetitive Card Grids**: Avoid repeating identical 3-card containers across multiple consecutive sections.
 6. **NO Fictional Claims**: Never invent technical specs, prices, customer names, or compliance certificates.
-7. **NO Unnecessary Dependencies**: Rely on Next.js, Tailwind CSS, Lucide React, and Radix UI primitives.
+7. **NO Unnecessary Dependencies**: Rely on Next.js, Tailwind CSS, Lucide React, Radix UI, GSAP, Motion and Lenis. Anything else needs a documented reason.
+8. **NO Card-Everything Layouts**: Cards only where grouping genuinely helps (§11).
+9. **NO Maximum Motion**: Stay within the motion budget (§13).
+10. **NO Identical Page Openings or Endings**: Choose `PageHero` and `ClosingCTA` variants deliberately.
+11. **NO Renders Presented as Installations**: Label illustrative scenes.
+
+---
+
+## 16. Core Component Library
+
+Built once in `src/components/system/` and previewed at `/design-system` (internal, not indexed, not linked).
+
+| Component | Purpose |
+| :--- | :--- |
+| `Button` | Three variants (§10) |
+| `PageHero` | Four variants (§8) |
+| `SectionIntro` | Heading + optional one-sentence lead; no eyebrow pill |
+| `MediaFrame` | Image frame: aspect ratio, caption, optional parallax (M6), `illustrative` label, cut-out mode on `surface` |
+| `Stat`, `StatBand` | Statistics with tabular figures and optional count-up (M3); the band is open, separated by hairlines |
+| `BentoGrid`, `BentoTile` | Asymmetric 12-column compositions |
+| `HorizontalRail` | Scroll-driven rail on desktop (M5), native swipe with snap on phones, keyboard-operable |
+| `ScrollStory` | Pinned media + scrolling chapters on desktop (M4); stacked chapters with their own images on phones |
+| `ClosingCTA` | Statement, Split, Inline (§11) |
+| `Reveal`, `LineReveal`, `CountUp`, `Parallax` | Motion primitives M1, M2, M3, M6 |
+
+## 17. Composition Palette
+
+Every section uses one composition, and **no page uses the same composition twice in a row**:
+Statement · Split asymmetric (5/7) · Full-bleed image · Bento · Scroll story · Horizontal rail · Stat band · Editorial list (hairline rows) · Spec table · Interactive diagram.

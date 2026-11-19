@@ -161,7 +161,7 @@ export function PanIndiaMap() {
 
         {/* Selected Deployment Detail Card */}
         <div className="lg:col-span-5">
-          <div className="rounded-xl border border-gray-200 bg-surface-light p-6 shadow-sm">
+          <div className="border-t border-gray-200 pt-6">
             <div className="flex items-center justify-between">
               <span className="rounded-full bg-lithon-blue/10 border border-lithon-blue/20 px-3 py-1 text-xs font-semibold text-lithon-blue">
                 {selectedNode.type}
@@ -181,7 +181,7 @@ export function PanIndiaMap() {
                 <span className="font-semibold text-gray-900">{selectedNode.capacity}</span>
               </div>
               <div className="flex items-center gap-2 text-xs">
-                <TrendingUp className="h-4 w-4 text-emerald-600 shrink-0" />
+                <TrendingUp className="h-4 w-4 text-emerald-700 shrink-0" />
                 <span className="text-gray-500">Audited Impact:</span>
                 <span className="font-semibold text-emerald-700">{selectedNode.metrics}</span>
               </div>

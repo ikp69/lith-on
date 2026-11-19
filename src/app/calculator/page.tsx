@@ -26,15 +26,15 @@ export const metadata: Metadata = {
 
 export default function CalculatorPage() {
   return (
-    <div className="space-y-16 sm:space-y-24 pb-20 bg-white">
+    <div className="space-y-20 sm:space-y-28 lg:space-y-36 pb-28 lg:pb-36 bg-white">
       {/* 1. Header Banner */}
-      <section className="border-b border-gray-200 bg-canvas-offwhite px-4 sm:px-6 pt-16 sm:pt-20 pb-16 sm:pb-20">
+      <section className="border-b border-gray-200 bg-canvas-offwhite px-4 sm:px-6 pt-10 sm:pt-40 pb-14 sm:pb-32">
         <div className="mx-auto max-w-7xl">
           <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs font-medium text-lithon-blue mb-4">
             <Link href="/" className="hover:text-gray-900 transition-colors">Home</Link>
-            <span className="text-gray-400">/</span>
+            <span className="text-gray-500">/</span>
             <span className="text-gray-600">Engineering Tools</span>
-            <span className="text-gray-400">/</span>
+            <span className="text-gray-500">/</span>
             <span className="text-gray-900 font-semibold" aria-current="page">ROI Calculator</span>
           </nav>
 
@@ -60,7 +60,7 @@ export default function CalculatorPage() {
           <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4 pt-8 border-t border-gray-200">
             <div className="p-4 rounded-xl bg-white border border-gray-200/80 shadow-2xs">
               <div className="flex items-center gap-2 text-lithon-blue mb-1">
-                <Coins className="h-4 w-4 text-emerald-600" />
+                <Coins className="h-4 w-4 text-emerald-700" />
                 <span className="text-xs font-medium text-gray-500">Average Payback</span>
               </div>
               <div className="text-2xl font-bold font-mono text-gray-900">1.8 – 2.4 Yrs</div>
@@ -72,7 +72,7 @@ export default function CalculatorPage() {
                 <TrendingDown className="h-4 w-4 text-lithon-red" />
                 <span className="text-xs font-medium text-gray-500">OPEX Reduction</span>
               </div>
-              <div className="text-2xl font-bold font-mono text-emerald-600">Up to 73%</div>
+              <div className="text-2xl font-bold font-mono text-emerald-700">Up to 73%</div>
               <p className="text-[11px] text-gray-500 mt-0.5">Vs. continuous diesel genset run</p>
             </div>
 
@@ -87,7 +87,7 @@ export default function CalculatorPage() {
 
             <div className="p-4 rounded-xl bg-white border border-gray-200/80 shadow-2xs">
               <div className="flex items-center gap-2 text-lithon-blue mb-1">
-                <ShieldCheck className="h-4 w-4 text-emerald-600" />
+                <ShieldCheck className="h-4 w-4 text-emerald-700" />
                 <span className="text-xs font-medium text-gray-500">GRAP Compliance</span>
               </div>
               <div className="text-2xl font-bold font-mono text-gray-900">100% Legal</div>
@@ -125,31 +125,31 @@ export default function CalculatorPage() {
                 </h3>
               </div>
               <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
-                All model calculations incorporate Tier-1 LFP cell degradation curves (6,000+ cycles @ 88% Depth of Discharge), round-trip efficiency of 95%–98%, and auxiliary thermal cooling loads under India&apos;s extreme summer conditions (60°C ambient tolerance supported by patented IceBattery® ceramic coatings).
+                All model calculations incorporate Tier-1 LFP cell degradation curves (6,000+ cycles @ 88% Depth of Discharge), round-trip efficiency of 95%–98%, and auxiliary thermal cooling loads under India&apos;s extreme summer conditions (60°C ambient tolerance supported by proprietary IceBattery® ceramic coatings).
               </p>
               <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-gray-700 pt-1">
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
+                  <CheckCircle2 className="h-4 w-4 text-emerald-700 shrink-0" />
                   <span>Sub-10ms instantaneous static switch included</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
-                  <span>Integrated aerosol fire suppression (NFPA 855)</span>
+                  <CheckCircle2 className="h-4 w-4 text-emerald-700 shrink-0" />
+                  <span>Integrated aerosol fire suppression</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
+                  <CheckCircle2 className="h-4 w-4 text-emerald-700 shrink-0" />
                   <span>IEC 61508 / IEC 61850 grid compliant</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
+                  <CheckCircle2 className="h-4 w-4 text-emerald-700 shrink-0" />
                   <span>Complete turn-key commissioning &amp; 10-yr warranty</span>
                 </li>
               </ul>
             </div>
 
-            <div className="rounded-xl bg-white border border-gray-200 p-5 flex flex-col justify-between">
+            <div className="border-t border-gray-200 pt-5 flex flex-col justify-between">
               <div>
-                <span className="text-xs font-mono text-gray-500 uppercase tracking-wider block mb-1">
+                <span className="text-xs font-mono text-gray-500 block mb-1">
                   Custom Engineering RFQ
                 </span>
                 <h4 className="text-sm font-bold text-gray-900">Need On-Site Load Profiling?</h4>
@@ -160,8 +160,8 @@ export default function CalculatorPage() {
 
               <div className="pt-4">
                 <Link
-                  href="/contact"
-                  className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-lithon-red hover:bg-lithon-red-hover px-4 py-2.5 text-xs font-semibold text-white shadow-xs transition-colors"
+                  href="/contact?type=assessment"
+                  className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-lithon-red-ink hover:bg-lithon-red-ink-hover px-4 py-2.5 text-xs font-semibold text-white shadow-xs transition-colors"
                 >
                   <span>Request Engineering Site Audit</span>
                   <ArrowRight className="h-3.5 w-3.5" />
@@ -179,7 +179,7 @@ export default function CalculatorPage() {
         description="Share your monthly diesel consumption or transformer load data. Our Noida factory application engineers will deliver an audited ROI model and Single Line Diagram (SLD) tailored to your facility."
         primaryAction={{
           label: "Request Turnkey Sizing Proposal",
-          href: "/contact",
+          href: "/contact?type=assessment",
         }}
         secondaryAction={{
           label: "+91-7000013009",

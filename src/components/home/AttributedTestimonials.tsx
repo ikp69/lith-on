@@ -102,7 +102,7 @@ export function AttributedTestimonials() {
         <div className="rounded-3xl border border-gray-200 bg-white p-8 sm:p-12 shadow-sm transition-all">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-100 pb-6 mb-8">
             <div className="inline-flex items-center gap-2 text-xs font-semibold text-lithon-blue">
-              <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
+              <CheckCircle2 className="h-4 w-4 text-emerald-700 shrink-0" />
               <span>{active.project}</span>
             </div>
             <span className="inline-block rounded-full bg-emerald-50 border border-emerald-200 px-3 py-1 font-mono text-xs font-semibold text-emerald-800">

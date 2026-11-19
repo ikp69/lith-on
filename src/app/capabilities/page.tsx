@@ -74,13 +74,13 @@ const EPC_WORKFLOW = [
 
 export default function CapabilitiesPage() {
   return (
-    <div className="space-y-16 pb-20">
+    <div className="space-y-20 sm:space-y-28 lg:space-y-36 pb-28 lg:pb-36">
       {/* 1. Header Banner */}
-      <section className="border-b border-gray-200 bg-white px-6 pt-16 pb-20">
+      <section className="border-b border-gray-200 bg-white px-4 sm:px-6 pt-10 sm:pt-36 pb-14 sm:pb-28">
         <div className="mx-auto max-w-7xl">
           <div className="flex items-center gap-2 text-xs font-medium text-lithon-blue mb-3">
             <Link href="/" className="hover:text-gray-900 transition-colors">Home</Link>
-            <span className="text-gray-400">/</span>
+            <span className="text-gray-500">/</span>
             <span>Capabilities &amp; Factory</span>
           </div>
 
@@ -101,7 +101,7 @@ export default function CapabilitiesPage() {
       </section>
 
       {/* 2. Manufacturing Footprint Bar */}
-      <section className="px-6">
+      <section className="px-4 sm:px-6">
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-6 md:grid-cols-2">
             <div className="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
@@ -113,11 +113,11 @@ export default function CapabilitiesPage() {
               </div>
               <h2 className="text-2xl font-bold text-gray-900 mt-4">20,000 sq. ft. Noida Assembly &amp; Testing Facility</h2>
               <div className="mt-4 grid grid-cols-2 gap-3 text-xs">
-                <div className="rounded-xl bg-surface-light p-3 border border-gray-200">
+                <div className="border-t border-gray-200 pt-3">
                   <span className="text-gray-500 block text-xs font-medium">Total Annual Capacity</span>
                   <span className="text-xl font-bold font-mono text-gray-900 mt-0.5 block">250 MWh</span>
                 </div>
-                <div className="rounded-xl bg-surface-light p-3 border border-gray-200">
+                <div className="border-t border-gray-200 pt-3">
                   <span className="text-gray-500 block text-xs font-medium">BESS &amp; Pack Split</span>
                   <span className="text-xl font-bold font-mono text-lithon-blue mt-0.5 block">50 + 200 MWh</span>
                 </div>
@@ -128,7 +128,7 @@ export default function CapabilitiesPage() {
               </p>
             </div>
 
-            <div className="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
+            <div id="foshan" className="scroll-mt-24 rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
               <div className="flex items-center justify-between">
                 <span className="rounded-full bg-blue-50 border border-blue-200 px-3 py-1 text-xs font-semibold text-lithon-blue">
                   International Sourcing Hub
@@ -136,7 +136,7 @@ export default function CapabilitiesPage() {
                 <span className="text-xs font-normal text-gray-500">Foshan, Guangdong, China</span>
               </div>
               <h2 className="text-2xl font-bold text-gray-900 mt-4">Foshan Innovation &amp; Supply Center</h2>
-              <div className="mt-4 rounded-xl bg-surface-light p-3 border border-gray-200 text-xs">
+              <div className="mt-4 border-t border-gray-200 pt-3 text-xs">
                 <span className="text-gray-500 block text-xs font-medium">Strategic Location</span>
                 <span className="text-sm font-semibold text-gray-800 mt-0.5 block">
                   C11-6, Foshan Innovation Torchpark, Jihua 2 Road, Chancheng, Foshan
@@ -152,7 +152,7 @@ export default function CapabilitiesPage() {
       </section>
 
       {/* 3. The 6-Step Manufacturing Process */}
-      <section className="px-6">
+      <section className="px-4 sm:px-6">
         <div className="mx-auto max-w-7xl">
           <div className="border-b border-gray-200 pb-4 mb-8">
             <span className="text-xs font-medium text-lithon-blue">
@@ -177,7 +177,7 @@ export default function CapabilitiesPage() {
                     <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-lithon-blue text-white text-xs font-mono font-bold">
                       {step.step}
                     </span>
-                    <Layers className="h-4 w-4 text-gray-400" />
+                    <Layers className="h-4 w-4 text-gray-500" />
                   </div>
                   <h3 className="text-lg font-bold text-gray-900 mt-4">{step.title}</h3>
                   <p className="text-xs text-gray-600 mt-2 leading-relaxed">
@@ -195,7 +195,7 @@ export default function CapabilitiesPage() {
       </section>
 
       {/* 4. Comprehensive In-House Testing Laboratory */}
-      <section className="px-6">
+      <section className="px-4 sm:px-6">
         <div className="mx-auto max-w-7xl rounded-2xl border border-gray-200 bg-white p-8 sm:p-10 shadow-sm">
           <div className="border-b border-gray-200 pb-4 mb-8">
             <span className="text-xs font-medium text-lithon-blue">
@@ -212,7 +212,7 @@ export default function CapabilitiesPage() {
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {LAB_TESTS.map((test) => (
-              <div key={test.title} className="rounded-xl bg-surface-light p-5 border border-gray-200">
+              <div key={test.title} className="border-t border-gray-200 pt-5">
                 <span className="text-xs font-mono font-bold text-lithon-blue">{test.spec}</span>
                 <h3 className="text-base font-bold text-gray-900 mt-2">{test.title}</h3>
                 <p className="text-xs text-gray-600 mt-2 leading-relaxed">{test.description}</p>
@@ -223,7 +223,7 @@ export default function CapabilitiesPage() {
       </section>
 
       {/* 5. Turnkey EPC & Project Execution Workflow */}
-      <section className="px-6">
+      <section className="px-4 sm:px-6">
         <div className="mx-auto max-w-7xl">
           <div className="border-b border-gray-200 pb-4 mb-8">
             <span className="text-xs font-medium text-lithon-blue">
@@ -252,7 +252,7 @@ export default function CapabilitiesPage() {
       </section>
 
       {/* 6. Factory Visit & Audit CTA */}
-      <section className="px-6">
+      <section className="px-4 sm:px-6">
         <div className="mx-auto max-w-7xl rounded-3xl bg-lithon-blue text-white p-8 sm:p-12 shadow-lg flex flex-col sm:flex-row sm:items-center justify-between gap-6">
           <div>
             <h3 className="text-2xl font-bold sm:text-3xl">Schedule a Factory Visit to Noida</h3>
@@ -263,7 +263,7 @@ export default function CapabilitiesPage() {
           </div>
           <Link
             href="/contact?type=factory-visit"
-            className="inline-flex items-center justify-center gap-2 rounded-full bg-lithon-red px-6 py-3.5 text-xs font-semibold text-white hover:bg-lithon-red-hover transition-colors shadow-md shrink-0 min-h-[44px]"
+            className="inline-flex items-center justify-center gap-2 rounded-full bg-lithon-red-ink px-6 py-3.5 text-xs font-semibold text-white hover:bg-lithon-red-ink-hover transition-colors shadow-md shrink-0 min-h-[44px]"
           >
             <span>Book Facility Tour</span>
             <ArrowRight className="h-4 w-4" />

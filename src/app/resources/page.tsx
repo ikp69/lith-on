@@ -50,10 +50,10 @@ export default function ResourcesPage() {
   return (
     <div className="bg-white">
       {/* Editorial Header */}
-      <section className="relative border-b border-gray-200 bg-[#FAFAF8] py-16 sm:py-24">
+      <section className="relative border-b border-gray-200 bg-[#FAFAF8] pt-10 sm:pt-36 pb-14 sm:pb-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50/80 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-[#0B3388]">
+            <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50/80 px-3.5 py-1 text-xs font-semibold text-[#0B3388]">
               <BookOpen className="h-3.5 w-3.5 text-[#0B3388]" />
               <span>Technical Knowledge Center</span>
             </div>
@@ -68,11 +68,11 @@ export default function ResourcesPage() {
       </section>
 
       {/* Section 1: Official E-Catalogue Download Banner */}
-      <section className="py-12 border-b border-gray-200 bg-white">
+      <section className="py-16 sm:py-20 border-b border-gray-200 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="rounded-3xl border border-blue-200 bg-gradient-to-r from-blue-50/70 via-white to-blue-50/40 p-8 sm:p-12 flex flex-col md:flex-row items-center justify-between gap-8">
             <div className="max-w-xl">
-              <div className="inline-flex items-center gap-2 text-xs font-mono font-semibold uppercase text-[#0B3388]">
+              <div className="inline-flex items-center gap-2 text-xs font-mono font-semibold text-[#0B3388]">
                 <Layers className="h-3.5 w-3.5" />
                 <span>Complete 2026 Edition</span>
               </div>
@@ -86,7 +86,7 @@ export default function ResourcesPage() {
             <div className="shrink-0">
               <Link
                 href="/contact?type=ecatalogue"
-                className="inline-flex items-center gap-2 rounded-full bg-[#0B3388] hover:bg-[#082666] px-7 py-3.5 text-xs font-semibold uppercase tracking-wider text-white shadow-md hover:shadow-lg transition-all"
+                className="inline-flex items-center gap-2 rounded-full bg-[#0B3388] hover:bg-[#082666] px-7 py-3.5 text-xs font-semibold text-white shadow-md hover:shadow-lg transition-all"
               >
                 <Download className="h-4 w-4" />
                 <span>Request Master E-Catalogue (PDF)</span>
@@ -100,7 +100,7 @@ export default function ResourcesPage() {
       <section className="py-16 sm:py-20 bg-white" id="datasheets">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mb-12">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#0B3388]">
+            <span className="text-xs font-semibold text-[#0B3388]">
               Product Datasheets
             </span>
             <h2 className="text-3xl font-light text-gray-900 mt-2">
@@ -127,13 +127,13 @@ export default function ResourcesPage() {
                   <h3 className="text-lg font-bold text-gray-900 mt-3">{product.name}</h3>
                   <p className="text-xs text-gray-600 mt-1 leading-relaxed">{product.tagline}</p>
 
-                  <div className="mt-4 grid grid-cols-2 gap-2 text-xs text-gray-700 bg-white p-3 rounded-xl border border-gray-200 font-mono">
+                  <div className="mt-4 grid grid-cols-2 gap-2 text-xs text-gray-700 border-y border-gray-200 py-3 font-mono">
                     <div>
-                      <span className="text-[10px] text-gray-400 block">Rated Power:</span>
+                      <span className="text-[10px] text-gray-500 block">Rated Power:</span>
                       <strong className="text-gray-900">{product.powerRating}</strong>
                     </div>
                     <div>
-                      <span className="text-[10px] text-gray-400 block">Cooling:</span>
+                      <span className="text-[10px] text-gray-500 block">Cooling:</span>
                       <strong className="text-gray-900">{product.coolingMethod.split('/')[0]}</strong>
                     </div>
                   </div>
@@ -165,7 +165,7 @@ export default function ResourcesPage() {
       <section className="py-16 sm:py-20 border-t border-gray-200 bg-[#FAFAF8]" id="insights">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mb-12">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#0B3388]">
+            <span className="text-xs font-semibold text-[#0B3388]">
               Thought Leadership &amp; Engineering Papers
             </span>
             <h2 className="text-3xl font-light text-gray-900 mt-2">
@@ -198,7 +198,7 @@ export default function ResourcesPage() {
                 </div>
 
                 <div className="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between">
-                  <span className="text-xs text-gray-400 font-mono">{item.date}</span>
+                  <span className="text-xs text-gray-500 font-mono">{item.date}</span>
                   <Link
                     href={`/contact?insight=${encodeURIComponent(item.title)}`}
                     className="inline-flex items-center gap-1 text-xs font-semibold text-[#0B3388] hover:underline"
@@ -214,7 +214,7 @@ export default function ResourcesPage() {
       </section>
 
       {/* Section 4: Quick FAQs Link */}
-      <section className="py-16 bg-white border-t border-gray-200">
+      <section className="py-20 sm:py-24 bg-white border-t border-gray-200">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="rounded-2xl bg-blue-50/70 border border-blue-200 p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-4">
@@ -228,7 +228,7 @@ export default function ResourcesPage() {
             </div>
             <Link
               href="/faqs"
-              className="inline-flex items-center gap-2 rounded-full bg-[#0B3388] px-6 py-3 text-xs font-semibold uppercase tracking-wider text-white shadow hover:bg-[#082666] transition-colors shrink-0"
+              className="inline-flex items-center gap-2 rounded-full bg-[#0B3388] px-6 py-3 text-xs font-semibold text-white shadow hover:bg-[#082666] transition-colors shrink-0"
             >
               <span>Explore FAQs</span>
               <ArrowRight className="h-4 w-4" />

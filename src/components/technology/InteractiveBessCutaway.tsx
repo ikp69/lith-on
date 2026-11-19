@@ -40,12 +40,12 @@ const SUBSYSTEMS: Subsystem[] = [
     specs: [
       { label: "Cell Chemistry", value: "Lithium Iron Phosphate (LiFePO4)" },
       { label: "Cycle Longevity", value: ">6,000 cycles @ 88% DoD" },
-      { label: "Thermal Runaway", value: "Inherently non-combustible (>270°C onset)" },
+      { label: "Thermal Runaway", value: "High thermal stability (>270°C onset)" },
       { label: "Cell Configuration", value: "3.2V 280Ah Prismatic Grade-A" },
     ],
     description:
       "Lith-On battery racks utilize laser-welded copper busbars and isolated module enclosures. Each rack integrates high-density prismatic cells with individual cell balancing to guarantee decade-long calendar life even under daily deep cycling.",
-    compliance: ["IEC 62619", "BIS IS 16046-2", "UN 38.3"],
+    compliance: ["BIS Certified"],
   },
   {
     id: "bms",
@@ -101,8 +101,8 @@ const SUBSYSTEMS: Subsystem[] = [
       { label: "Core Operating Range", value: "20°C – 25°C even at 50°C ambient" },
     ],
     description:
-      "Lith-On containers feature patented IceBattery® nanotechnology. By reflecting 90%+ solar rays and radiating heat directly into deep space, HVAC parasitic power draw is cut by >20%, dramatically extending electrochemical cell lifetime.",
-    compliance: ["Patented Technology", "ISO 9001:2015", "IP55 Outdoor Enclosure"],
+      "Lith-On containers feature proprietary IceBattery® nanotechnology. By reflecting 90%+ solar rays and radiating heat directly into deep space, HVAC parasitic power draw is cut by >20%, dramatically extending electrochemical cell lifetime.",
+    compliance: ["Proprietary Technology", "IP55 Outdoor Enclosure"],
   },
   {
     id: "fire",
@@ -121,7 +121,7 @@ const SUBSYSTEMS: Subsystem[] = [
     ],
     description:
       "Lith-On enclosures feature engineered multi-stage fire suppression. Gas detection catches early off-gassing venting before flames arise, discharging non-conductive aerosol that leaves zero corrosive residue and prevents re-ignition.",
-    compliance: ["NFPA 855", "UL 9540A", "EN 15276"],
+    compliance: ["Multi-Gas Detection", "Aerosol / Clean-Agent Suppression"],
   },
   {
     id: "scada",
@@ -189,7 +189,7 @@ export function InteractiveBessCutaway() {
       </div>
 
       {/* 3D Cutaway Interactive Canvas */}
-      <div className="relative mt-6 rounded-xl border border-gray-200 bg-surface-light p-4 sm:p-6 overflow-hidden">
+      <div className="relative mt-6 overflow-hidden">
         <div className="relative aspect-[16/7] w-full min-h-[260px] sm:min-h-[380px] rounded-lg overflow-hidden flex items-center justify-center">
           {/* Authentic 3D Cutaway Graphic */}
           <Image
@@ -219,7 +219,7 @@ export function InteractiveBessCutaway() {
                 {/* Ping animation */}
                 <span
                   className={`absolute -inset-2 rounded-full opacity-75 animate-ping ${
-                    isSelected ? "bg-lithon-red" : "bg-lithon-blue group-hover:bg-lithon-red"
+                    isSelected ? "bg-lithon-red-ink" : "bg-lithon-blue group-hover:bg-lithon-red-ink"
                   }`}
                   style={{ animationDuration: isSelected ? "1.8s" : "3s" }}
                 />
@@ -228,8 +228,8 @@ export function InteractiveBessCutaway() {
                 <span
                   className={`relative flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full border-2 border-white shadow-md text-white transition-all transform ${
                     isSelected
-                      ? "scale-110 bg-lithon-red ring-4 ring-lithon-red/20"
-                      : "bg-lithon-blue group-hover:scale-110 group-hover:bg-lithon-red"
+                      ? "scale-110 bg-lithon-red-ink ring-4 ring-lithon-red/20"
+                      : "bg-lithon-blue group-hover:scale-110 group-hover:bg-lithon-red-ink"
                   }`}
                 >
                   <sub.icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
@@ -246,7 +246,7 @@ export function InteractiveBessCutaway() {
         </div>
 
         {/* Live Subsystem Detail Card */}
-        <div className="mt-5 rounded-xl border border-gray-200 bg-white p-5 sm:p-6 shadow-sm transition-all">
+        <div className="mt-5 border-t border-gray-200 pt-5 sm:pt-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-gray-100 pb-4">
             <div className="flex items-center gap-3">
               <div
@@ -288,7 +288,7 @@ export function InteractiveBessCutaway() {
             {activeSubsystem.specs.map((spec) => (
               <div
                 key={spec.label}
-                className="rounded-lg bg-gray-50 p-2.5 border border-gray-100"
+                className="border-t border-gray-200 pt-2.5"
               >
                 <span className="text-xs font-medium text-gray-500 block">
                   {spec.label}

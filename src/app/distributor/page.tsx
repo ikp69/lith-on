@@ -43,7 +43,7 @@ export default function DistributorPage() {
   return (
     <div className="bg-white">
       {/* Editorial Header */}
-      <section className="relative border-b border-gray-200 bg-canvas-offwhite py-16 sm:py-24">
+      <section className="relative border-b border-gray-200 bg-canvas-offwhite pt-10 sm:pt-36 pb-14 sm:pb-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50/80 px-3.5 py-1 text-xs font-medium text-lithon-blue">
@@ -61,7 +61,7 @@ export default function DistributorPage() {
       </section>
 
       {/* Partner Advantages Grid */}
-      <section className="py-16 sm:py-20 bg-white">
+      <section className="py-20 sm:py-24 lg:py-28 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mb-12">
             <span className="text-xs font-medium text-lithon-blue">
@@ -100,7 +100,7 @@ export default function DistributorPage() {
       </section>
 
       {/* Distributor Categories & Application Form */}
-      <section className="py-16 sm:py-20 bg-canvas-offwhite border-t border-gray-200" id="apply">
+      <section className="py-20 sm:py-28 lg:py-32 bg-canvas-offwhite border-t border-gray-200" id="apply">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-12 lg:grid-cols-12 items-start">
             {/* Left Column: Requirements & Profile */}
@@ -117,19 +117,19 @@ export default function DistributorPage() {
 
               <ul className="space-y-3 text-xs text-gray-700">
                 <li className="flex items-start gap-2.5">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                  <CheckCircle2 className="h-4 w-4 text-emerald-700 shrink-0 mt-0.5" />
                   <span><strong>Solar EPC Contractors:</strong> Expanding from grid-tied solar into high-margin solar-plus-storage microgrids.</span>
                 </li>
                 <li className="flex items-start gap-2.5">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                  <CheckCircle2 className="h-4 w-4 text-emerald-700 shrink-0 mt-0.5" />
                   <span><strong>Diesel Generator Dealers:</strong> Transitioning commercial clients to clean BESS under CAQM GRAP mandates.</span>
                 </li>
                 <li className="flex items-start gap-2.5">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                  <CheckCircle2 className="h-4 w-4 text-emerald-700 shrink-0 mt-0.5" />
                   <span><strong>Industrial Electrical Contractors:</strong> Managing high-voltage HT substations and plant peak shaving systems.</span>
                 </li>
                 <li className="flex items-start gap-2.5">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                  <CheckCircle2 className="h-4 w-4 text-emerald-700 shrink-0 mt-0.5" />
                   <span><strong>International Importers:</strong> Serving microgrids in Southeast Asia, Africa, and the Middle East.</span>
                 </li>
               </ul>
@@ -151,7 +151,7 @@ export default function DistributorPage() {
             <div className="lg:col-span-7 rounded-3xl border border-gray-200 bg-white p-8 sm:p-10 shadow-sm">
               <h3 className="text-xl font-bold text-gray-900 mb-2">Channel Partner Application</h3>
               <p className="text-xs text-gray-600 mb-6 font-normal">
-                Submit your credentials. Our channel team in Noida will evaluate your territory and schedule a partner discussion within 24 hours.
+                Submit your credentials. Our channel team in Noida will evaluate your territory and schedule a partner discussion.
               </p>
 
               <form action="/contact" method="GET" className="space-y-4">
@@ -164,7 +164,7 @@ export default function DistributorPage() {
                       type="text"
                       required
                       placeholder="e.g. Apex Solar Engineering Pvt Ltd"
-                      className="w-full rounded-xl border border-gray-300 px-3.5 py-2.5 text-xs text-gray-900 focus:border-lithon-blue focus:outline-none"
+                      className="w-full rounded-xl border border-gray-300 px-3.5 py-3 text-base sm:py-2.5 sm:text-sm text-gray-900 focus:border-lithon-blue focus:outline-none"
                     />
                   </div>
                   <div>
@@ -174,7 +174,7 @@ export default function DistributorPage() {
                       type="text"
                       required
                       placeholder="e.g. Rajesh Kumar (Managing Director)"
-                      className="w-full rounded-xl border border-gray-300 px-3.5 py-2.5 text-xs text-gray-900 focus:border-lithon-blue focus:outline-none"
+                      className="w-full rounded-xl border border-gray-300 px-3.5 py-3 text-base sm:py-2.5 sm:text-sm text-gray-900 focus:border-lithon-blue focus:outline-none"
                     />
                   </div>
                 </div>
@@ -187,7 +187,7 @@ export default function DistributorPage() {
                       type="tel"
                       required
                       placeholder="+91-9876543210"
-                      className="w-full rounded-xl border border-gray-300 px-3.5 py-2.5 text-xs text-gray-900 focus:border-lithon-blue focus:outline-none"
+                      className="w-full rounded-xl border border-gray-300 px-3.5 py-3 text-base sm:py-2.5 sm:text-sm text-gray-900 focus:border-lithon-blue focus:outline-none"
                     />
                   </div>
                   <div>
@@ -197,7 +197,7 @@ export default function DistributorPage() {
                       type="email"
                       required
                       placeholder="rajesh@apexsolar.in"
-                      className="w-full rounded-xl border border-gray-300 px-3.5 py-2.5 text-xs text-gray-900 focus:border-lithon-blue focus:outline-none"
+                      className="w-full rounded-xl border border-gray-300 px-3.5 py-3 text-base sm:py-2.5 sm:text-sm text-gray-900 focus:border-lithon-blue focus:outline-none"
                     />
                   </div>
                 </div>
@@ -210,14 +210,14 @@ export default function DistributorPage() {
                       type="text"
                       required
                       placeholder="e.g. Gujarat / Western Maharashtra"
-                      className="w-full rounded-xl border border-gray-300 px-3.5 py-2.5 text-xs text-gray-900 focus:border-lithon-blue focus:outline-none"
+                      className="w-full rounded-xl border border-gray-300 px-3.5 py-3 text-base sm:py-2.5 sm:text-sm text-gray-900 focus:border-lithon-blue focus:outline-none"
                     />
                   </div>
                   <div>
                     <label htmlFor="business-type" className="block text-xs font-semibold text-gray-700 mb-1">Primary Business Nature</label>
                     <select
                       id="business-type"
-                      className="w-full rounded-xl border border-gray-300 px-3.5 py-2.5 text-xs text-gray-900 focus:border-lithon-blue focus:outline-none"
+                      className="w-full rounded-xl border border-gray-300 px-3.5 py-3 text-base sm:py-2.5 sm:text-sm text-gray-900 focus:border-lithon-blue focus:outline-none"
                     >
                       <option value="solar-epc">Solar EPC Integrator</option>
                       <option value="dg-dealer">DG Set Retrofitter / Dealer</option>
@@ -231,7 +231,7 @@ export default function DistributorPage() {
                   <label htmlFor="annual-turnover" className="block text-xs font-semibold text-gray-700 mb-1">Annual Solar / Energy Equipment Turnover</label>
                   <select
                     id="annual-turnover"
-                    className="w-full rounded-xl border border-gray-300 px-3.5 py-2.5 text-xs text-gray-900 focus:border-lithon-blue focus:outline-none"
+                    className="w-full rounded-xl border border-gray-300 px-3.5 py-3 text-base sm:py-2.5 sm:text-sm text-gray-900 focus:border-lithon-blue focus:outline-none"
                   >
                     <option value="under-1cr">Under ₹1 Crore / year</option>
                     <option value="1cr-5cr">₹1 Crore – ₹5 Crore / year</option>

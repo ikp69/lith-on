@@ -1,422 +1,248 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
-import { 
-  ShieldCheck, 
-  Zap, 
-  Building, 
-  GraduationCap, 
-  Car,
-  Landmark,
-  Info
-} from "lucide-react";
-import { InstallationGallery } from "@/components/gallery/InstallationGallery";
-import { SectionHeader } from "@/components/ui/SectionHeader";
-import { CallToAction } from "@/components/ui/CallToAction";
+import type { ReactNode } from "react";
+import { DieselVisual, PeakVisual } from "@/components/home/ChallengeVisuals";
+import { ActiveOnView } from "@/components/motion/ActiveOnView";
+import { Reveal } from "@/components/motion/Reveal";
+import { Button } from "@/components/system/Button";
+import { ClosingCTA } from "@/components/system/ClosingCTA";
+import { HorizontalRail, RailItem } from "@/components/system/HorizontalRail";
+import { PageHero } from "@/components/system/PageHero";
+import { SectionIntro } from "@/components/system/SectionIntro";
+import { Stat } from "@/components/system/Stat";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Proven Case Studies & Financial Models | Lith-On Bharat Energy",
+  title: "Case Studies | Documented Savings from Lith-On Battery Storage",
   description:
-    "Review audited financial models, operational outcomes, and technical ROI for Lith-On BESS installations at Invertis University, Gurugram Housing Societies, Hyundai EV Hubs, Indian Army, and NTPC.",
+    "Invertis University saves ₹2.26 Cr a year, a 500-flat Gurugram society cut energy cost 73%, and a highway EV hub removed its demand charges. Plus Lith-On installations across India.",
 };
+
+/**
+ * /case-studies (audit §6.6). Editorial hero with three headline results
+ * (CS-01) → three case features (CS-02–04) → real installation photographs
+ * (CS-05/07 merged; the old schematic map and render-based gallery are
+ * removed) → institutional deployments (CS-06) → split closing (CS-08).
+ * Figures from LITHON_DATA_VAULT.md §3 cases A–D only.
+ */
+
+interface Feature {
+  id: string;
+  name: string;
+  place: string;
+  href: string;
+  media: ReactNode;
+  stat: React.ComponentProps<typeof Stat>;
+  metrics: [string, string][];
+}
+
+const FEATURES: Feature[] = [
+  {
+    id: "invertis_university",
+    name: "Invertis University",
+    place: "Bareilly, Uttar Pradesh",
+    href: "/case-studies/invertis-university",
+    media: (
+      <figure>
+        <div className="relative aspect-[1070/560] overflow-hidden rounded-media bg-surface">
+          <Image src="/images/installations/invertis-bess-yard.jpg" alt="Lith-On storage cabinets in the equipment yard at Invertis University" fill sizes="(min-width: 1024px) 58vw, 100vw" quality={75} className="object-cover" />
+        </div>
+        <figcaption className="mt-2 text-small text-ink-3">The storage yard at Invertis University</figcaption>
+      </figure>
+    ),
+    stat: { value: 2.26, decimals: 2, prefix: "₹", unit: "Cr a year saved", label: "Campus microgrid with solar" },
+    metrics: [
+      ["Before", "₹4.14 Cr a year on diesel generators"],
+      ["After", "₹1.88 Cr a year with storage and solar"],
+      ["System", "1 MWh of storage, 900 kWp of rooftop solar"],
+    ],
+  },
+  {
+    id: "residential_society_500",
+    name: "500-flat housing society",
+    place: "Gurugram, Delhi-NCR",
+    href: "/case-studies/residential-society-500",
+    media: (
+      <ActiveOnView className="relative overflow-hidden rounded-media bg-white shadow-[0_1px_2px_rgb(15_23_42/0.06),0_12px_32px_-12px_rgb(15_23_42/0.12)] lg:aspect-[5/4]">
+        <DieselVisual />
+      </ActiveOnView>
+    ),
+    stat: { value: 4.76, decimals: 2, prefix: "₹", unit: "Cr a year saved", label: "Diesel replaced across 14 towers" },
+    metrics: [
+      ["System", "7 MWh / 2.4 MW, three hours of full-demand backup"],
+      ["Payback", "About 1.6 years on the incremental cost over diesel"],
+      ["Compliance", "Meets CAQM GRAP Stage II–IV diesel restrictions"],
+    ],
+  },
+  {
+    id: "ev_charging_hub",
+    name: "Highway EV fast-charging hub",
+    place: "NH-48 corridor, Haryana",
+    href: "/case-studies/ev-charging-hub",
+    media: (
+      <ActiveOnView className="relative overflow-hidden rounded-media bg-white shadow-[0_1px_2px_rgb(15_23_42/0.06),0_12px_32px_-12px_rgb(15_23_42/0.12)] lg:aspect-[5/4]">
+        <PeakVisual />
+      </ActiveOnView>
+    ),
+    stat: { value: 100, unit: "%", label: "Of demand charges removed", note: "Storage-only model" },
+    metrics: [
+      ["System", "450 kWh / 150 kW buffering 60–350 kW charging spikes"],
+      ["Storage only", "₹12.91 lakh a year, payback in about four years"],
+      ["With 75 kWp solar", "₹20.26 lakh a year, 3.9-year payback"],
+    ],
+  },
+];
+
+const INSTALLS = [
+  { src: "indian-army-jk", caption: "Indian Army, Jammu & Kashmir" },
+  { src: "ntpc-cabinet", caption: "NTPC" },
+  { src: "fuel-station", caption: "Fuel retail station" },
+  { src: "ntpc-shravasti", caption: "NTPC, Shravasti" },
+  { src: "lucknow-rack", caption: "Lucknow" },
+  { src: "srinagar", caption: "Srinagar" },
+  { src: "uttar-pradesh", caption: "Uttar Pradesh" },
+  { src: "ntpc-office", caption: "NTPC" },
+  { src: "kashmir", caption: "Kashmir" },
+  { src: "ghaziabad", caption: "Ghaziabad" },
+  { src: "rspl-kanpur", caption: "Kanpur" },
+  { src: "patna", caption: "Patna" },
+];
+
+const DEPLOYMENTS = [
+  { who: "Indian Army", where: "Srinagar and Jammu & Kashmir", what: "Power for border forward operational bases" },
+  { who: "NTPC", where: "Lucknow, Shravasti and Jammu & Kashmir", what: "Installations at NTPC sites" },
+  { who: "RVUNL", where: "Jaipur, Rajasthan", what: "Substation buffering" },
+  { who: "PwC", where: "New Delhi", what: "Backup for the corporate headquarters" },
+  { who: "Fuel retail networks", where: "Lucknow, Ghaziabad and Patna", what: "Station power stabilisation" },
+];
 
 export default function CaseStudiesPage() {
   return (
-    <div className="space-y-16 sm:space-y-24 pb-20 bg-white">
-      {/* 1. Header Banner */}
-      <section className="border-b border-gray-200 bg-[#FAFAF8] px-4 sm:px-6 pt-16 sm:pt-20 pb-20 sm:pb-24">
-        <div className="mx-auto max-w-7xl">
-          <div className="flex items-center gap-2 text-xs font-medium text-lithon-blue mb-3">
-            <Link href="/" className="hover:text-gray-900 transition-colors">Home</Link>
-            <span className="text-gray-400">/</span>
-            <span>Case Studies</span>
-          </div>
-
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-light text-gray-900 tracking-tight leading-tight">
-            Real-World Case Studies &amp; <br className="hidden sm:block" />
-            <span className="font-semibold text-[#0B3388]">
-              Operational Financial Models
-            </span>
-          </h1>
-
-          <p className="mt-5 text-base sm:text-lg text-gray-600 max-w-3xl leading-relaxed font-normal">
-            Every Lith-On deployment is backed by empirical operational telemetry, measured electricity tariffs, and audited financial payback. Below are verified industrial and commercial deployments illustrating measurable diesel displacement and peak-shaving economics.
-          </p>
-
-          {/* Methodology & Classification Framework */}
-          <div className="mt-8 rounded-2xl border border-gray-200 bg-white p-5 sm:p-6 shadow-sm max-w-4xl">
-            <div className="flex items-center gap-2 text-xs font-semibold text-gray-700 mb-3">
-              <Info className="h-4 w-4 text-[#0B3388]" />
-              <span>Data Transparency &amp; Accounting Standards</span>
-            </div>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
-              <div className="p-3 rounded-xl bg-gray-50 border border-gray-100">
-                <span className="font-bold text-emerald-700 block">Measured Data</span>
-                <span className="text-gray-500 mt-0.5 block leading-relaxed">Direct telemetry from on-site revenue meters.</span>
+    <div className="bg-canvas">
+      {/* CS-01 */}
+      <PageHero
+        variant="editorial"
+        breadcrumb={[{ label: "Home", href: "/" }, { label: "Case studies" }]}
+        title={["Documented results", "from real sites"]}
+        lead="Three projects with full financial models, and installations across India."
+        visual={
+          <dl className="grid gap-6 sm:grid-cols-3 lg:grid-cols-1">
+            {[
+              ["₹2.26 Cr", "a year saved at Invertis University"],
+              ["73%", "lower energy cost at the Gurugram society"],
+              ["100%", "of demand charges removed at the EV hub"],
+            ].map(([v, l]) => (
+              <div key={l} className="border-t border-line pt-4">
+                <dt className="sr-only">{l}</dt>
+                <dd className="tabular text-stat-l leading-none text-ink">{v}</dd>
+                <dd className="mt-2 text-small text-ink-2">{l}</dd>
               </div>
-              <div className="p-3 rounded-xl bg-gray-50 border border-gray-100">
-                <span className="font-bold text-[#0B3388] block">Modeled Data</span>
-                <span className="text-gray-500 mt-0.5 block leading-relaxed">Simulated on official DISCOM HT tariff rates.</span>
-              </div>
-              <div className="p-3 rounded-xl bg-gray-50 border border-gray-100">
-                <span className="font-bold text-amber-700 block">Assumed Baseline</span>
-                <span className="text-gray-500 mt-0.5 block leading-relaxed">₹95/L diesel fuel price &amp; 3.5 kWh/L DG heat rate.</span>
-              </div>
-              <div className="p-3 rounded-xl bg-gray-50 border border-gray-100">
-                <span className="font-bold text-gray-800 block">Projected Lifespan</span>
-                <span className="text-gray-500 mt-0.5 block leading-relaxed">10-year cumulative cashflow at 88% DoD.</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+            ))}
+          </dl>
+        }
+      />
 
-      {/* 2. CASE STUDY 1: Invertis University */}
-      <section className="px-4 sm:px-6">
-        <div className="mx-auto max-w-7xl rounded-2xl border border-gray-200 bg-white p-6 sm:p-10 shadow-sm">
-          <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
-            <div className="lg:col-span-7">
-              <div className="flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-wider text-emerald-700">
-                <GraduationCap className="h-4 w-4" />
-                <span>Institutional Solar + Storage Microgrid • Bareilly, U.P.</span>
-                <span className="rounded-full bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 text-[11px] text-emerald-800 font-semibold">
-                  Measured Operating Data
-                </span>
-              </div>
-
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mt-2">
-                Invertis University Campus Microgrid
-              </h2>
-              <div className="text-sm sm:text-base font-semibold text-[#0B3388] mt-1">
-                1.0 MWh Lith-On BESS + 900 kWp Rooftop Solar PV
-              </div>
-
-              <div className="mt-5 space-y-3.5 text-sm sm:text-base leading-relaxed text-gray-600 font-normal">
-                <p>
-                  <strong className="text-gray-900 font-semibold">The Baseline Problem:</strong> The university campus previously relied on a massive{" "}
-                  <strong className="text-amber-700 font-semibold">2,500 kVA Diesel Generator fleet</strong> to sustain classrooms, student hostels, and computer labs. Monthly diesel bills averaged over ₹34.5 Lakhs (totaling <strong className="text-lithon-red font-semibold">₹4.14 Crore annually</strong>), with frequent generator noise disrupting lectures and strict state pollution directives penalizing diesel exhaust.
-                </p>
-                <p>
-                  <strong className="text-lithon-blue font-semibold">The Engineered Solution:</strong> Lith-On delivered a turnkey 1,000 kWh (1 MWh) BESS coupled directly with the existing 900 kWp rooftop solar array. An automated EMS manages peak shaving, stores midday surplus solar, and supplies evening hostel peak demand without running generators.
-                </p>
-              </div>
-
-              {/* Standardized Financial Metric Tiles */}
-              <div className="mt-7 grid grid-cols-2 sm:grid-cols-4 gap-3 border-t border-gray-200/80 pt-6 font-mono">
-                <div className="rounded-xl bg-canvas-offwhite p-3.5 border border-gray-200/90">
-                  <span className="text-xs text-gray-500 font-sans block">Annual Net Savings</span>
-                  <span className="text-xl sm:text-2xl font-bold text-emerald-600 block mt-1">₹2.26 Cr / yr</span>
-                  <span className="text-xs text-gray-500 font-sans block mt-0.5">Audited Diesel Offset</span>
+      {/* CS-02–04 */}
+      <section aria-labelledby="cases-title" className="section-tight">
+        <div className="container-site">
+          <h2 id="cases-title" className="sr-only">
+            Case studies
+          </h2>
+          <div className="space-y-24 lg:space-y-32">
+            {FEATURES.map((f, i) => (
+              <article key={f.id} id={f.id} aria-labelledby={`${f.id}-title`} className="grid scroll-mt-28 gap-8 lg:grid-cols-12 lg:items-center lg:gap-6">
+                <div className={cn("lg:col-span-7", i % 2 === 1 && "lg:order-2 lg:col-start-6")}>
+                  <Reveal>{f.media}</Reveal>
                 </div>
-                <div className="rounded-xl bg-canvas-offwhite p-3.5 border border-gray-200/90">
-                  <span className="text-xs text-gray-500 font-sans block">Payback Period</span>
-                  <span className="text-xl sm:text-2xl font-bold text-lithon-blue block mt-1">4.29 Years</span>
-                  <span className="text-xs text-gray-500 font-sans block mt-0.5">Capex Amortization</span>
-                </div>
-                <div className="rounded-xl bg-canvas-offwhite p-3.5 border border-gray-200/90">
-                  <span className="text-xs text-gray-500 font-sans block">10-Year Cumulative</span>
-                  <span className="text-xl sm:text-2xl font-bold text-gray-900 block mt-1">₹17.76 Cr</span>
-                  <span className="text-xs text-gray-500 font-sans block mt-0.5">Net Lifecycle Value</span>
-                </div>
-                <div className="rounded-xl bg-canvas-offwhite p-3.5 border border-gray-200/90">
-                  <span className="text-xs text-gray-500 font-sans block">Diesel Displaced</span>
-                  <span className="text-xl sm:text-2xl font-bold text-emerald-700 block mt-1">418k L / yr</span>
-                  <span className="text-xs text-gray-500 font-sans block mt-0.5">1,100+ Tons CO2 Saved</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="lg:col-span-5 space-y-3">
-              <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl border border-gray-200 shadow-sm bg-slate-900">
-                <Image
-                  src="/images/installations/invertis-bess-yard.jpg"
-                  alt="Invertis University 1 MWh 4-Cabinet BESS Yard with PCS switchgear"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 500px"
-                  priority
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-transparent to-transparent" />
-                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs text-white">
-                  <span className="rounded bg-black/60 px-2.5 py-0.5 font-mono text-xs backdrop-blur-md border border-white/20">
-                    4x Lith-On Cabinets + PCS
-                  </span>
-                  <span className="rounded bg-emerald-600 px-2.5 py-0.5 text-xs font-bold">
-                    4.29-Yr Payback
-                  </span>
-                </div>
-              </div>
-
-              {/* Invertis Solar Array & Campus Facade Thumbnails */}
-              <div className="grid grid-cols-2 gap-3">
-                <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-gray-200">
-                  <Image
-                    src="/images/installations/invertis-900kw-solar.jpg"
-                    alt="Invertis 900 kWp Campus Rooftop Solar Array"
-                    fill
-                    className="object-cover"
-                    sizes="250px"
-                  />
-                  <div className="absolute bottom-1.5 left-1.5 rounded bg-black/70 px-2 py-0.5 text-[10px] font-medium text-white backdrop-blur-sm">
-                    900 kWp Solar Array
+                <div className={cn("lg:col-span-5", i % 2 === 0 ? "lg:col-start-8 lg:pl-6" : "lg:order-1 lg:pr-6")}>
+                  <p className="text-small text-ink-3">{f.place}</p>
+                  <h3 id={`${f.id}-title`} className="mt-2 text-heading-1 text-ink">
+                    {f.name}
+                  </h3>
+                  <div className="mt-6 border-t border-line pt-6">
+                    <Stat {...f.stat} />
+                  </div>
+                  <dl className="mt-6 space-y-3 text-small">
+                    {f.metrics.map(([k, v]) => (
+                      <div key={k} className="grid grid-cols-[7.5rem_1fr] gap-x-4 border-t border-line pt-3">
+                        <dt className="text-ink-3">{k}</dt>
+                        <dd className="text-ink">{v}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                  <div className="mt-6">
+                    <Button href={f.href} variant="tertiary">
+                      Read the case
+                    </Button>
                   </div>
                 </div>
-
-                <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-gray-200">
-                  <Image
-                    src="/images/installations/invertis-university-facade.jpg"
-                    alt="Invertis University Campus Entrance"
-                    fill
-                    className="object-cover"
-                    sizes="250px"
-                  />
-                  <div className="absolute bottom-1.5 left-1.5 rounded bg-black/70 px-2 py-0.5 text-[10px] font-medium text-white backdrop-blur-sm">
-                    Bareilly Campus Facade
-                  </div>
-                </div>
-              </div>
-            </div>
+              </article>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* 3. CASE STUDY 2: 500-Flat Housing Society (Gurugram NCR) */}
-      <section className="px-4 sm:px-6">
-        <div className="mx-auto max-w-7xl rounded-2xl border border-gray-200 bg-white p-6 sm:p-10 shadow-sm">
-          <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
-            <div className="lg:col-span-5 lg:order-2">
-              <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl border border-gray-200 shadow-sm bg-white p-3">
-                <Image
-                  src="/images/case-studies/diesel-vs-bess-comparison.jpg"
-                  alt="Diesel Generators vs Lith-On BESS: Sub-10ms UPS, 100% GRAP compliance, Near-Total Silence"
-                  fill
-                  className="object-contain p-2"
-                  sizes="(max-width: 768px) 100vw, 500px"
-                />
-              </div>
-            </div>
-
-            <div className="lg:col-span-7 lg:order-1">
-              <div className="flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#0B3388]">
-                <Building className="h-4 w-4" />
-                <span>Residential Community Transformation • Gurugram NCR</span>
-                <span className="rounded-full bg-blue-50 border border-blue-200 px-2.5 py-0.5 text-[11px] text-[#0B3388] font-semibold">
-                  CAQM GRAP Compliant
-                </span>
-              </div>
-
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mt-2">
-                500-Flat High-Rise Housing Society
-              </h2>
-              <div className="text-sm sm:text-base font-semibold text-emerald-700 mt-1">
-                Replacing a 3,000 kVA DG Fleet with 7.0 MWh / 2.4 MW Lith-On BESS
-              </div>
-
-              <div className="mt-5 space-y-3.5 text-sm sm:text-base leading-relaxed text-gray-600 font-normal">
-                <p>
-                  <strong className="text-gray-900 font-semibold">The Baseline Problem:</strong> A 14-tower community with 42 elevators and 14 water booster pumps faced recurring outages. Backing up the ~2,000 kW load required <strong className="text-amber-700 font-semibold">four 750 kVA diesel generators (3,000 kVA total)</strong>. Annual diesel fuel expenses reached <strong className="text-lithon-red font-semibold">₹6.49 Crore</strong> plus ₹3.0 Lakhs in maintenance, totaling <strong className="text-lithon-red font-semibold">₹6.52 Crore/year</strong>. Outages caused 10–30s blackout delays that trapped residents in lifts. Crucially, winter CAQM GRAP Stage II–IV rules completely banned diesel generator operation.
-                </p>
-                <p>
-                  <strong className="text-lithon-blue font-semibold">The Engineered Solution:</strong> Lith-On designed a centralized 7,000 kWh (7.0 MWh) BESS with 2,400 kW PCS rating. Operating cost charging from standard low-cost off-peak grid is only ₹1.76 Crore/year—slashing annual expenses by ₹4.76 Crore while delivering instantaneous (&lt;10ms) elevator continuity.
-                </p>
-              </div>
-
-              {/* Standardized Financial Metric Tiles */}
-              <div className="mt-7 grid grid-cols-2 sm:grid-cols-4 gap-3 border-t border-gray-200/80 pt-6 font-mono">
-                <div className="rounded-xl bg-canvas-offwhite p-3.5 border border-gray-200/90">
-                  <span className="text-xs text-gray-500 font-sans block">Annual Net Savings</span>
-                  <span className="text-xl sm:text-2xl font-bold text-emerald-600 block mt-1">₹4.76 Cr / yr</span>
-                  <span className="text-xs text-gray-500 font-sans block mt-0.5">73% OPEX Reduction</span>
-                </div>
-                <div className="rounded-xl bg-canvas-offwhite p-3.5 border border-gray-200/90">
-                  <span className="text-xs text-gray-500 font-sans block">Payback Period</span>
-                  <span className="text-xl sm:text-2xl font-bold text-lithon-blue block mt-1">1.6 Years</span>
-                  <span className="text-xs text-gray-500 font-sans block mt-0.5">Rapid Amortization</span>
-                </div>
-                <div className="rounded-xl bg-canvas-offwhite p-3.5 border border-gray-200/90">
-                  <span className="text-xs text-gray-500 font-sans block">5-Year ROI</span>
-                  <span className="text-xl sm:text-2xl font-bold text-gray-900 block mt-1">204%</span>
-                  <span className="text-xs text-gray-500 font-sans block mt-0.5">Audited Cashflow</span>
-                </div>
-                <div className="rounded-xl bg-canvas-offwhite p-3.5 border border-gray-200/90">
-                  <span className="text-xs text-gray-500 font-sans block">10-Year ROI</span>
-                  <span className="text-xl sm:text-2xl font-bold text-emerald-700 block mt-1">508%</span>
-                  <span className="text-xs text-gray-500 font-sans block mt-0.5">Cumulative Gain</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. CASE STUDY 3: Hyundai Commercial EV Fast-Charging Hub */}
-      <section className="px-4 sm:px-6">
-        <div className="mx-auto max-w-7xl rounded-2xl border border-gray-200 bg-white p-6 sm:p-10 shadow-sm">
-          <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
-            <div className="lg:col-span-7">
-              <div className="flex flex-wrap items-center gap-2 text-xs font-medium text-lithon-blue">
-                <Car className="h-4 w-4" />
-                <span>Highway Commercial EV Charging Plaza • Infrastructure Buffering</span>
-                <span className="rounded-full bg-blue-50 border border-blue-200 px-2.5 py-0.5 text-xs text-lithon-blue font-semibold">
-                  Demand Charge Shaving
-                </span>
-              </div>
-
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mt-2">
-                Commercial EV Fast-Charging Hub
-              </h2>
-              <div className="text-sm sm:text-base font-semibold text-lithon-blue mt-1">
-                LT215 / 450 kWh BESS + 75 kWp Canopy Solar PV
-              </div>
-
-              <div className="mt-5 space-y-3.5 text-sm sm:text-base leading-relaxed text-gray-600 font-normal">
-                <p>
-                  <strong className="text-gray-900 font-semibold">The Baseline Problem:</strong> High-power 60 kW to 350 kW DC fast chargers trigger intense 15-minute load spikes. Under DHBVN HT commercial tariffs, Maximum Demand penalties accounted for <strong className="text-lithon-red font-semibold">40% to 60% of total monthly bills</strong>—incurring ₹2.41 Lakhs/month in demand penalties even during low vehicle turnover. Furthermore, the local utility mandated a ₹45+ Lakh transformer enhancement with an 18-month civil delay before permitting station energization.
-                </p>
-                <p>
-                  <strong className="text-lithon-blue font-semibold">The Engineered Solution:</strong> Lith-On deployed an LT215 450 kWh / 150 kW BESS acting as a dynamic electrical buffer. The battery trickle-charges during off-peak hours and instantly discharges during fast-charging sessions to flatten peak utility draw and eliminate demand penalties.
-                </p>
-              </div>
-
-              {/* Standardized Financial Metric Tiles */}
-              <div className="mt-7 grid grid-cols-2 sm:grid-cols-4 gap-3 border-t border-gray-200/80 pt-6 font-mono">
-                <div className="rounded-xl bg-canvas-offwhite p-3.5 border border-gray-200/90">
-                  <span className="text-xs text-gray-500 font-sans block">Annual Savings</span>
-                  <span className="text-xl sm:text-2xl font-bold text-emerald-600 block mt-1">₹20.26 L / yr</span>
-                  <span className="text-xs text-gray-500 font-sans block mt-0.5">Demand Surcharge Cut</span>
-                </div>
-                <div className="rounded-xl bg-canvas-offwhite p-3.5 border border-gray-200/90">
-                  <span className="text-xs text-gray-500 font-sans block">System Payback</span>
-                  <span className="text-xl sm:text-2xl font-bold text-lithon-blue block mt-1">3.9 Years</span>
-                  <span className="text-xs text-gray-500 font-sans block mt-0.5">Full Amortization</span>
-                </div>
-                <div className="rounded-xl bg-canvas-offwhite p-3.5 border border-gray-200/90">
-                  <span className="text-xs text-gray-500 font-sans block">10-Year Cashflow</span>
-                  <span className="text-xl sm:text-2xl font-bold text-gray-900 block mt-1">&gt;₹2.0 Crore</span>
-                  <span className="text-xs text-gray-500 font-sans block mt-0.5">153% 10-Yr ROI</span>
-                </div>
-                <div className="rounded-xl bg-canvas-offwhite p-3.5 border border-gray-200/90">
-                  <span className="text-xs text-gray-500 font-sans block">Transformer Capex</span>
-                  <span className="text-xl sm:text-2xl font-bold text-emerald-700 block mt-1">₹45 L Saved</span>
-                  <span className="text-xs text-gray-500 font-sans block mt-0.5">Zero Civil Delay</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="lg:col-span-5">
-              <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl border border-gray-200 shadow-sm bg-slate-900">
-                <Image
-                  src="/images/installations/commercial-campus-bess.jpg"
-                  alt="Commercial EV Fast Charging Plaza & Campus BESS"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 500px"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-transparent to-transparent" />
-                <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-xs text-white">
-                  <span className="rounded bg-black/60 px-3 py-1 font-mono backdrop-blur-md border border-white/20">
-                    450 kWh BESS + 75 kWp Solar
-                  </span>
-                  <span className="rounded bg-[#0B3388] px-2.5 py-1 font-bold">
-                    153% 10-Yr ROI
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 5. Strategic Government & Enterprise Deployments */}
-      <section className="px-4 sm:px-6">
-        <div className="mx-auto max-w-7xl">
-          <SectionHeader
-            eyebrow="Institutional Credentials"
-            title={
-              <>
-                Government &amp; Utility <span className="font-semibold text-[#0B3388]">Deployments</span>
-              </>
-            }
-            subtitle="Installed commercial and defense energy storage solutions powering forward bases, state distribution utilities, and industrial groups across India."
+      {/* CS-05/07 Installations */}
+      <section id="deployment-map" aria-labelledby="installs-title" className="section scroll-mt-24 bg-canvas-warm">
+        <div className="container-site">
+          <SectionIntro
+            title={<span id="installs-title">Installed across India</span>}
+            lead="Photographs of Lith-On systems on site, from cabinets at army posts to indoor units at utility offices."
+            split
+            className="mb-8 lg:mb-10"
           />
-
-          {/* Authentic India Deployment Graphic */}
-          <div className="relative aspect-[16/9] w-full max-w-4xl mx-auto rounded-2xl bg-white border border-gray-200 overflow-hidden shadow-sm p-4 mb-8 min-h-[300px]">
-            <Image
-              src="/images/case-studies/india-deployment-map.jpg"
-              alt="Lith-On Installed Commercial & Defense BESS Solutions across India (Indian Army, NTPC, RVUNL, RSPL)"
-              fill
-              className="object-contain p-2"
-              sizes="(max-width: 1024px) 100vw, 900px"
-            />
-          </div>
-
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-              <div className="flex items-center gap-2 text-xs font-bold text-[#F74530]">
-                <ShieldCheck className="h-4 w-4" />
-                <span>Indian Army</span>
-              </div>
-              <h3 className="text-base font-bold text-gray-900 mt-2">Srinagar &amp; J&amp;K Forward Posts</h3>
-              <p className="text-xs sm:text-sm text-gray-600 mt-2 leading-relaxed font-normal">
-                Ruggedized high-altitude LFP systems operating reliably between -20°C and +45°C, replacing mountain diesel transport.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-              <div className="flex items-center gap-2 text-xs font-semibold text-lithon-blue mb-2">
-                <Zap className="h-4 w-4" />
-                <span>Thermal &amp; Substation Storage</span>
-              </div>
-              <h3 className="text-base font-bold text-gray-900">NTPC Grid Peaking (Lucknow &amp; Shravasti)</h3>
-              <p className="text-xs sm:text-sm text-gray-600 mt-2 leading-relaxed font-normal">
-                Deployed with certified IEC 61850 substation automation, fast frequency regulation, and automated dispatch.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-              <div className="flex items-center gap-2 text-xs font-semibold text-amber-700 mb-2">
-                <Landmark className="h-4 w-4" />
-                <span>Thermal Extreme Conformance</span>
-              </div>
-              <h3 className="text-base font-bold text-gray-900">RVUNL Rajasthan (Jaipur 33kV)</h3>
-              <p className="text-xs sm:text-sm text-gray-600 mt-2 leading-relaxed font-normal">
-                Leveraged IceBattery® passive thermal coating to endure summer ambient heat exceeding 48°C without thermal throttling.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-              <div className="flex items-center gap-2 text-xs font-semibold text-emerald-700 mb-2">
-                <Building className="h-4 w-4" />
-                <span>Corporate Enterprise Campus</span>
-              </div>
-              <h3 className="text-base font-bold text-gray-900">PwC India HQ (New Delhi)</h3>
-              <p className="text-xs sm:text-sm text-gray-600 mt-2 leading-relaxed font-normal">
-                Sub-10ms instantaneous UPS battery backup preventing IT server reboots and packet loss during grid feeder trips.
-              </p>
-            </div>
-          </div>
+          <HorizontalRail label="Installation photographs" scrollDriven bleed>
+            {INSTALLS.map((p) => (
+              <RailItem key={p.src} className="w-[min(70vw,280px)] lg:w-[300px]">
+                <figure>
+                  <div className="relative aspect-[3/4] overflow-hidden rounded-media bg-surface">
+                    <Image src={`/images/installations/catalogue/${p.src}.webp`} alt={`Lith-On storage installation, ${p.caption}`} fill sizes="300px" quality={72} className="object-cover" />
+                  </div>
+                  <figcaption className="mt-3 text-body font-[500] text-ink">{p.caption}</figcaption>
+                </figure>
+              </RailItem>
+            ))}
+          </HorizontalRail>
         </div>
       </section>
 
-      {/* 6. Real Installations & Photo Proof Gallery */}
-      <InstallationGallery />
+      {/* CS-06 */}
+      <section aria-labelledby="deploy-title" className="section">
+        <div className="container-site grid gap-10 lg:grid-cols-12 lg:gap-6">
+          <div className="lg:col-span-4">
+            <h2 id="deploy-title" className="text-heading-1 text-ink">
+              Deployed for
+            </h2>
+            <p className="mt-4 text-body text-ink-2">Government, utility and enterprise sites.</p>
+          </div>
+          <ul className="border-t border-line lg:col-span-8">
+            {DEPLOYMENTS.map((d) => (
+              <li key={d.who} className="grid gap-1 border-b border-line py-5 sm:grid-cols-[12rem_1fr] sm:gap-6">
+                <p className="text-heading-3 text-ink">{d.who}</p>
+                <div>
+                  <p className="text-body text-ink">{d.what}</p>
+                  <p className="mt-0.5 text-small text-ink-3">{d.where}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
 
-      {/* 7. Bottom CTA */}
-      <CallToAction
-        eyebrow="Custom Financial & Engineering Sizing"
-        title="Want an Audited Financial Model for Your Facility?"
-        description="Send us your last 6 months of utility electricity bills and diesel generator log sheets. Our engineering team calculates your exact payback period, annual OPEX savings, and single-line diagram (SLD)."
-        primaryAction={{
-          label: "Request Facility Audit",
-          href: "/contact",
-        }}
-        secondaryAction={{
-          label: "+91-7000013009",
-          href: "tel:+917000013009",
-          isPhone: true,
-        }}
-        variant="contrast"
+      <div className="container-site pb-4">
+        <p id="method" className="max-w-3xl border-t border-line pt-5 text-small text-ink-3">
+          How these figures are calculated: each case uses the project&apos;s financial model. Annual savings compare operating cost with diesel generators or demand charges against operating cost with Lith-On storage.
+        </p>
+      </div>
+
+      {/* CS-08 */}
+      <ClosingCTA
+        variant="split"
+        title={["Get a financial model for your site"]}
+        lead="Share your diesel run hours, demand charges or solar output. We will model savings and payback for your site."
+        primary={{ label: "Request a model", href: "/contact?type=assessment" }}
+        secondary={{ label: "Use the calculator", href: "/calculator" }}
+        image={{ src: "/images/installations/catalogue/ntpc-cabinet.webp", alt: "A large Lith-On storage cabinet installed indoors at an NTPC site" }}
       />
     </div>
   );
