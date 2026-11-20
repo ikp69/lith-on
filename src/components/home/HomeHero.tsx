@@ -81,7 +81,7 @@ export function HomeHero() {
                   quality={60}
                   sizes="(min-width: 1024px) 86vw, min(165vw, 900px)"
                   className={cn(
-                    "object-cover motion-safe:transition-opacity motion-safe:duration-[600ms] motion-safe:ease-out",
+                    "object-cover motion-safe:transition-opacity motion-safe:duration-500 motion-safe:ease-out",
                     i === active ? "opacity-100" : "opacity-0"
                   )}
                 />

@@ -16,7 +16,7 @@ import { DG_VS_BESS } from "@/data/comparisons";
 export const metadata: Metadata = {
   title: "Battery Storage Solutions for Facilities | Lith-On Bharat Energy",
   description:
-    "Diesel replacement, peak demand shaving, backup power, solar shifting and microgrids: how Lith-On battery energy storage cuts energy cost and keeps power on, with documented project results.",
+    "Diesel replacement, peak shaving, backup power, solar shifting and microgrids: how Lith-On battery storage cuts energy costs and keeps power on.",
 };
 
 /**
@@ -156,12 +156,19 @@ export default function SolutionsPage() {
       {/* SOL-02 Five solutions */}
       <section aria-labelledby="solutions-title" className="section">
         <div className="container-site">
-          <SectionIntro
-            title={<span id="solutions-title">Five solutions</span>}
-            lead="Each one shows the problem, how storage answers it, and a result from a documented project where there is one."
-            split
+          <ScrollStory
+            chapters={CHAPTERS}
+            mediaAspect="5/4"
+            introBg="bg-canvas"
+            intro={
+              <SectionIntro
+                title={<span id="solutions-title">Five solutions</span>}
+                lead="Each one shows the problem, how storage answers it, and a result from a documented project where there is one."
+                split
+                className="lg:mb-8"
+              />
+            }
           />
-          <ScrollStory chapters={CHAPTERS} mediaAspect="5/4" />
         </div>
       </section>
 

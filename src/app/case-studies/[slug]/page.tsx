@@ -215,7 +215,7 @@ export default async function CaseStudyPage({ params }: Props) {
                 >
                   {o.hero.kind === "image" && (
                     <span className="relative hidden h-20 w-28 shrink-0 overflow-hidden rounded-control bg-surface sm:block">
-                      <Image src={o.hero.src} alt="" fill sizes="112px" className="object-cover" />
+                      <Image src={o.hero.src} alt="" fill sizes="112px" className="object-cover transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03] motion-reduce:transition-none" />
                     </span>
                   )}
                   <span className="min-w-0">

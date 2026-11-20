@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   images: {
     // AVIF first (smaller), WebP fallback. 60 is used for soft-faded hero scenes.
     formats: ["image/avif", "image/webp"],
-    qualities: [60, 75],
+    qualities: [60, 70, 75, 80],
   },
   async redirects() {
     return [
@@ -25,6 +25,12 @@ const nextConfig: NextConfig = {
       {
         source: "/blog/:path*",
         destination: "/resources",
+        permanent: false,
+      },
+      // The /hero-2 prototype became the homepage hero (20 Nov 2026).
+      {
+        source: "/hero-2",
+        destination: "/",
         permanent: false,
       },
       {

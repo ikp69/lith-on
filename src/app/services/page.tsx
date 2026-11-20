@@ -1,387 +1,174 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import {
-  ArrowRight,
-  CheckCircle2,
-  Phone,
-  Wrench,
-  Clock,
-  ShieldCheck,
-  Truck,
-  Monitor,
-  Cpu,
-  Settings,
-  Headphones,
-} from "lucide-react";
+import Image from "next/image";
+import { DeliverySteps } from "@/components/services/DeliverySteps";
+import { ResponseZones } from "@/components/services/ResponseZones";
+import { Button } from "@/components/system/Button";
+import { ClosingCTA } from "@/components/system/ClosingCTA";
+import { PageHero } from "@/components/system/PageHero";
+import { SectionIntro } from "@/components/system/SectionIntro";
 
 export const metadata: Metadata = {
-  title: "After-Sales, Commissioning & O&M Services | Lith-On BESS",
+  title: "Services | Survey, Installation, Commissioning, Monitoring | Lith-On",
   description:
-    "Lith-On BESS turnkey services: site survey, installation, commissioning, 24/7 SCADA monitoring, preventive maintenance, spare parts, and 10-year warranty support across India.",
+    "End-to-end battery storage delivery: energy audit, sizing, installation, approvals, commissioning and 24/7 monitoring, with 4–8 hour response in Delhi-NCR.",
 };
 
-const SERVICE_PHASES = [
-  {
-    phase: "01",
-    title: "Site Survey & System Design",
-    icon: Settings,
-    timeline: "Week 1–2",
-    items: [
-      "On-site electrical load profiling and demand pattern analysis",
-      "Existing DG, transformer, and switchgear audit",
-      "Foundation and civil space assessment for BESS placement",
-      "Single Line Diagram (SLD) and protection coordination design",
-      "Utility interconnection scheme and DISCOM liaison",
-      "Customized system sizing report with ROI projections",
-    ],
-  },
-  {
-    phase: "02",
-    title: "Manufacturing & Factory Testing",
-    icon: Cpu,
-    timeline: "Week 3–8",
-    items: [
-      "Cell-level capacity grading and internal resistance sorting",
-      "Module assembly with automated laser busbar welding",
-      "BMS firmware loading and cell-level calibration",
-      "Full system Factory Acceptance Test (FAT) at Noida facility",
-      "IceBattery® ceramic coating application and curing",
-      "Pre-shipment visual and electrical inspection",
-    ],
-  },
-  {
-    phase: "03",
-    title: "Delivery, Installation & Wiring",
-    icon: Truck,
-    timeline: "Week 8–10",
-    items: [
-      "Logistics coordination with specialised heavy-equipment transport",
-      "Foundation alignment, levelling, and anchoring",
-      "AC/DC cabling, busbar, and earthing connections",
-      "Protection relay and switchgear integration",
-      "Communication wiring (Modbus, CAN, Ethernet, 4G gateway)",
-      "Fire suppression system arming and sensor verification",
-    ],
-  },
-  {
-    phase: "04",
-    title: "Commissioning & Handover",
-    icon: CheckCircle2,
-    timeline: "Week 10–11",
-    items: [
-      "Site Acceptance Test (SAT) with client facility team",
-      "Full charge-discharge cycle verification at rated power",
-      "Sub-10ms static transfer switch cutover test (oscilloscope-verified)",
-      "Grid synchronisation and islanding mode validation",
-      "SCADA cloud dashboard activation and user training",
-      "Commissioning certificate and O&M manual handover",
-    ],
-  },
+/**
+ * /services (audit §6.14). Editorial hero with an installation photo (SRV-01)
+ * → five-step delivery stepper (SRV-02, no week numbers: none is sourced) and
+ * site readiness → support after commissioning (SRV-03; the three support
+ * plans are withheld, CLAIMS_REVIEW item 6) → response zones (SRV-04) →
+ * inline closing (SRV-05). Sources: content/capabilities.md (EPC steps),
+ * content/warranty-and-support.md (monitoring, SLAs, site readiness, spares).
+ */
+
+const STEPS = [
+  { title: "Energy audit", text: "Second-by-second power logging to find peak demand, generator run hours and time-of-day tariff penalties." },
+  { title: "Sizing and payback", text: "Battery capacity, inverter rating and any solar matched to your site, with a transparent payback projection." },
+  { title: "Build and install", text: "Systems are built and tested in Noida, then installed: foundations, DC and AC cabling, switchgear, transformer and fire suppression." },
+  { title: "Approvals", text: "Documents for state discom approval, Chief Electrical Inspectorate (CEIG) compliance and net-metering permits." },
+  { title: "Commissioning", text: "Field commissioning, staff training and connection to our 24/7 cloud SCADA monitoring." },
 ];
 
-const MAINTENANCE_TIERS = [
-  {
-    tier: "Standard",
-    description: "Included with 10-year warranty",
-    features: [
-      "24/7 cloud SCADA remote monitoring",
-      "Automated fault detection and alerting",
-      "Quarterly remote health check reports",
-      "Firmware and EMS software updates",
-      "Phone and email technical support (business hours)",
-    ],
-  },
-  {
-    tier: "Comprehensive AMC",
-    description: "Annual Maintenance Contract",
-    features: [
-      "Everything in Standard, plus:",
-      "Bi-annual on-site preventive maintenance visits",
-      "Cell-level impedance and capacity spot-checks",
-      "Cooling system inspection and coolant top-up (liquid-cooled units)",
-      "Electrical torque and thermal imaging inspection",
-      "Fire suppression system integrity check",
-    ],
-  },
-  {
-    tier: "Premium 24/7",
-    description: "Mission-critical installations",
-    features: [
-      "Everything in Comprehensive AMC, plus:",
-      "Dedicated 24/7 technical helpline",
-      "On-site critical spare parts inventory",
-      "Annual full-system performance audit and reporting",
-      "Dedicated account manager and field engineer",
-      "Proactive battery cell balancing optimisation",
-      "Annual insurance compliance documentation package",
-    ],
-  },
+const READINESS = [
+  { title: "Civil", text: "Plinth foundation drawings matched to soil bearing capacity and system weight." },
+  { title: "Electrical", text: "Single-line diagrams for switchgear, neutral grounding, isolation transformers and utility meters." },
+  { title: "Clearances", text: "Space for airflow, maintenance doors and cable entry." },
+  { title: "Protection", text: "Earthing pits below 1 ohm, lightning protection and emergency stop buttons." },
+];
+
+const MONITORING = [
+  { title: "Cell-by-cell telemetry", text: "Individual cell voltages, temperatures, string currents and enclosure humidity, logged in real time." },
+  { title: "Anomaly detection", text: "Cloud analysis of internal resistance and balancing drift flags a weakening cell before it causes a failure." },
+  { title: "Alerts and remote diagnosis", text: "Warnings and trips reach our Noida operations centre at once, for remote diagnosis and field dispatch." },
+  { title: "Your dashboard", text: "State of charge, energy savings and diesel displaced on web and mobile." },
+];
+
+const ZONES = [
+  { zone: "Delhi-NCR", time: "4–8 hours", text: "Field engineer on site after a critical alert." },
+  { zone: "Tier-1 cities", time: "24 hours", text: "Technician on site." },
+  { zone: "Pan-India", time: "48 hours", text: "On-site dispatch, backed by 24/7 remote diagnostics." },
 ];
 
 export default function ServicesPage() {
   return (
-    <div className="space-y-20 sm:space-y-28 lg:space-y-36 pb-28 lg:pb-36 bg-white">
-      {/* Header */}
-      <section className="border-b border-gray-200 bg-canvas-offwhite px-4 sm:px-6 pt-10 sm:pt-40 pb-14 sm:pb-32">
-        <div className="mx-auto max-w-7xl">
-          <nav
-            aria-label="Breadcrumb"
-            className="flex items-center gap-2 text-xs font-medium text-lithon-blue mb-4"
-          >
-            <Link href="/" className="hover:text-gray-900 transition-colors">
-              Home
-            </Link>
-            <span className="text-gray-500">/</span>
-            <span className="text-gray-900 font-semibold" aria-current="page">
-              Services
-            </span>
-          </nav>
-
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-light text-gray-900 tracking-tight leading-tight">
-            Turnkey Services &amp;{" "}
-            <span className="font-semibold text-lithon-blue">
-              After-Sales Support
-            </span>
-          </h1>
-
-          <p className="mt-5 text-base sm:text-lg text-gray-600 max-w-3xl leading-relaxed font-normal">
-            From initial site survey to 10-year warranty support, Lith-On delivers end-to-end BESS
-            project execution. Our in-house engineering team handles design, manufacturing,
-            installation, commissioning, and ongoing operations &amp; maintenance — all from our
-            20,000 sq. ft. Noida facility.
-          </p>
-
-          <div className="mt-8 flex flex-wrap items-center gap-4">
-            <div className="inline-flex items-center gap-2 text-xs font-semibold text-gray-700">
-              <Clock className="h-4 w-4 text-lithon-blue" />
-              <span>8–11 Week Turnkey Timeline</span>
+    <div className="bg-canvas">
+      {/* SRV-01 */}
+      <PageHero
+        variant="editorial"
+        breadcrumb={[{ label: "Home", href: "/" }, { label: "Services" }]}
+        title={["From site survey", "to 24/7 monitoring"]}
+        emphasisLine={1}
+        lead="We audit your site, build and install the system, commission it, and monitor it from Noida for its working life."
+        primary={{ label: "Request technical sizing", href: "/contact?type=assessment" }}
+        secondary={{ label: "Get support", href: "/contact?type=support" }}
+        visual={
+          <figure>
+            <div className="relative aspect-[4/5] overflow-hidden rounded-media bg-surface">
+              <Image
+                src="/images/installations/catalogue/lucknow-rack.webp"
+                alt="An open Lith-On battery rack with its cabling and control display, installed indoors"
+                fill
+                priority
+                sizes="(min-width: 1024px) 30vw, 100vw"
+                quality={75}
+                className="object-cover"
+              />
             </div>
-            <div className="inline-flex items-center gap-2 text-xs font-semibold text-gray-700">
-              <Monitor className="h-4 w-4 text-lithon-blue" />
-              <span>24/7 Cloud SCADA Monitoring</span>
-            </div>
-            <div className="inline-flex items-center gap-2 text-xs font-semibold text-gray-700">
-              <ShieldCheck className="h-4 w-4 text-lithon-blue" />
-              <span>10-Year Manufacturer Warranty</span>
-            </div>
-          </div>
-        </div>
-      </section>
+            <figcaption className="mt-2 text-small text-ink-3">A Lith-On battery rack installed in Lucknow</figcaption>
+          </figure>
+        }
+      />
 
-      {/* Project Delivery Timeline */}
-      <section className="px-4 sm:px-6">
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-10 max-w-3xl">
-            <span className="text-xs font-mono font-bold text-lithon-blue">
-              End-to-End Project Delivery
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-light text-gray-900 mt-2">
-              From Site Survey to{" "}
-              <span className="font-semibold text-lithon-blue">Live Operation</span>
-            </h2>
-          </div>
+      {/* SRV-02 */}
+      <section id="delivery" aria-labelledby="delivery-title" className="section scroll-mt-24 bg-canvas-warm">
+        <div className="container-site">
+          <SectionIntro title={<span id="delivery-title">How a project runs</span>} lead="One team from the first site visit to a system that is monitored around the clock." split className="mb-10 lg:mb-14" />
+          <DeliverySteps steps={STEPS} />
 
-          <div className="grid gap-6 sm:grid-cols-2">
-            {SERVICE_PHASES.map((phase) => {
-              const Icon = phase.icon;
-              return (
-                <div
-                  key={phase.phase}
-                  className="rounded-2xl border border-gray-200 bg-white p-6 sm:p-7 shadow-xs"
-                >
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-3">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 border border-blue-200">
-                        <Icon className="h-5 w-5 text-lithon-blue" />
-                      </div>
-                      <div>
-                        <span className="text-[10px] font-mono font-bold text-gray-500">
-                          Phase {phase.phase}
-                        </span>
-                        <h3 className="text-sm font-bold text-gray-900">{phase.title}</h3>
-                      </div>
-                    </div>
-                    <span className="rounded-full bg-canvas-offwhite border border-gray-200 px-3 py-1 text-[10px] font-mono font-bold text-gray-600">
-                      {phase.timeline}
-                    </span>
-                  </div>
-                  <ul className="space-y-2">
-                    {phase.items.map((item) => (
-                      <li
-                        key={item}
-                        className="flex items-start gap-2 text-xs text-gray-600 leading-relaxed"
-                      >
-                        <span className="h-1.5 w-1.5 rounded-full bg-lithon-blue shrink-0 mt-1.5" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
+          <div className="mt-16 grid gap-8 border-t border-line pt-10 lg:mt-20 lg:grid-cols-12 lg:gap-6">
+            <div className="lg:col-span-4">
+              <h3 className="text-heading-3 text-ink">Getting your site ready</h3>
+              <p className="mt-2 text-small text-ink-2">We provide preparation guidelines so commissioning goes smoothly and the warranty stays intact.</p>
+            </div>
+            <dl className="grid gap-x-6 sm:grid-cols-2 lg:col-span-8">
+              {READINESS.map((r) => (
+                <div key={r.title} className="border-t border-line py-4 first:border-t-0 sm:[&:nth-child(2)]:border-t-0">
+                  <dt className="text-body font-[500] text-ink">{r.title}</dt>
+                  <dd className="mt-1 text-small text-ink-2">{r.text}</dd>
                 </div>
-              );
-            })}
+              ))}
+            </dl>
           </div>
         </div>
       </section>
 
-      {/* O&M Maintenance Tiers */}
-      <section className="px-4 sm:px-6 bg-canvas-offwhite py-16 sm:py-20 border-y border-gray-200">
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-10 max-w-3xl">
-            <span className="text-xs font-mono font-bold text-lithon-blue">
-              Operations &amp; Maintenance
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-light text-gray-900 mt-2">
-              Maintenance &amp;{" "}
-              <span className="font-semibold text-lithon-blue">Support Plans</span>
+      {/* SRV-03 */}
+      <section id="support" aria-labelledby="support-title" className="section scroll-mt-24">
+        <div className="container-site grid gap-10 lg:grid-cols-12 lg:gap-6">
+          <div className="lg:col-span-4">
+            <h2 id="support-title" className="text-heading-1 text-ink">
+              After commissioning
             </h2>
-            <p className="mt-3 text-sm text-gray-600 leading-relaxed">
-              Choose the support level that matches your operational requirements. All plans include
-              Lith-On&apos;s cloud-based SCADA monitoring and remote diagnostics.
+            <p className="mt-4 text-body text-ink-2">Every commercial and industrial system connects to our cloud SCADA platform over encrypted cellular or industrial Ethernet links.</p>
+            <div className="mt-8 border-t border-line pt-6">
+              <p className="tabular text-heading-1 text-ink">6,000+ cycles</p>
+              <p className="mt-1 text-small text-ink-2">Cell rating at 88–90% depth of discharge. Warranty terms depend on the product.</p>
+              <div className="mt-4">
+                <Button href="/warranty-and-support" variant="tertiary">
+                  Warranty and support
+                </Button>
+              </div>
+            </div>
+          </div>
+          <ol className="lg:col-span-7 lg:col-start-6">
+            {MONITORING.map((m, i) => (
+              <li key={m.title} className="grid grid-cols-[3rem_1fr] border-t border-line py-6 last:border-b">
+                <span className="tabular text-small text-ink-3">{String(i + 1).padStart(2, "0")}</span>
+                <div>
+                  <h3 className="text-heading-3 text-ink">{m.title}</h3>
+                  <p className="mt-2 text-body text-ink-2">{m.text}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* SRV-04 */}
+      <section id="coverage" aria-labelledby="coverage-title" className="section scroll-mt-24 bg-canvas-warm">
+        <div className="container-site grid items-center gap-12 lg:grid-cols-12 lg:gap-6">
+          <div className="lg:col-span-6">
+            <ResponseZones />
+          </div>
+          <div className="lg:col-span-5 lg:col-start-8">
+            <h2 id="coverage-title" className="text-heading-1 text-ink">
+              Field response
+            </h2>
+            <dl className="mt-8 border-t border-line">
+              {ZONES.map((z) => (
+                <div key={z.zone} className="grid grid-cols-[1fr_auto] gap-x-6 border-b border-line py-5">
+                  <dt className="text-body font-[500] text-ink">{z.zone}</dt>
+                  <dd className="tabular text-heading-3 text-ink">{z.time}</dd>
+                  <dd className="col-span-2 mt-1 text-small text-ink-2">{z.text}</dd>
+                </div>
+              ))}
+            </dl>
+            <p className="mt-6 text-small text-ink-2">
+              Replacement modules, BMS boards and contactors ship from our Noida plant. Support line: Monday to Saturday, 9:00 am to 7:00 pm IST; emergency remote diagnostics 24/7.
             </p>
           </div>
-
-          <div className="grid gap-6 lg:grid-cols-3">
-            {MAINTENANCE_TIERS.map((tier, idx) => (
-              <div
-                key={tier.tier}
-                className={`rounded-2xl border p-6 sm:p-7 shadow-xs ${
-                  idx === 2
-                    ? "border-lithon-blue bg-white ring-1 ring-lithon-blue/20"
-                    : "border-gray-200 bg-white"
-                }`}
-              >
-                {idx === 2 && (
-                  <span className="inline-block rounded-full bg-lithon-blue px-3 py-0.5 text-[10px] font-bold text-white mb-3">
-                    Recommended for Hospitals &amp; Data Centers
-                  </span>
-                )}
-                <h3 className="text-lg font-bold text-gray-900">{tier.tier}</h3>
-                <p className="text-xs text-gray-500 mt-0.5">{tier.description}</p>
-                <ul className="mt-5 space-y-2.5">
-                  {tier.features.map((feat) => (
-                    <li
-                      key={feat}
-                      className="flex items-start gap-2 text-xs text-gray-700 leading-relaxed"
-                    >
-                      <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0 mt-0.5" />
-                      <span>{feat}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
-      {/* Spare Parts & Response Coverage */}
-      <section className="px-4 sm:px-6">
-        <div className="mx-auto max-w-7xl">
-          <div className="grid gap-8 lg:grid-cols-2">
-            <div className="rounded-2xl border border-gray-200 bg-white p-6 sm:p-8 shadow-xs">
-              <div className="flex items-center gap-2 text-xs font-bold text-gray-900 mb-4">
-                <Wrench className="h-4 w-4 text-lithon-blue" />
-                <span>Spare Parts &amp; Logistics</span>
-              </div>
-              <ul className="space-y-3 text-xs text-gray-600 leading-relaxed">
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0 mt-0.5" />
-                  <span>
-                    Noida warehouse stocking critical spares: BMS controller boards, PCS IGBT modules,
-                    contactors, fuses, temperature sensors, and cooling fans
-                  </span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0 mt-0.5" />
-                  <span>
-                    Replacement battery modules pre-matched and pre-calibrated for hot-swap deployment
-                  </span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0 mt-0.5" />
-                  <span>
-                    Pan-India logistics network serving major metros and industrial clusters
-                  </span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0 mt-0.5" />
-                  <span>
-                    Critical replacement modules, BMS boards, and contactors available directly from our Noida manufacturing hub
-                  </span>
-                </li>
-              </ul>
-            </div>
-
-            <div className="rounded-2xl border border-gray-200 bg-white p-6 sm:p-8 shadow-xs">
-              <div className="flex items-center gap-2 text-xs font-bold text-gray-900 mb-4">
-                <Headphones className="h-4 w-4 text-lithon-blue" />
-                <span>Field Service Coverage</span>
-              </div>
-              <ul className="space-y-3 text-xs text-gray-600 leading-relaxed">
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0 mt-0.5" />
-                  <span>
-                    In-house field engineering team based in Noida with trained partner technicians
-                    across North India, West India, and South India
-                  </span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0 mt-0.5" />
-                  <span>
-                    On-site dispatch: within 4 to 8 hours in Delhi-NCR, 24 hours in Tier-1 Indian cities, and 48 hours pan-India
-                  </span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0 mt-0.5" />
-                  <span>
-                    Cloud SCADA enables remote firmware updates, parameter tuning, and diagnostics
-                  </span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0 mt-0.5" />
-                  <span>
-                    Escalation path: L1 remote support → L2 field engineer dispatch → L3 Noida
-                    factory engineering team
-                  </span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="px-4 sm:px-6">
-        <div className="mx-auto max-w-7xl rounded-3xl bg-lithon-blue p-8 sm:p-12 shadow-xl">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
-            <div>
-              <h3 className="text-2xl font-bold text-white sm:text-3xl tracking-tight">
-                Ready for a Turnkey BESS Project?
-              </h3>
-              <p className="text-sm text-blue-100 mt-2 max-w-xl">
-                From site assessment to commissioning — our engineering team manages the entire project
-                lifecycle. Get a detailed project timeline and proposal.
-              </p>
-            </div>
-            <div className="flex flex-wrap items-center gap-3 shrink-0">
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 rounded-full bg-lithon-red-ink hover:bg-lithon-red-ink-hover px-6 py-3.5 text-xs font-bold text-white transition-colors shadow-md"
-              >
-                <span>Get Project Proposal</span>
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-              <a
-                href="tel:+917000013009"
-                className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-6 py-3.5 text-xs font-bold text-white hover:bg-white/20 transition-colors"
-              >
-                <Phone className="h-4 w-4 text-white" />
-                <span>+91-7000013009</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* SRV-05 */}
+      <ClosingCTA
+        variant="inline"
+        title={["Plan your project with our engineers"]}
+        lead="Tell us about your site and we will recommend a system and a plan to deliver it."
+        primary={{ label: "Request technical sizing", href: "/contact?type=assessment" }}
+        secondary={{ label: "Support for an installed system", href: "/contact?type=support" }}
+      />
     </div>
   );
 }

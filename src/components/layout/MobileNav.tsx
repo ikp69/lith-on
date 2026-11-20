@@ -5,7 +5,7 @@ import { ArrowRight, ChevronDown, MessageCircle, Phone, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { MAIN_NAVIGATION } from "@/data/navigation";
+import { MAIN_NAVIGATION, MORE_PRODUCTS } from "@/data/navigation";
 import { cn } from "@/lib/utils";
 
 /**
@@ -75,7 +75,7 @@ export function MobileNav({ open, onOpenChange, pathname }: { open: boolean; onO
                 const isOpen = expanded === item.label;
                 const panelId = `sheet-${item.label.toLowerCase()}`;
                 const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href)) || (item.children?.some((c) => pathname === c.href.split("#")[0]) ?? false);
-                const links = [...(item.children ?? []), ...(item.more ?? [])];
+                const links = [...(item.children ?? []), ...(item.label === "Products" ? MORE_PRODUCTS : []), ...(item.more ?? [])];
                 return (
                   <li key={item.label} data-nav-row="" style={{ animationDelay: `${80 + i * 40}ms` }} className="border-b border-line">
                     <div className="flex items-center">

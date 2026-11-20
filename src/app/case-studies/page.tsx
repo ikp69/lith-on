@@ -15,7 +15,7 @@ import { cn } from "@/lib/utils";
 export const metadata: Metadata = {
   title: "Case Studies | Documented Savings from Lith-On Battery Storage",
   description:
-    "Invertis University saves ₹2.26 Cr a year, a 500-flat Gurugram society cut energy cost 73%, and a highway EV hub removed its demand charges. Plus Lith-On installations across India.",
+    "Documented results from Lith-On battery storage: Invertis University, a 500-flat Gurugram society and an EV charging hub, plus NTPC and Indian Army sites.",
 };
 
 /**
@@ -196,7 +196,7 @@ export default function CaseStudiesPage() {
               <RailItem key={p.src} className="w-[min(70vw,280px)] lg:w-[300px]">
                 <figure>
                   <div className="relative aspect-[3/4] overflow-hidden rounded-media bg-surface">
-                    <Image src={`/images/installations/catalogue/${p.src}.webp`} alt={`Lith-On storage installation, ${p.caption}`} fill sizes="300px" quality={72} className="object-cover" />
+                    <Image src={`/images/installations/catalogue/${p.src}.webp`} alt={`Lith-On storage installation, ${p.caption}`} fill sizes="300px" quality={75} className="object-cover" />
                   </div>
                   <figcaption className="mt-3 text-body font-[500] text-ink">{p.caption}</figcaption>
                 </figure>

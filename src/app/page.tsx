@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { HomeHero } from '@/components/home/HomeHero';
+import { CityHero } from '@/components/hero2/CityHero';
 import { HomeProof } from '@/components/home/HomeProof';
 import { HomeChallenges } from '@/components/home/HomeChallenges';
 import { HomeProducts } from '@/components/home/HomeProducts';
@@ -11,7 +11,7 @@ import { HomeClosing } from '@/components/home/HomeClosing';
 export const metadata: Metadata = {
   title: 'Lith-On Bharat Energy | Industrial BESS & Commercial Energy Storage',
   description:
-    'Lith-On manufactures heavy-duty Battery Energy Storage Systems (BESS) at its 20,000 sq. ft. Noida facility. Engineered for 60°C ambient heat, sub-10ms UPS switchover, and CAQM GRAP diesel generator replacement.',
+    "Lith-On designs and builds battery energy storage in Noida: 250 MWh a year, under-10 ms switchover, IceBattery® cooling for 60 °C heat, and diesel replacement.",
   keywords: [
     'Battery Energy Storage System India',
     'BESS Manufacturer Noida',
@@ -27,8 +27,10 @@ export default function HomePage() {
   return (
     <div className="bg-white">
       {/* Redesigned sections set their own rhythm (design.md §6). */}
-      {/* 01 — HERO (HOME-01): one BESS shelter, switchable environments */}
-      <HomeHero />
+      {/* 01 — HERO (HOME-01): scroll-driven city tour, promoted from the /hero-2
+          prototype on 20 Nov 2026. The previous hero (HomeHero) is kept in
+          src/components/home for now. */}
+      <CityHero />
 
       {/* 02 — PROOF (HOME-02): open stat band */}
       <HomeProof />

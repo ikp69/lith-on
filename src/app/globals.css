@@ -543,12 +543,89 @@ b {
   from { opacity: 0; transform: translateX(20px); }
   to { opacity: 1; transform: none; }
 }
-.mobile-sheet[data-state="open"] { animation: sheet-in 400ms cubic-bezier(0.16, 1, 0.3, 1) both; }
-.mobile-sheet[data-state="closed"] { animation: sheet-out 280ms cubic-bezier(0.4, 0, 1, 1) both; }
+/* CON-01 contact form: each step slides in 24px (applied with motion-safe:). */
+@keyframes form-step-in {
+  from { opacity: 0; transform: translateX(24px); }
+  to { opacity: 1; transform: none; }
+}
+/* .side-sheet: the same motion for the PDP sizing assistant drawer. */
+.mobile-sheet[data-state="open"],
+.side-sheet[data-state="open"] { animation: sheet-in 400ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+.mobile-sheet[data-state="closed"],
+.side-sheet[data-state="closed"] { animation: sheet-out 280ms cubic-bezier(0.4, 0, 1, 1) both; }
 .mobile-sheet-overlay[data-state="open"] { animation: sheet-fade-in 300ms ease-out both; }
 .mobile-sheet[data-state="open"] [data-nav-row] { animation: nav-row-in 400ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+/* .modal-pop: centred dialogs (catalogue download). Centring lives here so the keyframes can own transform. */
+.modal-pop { transform: translate(-50%, -50%); }
+@keyframes modal-in {
+  from { opacity: 0; transform: translate(-50%, calc(-50% + 12px)) scale(0.98); }
+  to { opacity: 1; transform: translate(-50%, -50%); }
+}
+.modal-pop[data-state="open"] { animation: modal-in 400ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+.modal-pop[data-state="closed"] { animation: sheet-fade-in 200ms ease-in reverse both; }
 @media (prefers-reduced-motion: reduce) {
+  .modal-pop[data-state],
   .mobile-sheet[data-state],
+  .side-sheet[data-state],
   .mobile-sheet-overlay[data-state],
   .mobile-sheet[data-state="open"] [data-nav-row] { animation: none; }
+}
+
+/* Navigation feedback (src/components/layout/NavigationFeedback.tsx): top bar, dimmed link, progress cursor. */
+.nav-progress { view-transition-name: nav-progress; }
+.nav-progress-bar { transform: scaleX(0); opacity: 0; }
+.nav-progress[data-phase="loading"] .nav-progress-bar { opacity: 1; animation: nav-progress-grow 8s cubic-bezier(0.1, 0.6, 0.2, 1) forwards; }
+.nav-progress[data-phase="done"] .nav-progress-bar { transform: scaleX(1); opacity: 0; transition: transform 200ms ease-out, opacity 250ms ease-out 150ms; }
+@keyframes nav-progress-grow {
+  0% { transform: scaleX(0.08); }
+  10% { transform: scaleX(0.3); }
+  100% { transform: scaleX(0.9); }
+}
+a[data-nav-pending] { opacity: 0.6; transition: opacity 150ms ease-out; }
+html[data-nav-pending], html[data-nav-pending] * { cursor: progress !important; }
+@media (prefers-reduced-motion: reduce) {
+  .nav-progress[data-phase="loading"] .nav-progress-bar { animation: none; transform: scaleX(0.6); }
+  .nav-progress[data-phase="done"] .nav-progress-bar { transition: none; }
+}
+
+/* Homepage hero (formerly the /hero-2 prototype): pinned city stage (src/components/hero2/CityHero.tsx) */
+.city-hero {
+  --city-aspect: 1.7918;
+  --city-gap: 16px;
+  /* Frame fills the stage, leaving the same gap on all four sides */
+  --city-frame-w: calc(100% - 2 * var(--city-gap));
+  --city-frame-h: calc(100svh - 80px - 2 * var(--city-gap));
+  height: calc(100svh - 80px);
+}
+@media (min-width: 1280px) {
+  .city-hero {
+    --city-gap: 20px;
+  }
+}
+.city-hero__frame {
+  /* Rounded frame, full stage width and height minus an equal gap all round */
+  position: absolute;
+  inset: var(--city-gap);
+  overflow: hidden;
+  border-radius: var(--radius-media);
+}
+.city-hero__intro {
+  /* Intro copy aligned to the edges of the opening map window */
+  width: var(--city-frame-w);
+  margin-inline: auto;
+  padding-inline: calc(var(--city-frame-w) * 0.02);
+}
+.city-hero__window {
+  /* Matches the first frame of the opening tween so nothing jumps on hydration */
+  clip-path: inset(42% 2% 0% 2% round 20px);
+}
+.city-hero__map {
+  /* "Cover" box with the render's exact aspect, centred in the frame, so
+     marker and camera coordinates (fractions of the image) stay true */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max(100%, var(--city-frame-h) * var(--city-aspect));
+  aspect-ratio: 2048 / 1143;
+  translate: -50% -50%;
 }

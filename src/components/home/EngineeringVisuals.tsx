@@ -8,7 +8,7 @@ import type { CSSProperties } from "react";
  */
 
 const EASE = "ease-[cubic-bezier(0.16,1,0.3,1)]";
-const draw = `[stroke-dasharray:1] [stroke-dashoffset:1] group-data-[active=true]:[stroke-dashoffset:0] motion-safe:transition-[stroke-dashoffset] motion-safe:duration-[1100ms] ${EASE} motion-reduce:[stroke-dashoffset:0]`;
+const draw = `[stroke-dasharray:1] [stroke-dashoffset:1] group-data-[active=true]:[stroke-dashoffset:0] motion-safe:transition-[stroke-dashoffset] motion-safe:duration-[1200ms] ${EASE} motion-reduce:[stroke-dashoffset:0]`;
 const fade = "opacity-0 group-data-[active=true]:opacity-100 motion-safe:transition-opacity motion-safe:duration-500 motion-reduce:opacity-100";
 const growY = `[transform-box:fill-box] origin-bottom scale-y-0 group-data-[active=true]:scale-y-100 motion-safe:transition-transform motion-safe:duration-500 ${EASE} motion-reduce:scale-y-100`;
 const delay = (ms: number): CSSProperties => ({ transitionDelay: `${ms}ms` });
@@ -115,7 +115,7 @@ export function StackVisual() {
     <div className="relative">
       <span
         aria-hidden="true"
-        className={`absolute top-[5px] right-0 left-0 hidden h-px origin-left scale-x-0 bg-line-strong group-data-[active=true]:scale-x-100 motion-safe:transition-transform motion-safe:duration-[1100ms] ${EASE} motion-reduce:scale-x-100 md:block`}
+        className={`absolute top-[5px] right-0 left-0 hidden h-px origin-left scale-x-0 bg-line-strong group-data-[active=true]:scale-x-100 motion-safe:transition-transform motion-safe:duration-[1200ms] ${EASE} motion-reduce:scale-x-100 md:block`}
       />
       <ol className="grid gap-6 sm:grid-cols-2 md:grid-cols-4 md:gap-8">
         {STACK.map((s, i) => (

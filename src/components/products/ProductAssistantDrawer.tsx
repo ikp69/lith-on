@@ -1,285 +1,204 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
-import { 
-  Bot, 
-  X, 
-  ArrowRight, 
-  Check, 
-  MessageSquare
-} from "lucide-react";
 import * as Dialog from "@radix-ui/react-dialog";
+import { SlidersHorizontal, X } from "lucide-react";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
+import { Button } from "@/components/system/Button";
+import { PRODUCTS_DATA } from "@/data/products";
+import { cn } from "@/lib/utils";
 
-interface SizingRecommendation {
-  productName: string;
-  modelCode: string;
-  slug: string;
-  capacity: string;
-  powerRating: string;
-  switchover: string;
-  annualSavings: string;
-  payback: string;
-  dieselDisplaced: string;
+/**
+ * PDP-07 sizing assistant: a side sheet that suggests a starting product from
+ * the facility type and generator size. Rebuilt in Phase 4 (20 Nov 2026):
+ * - The old drawer showed invented savings, payback and diesel figures per
+ *   product, "100% CAQM GRAP Compliant" and a "<20 ms" claim; all removed.
+ *   Savings now come from the calculator (content/calculator-data.json).
+ * - Capacity, power and image come from src/data/products.ts, as on the
+ *   product pages.
+ * - The recommendation is derived from state on render (the old version
+ *   computed it from the previous selection via setTimeout).
+ */
+
+const FACILITIES = [
+  { id: "commercial", label: "Commercial building or IT park" },
+  { id: "housing", label: "Housing society" },
+  { id: "industrial", label: "Factory or industrial plant" },
+  { id: "ev", label: "EV charging hub" },
+  { id: "telecom", label: "Fuel station or telecom site" },
+  { id: "utility", label: "Solar plant or substation" },
+] as const;
+
+const SCALES = [
+  { id: "small", label: "Up to 125 kVA" },
+  { id: "medium", label: "250–750 kVA" },
+  { id: "large", label: "1,000 kVA and above" },
+] as const;
+
+type Facility = (typeof FACILITIES)[number]["id"];
+type Scale = (typeof SCALES)[number]["id"];
+
+function recommend(facility: Facility, scale: Scale): string {
+  if (facility === "utility" || scale === "large") {
+    return "max-20hc";
+  }
+  if (facility === "telecom" || scale === "small") {
+    return "lithon-50";
+  }
+  if (facility === "industrial") {
+    return "lt215";
+  }
+  return "magna-ci";
 }
 
-export function ProductAssistantDrawer({
-  preselectedProduct,
-  triggerLabel = "Instant Sizing Assistant"
+function Choice<T extends string>({
+  legend,
+  name,
+  options,
+  value,
+  onChange,
+  columns,
 }: {
-  preselectedProduct?: string;
-  triggerLabel?: string;
+  legend: string;
+  name: string;
+  options: readonly { id: T; label: string }[];
+  value: T;
+  onChange: (v: T) => void;
+  columns: string;
 }) {
-  const [open, setOpen] = useState(false);
-  const [facilityType, setFacilityType] = useState<string>("commercial");
-  const [powerScale, setPowerScale] = useState<string>("medium");
-  const [result, setResult] = useState<SizingRecommendation | null>(null);
+  return (
+    <fieldset>
+      <legend className="mb-3 text-small font-[500] text-ink">{legend}</legend>
+      <div className={cn("grid gap-2", columns)}>
+        {options.map((o) => (
+          <label
+            key={o.id}
+            className={cn(
+              "flex min-h-12 cursor-pointer items-center rounded-control border px-4 py-3 text-small transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-lithon-blue",
+              value === o.id ? "border-lithon-blue bg-canvas-warm font-[500] text-lithon-blue" : "border-line text-ink-2 hover:border-ink-3 hover:text-ink"
+            )}
+          >
+            <input type="radio" name={name} value={o.id} checked={value === o.id} onChange={() => onChange(o.id)} className="sr-only" />
+            {o.label}
+          </label>
+        ))}
+      </div>
+    </fieldset>
+  );
+}
 
-  const calculateRecommendation = () => {
-    if (facilityType === "telecom" || powerScale === "small") {
-      setResult({
-        productName: "Lith-On-50 (48 kWh)",
-        modelCode: "LO-50-48",
-        slug: "lithon-50",
-        capacity: "48 kWh (Scalable to 192 kWh)",
-        powerRating: "30 kW / 50 kW",
-        switchover: "<10 ms Instantaneous Cutover",
-        annualSavings: "₹14.5 Lakh / year",
-        payback: "1.8 Years",
-        dieselDisplaced: "18,500 L / year"
-      });
-    } else if (facilityType === "industrial") {
-      setResult({
-        productName: "LT215 Industrial BESS",
-        modelCode: "LO-LT-215",
-        slug: "lt215",
-        capacity: "215 kWh Cabinet",
-        powerRating: "100 kW / 110 kW",
-        switchover: "<10 ms Industrial UPS",
-        annualSavings: "₹38.2 Lakh / year",
-        payback: "2.4 Years",
-        dieselDisplaced: "42,000 L / year"
-      });
-    } else if (facilityType === "utility" || powerScale === "large") {
-      setResult({
-        productName: "Max-20HC-5000 (5.0 MWh)",
-        modelCode: "LO-MAX-5000",
-        slug: "max-20hc",
-        capacity: "5,000 kWh (5.0 MWh Container)",
-        powerRating: "1,250 kW / 2,500 kW",
-        switchover: "<20 ms Utility Teleprotection",
-        annualSavings: "₹1.85 Crore / year",
-        payback: "3.2 Years",
-        dieselDisplaced: "280,000 L / year"
-      });
-    } else {
-      setResult({
-        productName: "Magna-C&I 260 kWh",
-        modelCode: "LO-MC-260",
-        slug: "magna-ci",
-        capacity: "260 kWh Outdoor Cabinet",
-        powerRating: "100 kW / 125 kW",
-        switchover: "<10 ms Instantaneous UPS",
-        annualSavings: "₹42.6 Lakh / year",
-        payback: "2.1 Years",
-        dieselDisplaced: "54,000 L / year"
-      });
-    }
-  };
+export function ProductAssistantDrawer({ preselectedProduct, triggerLabel = "Sizing assistant" }: { preselectedProduct?: string; triggerLabel?: string }) {
+  const [facility, setFacility] = useState<Facility>("commercial");
+  const [scale, setScale] = useState<Scale>("medium");
+  const [open, setOpen] = useState(false);
+  // Close when a link inside the sheet navigates to another product page.
+  const pathname = usePathname();
+  const [lastPath, setLastPath] = useState(pathname);
+  if (pathname !== lastPath) {
+    setLastPath(pathname);
+    setOpen(false);
+  }
+
+  const slug = recommend(facility, scale);
+  const product = PRODUCTS_DATA.find((p) => p.slug === slug);
+  const facilityLabel = FACILITIES.find((f) => f.id === facility)?.label ?? "";
+  const whatsapp = `https://wa.me/917000013009?text=${encodeURIComponent(
+    `Hello Lith-On, I used the sizing assistant for a ${facilityLabel.toLowerCase()} and it suggested the ${product?.name ?? "a battery system"}. Please send a quote.`
+  )}`;
 
   return (
-    <>
-      <button
-        type="button"
-        onClick={() => {
-          setOpen(true);
-          calculateRecommendation();
-        }}
-        className="inline-flex min-h-11 items-center gap-2 text-small font-[500] text-lithon-blue underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lithon-blue"
-      >
-        <Bot className="h-4 w-4" aria-hidden="true" />
-        <span>{triggerLabel}</span>
-      </button>
-
-      <Dialog.Root open={open} onOpenChange={setOpen}>
-        <Dialog.Portal>
-          <Dialog.Overlay className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
-          <Dialog.Content className="fixed right-0 top-0 bottom-0 z-50 w-full max-w-xl bg-white p-6 sm:p-8 shadow-2xl flex flex-col justify-between overflow-y-auto data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right duration-300">
+    <Dialog.Root open={open} onOpenChange={setOpen}>
+      <Dialog.Trigger asChild>
+        <button
+          type="button"
+          className="group inline-flex min-h-11 items-center gap-2 rounded-sm text-[15px] font-[600] text-lithon-blue transition-colors hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lithon-blue"
+        >
+          <SlidersHorizontal className="h-4 w-4" aria-hidden="true" />
+          <span className="bg-gradient-to-r from-current to-current bg-[length:0%_1px] bg-left-bottom bg-no-repeat pb-0.5 transition-[background-size] duration-300 group-hover:bg-[length:100%_1px]">
+            {triggerLabel}
+          </span>
+        </button>
+      </Dialog.Trigger>
+      <Dialog.Portal>
+        <Dialog.Overlay className="mobile-sheet-overlay fixed inset-0 z-[60] bg-black/40" />
+        <Dialog.Content className="side-sheet fixed top-0 right-0 bottom-0 z-[61] flex w-full max-w-lg flex-col overflow-y-auto bg-white shadow-2xl">
+          <div className="flex items-start justify-between gap-4 border-b border-line px-6 py-5 sm:px-8">
             <div>
-              {/* Header */}
-              <div className="flex items-center justify-between border-b border-gray-100 pb-4">
-                <div className="flex items-center gap-2">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-50 text-lithon-blue">
-                    <Bot className="h-5 w-5" />
+              <Dialog.Title className="text-heading-3 text-ink">Find a starting point</Dialog.Title>
+              <Dialog.Description className="mt-1 text-small text-ink-2">
+                {preselectedProduct ? `You are viewing the ${preselectedProduct}. ` : ""}Tell us about the site and we will suggest a system to start from.
+              </Dialog.Description>
+            </div>
+            <Dialog.Close asChild>
+              <button
+                type="button"
+                aria-label="Close sizing assistant"
+                className="-m-2 flex size-11 shrink-0 items-center justify-center rounded-full text-ink-2 transition-colors hover:bg-surface focus-visible:outline-2 focus-visible:outline-lithon-blue"
+              >
+                <X className="h-5 w-5" aria-hidden="true" />
+              </button>
+            </Dialog.Close>
+          </div>
+
+          <div className="flex-1 space-y-8 px-6 py-6 sm:px-8">
+            <Choice legend="What kind of site is it?" name="facility" options={FACILITIES} value={facility} onChange={setFacility} columns="sm:grid-cols-2" />
+            <Choice legend="Generator capacity it would replace" name="scale" options={SCALES} value={scale} onChange={setScale} columns="sm:grid-cols-3" />
+
+            {product && (
+              <section aria-live="polite" aria-labelledby="assistant-result" className="border-t border-ink pt-6">
+                <p className="text-small text-ink-3">Suggested starting point</p>
+                <div className="mt-3 grid grid-cols-[96px_1fr] items-center gap-5">
+                  <div className="relative aspect-square rounded-control bg-surface">
+                    <Image src={product.image} alt="" fill sizes="96px" className="object-contain p-2 mix-blend-multiply" />
                   </div>
                   <div>
-                    <Dialog.Title className="text-base font-bold text-gray-900">
-                      Lith-On BESS Engineering Assistant
-                    </Dialog.Title>
-                    <p className="text-xs text-gray-500">
-                      {preselectedProduct 
-                        ? `Evaluating parameters for ${preselectedProduct}` 
-                        : "Instant sizing calculation based on Noida factory technical standards"}
-                    </p>
+                    <h3 id="assistant-result" className="text-heading-3 text-ink">
+                      {product.name}
+                    </h3>
+                    <p className="mt-0.5 font-mono text-small text-ink-3">{product.modelCode}</p>
                   </div>
                 </div>
-                <Dialog.Close asChild>
-                  <button
-                    type="button"
-                    className="rounded-lg p-1.5 text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-                    aria-label="Close assistant"
-                  >
-                    <X className="h-5 w-5" />
-                  </button>
-                </Dialog.Close>
-              </div>
-
-              {/* Sizing Form Controls */}
-              <div className="mt-6 space-y-5">
-                <div>
-                  <label className="block text-xs font-semibold text-gray-700 mb-2">
-                    1. Select Facility Profile
-                  </label>
-                  <div className="grid grid-cols-2 gap-2 text-xs">
-                    {[
-                      { id: "commercial", label: "Commercial Complex / IT Park" },
-                      { id: "housing", label: "Housing Society (CAQM GRAP)" },
-                      { id: "industrial", label: "Manufacturing / Factory HT" },
-                      { id: "ev", label: "EV Fast-Charging Plaza" },
-                      { id: "telecom", label: "Highway Fuel Station / Telecom" },
-                      { id: "utility", label: "Solar IPP / Utility Substation" }
-                    ].map((item) => (
-                      <button
-                        key={item.id}
-                        type="button"
-                        onClick={() => {
-                          setFacilityType(item.id);
-                          setTimeout(calculateRecommendation, 50);
-                        }}
-                        className={`p-3 rounded-xl border text-left font-medium transition-all ${
-                          facilityType === item.id
-                            ? "border-lithon-blue bg-blue-50/60 text-lithon-blue font-bold"
-                            : "border-gray-200 text-gray-700 hover:bg-gray-50"
-                        }`}
-                      >
-                        {item.label}
-                      </button>
-                    ))}
+                <dl className="mt-5 border-t border-line">
+                  <div className="flex items-baseline justify-between gap-4 border-b border-line py-3">
+                    <dt className="text-small text-ink-2">Capacity</dt>
+                    <dd className="tabular text-body font-[500] text-ink">{product.capacity}</dd>
                   </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-medium text-gray-700 mb-2">
-                    2. Power Scale / Displaced DG Capacity
-                  </label>
-                  <div className="grid grid-cols-3 gap-2 text-xs font-mono">
-                    {[
-                      { id: "small", label: "30–125 kVA" },
-                      { id: "medium", label: "250–750 kVA" },
-                      { id: "large", label: "1,000+ kVA" }
-                    ].map((scale) => (
-                      <button
-                        key={scale.id}
-                        type="button"
-                        onClick={() => {
-                          setPowerScale(scale.id);
-                          setTimeout(calculateRecommendation, 50);
-                        }}
-                        className={`p-2.5 rounded-xl border text-center font-bold transition-all ${
-                          powerScale === scale.id
-                            ? "border-lithon-blue bg-lithon-blue text-white"
-                            : "border-gray-200 text-gray-700 hover:bg-gray-50"
-                        }`}
-                      >
-                        {scale.label}
-                      </button>
-                    ))}
+                  <div className="flex items-baseline justify-between gap-4 border-b border-line py-3">
+                    <dt className="text-small text-ink-2">Power</dt>
+                    <dd className="tabular text-body font-[500] text-ink">{product.powerRating}</dd>
                   </div>
-                </div>
+                </dl>
+                <p className="mt-4 text-small text-ink-3">Larger sites combine several units. Our engineers confirm the final size from your load profile.</p>
+              </section>
+            )}
+          </div>
 
-                {/* Instant Calculation Card */}
-                {result && (
-                  <div className="rounded-2xl border border-blue-200 bg-gradient-to-br from-blue-50/80 to-white p-5 space-y-4">
-                    <div className="flex items-center justify-between border-b border-blue-100 pb-3">
-                      <div>
-                        <span className="text-xs font-mono text-lithon-blue font-semibold block">
-                          Recommended System Architecture
-                        </span>
-                        <h4 className="text-lg font-bold text-gray-900 mt-0.5">{result.productName}</h4>
-                      </div>
-                      <span className="font-mono text-xs font-bold text-gray-500 bg-white px-2.5 py-1 rounded-md border border-gray-200">
-                        {result.modelCode}
-                      </span>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-2 text-xs font-mono">
-                      <div className="bg-white p-2.5 rounded-xl border border-gray-200">
-                        <span className="text-xs text-gray-500 block">Storage Capacity:</span>
-                        <strong className="text-sm font-bold text-lithon-blue">{result.capacity}</strong>
-                      </div>
-                      <div className="bg-white p-2.5 rounded-xl border border-gray-200">
-                        <span className="text-xs text-gray-500 block">Rated Power:</span>
-                        <strong className="text-sm font-bold text-gray-900">{result.powerRating}</strong>
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-3 gap-2 text-center text-xs">
-                      <div className="bg-emerald-50 border border-emerald-200 p-2 rounded-xl">
-                        <span className="text-xs text-emerald-700 block font-medium">Est. Savings</span>
-                        <strong className="text-xs font-bold text-emerald-800">{result.annualSavings}</strong>
-                      </div>
-                      <div className="bg-blue-50 border border-blue-200 p-2 rounded-xl">
-                        <span className="text-xs text-blue-700 block font-medium">Payback</span>
-                        <strong className="text-xs font-bold text-lithon-blue">{result.payback}</strong>
-                      </div>
-                      <div className="bg-gray-100 border border-gray-200 p-2 rounded-xl">
-                        <span className="text-xs text-gray-600 block font-medium">Diesel Displaced</span>
-                        <strong className="text-xs font-bold text-gray-900">{result.dieselDisplaced}</strong>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-2 text-xs text-emerald-800 pt-1">
-                      <Check className="h-4 w-4 text-emerald-700 shrink-0" />
-                      <span>{result.switchover} • 100% CAQM GRAP Compliant</span>
-                    </div>
-                  </div>
-                )}
-              </div>
+          <div className="space-y-4 border-t border-line px-6 py-5 sm:px-8">
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+              {product && (
+                <Button href={`/products/${product.slug}`} arrow>
+                  View {product.name.split(" (")[0]}
+                </Button>
+              )}
+              <Button href="/calculator" variant="tertiary">
+                Estimate savings
+              </Button>
             </div>
-
-            {/* Action Bar */}
-            <div className="pt-6 border-t border-gray-100 space-y-3">
-              <div className="flex flex-col sm:flex-row gap-2">
-                {result && (
-                  <Link
-                    href={`/products/${result.slug}`}
-                    onClick={() => setOpen(false)}
-                    className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-xl bg-lithon-blue hover:bg-lithon-blue-hover px-4 py-3 text-xs font-semibold text-white shadow-sm transition-all"
-                  >
-                    <span>View System Specs</span>
-                    <ArrowRight className="h-3.5 w-3.5" />
-                  </Link>
-                )}
-                <a
-                  href={`https://wa.me/917000013009?text=Hello%20Lith-On%20Engineering%2C%20I%20used%20the%20sizing%20assistant%20for%20a%20${encodeURIComponent(facilityType)}%20facility%20and%20got%20${encodeURIComponent(result?.productName || 'BESS')}.%20Please%20provide%20a%20formal%20quote.`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-[#25D366] hover:bg-[#20ba59] px-4 py-3 text-xs font-semibold text-white shadow-sm transition-all"
-                >
-                  <MessageSquare className="h-4 w-4" />
-                  <span>WhatsApp Engineering</span>
-                </a>
-              </div>
-              <div className="flex items-center justify-between text-xs text-gray-500 pt-1 px-1">
-                <span>Noida Plant Technical Desk:</span>
-                <a href="tel:+917000013009" className="font-semibold text-lithon-blue">
-                  +91-7000013009
-                </a>
-              </div>
-            </div>
-          </Dialog.Content>
-        </Dialog.Portal>
-      </Dialog.Root>
-    </>
+            <p className="text-small text-ink-3">
+              Or message our engineers on{" "}
+              <a href={whatsapp} target="_blank" rel="noopener noreferrer" className="font-[500] text-lithon-blue underline-offset-4 hover:underline">
+                WhatsApp
+              </a>{" "}
+              or call{" "}
+              <a href="tel:+917000013009" className="font-[500] text-lithon-blue underline-offset-4 hover:underline">
+                +91 70000 13009
+              </a>
+              .
+            </p>
+          </div>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
   );
 }

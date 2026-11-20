@@ -10,9 +10,9 @@ import { PRODUCTS_DATA } from "@/data/products";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Industries | Battery Storage for Campuses, Factories and Hospitals | Lith-On",
+  title: "Industries We Serve | Battery Energy Storage | Lith-On",
   description:
-    "How Lith-On battery energy storage serves education campuses, manufacturing, commercial buildings, healthcare, EV charging and data centres, with documented results where available.",
+    "Battery storage for campuses, factories, commercial buildings, hospitals, EV charging and data centres, with documented results where available.",
 };
 
 /**
@@ -120,7 +120,7 @@ function ProductLink({ slug }: { slug: string }) {
       className="group mt-6 flex items-center gap-4 rounded-media border border-line p-3 pr-5 transition-colors hover:border-line-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lithon-blue"
     >
       <span className="relative isolate flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-control bg-surface">
-        <Image src={p.image} alt="" width={64} height={64} className="h-[80%] w-auto object-contain mix-blend-multiply" />
+        <Image src={p.image} alt="" width={64} height={64} className="h-[80%] w-auto object-contain mix-blend-multiply transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03] motion-reduce:transition-none" />
       </span>
       <span className="min-w-0">
         <span className="block text-small text-ink-3">Typical system</span>

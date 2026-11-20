@@ -6,6 +6,13 @@ import { useEffect, useRef } from "react";
 import { gsap, ScrollTrigger } from "@/animations/gsap-register";
 import { isCoarsePointer, prefersReducedMotion } from "./motion-env";
 
+let activeLenis: Lenis | null = null;
+
+/** The running Lenis instance, or null when native scrolling is in use. */
+export function getLenis(): Lenis | null {
+  return activeLenis;
+}
+
 /**
  * Lenis smooth scrolling, synchronised with GSAP ScrollTrigger.
  *
@@ -34,6 +41,7 @@ export function SmoothScroll() {
       prevent: (node) => node.closest("[data-lenis-prevent], [role='dialog']") !== null,
     });
     lenisRef.current = lenis;
+    activeLenis = lenis;
 
     lenis.on("scroll", ScrollTrigger.update);
     const tick = (time: number) => {
@@ -46,13 +54,19 @@ export function SmoothScroll() {
       gsap.ticker.remove(tick);
       lenis.destroy();
       lenisRef.current = null;
+      activeLenis = null;
     };
   }, []);
 
   // Route changes: Next.js resets scroll natively; keep Lenis in step and re-measure triggers.
+  // Skipped on first load, so a reload keeps its position and scrolling
+  // during load is never yanked back to the top.
+  const firstPath = useRef(true);
   useEffect(() => {
     const lenis = lenisRef.current;
-    if (lenis && !window.location.hash) {
+    if (firstPath.current) {
+      firstPath.current = false;
+    } else if (lenis && !window.location.hash) {
       lenis.scrollTo(0, { immediate: true, force: true });
     }
     const id = window.setTimeout(() => ScrollTrigger.refresh(), 120);

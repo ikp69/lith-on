@@ -1,10 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { type KeyboardEvent, type PointerEvent, type RefObject, useCallback, useRef, useState } from "react";
 import { Button } from "@/components/system/Button";
-import { HorizontalRail, RailItem } from "@/components/system/HorizontalRail";
+import { HorizontalRail, type RailSeek, RailItem } from "@/components/system/HorizontalRail";
 import { SectionIntro } from "@/components/system/SectionIntro";
+import { MORE_PRODUCTS } from "@/data/navigation";
 import { cn } from "@/lib/utils";
 
 /**
@@ -72,7 +74,7 @@ const PRODUCTS: RailProduct[] = [
     capacity: "5",
     capacityUnit: "MWh",
     axisLabel: "5 MWh",
-    power: "1.25 MW",
+    power: "2.5 MW",
     format: "20-ft high-cube ISO container",
     image: { src: "/images/products/catalogue/max-20hc-5000.webp", width: 1048, height: 672, alt: "Max-20HC-5000 energy storage system in a 20-ft container" },
   },
@@ -136,16 +138,143 @@ function ProductItem({ product, active }: { product: RailProduct; active: boolea
   );
 }
 
-function CapacityAxis({ progress }: { progress: number }) {
-  // Marker glides between product positions as the rail moves.
-  const f = progress * (PRODUCTS.length - 1);
-  const i = Math.min(PRODUCTS.length - 2, Math.floor(f));
-  const markerAt = POSITIONS[i] + (POSITIONS[i + 1] - POSITIONS[i]) * (f - i);
-  const active = Math.round(f);
+const LAST = PRODUCTS.length - 1;
+
+const FIRST_AT = POSITIONS[0];
+const LAST_AT = POSITIONS[LAST];
+/**
+ * Pinned tail after the track stops: the marker keeps moving from the last
+ * product to the 10 MWh end at the same speed, then the section unpins.
+ */
+const TAIL_RATIO = (100 - LAST_AT) / (LAST_AT - FIRST_AT);
+/**
+ * Share of the tail spent moving to 10 MWh; the rest holds the marker at the
+ * end (still pinned) so it visibly arrives before the section scrolls away.
+ */
+const TAIL_TRAVEL = 0.7;
+
+/**
+ * Axis position (0–100) to rail progress (0–1). Product dots occupy
+ * [0, trackEnd]; the stretch past the last product maps to the pinned tail.
+ */
+function axisToProgress(at: number, trackEnd: number) {
+  if (at <= FIRST_AT) {
+    return 0;
+  }
+  for (let i = 0; i < LAST; i++) {
+    if (at <= POSITIONS[i + 1]) {
+      return ((i + (at - POSITIONS[i]) / (POSITIONS[i + 1] - POSITIONS[i])) / LAST) * trackEnd;
+    }
+  }
+  return Math.min(1, trackEnd + ((at - LAST_AT) / (100 - LAST_AT)) * (1 - trackEnd) * TAIL_TRAVEL);
+}
+
+/** Rail progress to the marker's axis position (0–100). */
+function progressToAxis(progress: number, trackEnd: number) {
+  if (progress > trackEnd && trackEnd < 1) {
+    const t = Math.min(1, (progress - trackEnd) / ((1 - trackEnd) * TAIL_TRAVEL));
+    return LAST_AT + t * (100 - LAST_AT);
+  }
+  const f = (progress / trackEnd) * LAST;
+  const i = Math.min(LAST - 1, Math.floor(f));
+  return POSITIONS[i] + (POSITIONS[i + 1] - POSITIONS[i]) * (f - i);
+}
+
+const KEY_STEP: Record<string, number> = { ArrowRight: 1, ArrowUp: 1, ArrowLeft: -1, ArrowDown: -1 };
+
+function CapacityAxis({ progress, trackEnd, seekRef }: { progress: number; trackEnd: number; seekRef: RefObject<RailSeek | null> }) {
+  const axisRef = useRef<HTMLDivElement>(null);
+  const [drag, setDrag] = useState<number | null>(null);
+  const shown = drag ?? progress;
+
+  // Marker glides between product positions as the rail moves, then on to
+  // the 10 MWh end during the pinned tail.
+  const markerAt = progressToAxis(shown, trackEnd);
+  const active = Math.round(Math.min(1, shown / trackEnd) * LAST);
+
+  const progressAt = (clientX: number) => {
+    const rect = axisRef.current?.getBoundingClientRect();
+    if (!rect || rect.width === 0) {
+      return shown;
+    }
+    return axisToProgress(((clientX - rect.left) / rect.width) * 100, trackEnd);
+  };
+
+  const goTo = (index: number) => {
+    const target = Math.min(LAST, Math.max(0, index));
+    seekRef.current?.((target / LAST) * trackEnd, true);
+  };
+
+  const onPointerDown = (e: PointerEvent<HTMLDivElement>) => {
+    if (e.button !== 0) {
+      return;
+    }
+    e.currentTarget.setPointerCapture(e.pointerId);
+    const p = progressAt(e.clientX);
+    setDrag(p);
+    seekRef.current?.(p, false);
+  };
+
+  const onPointerMove = (e: PointerEvent<HTMLDivElement>) => {
+    if (drag === null) {
+      return;
+    }
+    const p = progressAt(e.clientX);
+    setDrag(p);
+    seekRef.current?.(p, false);
+  };
+
+  const endDrag = () => {
+    if (drag === null) {
+      return;
+    }
+    // Snap to the nearest product; a release past the last product (the
+    // pinned tail) stays where it was dropped.
+    if (drag <= trackEnd) {
+      goTo(Math.round((drag / trackEnd) * LAST));
+    }
+    setDrag(null);
+  };
+
+  const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    let target: number | null = null;
+    if (e.key in KEY_STEP) {
+      target = active + KEY_STEP[e.key];
+    } else if (e.key === "Home") {
+      target = 0;
+    } else if (e.key === "End") {
+      target = LAST;
+    }
+    if (target !== null) {
+      e.preventDefault();
+      goTo(target);
+    }
+  };
+
+  const current = PRODUCTS[active];
 
   return (
-    <figure className="mt-10 lg:mt-12" aria-label="Capacity per unit on a logarithmic scale, from 10 kWh to 10 MWh">
-      <div className="relative mx-1 h-16" aria-hidden="true">
+    <figure className="mt-10 lg:mt-12">
+      <div
+        role="slider"
+        tabIndex={0}
+        aria-label="Browse products by capacity per unit"
+        aria-orientation="horizontal"
+        aria-valuemin={0}
+        aria-valuemax={LAST}
+        aria-valuenow={active}
+        aria-valuetext={`${current.name}, ${current.capacity} ${current.capacityUnit}`}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={endDrag}
+        onPointerCancel={endDrag}
+        onKeyDown={onKeyDown}
+        className={cn(
+          "group -mx-1 cursor-grab touch-pan-y rounded-sm px-1 select-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lithon-blue",
+          drag !== null && "cursor-grabbing"
+        )}
+      >
+      <div ref={axisRef} className="relative mx-1 h-16" aria-hidden="true">
         {/* product labels */}
         {PRODUCTS.map((p, idx) => {
           const align = p.slug === "lt215" ? "-translate-x-full pr-1.5" : p.slug === "magna-ci" ? "pl-1.5" : "-translate-x-1/2";
@@ -180,9 +309,19 @@ function CapacityAxis({ progress }: { progress: number }) {
             style={{ left: `${POSITIONS[idx]}%` }}
           />
         ))}
-        {/* marker */}
+        {/* marker + handle */}
         <span
-          className="absolute top-6 h-6 w-0.5 -translate-x-1/2 rounded-full bg-lithon-blue transition-[left] duration-200 ease-out motion-reduce:transition-none"
+          className={cn(
+            "absolute top-6 h-6 w-0.5 -translate-x-1/2 rounded-full bg-lithon-blue motion-reduce:transition-none",
+            drag === null && "transition-[left] duration-200 ease-out"
+          )}
+          style={{ left: `${markerAt}%` }}
+        />
+        <span
+          className={cn(
+            "absolute top-9 size-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-lithon-blue ring-1 ring-lithon-blue duration-200 ease-out group-hover:scale-110 motion-reduce:transition-none",
+            drag === null ? "transition-[left,scale]" : "scale-125 transition-[scale]"
+          )}
           style={{ left: `${markerAt}%` }}
         />
         {/* tick labels */}
@@ -199,69 +338,30 @@ function CapacityAxis({ progress }: { progress: number }) {
           </span>
         ))}
       </div>
+      </div>
       <figcaption className="mt-3 text-small text-ink-3">Capacity per unit, logarithmic scale</figcaption>
     </figure>
   );
 }
 
 export function HomeProducts() {
-  const wrapRef = useRef<HTMLDivElement>(null);
-  const [progress, setProgress] = useState(0);
+  const seekRef = useRef<RailSeek | null>(null);
+  const [rail, setRail] = useState({ progress: 0, trackEnd: 1 });
 
-  // Rail progress from the track's position, whether it moves by pin
-  // (transform) or by native horizontal scroll.
-  useEffect(() => {
-    const wrap = wrapRef.current;
-    if (!wrap) {
-      return;
-    }
-    let frame = 0;
-    const measure = () => {
-      frame = 0;
-      const track = wrap.querySelector<HTMLElement>("[data-rail-item]")?.parentElement;
-      const viewport = track?.parentElement;
-      if (!track || !viewport) {
-        return;
-      }
-      const pinned = getComputedStyle(viewport).overflowX === "hidden";
-      let shift = viewport.scrollLeft;
-      let max = viewport.scrollWidth - viewport.clientWidth;
-      if (pinned) {
-        // Track is moved by a transform; read it from the layout boxes.
-        const cs = getComputedStyle(viewport);
-        const padL = Number.parseFloat(cs.paddingLeft) || 0;
-        const padR = Number.parseFloat(cs.paddingRight) || 0;
-        shift = viewport.getBoundingClientRect().left + padL - track.getBoundingClientRect().left;
-        max = track.scrollWidth - (viewport.clientWidth - padL - padR);
-      }
-      setProgress(max < 1 ? 0 : Math.min(1, Math.max(0, shift / max)));
-    };
-    const schedule = () => {
-      if (!frame) {
-        frame = requestAnimationFrame(measure);
-      }
-    };
-    measure();
-    window.addEventListener("scroll", schedule, { passive: true });
-    window.addEventListener("resize", schedule);
-    wrap.addEventListener("scroll", schedule, { passive: true, capture: true });
-    return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", schedule);
-      window.removeEventListener("resize", schedule);
-      wrap.removeEventListener("scroll", schedule, { capture: true });
-    };
+  // Scrubbed progress from the rail (pinned timeline or native scroll).
+  const onProgress = useCallback((progress: number, trackEnd: number) => {
+    setRail((prev) => (prev.progress === progress && prev.trackEnd === trackEnd ? prev : { progress, trackEnd }));
   }, []);
 
-  const active = Math.round(progress * (PRODUCTS.length - 1));
+  const active = Math.round(Math.min(1, rail.progress / rail.trackEnd) * LAST);
 
   return (
     <section aria-labelledby="home-products-title" className="section bg-canvas">
-      <div ref={wrapRef} className="container-site">
+      <div className="container-site">
         <div className="lg:flex lg:items-end lg:justify-between lg:gap-10">
           <SectionIntro
             title={<span id="home-products-title">Four product families, 48 kWh to 5 MWh</span>}
-            lead="Cabinets and containers, each assembled and tested at our Noida plant."
+            lead="Cabinets and containers, each assembled and tested at our Noida plant. The full range runs from home batteries to 10 MWh containers."
             className="mb-6 lg:mb-12"
           />
           <div className="mb-10 lg:mb-12 lg:shrink-0">
@@ -274,7 +374,10 @@ export function HomeProducts() {
           label="Lith-On product families"
           scrollDriven
           bleed
-          footer={<CapacityAxis progress={progress} />}
+          controlRef={seekRef}
+          tailRatio={TAIL_RATIO}
+          onProgress={onProgress}
+          footer={<CapacityAxis progress={rail.progress} trackEnd={rail.trackEnd} seekRef={seekRef} />}
         >
           {PRODUCTS.map((p, idx) => (
             <RailItem key={p.slug} className="w-[min(82vw,360px)] md:w-[min(44vw,380px)] lg:w-[clamp(340px,34vw,480px)]">
@@ -282,6 +385,22 @@ export function HomeProducts() {
             </RailItem>
           ))}
         </HorizontalRail>
+        <div className="mt-10 border-t border-line pt-5 lg:flex lg:items-baseline lg:gap-8">
+          <p className="text-small font-[500] text-ink lg:shrink-0">Also in the range</p>
+          <ul className="mt-2 flex flex-wrap gap-x-5 gap-y-1 lg:mt-0">
+            {MORE_PRODUCTS.map((p) => (
+              <li key={p.href}>
+                <Link
+                  href={p.href}
+                  className="inline-flex min-h-9 items-baseline gap-2 text-small text-ink-2 underline-offset-4 hover:text-lithon-blue hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lithon-blue rounded-sm"
+                >
+                  {p.label}
+                  <span className="tabular text-ink-3">{p.meta}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );

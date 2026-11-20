@@ -53,7 +53,7 @@ export const PRODUCTS_DATA: ProductDetail[] = [
     image: "/images/products/catalogue/magna-ci-260.webp",
     diagramImage: "/images/products/bess-3d-cutaway.jpg",
     capacity: "260 kWh",
-    powerRating: "100 kW / 125 kW",
+    powerRating: "125 kW",
     chemistry: "Tier-1 LiFePO4 (LFP)",
     cycleLife: ">6,000 Cycles @ 88%–90% DoD",
     enclosureRating: "IP55 Outdoor Weatherproof",
@@ -69,7 +69,7 @@ export const PRODUCTS_DATA: ProductDetail[] = [
     dcVoltage: "672V–864V DC Bus",
     efficiency: ">95% System Round-Trip AC-to-AC",
     operatingTemp: "-10°C to +60°C Ambient",
-    warranty: "10-Year Manufacturer Performance Warranty (>=70% SOH)",
+    warranty: "Product-specific; term and coverage set out in your quotation",
     certifications: ["IEC 61508 SIL 2 Conformance", "IEC 61850 SCADA Ready", "BIS Certified"],
     applications: [
       "Commercial Demand Limiting & Peak Shaving",
@@ -146,7 +146,7 @@ export const PRODUCTS_DATA: ProductDetail[] = [
     dcVoltage: "1P 240S configuration",
     efficiency: "Contact us for details",
     operatingTemp: "Charging 0–45 °C; discharging −20–50 °C",
-    warranty: "10-year manufacturer warranty (standard)",
+    warranty: "Product-specific; term and coverage set out in your quotation",
     certifications: [
       "Functional safety class B"
     ],
@@ -184,7 +184,7 @@ export const PRODUCTS_DATA: ProductDetail[] = [
     image: "/images/products/catalogue/lithon-50.webp",
     diagramImage: "/images/products/bess-3d-cutaway.jpg",
     capacity: "48 kWh (Scalable to 192 kWh)",
-    powerRating: "25 kW / 48 kW",
+    powerRating: "48 kW",
     chemistry: "Tier-1 LiFePO4 (LFP)",
     cycleLife: ">6,000 Cycles @ 88%–90% DoD",
     enclosureRating: "IP54 Indoor / Sheltered Outdoor",
@@ -200,7 +200,7 @@ export const PRODUCTS_DATA: ProductDetail[] = [
     dcVoltage: "384V–512V DC",
     efficiency: ">95% Round-Trip Efficiency",
     operatingTemp: "-10°C to +55°C Ambient",
-    warranty: "10-Year Manufacturer Performance Warranty",
+    warranty: "Product-specific; term and coverage set out in your quotation",
     certifications: ["BIS Certified"],
     applications: [
       "Branch Banking & Retail Fuel Station Continuity",
@@ -217,7 +217,7 @@ export const PRODUCTS_DATA: ProductDetail[] = [
     standardConfigurations: [
       "Standard indoor/sheltered IP54 vertical rack cabinet",
       "48 kWh LiFePO4 modular battery pack assembly",
-      "25 kW / 48 kW bi-directional hybrid power inverter",
+      "48 kW bi-directional hybrid power inverter",
       "Smart multi-fan cooling management",
       "BMS controller with LCD touch display"
     ],
@@ -252,7 +252,7 @@ export const PRODUCTS_DATA: ProductDetail[] = [
     image: "/images/products/catalogue/lt215.webp",
     diagramImage: "/images/installations/commercial-campus-bess-photo.jpg",
     capacity: "215 kWh",
-    powerRating: "100 kW / 110 kW",
+    powerRating: "110 kW",
     chemistry: "Tier-1 LiFePO4 (LFP)",
     cycleLife: ">6,000 Cycles @ 88%–90% DoD",
     enclosureRating: "IP55 Liquid-Cooled Heavy Duty",
@@ -268,7 +268,7 @@ export const PRODUCTS_DATA: ProductDetail[] = [
     dcVoltage: "768V DC Nominal Bus",
     efficiency: ">95% Round-Trip AC Efficiency",
     operatingTemp: "-20°C to +60°C Heavy Industrial",
-    warranty: "10-Year Manufacturer Performance Warranty",
+    warranty: "Product-specific; term and coverage set out in your quotation",
     certifications: ["IEC 61508 SIL 2 Conformance", "IEC 61850", "BIS Certified"],
     applications: [
       "Industrial HT Tariff Maximum Demand Shaving",
@@ -286,7 +286,7 @@ export const PRODUCTS_DATA: ProductDetail[] = [
       "IP55 heavy-gauge galvanized steel cabinet",
       "215 kWh nominal Tier-1 LiFePO4 battery pack",
       "Integrated closed-loop liquid thermal cooling system",
-      "100 kW / 110 kW bi-directional industrial PCS",
+      "110 kW bi-directional industrial PCS",
       "Integrated automated fire suppression system"
     ],
     optionalConfigurations: [
@@ -341,7 +341,7 @@ export const PRODUCTS_DATA: ProductDetail[] = [
     dcVoltage: "900–1500 V DC",
     efficiency: "Contact us for details",
     operatingTemp: "Charging 0–45 °C; discharging −20–50 °C",
-    warranty: "10-year manufacturer warranty (standard)",
+    warranty: "Product-specific; term and coverage set out in your quotation",
     certifications: [
       "Functional safety class B",
       "IEC 62619, IEC 62933, IEC 61000, UL 1973, UL 9540A (listed in catalogue)"
@@ -395,7 +395,7 @@ export const PRODUCTS_DATA: ProductDetail[] = [
     dcVoltage: "900–1500 V DC",
     efficiency: "Contact us for details",
     operatingTemp: "Charging 0–45 °C; discharging −20–50 °C",
-    warranty: "10-year manufacturer warranty (standard)",
+    warranty: "Product-specific; term and coverage set out in your quotation",
     certifications: [
       "Functional safety class B",
       "IEC 62619, IEC 62933, IEC 61000, UL 1973, UL 9540A (listed in catalogue)"
@@ -449,7 +449,7 @@ export const PRODUCTS_DATA: ProductDetail[] = [
     dcVoltage: "900–1500 V DC",
     efficiency: "> 95% DC charge and discharge (catalogue)",
     operatingTemp: "Charging 0–45 °C; discharging −20–50 °C",
-    warranty: "10-year manufacturer warranty (standard)",
+    warranty: "Product-specific; term and coverage set out in your quotation",
     certifications: [
       "Functional safety class B",
       "IEC 62619, IEC 62933, IEC 61000, UL 1973, UL 9540A (listed in catalogue)"
@@ -485,7 +485,7 @@ export const PRODUCTS_DATA: ProductDetail[] = [
     image: "/images/products/catalogue/max-20hc-5000.webp",
     diagramImage: "/images/products/bess-3d-cutaway.jpg",
     capacity: "5,000 kWh (5.0 MWh)",
-    powerRating: "1,250 kW / 2,500 kW",
+    powerRating: "2,500 kW (2 × 1.25 MW or 6 × 417 kW PCS)",
     chemistry: "Tier-1 LiFePO4 (LFP)",
     cycleLife: ">6,000 Cycles @ 90% DoD",
     enclosureRating: "IP55 Standard 20ft High-Cube Shipping Container",
@@ -501,7 +501,7 @@ export const PRODUCTS_DATA: ProductDetail[] = [
     dcVoltage: "1,152V–1,500V DC Utility High-Voltage",
     efficiency: ">95% System Round-Trip Efficiency",
     operatingTemp: "-30°C to +60°C Extreme Ambient",
-    warranty: "10-Year Comprehensive Performance Warranty",
+    warranty: "Product-specific; term and coverage set out in your quotation",
     certifications: ["IEC 61508 SIL 2 Conformance", "IEC 61850 Grid Protocol", "BIS Certified"],
     applications: [
       "Utility Grid Frequency Regulation & Synthetic Inertia",
@@ -579,7 +579,7 @@ export const PRODUCTS_DATA: ProductDetail[] = [
     dcVoltage: "48V / 51.2V DC Nominal",
     efficiency: ">97% DC Round-Trip Efficiency",
     operatingTemp: "-10°C to +55°C Ambient",
-    warranty: "10-Year Manufacturer Performance Warranty",
+    warranty: "Product-specific; term and coverage set out in your quotation",
     certifications: ["BIS Certified"],
     applications: [
       "Telecom BTS / Macro Cell Site Battery Replacement",
@@ -647,7 +647,7 @@ export const PRODUCTS_DATA: ProductDetail[] = [
     dcVoltage: "384V–512V DC Bus",
     efficiency: ">95% System Round-Trip AC-to-AC",
     operatingTemp: "-10°C to +60°C Ambient",
-    warranty: "10-Year Manufacturer Performance Warranty (>=70% SOH)",
+    warranty: "Product-specific; term and coverage set out in your quotation",
     certifications: ["BIS Certified", "IP55 Rated"],
     applications: [
       "High-Rise Elevator & Fire Pump Continuity",
@@ -719,7 +719,7 @@ export const PRODUCTS_DATA: ProductDetail[] = [
     dcVoltage: "672V–864V DC Battery Bus + 580V–850V DC Solar String",
     efficiency: ">95% Battery RTE, >98.5% Solar Inverter Efficiency",
     operatingTemp: "-10°C to +60°C Ambient",
-    warranty: "10-Year Battery Warranty + 5-Year PCS/Inverter Warranty",
+    warranty: "Product-specific; term and coverage set out in your quotation",
     certifications: ["IEC 61508 SIL 2", "BIS Certified"],
     applications: [
       "C&I Solar Self-Consumption Maximisation (80%–90% utilisation)",
@@ -798,7 +798,7 @@ export const PRODUCTS_DATA: ProductDetail[] = [
     dcVoltage: "1,500V DC Utility High-Voltage Bus",
     efficiency: ">95% System Round-Trip Efficiency",
     operatingTemp: "-30°C to +60°C Extreme Ambient",
-    warranty: "10-Year Comprehensive Performance Warranty",
+    warranty: "Product-specific; term and coverage set out in your quotation",
     certifications: ["IEC 61508 SIL 2", "IEC 61850 Grid Protocol", "BIS Certified"],
     applications: [
       "Utility-Scale Renewable Energy Firming (Solar + Wind)",

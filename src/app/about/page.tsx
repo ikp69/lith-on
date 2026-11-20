@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { SitesSplit } from "@/components/company/SitesSplit";
 import { Button } from "@/components/system/Button";
 import { ClosingCTA } from "@/components/system/ClosingCTA";
 import { HorizontalRail, RailItem } from "@/components/system/HorizontalRail";
@@ -10,7 +11,7 @@ import { StatBand } from "@/components/system/Stat";
 export const metadata: Metadata = {
   title: "About Lith-On Bharat Energy | Battery Storage Manufacturer in Noida",
   description:
-    "Founded in 2022 as Neoclo Energy, Lith-On Bharat Energy designs and manufactures battery energy storage at a 20,000 sq. ft. plant in Noida, with an international hub in Foshan.",
+    "Founded in 2022 as Neoclo Energy, Lith-On designs and manufactures battery energy storage at a 20,000 sq. ft. plant in Noida, with a hub in Foshan.",
 };
 
 /**
@@ -34,7 +35,7 @@ const TIMELINE = [
 const VALUES = [
   { title: "Engineered for Indian conditions", text: "Systems designed for summer heat up to 60 °C ambient, unstable grids and diesel restrictions." },
   { title: "Safety at every level", text: "LFP chemistry, multi-stage electrical isolation, cell-level telemetry and the IceBattery® thermal shield." },
-  { title: "Built to last", text: "More than 6,000 cycles at 88–90% depth of discharge, a 15–20 year design life and a 10-year warranty." },
+  { title: "Built to last", text: "More than 6,000 cycles at 88–90% depth of discharge, a 15–20 year design life and a warranty set for each product." },
   { title: "With you after commissioning", text: "Cloud SCADA monitoring with predictive anomaly detection, cell-level health tracking and alarms." },
 ];
 
@@ -110,25 +111,7 @@ export default function AboutPage() {
       <section id="manufacturing" aria-labelledby="sites-title" className="section scroll-mt-24">
         <div className="container-site">
           <SectionIntro title={<span id="sites-title">Two sites</span>} lead="Manufacturing in Noida, with an international innovation and supply hub in Foshan." split className="mb-8 lg:mb-10" />
-          <div className="grid gap-px overflow-hidden rounded-media border border-line bg-line md:grid-cols-2">
-            <div className="bg-canvas p-6 sm:p-8 lg:p-10">
-              <p className="text-small text-ink-3">India · Headquarters and plant</p>
-              <h3 className="mt-2 text-heading-2 text-ink">Noida</h3>
-              <p className="mt-4 text-body text-ink-2">A 20,000 sq. ft. assembly and testing plant with 250 MWh of annual capacity: 50 MWh of BESS and 200 MWh of battery packs.</p>
-              <address className="mt-6 text-small not-italic text-ink-3">Arihant Business Centre, Sector 136, Noida 201304, Uttar Pradesh</address>
-              <div className="mt-6">
-                <Button href="/capabilities" variant="tertiary">
-                  Inside the Noida plant
-                </Button>
-              </div>
-            </div>
-            <div className="bg-canvas p-6 sm:p-8 lg:p-10">
-              <p className="text-small text-ink-3">China · International hub</p>
-              <h3 className="mt-2 text-heading-2 text-ink">Foshan</h3>
-              <p className="mt-4 text-body text-ink-2">An international innovation and supply hub.</p>
-              <address className="mt-6 text-small not-italic text-ink-3">C11-6, Foshan Innovation Torchpark, Jihua 2 Road, Chancheng, Foshan</address>
-            </div>
-          </div>
+          <SitesSplit plantLink />
         </div>
       </section>
 

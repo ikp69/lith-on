@@ -4,6 +4,7 @@ import "./globals.css";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { MOTION_BOOT_SCRIPT } from "@/components/motion/motion-env";
 import { Header } from "@/components/layout/Header";
+import { NavigationFeedback } from "@/components/layout/NavigationFeedback";
 import { Footer } from "@/components/layout/Footer";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 
@@ -17,7 +18,7 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   title: "Lith-On Bharat Energy | Industrial BESS & Lithium Battery Systems",
   description:
-    "Lith-On manufactures utility-scale and commercial BESS, solar-storage microgrids, and heavy-duty lithium battery packs with proprietary IceBattery® thermal management and sub-10ms UPS switchover.",
+    "Commercial and utility battery energy storage made in Noida, with IceBattery® thermal management and under-10 ms switchover.",
   keywords: [
     "BESS",
     "Battery Energy Storage System",
@@ -110,8 +111,17 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded-full focus:bg-white focus:px-5 focus:py-3 focus:text-small focus:font-[600] focus:text-lithon-blue focus:shadow-lg focus:outline-2 focus:outline-lithon-blue"
+        >
+          Skip to content
+        </a>
+        <NavigationFeedback />
         <Header />
-        <div className="flex-1">{children}</div>
+        <main id="main" className="flex-1 scroll-mt-24">
+          {children}
+        </main>
         <Footer />
         <WhatsAppButton />
       </body>

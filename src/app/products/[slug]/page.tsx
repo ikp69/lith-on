@@ -34,6 +34,12 @@ export function generateStaticParams() {
   return PRODUCTS_DATA.map((product) => ({ slug: product.slug }));
 }
 
+/** Meta description within 160 characters; long taglines fall back to a shorter form. */
+function describe(product: { tagline: string; name: string; capacity: string; powerRating: string }): string {
+  const full = `${product.tagline}. Capacity ${product.capacity}, power ${product.powerRating}. Assembled and tested by Lith-On in Noida.`;
+  return full.length <= 160 ? full : `${product.name}: ${product.capacity}, ${product.powerRating}. Assembled and tested by Lith-On in Noida.`;
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const product = PRODUCTS_DATA.find((p) => p.slug === slug);
@@ -42,7 +48,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
   return {
     title: `${product.name}: Specifications and Datasheet | Lith-On`,
-    description: `${product.tagline}. Capacity ${product.capacity}, power ${product.powerRating}. Assembled and tested by Lith-On in Noida.`,
+    description: describe(product),
   };
 }
 

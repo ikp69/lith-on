@@ -16,7 +16,7 @@ export function BeforeAfter({
 }) {
   const max = Math.max(before.value, after.value, 1);
   const grow =
-    "origin-left scale-x-0 group-data-[active=true]:scale-x-100 motion-safe:transition-transform motion-safe:duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:scale-x-100";
+    "origin-left scale-x-0 group-data-[active=true]:scale-x-100 motion-safe:transition-transform motion-safe:duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:scale-x-100";
   const row = (r: typeof before, colour: string, delay: number) => (
     <div className="border-t border-line py-6">
       <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">

@@ -12,9 +12,9 @@ import { ThermalStep } from "@/components/technology/ThermalStep";
 import { LEAD_ACID_VS_LITHIUM } from "@/data/comparisons";
 
 export const metadata: Metadata = {
-  title: "Technology | IceBattery®, Under-10 ms Cutover, Control Stack and LFP | Lith-On",
+  title: "Technology | IceBattery®, Under-10 ms Cutover and LFP | Lith-On",
   description:
-    "How Lith-On battery storage works: the IceBattery® ceramic thermal shield, grid-to-battery cutover in under 10 ms, an in-house BMS, PCS, EMS and SCADA stack, and LFP cells rated for more than 6,000 cycles.",
+    "How Lith-On storage works: IceBattery® thermal shielding, under-10 ms cutover, an in-house BMS, PCS, EMS and SCADA stack, and LFP cells rated for 6,000+ cycles.",
 };
 
 /**
@@ -103,8 +103,19 @@ export default function TechnologyPage() {
       {/* TEC-03 IceBattery scroll story */}
       <section id="icebattery" aria-labelledby="ice-title" className="section scroll-mt-24 bg-canvas-warm">
         <div className="container-site">
-          <SectionIntro title={<span id="ice-title">IceBattery® thermal shield</span>} lead="Why a coated cabinet stays cool in Indian heat, in four steps." split />
-          <ScrollStory chapters={THERMAL} mediaAspect="3/2" />
+          <ScrollStory
+            chapters={THERMAL}
+            mediaAspect="3/2"
+            introBg="bg-canvas-warm"
+            intro={
+              <SectionIntro
+                title={<span id="ice-title">IceBattery® thermal shield</span>}
+                lead="Why a coated cabinet stays cool in Indian heat, in four steps."
+                split
+                className="lg:mb-8"
+              />
+            }
+          />
         </div>
       </section>
 

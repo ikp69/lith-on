@@ -54,7 +54,7 @@ const SWATCHES = [
 const PRODUCTS = [
   { name: "Lith-On-50", capacity: "48 kWh", note: "Modular compact cabinet, scalable", img: "/images/products/lithon-module-clean.png" },
   { name: "Magna-C&I", capacity: "260 kWh", note: "125 kW outdoor all-in-one cabinet", img: "/images/products/bess-cabinet-clean.png" },
-  { name: "Max-20HC-5000", capacity: "5,000 kWh", note: "1.25 MW in a 20-ft high-cube container", img: "/images/products/container-bess-clean.png" },
+  { name: "Max-20HC-5000", capacity: "5,000 kWh", note: "2.5 MW in a 20-ft high-cube container", img: "/images/products/container-bess-clean.png" },
 ];
 
 function Block({ id, title, note, children }: { id: string; title: string; note: string; children: React.ReactNode }) {

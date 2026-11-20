@@ -4,12 +4,13 @@ import { ArrowRight, Phone } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import type { NavChild, NavItem } from "@/data/navigation";
+import { MORE_PRODUCTS, type NavChild, type NavItem } from "@/data/navigation";
 import { cn } from "@/lib/utils";
 
 /**
  * G2 mega-menu panels (audit §4). Full-width, light, one composition per
- * group: Products shows the four families as catalogue cut-outs; Industries
+ * group: Products shows the four families as catalogue cut-outs, then every
+ * other system as a compact list (MORE_PRODUCTS); Industries
  * crossfades an illustrative scene on hover; Solutions, Technology and
  * Company pair a list with one real proof point.
  */
@@ -61,7 +62,8 @@ function SideColumn({ item }: { item: NavItem }) {
 function ProductsPanel({ item }: { item: NavItem }) {
   return (
     <div className="grid grid-cols-12 gap-6">
-      <ul className="col-span-9 grid grid-cols-4 gap-4">
+      <div className="col-span-9">
+      <ul className="grid grid-cols-4 gap-4">
         {item.children?.map((p) => (
           <li key={p.href}>
             <Link href={p.href} className="group/p block rounded-media focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lithon-blue">
@@ -73,7 +75,7 @@ function ProductsPanel({ item }: { item: NavItem }) {
                     width={240}
                     height={240}
                     sizes="200px"
-                    className="h-[78%] w-auto object-contain transition-transform duration-300 group-hover/p:scale-[1.04] motion-reduce:transition-none"
+                    className="h-[78%] w-auto object-contain transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/p:scale-[1.03] motion-reduce:transition-none"
                   />
                 )}
               </span>
@@ -84,6 +86,23 @@ function ProductsPanel({ item }: { item: NavItem }) {
           </li>
         ))}
       </ul>
+      <div className="mt-6 border-t border-line pt-4">
+        <p className="text-label text-ink-3">More systems</p>
+        <ul className="mt-2 grid grid-cols-3 gap-x-6">
+          {MORE_PRODUCTS.map((p) => (
+            <li key={p.href}>
+              <Link
+                href={p.href}
+                className="group/m flex min-h-9 items-baseline justify-between gap-3 border-b border-line py-1.5 text-small focus-visible:outline-2 focus-visible:outline-lithon-blue"
+              >
+                <span className="font-[500] text-ink group-hover/m:text-lithon-blue">{p.label}</span>
+                <span className="tabular whitespace-nowrap text-ink-3">{p.meta}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+      </div>
       <div className="col-span-3 border-l border-line pl-6">
         <SideColumn item={item} />
       </div>
@@ -149,7 +168,7 @@ function PhotoFeature({ href, src, width, height, alt, title, note }: { href: st
   return (
     <Link href={href} className="group/f block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lithon-blue">
       <span className="relative block aspect-[4/3] overflow-hidden rounded-media bg-surface">
-        <Image src={src} alt={alt} width={width} height={height} unoptimized className="h-full w-full object-cover" />
+        <Image src={src} alt={alt} width={width} height={height} unoptimized className="h-full w-full object-cover transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/f:scale-[1.03] motion-reduce:transition-none" />
       </span>
       <span className="mt-3 block text-body font-[500] text-ink group-hover/f:text-lithon-blue">{title}</span>
       <span className="mt-0.5 block text-small text-ink-3">{note}</span>

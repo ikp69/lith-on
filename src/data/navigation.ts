@@ -25,20 +25,36 @@ export interface NavItem {
   more?: NavChild[];
 }
 
+/**
+ * Every other system in src/data/products.ts, shown under the four featured
+ * families in the mega menu, the mobile menu and the footer (owner, 20 Nov
+ * 2026: "show all products everywhere"). Keep in step with products.ts.
+ */
+export const MORE_PRODUCTS: NavChild[] = [
+  { label: "Tele-Rack 100", href: "/products/tele-rack-100", meta: "10 kWh" },
+  { label: "Resi-Shield 120", href: "/products/resi-shield-120", meta: "120 kWh" },
+  { label: "Magna-C&I 215", href: "/products/magna-ci-215", meta: "215 kWh" },
+  { label: "Magna-UTL 373", href: "/products/magna-utl-373", meta: "373 kWh" },
+  { label: "Magna-UTL 418", href: "/products/magna-utl-418", meta: "418 kWh" },
+  { label: "Solar-Hybrid 500", href: "/products/solar-hybrid-500", meta: "500 kWh" },
+  { label: "Max-20HC-3440", href: "/products/max-20hc-3440", meta: "3.44 MWh" },
+  { label: "Mega-40HC", href: "/products/mega-40hc-10000", meta: "10 MWh" },
+  { label: "Home & small business", href: "/products#home-small-business", meta: "Batteries and inverters" },
+];
+
 export const MAIN_NAVIGATION: NavItem[] = [
   {
     label: "Products",
     href: "/products",
     overview: "All products",
-    description: "Cabinet and container systems from 48 kWh to 5 MWh",
+    description: "From home batteries to 10 MWh containers",
     children: [
       { label: "Lith-On-50", href: "/products/lithon-50", meta: "48 kWh · 48 kW", description: "Compact cabinet, indoor or outdoor", image: "/images/products/catalogue/lithon-50.webp" },
       { label: "LT215", href: "/products/lt215", meta: "215 kWh · 110 kW", description: "All-in-one weatherproof system", image: "/images/products/catalogue/lt215.webp" },
       { label: "Magna-C&I", href: "/products/magna-ci", meta: "260 kWh · 125 kW", description: "Outdoor all-in-one IP55 cabinet", image: "/images/products/catalogue/magna-ci-260.webp" },
-      { label: "Max-20HC-5000", href: "/products/max-20hc", meta: "5 MWh · 1.25 MW", description: "20-ft high-cube ISO container", image: "/images/products/catalogue/max-20hc-5000.webp" },
+      { label: "Max-20HC-5000", href: "/products/max-20hc", meta: "5 MWh · 2.5 MW", description: "20-ft high-cube ISO container", image: "/images/products/catalogue/max-20hc-5000.webp" },
     ],
     more: [
-      { label: "Home & small business", href: "/products#home-small-business" },
       { label: "Datasheets and downloads", href: "/resources" },
       { label: "Savings calculator", href: "/calculator" },
       { label: "Warranty and support", href: "/warranty-and-support" },

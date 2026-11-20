@@ -78,5 +78,5 @@ export const LEAD_ACID_VS_LITHIUM: Comparison = {
       ],
     },
   ],
-  note: "Typical values for each technology, from the Lith-On product catalogue. Lith-On LFP systems are specified for more than 6,000 cycles at 88–90% depth of discharge, with a 10-year manufacturer warranty.",
+  note: "Typical values for each technology, from the Lith-On product catalogue. Lith-On LFP systems are specified for more than 6,000 cycles at 88–90% depth of discharge, with warranty terms set for each product.",
 };

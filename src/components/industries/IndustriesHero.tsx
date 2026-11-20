@@ -36,7 +36,7 @@ export function IndustriesHero({ sectors }: { sectors: HeroSector[] }) {
             priority={i === 0}
             sizes="100vw"
             quality={70}
-            className={cn("object-cover transition-opacity duration-[600ms] ease-out motion-reduce:transition-none", i === active ? "opacity-100" : "opacity-0")}
+            className={cn("object-cover transition-opacity duration-500 ease-out motion-reduce:transition-none", i === active ? "opacity-100" : "opacity-0")}
           />
         ))}
         <div aria-hidden="true" className="absolute inset-y-0 left-0 hidden w-2/5 bg-gradient-to-r from-canvas to-transparent lg:block" />

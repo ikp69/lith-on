@@ -1,12 +1,24 @@
 "use client";
 
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { type ReactNode, useCallback, useEffect, useRef, useState } from "react";
+import { type ReactNode, type RefObject, useCallback, useEffect, useRef, useState } from "react";
 import { gsap, ScrollTrigger } from "@/animations/gsap-register";
 import { isCoarsePointer, isDesktop, prefersReducedMotion } from "@/components/motion/motion-env";
+import { getLenis } from "@/components/motion/SmoothScroll";
 import { cn } from "@/lib/utils";
 
+/**
+ * Moves the rail to a progress value (0 = start, 1 = end). `smooth: false`
+ * jumps immediately (for dragging); `smooth: true` animates (for release / keys).
+ */
+export type RailSeek = (progress: number, smooth?: boolean) => void;
+
+/** Minimum pinned tail, in px of page scroll, when `tailRatio` is set. */
+const MIN_TAIL_PX = 480;
+
 interface HorizontalRailProps {
+  /** Receives a seek function so external controls (e.g. a slider) can drive the rail. */
+  controlRef?: RefObject<RailSeek | null>;
   children: ReactNode;
   /** Accessible name for the rail region. */
   label: string;
@@ -27,6 +39,17 @@ interface HorizontalRailProps {
    * container, while its first and last items still align with the container.
    */
   bleed?: boolean;
+  /**
+   * Pinned mode only: extra pinned scroll after the track has finished
+   * moving, as a fraction of the track's travel distance. Lets a footer
+   * (e.g. an axis marker) finish its own motion before the section unpins.
+   */
+  tailRatio?: number;
+  /**
+   * Reports rail progress (0–1, scrubbed). `trackEnd` is the progress at which
+   * the track stops moving (1 unless `tailRatio` adds a pinned tail).
+   */
+  onProgress?: (progress: number, trackEnd: number) => void;
 }
 
 /**
@@ -37,13 +60,30 @@ interface HorizontalRailProps {
  *   track. Keyboard focus on an off-screen item scrolls the page so it comes
  *   into view.
  */
-export function HorizontalRail({ children, label, scrollDriven = false, className, header, footer, bleed = false }: HorizontalRailProps) {
+export function HorizontalRail({
+  children,
+  label,
+  scrollDriven = false,
+  className,
+  header,
+  footer,
+  bleed = false,
+  controlRef,
+  tailRatio = 0,
+  onProgress,
+}: HorizontalRailProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+  const tweenRef = useRef<ReturnType<typeof gsap.timeline> | null>(null);
+  const onProgressRef = useRef(onProgress);
   const [pinned, setPinned] = useState(false);
   const [atStart, setAtStart] = useState(true);
   const [atEnd, setAtEnd] = useState(false);
+
+  useEffect(() => {
+    onProgressRef.current = onProgress;
+  }, [onProgress]);
 
   // Scroll-driven mode (desktop only)
   useEffect(() => {
@@ -67,18 +107,29 @@ export function HorizontalRail({ children, label, scrollDriven = false, classNam
       return;
     }
     setPinned(true);
-    const tween = gsap.to(track, {
-      x: () => -distance(),
-      ease: "none",
+    // Tail is at least MIN_TAIL_PX of scroll so it is noticeable on short tracks.
+    const travel = distance();
+    const tail = tailRatio > 0 ? Math.max(tailRatio, MIN_TAIL_PX / travel) : 0;
+    const trackEnd = 1 / (1 + tail);
+    // Track moves over the first 1 unit of the timeline; the optional tail
+    // holds the pin while the footer finishes.
+    const tween = gsap.timeline({
       scrollTrigger: {
         trigger: section,
         start: "top top+=96",
-        end: () => `+=${distance()}`,
+        end: () => `+=${distance() * (1 + tail)}`,
         pin: true,
         scrub: 0.6,
         invalidateOnRefresh: true,
       },
+      onUpdate: () => onProgressRef.current?.(tween.progress(), trackEnd),
     });
+    tween.to(track, { x: () => -distance(), ease: "none", duration: 1 });
+    if (tail > 0) {
+      tween.to({}, { duration: tail });
+    }
+    tweenRef.current = tween;
+    onProgressRef.current?.(tween.progress(), trackEnd);
 
     // Keyboard: bring focused items into view by scrolling the page.
     const onFocus = (e: FocusEvent) => {
@@ -87,29 +138,64 @@ export function HorizontalRail({ children, label, scrollDriven = false, classNam
       if (!st || !item) {
         return;
       }
-      const ratio = Math.min(1, Math.max(0, (item.offsetLeft - 24) / distance()));
+      const ratio = Math.min(1, Math.max(0, (item.offsetLeft - 24) / distance())) * trackEnd;
       window.scrollTo({ top: st.start + ratio * (st.end - st.start), behavior: "auto" });
     };
     track.addEventListener("focusin", onFocus);
 
     return () => {
       track.removeEventListener("focusin", onFocus);
+      tweenRef.current = null;
       tween.scrollTrigger?.kill();
       tween.kill();
       gsap.set(track, { clearProps: "transform" });
       setPinned(false);
       ScrollTrigger.refresh();
     };
-  }, [scrollDriven]);
+  }, [scrollDriven, tailRatio]);
 
-  // Native mode: track edges for the prev/next buttons
+  // External seek: pinned mode scrolls the page within the pin range; native
+  // mode scrolls the viewport (snap is paused while dragging).
+  useEffect(() => {
+    if (!controlRef) {
+      return;
+    }
+    controlRef.current = (progress, smooth = false) => {
+      const p = Math.min(1, Math.max(0, progress));
+      const animate = smooth && !prefersReducedMotion();
+      const st = tweenRef.current?.scrollTrigger;
+      if (st) {
+        const top = st.start + p * (st.end - st.start);
+        const lenis = getLenis();
+        if (lenis) {
+          lenis.scrollTo(top, { immediate: !animate, force: true });
+        } else {
+          window.scrollTo({ top, behavior: animate ? "smooth" : "auto" });
+        }
+        return;
+      }
+      const vp = viewportRef.current;
+      if (!vp) {
+        return;
+      }
+      vp.style.scrollSnapType = smooth ? "" : "none";
+      vp.scrollTo({ left: p * (vp.scrollWidth - vp.clientWidth), behavior: animate ? "smooth" : "auto" });
+    };
+    return () => {
+      controlRef.current = null;
+    };
+  }, [controlRef]);
+
+  // Native mode: track edges for the prev/next buttons, and report progress
   const updateEdges = useCallback(() => {
     const vp = viewportRef.current;
-    if (!vp) {
+    if (!vp || tweenRef.current) {
       return;
     }
     setAtStart(vp.scrollLeft < 8);
     setAtEnd(vp.scrollLeft + vp.clientWidth >= vp.scrollWidth - 8);
+    const max = vp.scrollWidth - vp.clientWidth;
+    onProgressRef.current?.(max < 1 ? 0 : Math.min(1, Math.max(0, vp.scrollLeft / max)), 1);
   }, []);
 
   useEffect(() => {
@@ -117,6 +203,13 @@ export function HorizontalRail({ children, label, scrollDriven = false, classNam
     window.addEventListener("resize", updateEdges);
     return () => window.removeEventListener("resize", updateEdges);
   }, [updateEdges]);
+
+  // Back in native mode (e.g. resized below desktop): re-report from the viewport.
+  useEffect(() => {
+    if (!pinned) {
+      updateEdges();
+    }
+  }, [pinned, updateEdges]);
 
   const page = (dir: 1 | -1) => {
     const vp = viewportRef.current;

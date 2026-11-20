@@ -32,7 +32,7 @@ export function ProductCard({ product }: { product: ProductDetail }) {
           width={640}
           height={640}
           sizes="(min-width: 1280px) 400px, (min-width: 768px) 45vw, 90vw"
-          className="h-[72%] w-auto max-w-[80%] object-contain mix-blend-multiply transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04] motion-reduce:transition-none"
+          className="h-[72%] w-auto max-w-[80%] object-contain mix-blend-multiply transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03] motion-reduce:transition-none"
         />
         <span className="absolute top-4 left-4 rounded-full bg-white px-2.5 py-1 text-[12px] text-ink-2">{product.category}</span>
       </span>

@@ -13,8 +13,8 @@ import { type CSSProperties, type ReactNode, useId } from "react";
 const EASE = "ease-[cubic-bezier(0.16,1,0.3,1)]";
 const draw = `[stroke-dasharray:1] [stroke-dashoffset:1] group-data-[active=true]:[stroke-dashoffset:0] motion-safe:transition-[stroke-dashoffset] ${EASE} motion-reduce:[stroke-dashoffset:0]`;
 const fade = `opacity-0 group-data-[active=true]:opacity-100 motion-safe:transition-opacity motion-safe:duration-500 motion-reduce:opacity-100`;
-const growY = `[transform-box:fill-box] origin-bottom scale-y-0 group-data-[active=true]:scale-y-100 motion-safe:transition-transform motion-safe:duration-[900ms] ${EASE} motion-reduce:scale-y-100`;
-const growX = `[transform-box:fill-box] origin-left scale-x-0 group-data-[active=true]:scale-x-100 motion-safe:transition-transform motion-safe:duration-700 ${EASE} motion-reduce:scale-x-100`;
+const growY = `[transform-box:fill-box] origin-bottom scale-y-0 group-data-[active=true]:scale-y-100 motion-safe:transition-transform motion-safe:duration-[1200ms] ${EASE} motion-reduce:scale-y-100`;
+const growX = `[transform-box:fill-box] origin-left scale-x-0 group-data-[active=true]:scale-x-100 motion-safe:transition-transform motion-safe:duration-[800ms] ${EASE} motion-reduce:scale-x-100`;
 
 const delay = (ms: number) => ({ transitionDelay: `${ms}ms` });
 
@@ -88,11 +88,11 @@ export function PeakVisual() {
         <title id={`${uid}-t`}>Three demand spikes rise above the contracted limit; with Lith-On the battery covers each spike and grid draw stays under the limit</title>
         <line x1="30" x2="370" y1="235" y2="235" className="stroke-line-strong" strokeWidth="1" />
         <line x1="30" x2="370" y1="120" y2="120" className="stroke-ink-3" strokeWidth="1" strokeDasharray="5 5" />
-        <path d={raw} pathLength={1} fill="none" strokeWidth="2" strokeLinejoin="round" className={`stroke-lithon-red/70 ${draw} motion-safe:duration-[1100ms]`} />
+        <path d={raw} pathLength={1} fill="none" strokeWidth="2" strokeLinejoin="round" className={`stroke-lithon-red/70 ${draw} motion-safe:duration-[1200ms]`} />
         {["M112.5 120 L120 90 L126 120 Z", "M205.6 120 L215 70 L225.6 120 Z", "M290 120 L300 100 L304.3 120 Z"].map((d, i) => (
           <path key={d} d={d} className={`fill-lithon-blue/20 ${fade}`} style={delay(1200 + i * 120)} />
         ))}
-        <path d={shaved} pathLength={1} fill="none" strokeWidth="3" strokeLinejoin="round" className={`stroke-lithon-blue ${draw} motion-safe:duration-[1100ms]`} style={delay(500)} />
+        <path d={shaved} pathLength={1} fill="none" strokeWidth="3" strokeLinejoin="round" className={`stroke-lithon-blue ${draw} motion-safe:duration-[1200ms]`} style={delay(500)} />
         <text x="215" y="58" textAnchor="middle" className={`fill-lithon-blue text-[12px] max-sm:text-[16px] font-[600] ${fade}`} style={delay(1500)}>Battery covers the spike</text>
       </svg>
     </Panel>
@@ -152,7 +152,7 @@ export function SolarVisual() {
         <path d={`${bell} Z`} clipPath={`url(#${uid}-clip)`} className={`fill-lithon-blue/25 ${fade}`} style={delay(1000)} />
         <rect x="320" y="160" width="60" height="70" className={`fill-lithon-blue ${growX}`} style={delay(1400)} />
         <line x1="30" x2="380" y1="160" y2="160" className="stroke-ink-3" strokeWidth="1.5" strokeDasharray="5 5" />
-        <path d={bell} pathLength={1} fill="none" strokeWidth="2.5" className={`stroke-ink-2 ${draw} motion-safe:duration-[1100ms]`} />
+        <path d={bell} pathLength={1} fill="none" strokeWidth="2.5" className={`stroke-ink-2 ${draw} motion-safe:duration-[1200ms]`} />
         <text x="190" y="52" textAnchor="middle" className={`fill-lithon-blue text-[13px] max-sm:text-[17px] font-[600] ${fade}`} style={delay(1100)}>Stored at midday</text>
         <text x="380" y="122" textAnchor="end" className={`fill-lithon-blue text-[13px] max-sm:text-[17px] font-[600] ${fade}`} style={delay(1500)}>Released</text>
         <text x="380" y="141" textAnchor="end" className={`fill-lithon-blue text-[13px] max-sm:text-[17px] font-[600] ${fade}`} style={delay(1550)}>in the evening</text>

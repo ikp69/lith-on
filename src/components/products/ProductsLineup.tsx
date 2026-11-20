@@ -36,12 +36,12 @@ export function ProductsLineup() {
                       priority={i < 2}
                       sizes="(min-width: 1024px) 30vw, 40vw"
                       style={{ height: p.height }}
-                      className="absolute bottom-0 left-1/2 w-auto max-w-full -translate-x-1/2 object-contain object-bottom drop-shadow-[0_14px_14px_rgb(15_23_42/0.12)] transition-transform duration-300 group-hover:-translate-y-1 motion-reduce:transition-none"
+                      className="absolute bottom-0 left-1/2 w-auto max-w-full -translate-x-1/2 object-contain object-bottom drop-shadow-[0_14px_14px_rgb(15_23_42/0.12)] origin-bottom transition-[scale] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03] motion-reduce:transition-none"
                     />
                   </span>
                   <span className="mt-3 block min-h-10 text-center text-[12px] leading-tight font-[500] text-ink sm:mt-4 sm:text-small">
                     {p.name}
-                    <span className="tabular mt-0.5 block font-normal text-ink-3">{p.capacity}</span>
+                    <span className="tabular mt-0.5 block font-normal text-ink-2">{p.capacity}</span>
                   </span>
                 </Link>
               </Reveal>

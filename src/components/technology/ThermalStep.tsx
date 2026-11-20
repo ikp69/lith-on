@@ -10,8 +10,8 @@ import type { CSSProperties } from "react";
  */
 
 const EASE = "ease-[cubic-bezier(0.16,1,0.3,1)]";
-const draw = `[stroke-dasharray:1] [stroke-dashoffset:1] group-data-[active=true]:[stroke-dashoffset:0] motion-safe:transition-[stroke-dashoffset] motion-safe:duration-[1000ms] ${EASE} motion-reduce:[stroke-dashoffset:0]`;
-const fade = "opacity-0 group-data-[active=true]:opacity-100 motion-safe:transition-opacity motion-safe:duration-700 motion-reduce:opacity-100";
+const draw = `[stroke-dasharray:1] [stroke-dashoffset:1] group-data-[active=true]:[stroke-dashoffset:0] motion-safe:transition-[stroke-dashoffset] motion-safe:duration-[1200ms] ${EASE} motion-reduce:[stroke-dashoffset:0]`;
+const fade = "opacity-0 group-data-[active=true]:opacity-100 motion-safe:transition-opacity motion-safe:duration-[800ms] motion-reduce:opacity-100";
 const d = (ms: number): CSSProperties => ({ transitionDelay: `${ms}ms` });
 const label = "fill-ink-2 text-[13px] max-sm:text-[17px]";
 

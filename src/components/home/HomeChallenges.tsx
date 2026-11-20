@@ -81,12 +81,19 @@ export function HomeChallenges() {
   return (
     <section aria-labelledby="home-challenges-title" className="section bg-canvas-warm">
       <div className="container-site">
-        <SectionIntro
-          title={<span id="home-challenges-title">Four problems storage solves on site</span>}
-          lead="What changes when a facility replaces diesel backup and grid peaks with Lith-On storage."
-          split
+        <ScrollStory
+          chapters={CHAPTERS}
+          mediaAspect="5/4"
+          introBg="bg-canvas-warm"
+          intro={
+            <SectionIntro
+              title={<span id="home-challenges-title">Four problems storage solves on site</span>}
+              lead="What changes when a facility replaces diesel backup and grid peaks with Lith-On storage."
+              split
+              className="lg:mb-8"
+            />
+          }
         />
-        <ScrollStory chapters={CHAPTERS} mediaAspect="5/4" />
       </div>
     </section>
   );

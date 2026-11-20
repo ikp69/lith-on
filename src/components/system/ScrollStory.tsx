@@ -28,6 +28,14 @@ interface ScrollStoryProps {
   mediaSide?: "left" | "right";
   /** Aspect ratio of the sticky media frame on desktop (default "4/5"). */
   mediaAspect?: string;
+  /**
+   * Section intro (usually a SectionIntro). On desktop it stays pinned under
+   * the header, with the media pinned below it, until the last chapter arrives;
+   * then it scrolls away. On phones it scrolls normally.
+   */
+  intro?: ReactNode;
+  /** Background class for the pinned intro band, matching the section (e.g. "bg-canvas-warm"). */
+  introBg?: string;
   className?: string;
 }
 
@@ -39,10 +47,44 @@ interface ScrollStoryProps {
  * Reduced motion: same layout, instant swaps (motion-safe variants).
  * Budget: at most one or two per page.
  */
-export function ScrollStory({ chapters, mediaSide = "left", mediaAspect = "4/5", className }: ScrollStoryProps) {
+export function ScrollStory({
+  chapters,
+  mediaSide = "left",
+  mediaAspect = "4/5",
+  intro,
+  introBg = "bg-canvas",
+  className,
+}: ScrollStoryProps) {
   const hasVisuals = chapters.some((c) => c.visual);
   const [active, setActive] = useState(0);
   const chapterRefs = useRef<(HTMLElement | null)[]>([]);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const introRef = useRef<HTMLDivElement>(null);
+  // Header (80px) + the pinned intro band; the media pins just below it.
+  const [layout, setLayout] = useState({ stickyTop: 112, introH: 0, track: 0 });
+
+  useEffect(() => {
+    const root = rootRef.current;
+    const el = introRef.current;
+    if (!(root && el)) {
+      return;
+    }
+    // The intro is pinned inside a track that ends where the last chapter
+    // begins, so it scrolls away as the visitor moves past the second-last one.
+    const measure = () => {
+      const lastChapter = chapterRefs.current.at(-1);
+      const track = lastChapter ? lastChapter.getBoundingClientRect().top - root.getBoundingClientRect().top : 0;
+      const introH = el.offsetHeight;
+      setLayout((prev) =>
+        prev.introH === introH && prev.track === track ? prev : { stickyTop: 80 + introH + 16, introH, track }
+      );
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    ro.observe(root);
+    return () => ro.disconnect();
+  }, []);
 
   useEffect(() => {
     const triggers = chapterRefs.current.map((el, i) =>
@@ -66,14 +108,44 @@ export function ScrollStory({ chapters, mediaSide = "left", mediaAspect = "4/5",
     };
   }, [chapters.length]);
 
-  const fade = "motion-safe:transition-opacity motion-safe:duration-700 motion-safe:ease-out";
+  const lifted = layout.track > layout.introH && layout.introH > 0;
+  const fade = "motion-safe:transition-opacity motion-safe:duration-[800ms] motion-safe:ease-out";
 
   return (
-    <div className={cn("lg:grid lg:grid-cols-12 lg:gap-12", className)}>
+    <div
+      ref={rootRef}
+      className={cn("relative", className)}
+      style={
+        {
+          "--story-top": `${layout.stickyTop}px`,
+          "--intro-h": `${layout.introH}px`,
+          "--intro-track": `${layout.track}px`,
+        } as React.CSSProperties
+      }
+    >
+      {intro && (
+        <>
+          {/* Until measured, the intro sits in normal flow. Once measured it is
+              lifted into the pin track and an exact-height spacer takes its
+              place, so the page never shifts under the visitor. */}
+          <div
+            className={cn(
+              "pointer-events-none lg:z-10",
+              lifted && "lg:absolute lg:inset-x-0 lg:top-0 lg:h-(--intro-track)"
+            )}
+          >
+            <div ref={introRef} className={cn("pointer-events-auto lg:pt-6 lg:pb-2", lifted && "lg:sticky lg:top-20", introBg)}>
+              {intro}
+            </div>
+          </div>
+          {lifted && <div aria-hidden="true" className="hidden lg:block lg:h-(--intro-h)" />}
+        </>
+      )}
+    <div className="lg:grid lg:grid-cols-12 lg:gap-12">
       {/* Desktop media (sticky) */}
       <div className={cn("hidden lg:block lg:col-span-6", mediaSide === "right" && "lg:order-2")}>
         <div
-          className={cn("sticky top-28 max-h-[calc(100vh-9rem)] w-full overflow-hidden rounded-media", hasVisuals ? "bg-canvas shadow-[0_1px_2px_rgba(17,24,39,0.04),0_8px_24px_-12px_rgba(17,24,39,0.12)]" : "bg-surface")}
+          className={cn("sticky top-(--story-top) max-h-[calc(100vh-var(--story-top)-1.5rem)] w-full overflow-hidden rounded-media", hasVisuals ? "bg-canvas shadow-[0_1px_2px_rgba(17,24,39,0.04),0_8px_24px_-12px_rgba(17,24,39,0.12)]" : "bg-surface")}
           style={{ aspectRatio: mediaAspect }}
         >
           {chapters.map((c, i) => (
@@ -114,7 +186,7 @@ export function ScrollStory({ chapters, mediaSide = "left", mediaAspect = "4/5",
             ref={(el) => {
               chapterRefs.current[i] = el;
             }}
-            className="scroll-mt-28 border-t border-line py-10 first:border-t-0 first:pt-0 lg:flex lg:min-h-[70vh] lg:flex-col lg:justify-center lg:border-t-0 lg:py-0"
+            className="scroll-mt-(--story-top) border-t border-line py-10 first:border-t-0 first:pt-0 lg:flex lg:min-h-[70vh] lg:flex-col lg:justify-center lg:border-t-0 lg:py-0"
           >
             {/* Phone image: each chapter has its own */}
             {c.visual && (
@@ -139,6 +211,7 @@ export function ScrollStory({ chapters, mediaSide = "left", mediaAspect = "4/5",
           </article>
         ))}
       </div>
+    </div>
     </div>
   );
 }

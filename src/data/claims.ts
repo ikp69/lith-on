@@ -131,9 +131,9 @@ export const CLAIMS_REGISTRY: Record<string, ClaimRecord> = {
   warranty_10yr: {
     id: "warranty_10yr",
     claim: "10-Year Manufacturer Performance Warranty",
-    status: "verified",
+    status: "under_review",
     category: "warranty",
-    approvedPublicWording: "Standard 10-year manufacturer warranty guaranteeing >=70% residual capacity retention at 10 years or 6,000 cycles (at 88%–90% Depth of Discharge under factory-specified operating temperatures).",
+    approvedPublicWording: "Warranty terms depend on the product and are set out in each quotation (owner decision, 20 Nov 2026; data-sources/FAQs.docx).",
     supportingEvidence: "Lith-On Standard Limited Warranty Agreement and cell manufacturer cycle-testing datasets.",
     owner: "After-Sales & Warranty Director",
     lastReviewed: "2026-10-05",

@@ -4,7 +4,8 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Phone, ArrowUpRight, ChevronDown } from 'lucide-react';
+import { Phone, ChevronDown } from 'lucide-react';
+import { Button } from '@/components/system/Button';
 import { MAIN_NAVIGATION, type NavItem } from '@/data/navigation';
 import { MegaPanelContent } from './MegaMenu';
 import { MobileNav } from './MobileNav';
@@ -22,9 +23,13 @@ export function Header() {
   const headerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
+    // Hysteresis: condense after 24px, expand again only above 8px, so the
+    // state never flickers while hovering around one threshold.
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      const y = window.scrollY;
+      setScrolled((was) => (was ? y > 8 : y > 24));
     };
+    handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -124,17 +129,31 @@ export function Header() {
       ref={headerRef}
       onKeyDown={onKeyDown}
       onBlur={onBlur}
+      data-scrolled={scrolled || undefined}
       style={{ viewTransitionName: 'site-header' }}
-      className={`sticky top-0 z-50 w-full transition-[background-color,box-shadow,border-color] duration-200 ${
-        scrolled || openDropdown ? 'bg-white/95 backdrop-blur-md shadow-xs border-b border-line' : 'bg-white border-b border-line/60'
+      className={`group/header sticky top-0 z-50 w-full border-b transition-[background-color,box-shadow,border-color,translate] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${
+        scrolled ? '-translate-y-4' : 'translate-y-0'
+      } ${
+        scrolled || openDropdown
+          ? 'border-line bg-white/85 shadow-[0_10px_30px_-18px_rgb(15_23_42/0.22)] backdrop-blur-md supports-[not(backdrop-filter:blur(0))]:bg-white'
+          : 'border-line/60 bg-white'
       }`}
     >
+      {/* G1 scroll state: the bar condenses from 80px to 64px by sliding up 16px
+          while its contents move down 8px to stay centred. Transforms only, so
+          nothing below the header shifts. */}
       <div className="container-site">
-        <div className="flex h-20 items-center justify-between gap-6">
+        <div
+          className={`flex h-20 items-center justify-between gap-6 transition-[translate] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${
+            scrolled ? 'translate-y-2' : 'translate-y-0'
+          }`}
+        >
           {/* Logo */}
           <Link
             href="/"
-            className="relative flex items-center h-10 w-44 sm:h-11 sm:w-48 shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lithon-red rounded-lg"
+            className={`relative flex h-10 w-44 shrink-0 origin-left items-center rounded-lg transition-[scale] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lithon-blue motion-reduce:transition-none sm:h-11 sm:w-48 ${
+              scrolled ? 'scale-[0.9]' : 'scale-100'
+            }`}
           >
             <Image
               src="/images/logo/logo-dark.png"
@@ -198,13 +217,9 @@ export function Header() {
 
           {/* Desktop CTA */}
           <div className="hidden lg:flex items-center gap-4 shrink-0">
-            <Link
-              href="/contact"
-              className="group inline-flex items-center justify-center gap-2 h-11 px-6 rounded-full bg-lithon-red-ink hover:bg-lithon-red-ink-hover text-white text-sm font-semibold shadow-xs hover:shadow-sm active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lithon-red focus-visible:ring-offset-2"
-            >
-              <span>Get quote</span>
-              <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </Link>
+            <Button href="/contact" size="sm" arrow>
+              Get quote
+            </Button>
           </div>
 
           {/* Mobile: call + menu sheet (G3) */}

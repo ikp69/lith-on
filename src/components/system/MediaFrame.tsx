@@ -56,7 +56,7 @@ export function MediaFrame({
       sizes={sizes}
       className={cn(
         cutout ? "object-contain p-[8%] mix-blend-multiply" : "object-cover",
-        zoomOnHover && "transition-transform duration-700 ease-out group-hover:scale-[1.03] motion-reduce:transition-none",
+        zoomOnHover && "transition-transform duration-[800ms] ease-out group-hover:scale-[1.03] motion-reduce:transition-none",
         imageClassName
       )}
     />

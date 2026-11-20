@@ -12,7 +12,7 @@ import { SectionIntro } from "@/components/system/SectionIntro";
 export const metadata: Metadata = {
   title: "Battery Energy Storage Products | Lith-On Bharat Energy",
   description:
-    "Lith-On battery energy storage systems from 10 kWh rack modules to 10 MWh containers, including Lith-On-50, LT215, Magna-C&I and Max-20HC-5000, assembled and tested in Noida.",
+    "Battery storage from 10 kWh rack modules to 10 MWh containers, including Lith-On-50, LT215, Magna-C&I and Max-20HC, assembled and tested in Noida.",
 };
 
 /**

@@ -9,13 +9,12 @@ export default function manifest(): MetadataRoute.Manifest {
     start_url: "/",
     display: "standalone",
     background_color: "#FAFAF8",
-    theme_color: "#0B3388",
+    theme_color: "#FFFFFF",
+    // Brand mark from data-sources/image.png (battery and bolt).
     icons: [
-      {
-        src: "/images/logo/logo-dark.png",
-        sizes: "532x133",
-        type: "image/png",
-      },
+      { src: "/images/logo/icon-192.png", sizes: "192x192", type: "image/png", purpose: "any" },
+      { src: "/images/logo/icon-512.png", sizes: "512x512", type: "image/png", purpose: "any" },
+      { src: "/images/logo/icon-maskable-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
     ],
   };
 }
