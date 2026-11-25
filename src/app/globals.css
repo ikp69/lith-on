@@ -516,6 +516,21 @@ b {
   }
 }
 
+/* Footer cityscape: slow right-to-left drift, reuses tickerScroll */
+.animate-cityscape {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: tickerScroll 90s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-cityscape {
+    animation: none;
+    transform: none;
+  }
+}
+
 /* Slide progress indicator */
 @keyframes progressFill {
   0% {

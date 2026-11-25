@@ -119,7 +119,8 @@ export function HorizontalRail({
         start: "top top+=96",
         end: () => `+=${distance() * (1 + tail)}`,
         pin: true,
-        scrub: 0.6,
+        // Lenis already smooths the scroll; a second scrub delay made the rail lag.
+        scrub: getLenis() ? true : 0.6,
         invalidateOnRefresh: true,
       },
       onUpdate: () => onProgressRef.current?.(tween.progress(), trackEnd),
@@ -225,7 +226,9 @@ export function HorizontalRail({
       <div
         ref={viewportRef}
         onScroll={pinned ? undefined : updateEdges}
-        data-lenis-prevent=""
+        // Only the native swipe rail needs Lenis to stand aside; when pinned,
+        // wheel over the cards must still drive the page (and the rail).
+        data-lenis-prevent={pinned ? undefined : ""}
         className={cn(
           "-mx-4 px-4 sm:-mx-6 sm:px-6",
           bleed && "lg:mx-[calc(50%-50vw)] lg:px-[calc(50vw-50%)] lg:scroll-px-[calc(50vw-50%)]",

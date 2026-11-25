@@ -52,7 +52,7 @@ const SERVICES: { title: string; line: string; detail: string; diagram: GridDiag
     title: "Substation buffering",
     line: "Storage at a constrained substation covers peak hours and keeps loading below thermal limits.",
     detail:
-      "Containerised storage adds capacity where it is needed, which can defer or avoid a transformer upgrade while longer-term grid capacity is planned.",
+      "Containerised storage adds capacity where it is needed, which can defer or avoid a transformer upgrade while longer-term grid capacity is planned. On a campus or industrial site, a Max-20HC-5000 at the substation stabilises the 33/11 kV supply, runs energy arbitrage and anchors a closed-loop microgrid.",
     diagram: "deferral",
     cols: 5,
   },

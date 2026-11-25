@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import type { ReactNode } from "react";
+import { DeploymentMap } from "@/components/case-studies/DeploymentMap";
 import { DieselVisual, PeakVisual } from "@/components/home/ChallengeVisuals";
 import { ActiveOnView } from "@/components/motion/ActiveOnView";
 import { Reveal } from "@/components/motion/Reveal";
@@ -104,16 +105,8 @@ const INSTALLS = [
   { src: "ntpc-office", caption: "NTPC" },
   { src: "kashmir", caption: "Kashmir" },
   { src: "ghaziabad", caption: "Ghaziabad" },
-  { src: "rspl-kanpur", caption: "Kanpur" },
+  { src: "rspl-kanpur", caption: "RSPL, Kanpur" },
   { src: "patna", caption: "Patna" },
-];
-
-const DEPLOYMENTS = [
-  { who: "Indian Army", where: "Srinagar and Jammu & Kashmir", what: "Power for border forward operational bases" },
-  { who: "NTPC", where: "Lucknow, Shravasti and Jammu & Kashmir", what: "Installations at NTPC sites" },
-  { who: "RVUNL", where: "Jaipur, Rajasthan", what: "Substation buffering" },
-  { who: "PwC", where: "New Delhi", what: "Backup for the corporate headquarters" },
-  { who: "Fuel retail networks", where: "Lucknow, Ghaziabad and Patna", what: "Station power stabilisation" },
 ];
 
 export default function CaseStudiesPage() {
@@ -206,26 +199,16 @@ export default function CaseStudiesPage() {
         </div>
       </section>
 
-      {/* CS-06 */}
+      {/* CS-06 Deployments map (deck content: cs-deployment-map) */}
       <section aria-labelledby="deploy-title" className="section">
-        <div className="container-site grid gap-10 lg:grid-cols-12 lg:gap-6">
-          <div className="lg:col-span-4">
-            <h2 id="deploy-title" className="text-heading-1 text-ink">
-              Deployed for
-            </h2>
-            <p className="mt-4 text-body text-ink-2">Government, utility and enterprise sites.</p>
-          </div>
-          <ul className="border-t border-line lg:col-span-8">
-            {DEPLOYMENTS.map((d) => (
-              <li key={d.who} className="grid gap-1 border-b border-line py-5 sm:grid-cols-[12rem_1fr] sm:gap-6">
-                <p className="text-heading-3 text-ink">{d.who}</p>
-                <div>
-                  <p className="text-body text-ink">{d.what}</p>
-                  <p className="mt-0.5 text-small text-ink-3">{d.where}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
+        <div className="container-site">
+          <SectionIntro
+            title={<span id="deploy-title">Deployed for</span>}
+            lead="Government, utility and enterprise sites across five states."
+            split
+            className="mb-10 lg:mb-14"
+          />
+          <DeploymentMap />
         </div>
       </section>
 

@@ -13,7 +13,7 @@ export function SitesSplit({ plantLink = false, detail = false }: { plantLink?: 
         <h3 className="mt-2 text-heading-2 text-ink">Noida</h3>
         <p className="mt-4 text-body text-ink-2">A 20,000 sq. ft. assembly and testing plant with 250 MWh of annual capacity: 50 MWh of BESS and 200 MWh of battery packs.</p>
         {detail && <p className="mt-3 text-body text-ink-2">Cell grading, module and cabinet assembly, the IceBattery® coating and end-of-line testing all happen here.</p>}
-        <address className="mt-6 text-small not-italic text-ink-3">Arihant Business Centre, Sector 136, Noida 201304, Uttar Pradesh</address>
+        <address className="mt-6 text-small not-italic text-ink-3">A-162, Arihant Business Centre, 7th Floor, Sector 136, Noida 201304, Uttar Pradesh</address>
         {plantLink && (
           <div className="mt-6">
             <Button href="/capabilities" variant="tertiary">

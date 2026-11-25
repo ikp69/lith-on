@@ -109,6 +109,12 @@
       "skillPath": "skills/seo/SKILL.md",
       "computedHash": "2eca844d05b3ba5b2e20fe458e22dc824b1cff31de52faed595f01b41ad8d04f"
     },
+    "stageshow": {
+      "source": "benjitaylor/skills",
+      "sourceType": "github",
+      "skillPath": "stageshow/SKILL.md",
+      "computedHash": "e61d752c729645bd4b96fb8dd6e31769aaaf0c4b409fd4bfc7ef8be79af84774"
+    },
     "thesvg": {
       "source": "glincker/thesvg",
       "sourceType": "github",

@@ -86,7 +86,8 @@ export const MAIN_NAVIGATION: NavItem[] = [
     children: [
       { label: "Education and campuses", href: "/industries#education", description: "Universities, colleges and schools", image: "/images/hero-sec/scene-university.webp" },
       { label: "Manufacturing", href: "/industries#manufacturing", description: "Factories and process lines", image: "/images/hero-sec/scene-industrial.webp" },
-      { label: "Commercial buildings", href: "/industries#commercial", description: "Offices, malls and high-rise housing", image: "/images/hero-sec/scene-commercial.webp" },
+      { label: "Commercial buildings", href: "/industries#commercial", description: "Offices, malls and tech parks", image: "/images/hero-sec/scene-commercial.webp" },
+      { label: "Residential societies", href: "/industries#residential", description: "Gated communities and high-rise housing", image: "/images/hero-sec/scene-residential.webp" },
       { label: "Healthcare", href: "/industries#healthcare", description: "Hospitals and clinics", image: "/images/hero-sec/scene-hospital.webp" },
       { label: "EV charging", href: "/industries#ev-infrastructure", description: "Fast-charging hubs and fleet depots" },
       { label: "Data centres and telecom", href: "/industries#data-centers", description: "Server rooms and tower sites" },

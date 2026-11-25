@@ -1,3 +1,5 @@
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 import type { ReactNode } from "react";
 import { LineReveal } from "@/components/motion/LineReveal";
 import { Reveal } from "@/components/motion/Reveal";
@@ -50,24 +52,50 @@ export function ClosingCTA(props: ClosingCTAProps) {
   );
 
   if (props.variant === "statement") {
+    const links = props.links ?? [];
     return (
-      <section className={cn("section-loose bg-canvas", className)}>
+      <section className={cn("section-tight bg-canvas", className)}>
         <div className="container-site">
-          <div className="border-t border-ink pt-10 lg:pt-14">
-            <LineReveal as="h2" lines={title} className="text-display-l text-ink max-w-[16ch] lg:max-w-none [overflow-wrap:break-word] min-w-0" />
-            <div className="mt-10 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-              {lead ? <p className="text-lead text-ink-2 measure">{lead}</p> : <span />}
-              {actions}
+          {/* One Lith-On Blue panel. Red marks only the eyebrow, the primary action and link hover. */}
+          <div className="grid gap-10 overflow-hidden rounded-[24px] bg-lithon-blue p-7 text-white sm:p-10 lg:grid-cols-12 lg:gap-0 lg:p-12">
+            <div className={cn("flex min-w-0 flex-col", links.length > 0 ? "lg:col-span-7 lg:pr-12" : "lg:col-span-12")}>
+              <p className="flex items-center gap-3 text-label text-white/70">
+                <span aria-hidden="true" className="h-0.5 w-6 rounded-full bg-lithon-red" />
+                Technical sizing
+              </p>
+              <LineReveal as="h2" lines={title} className="mt-5 min-w-0 text-balance text-heading-1 text-white wrap-break-word" />
+              {lead && <p className="mt-4 max-w-[48ch] text-pretty text-body text-white/75">{lead}</p>}
+              <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 lg:mt-auto lg:pt-10">
+                <Button href={primary.href} tone="dark" arrow className="active:scale-[0.96]">
+                  {primary.label}
+                </Button>
+                {secondary && (
+                  <Button href={secondary.href} variant="tertiary" tone="dark">
+                    {secondary.label}
+                  </Button>
+                )}
+              </div>
             </div>
-            {props.links && props.links.length > 0 && (
-              <nav aria-label="Other ways to work with us" className="mt-14 border-t border-line pt-6 lg:mt-20">
-                <ul className="grid gap-x-8 gap-y-5 sm:grid-cols-2 lg:grid-cols-3">
-                  {props.links.map((l) => (
-                    <li key={l.href}>
-                      <Button href={l.href} variant="tertiary">
-                        {l.label}
-                      </Button>
-                      {l.description && <p className="mt-1 text-small text-ink-3">{l.description}</p>}
+            {links.length > 0 && (
+              <nav aria-label="Other ways to work with us" className="flex flex-col justify-center lg:col-span-5 lg:border-white/15 lg:border-l lg:pl-12">
+                <p className="text-label text-white/55">Or go straight to</p>
+                <ul className="mt-3">
+                  {links.map((l) => (
+                    <li key={l.href} className="border-white/15 border-b last:border-b-0">
+                      <Link
+                        href={l.href}
+                        className="group -mx-3 flex min-h-[64px] items-center justify-between gap-5 rounded-[12px] px-3 py-3 transition-colors duration-150 ease-out hover:bg-white/[0.06] focus-visible:outline-2 focus-visible:outline-white focus-visible:-outline-offset-2"
+                      >
+                        <span className="min-w-0">
+                          <span className="block font-[600] text-[15px] text-white">{l.label}</span>
+                          {l.description && <span className="mt-0.5 block text-small text-white/60">{l.description}</span>}
+                        </span>
+                        <ArrowRight
+                          aria-hidden="true"
+                          strokeWidth={2}
+                          className="size-4 shrink-0 text-white/60 transition-[translate,color] duration-150 ease-out group-hover:translate-x-1 group-hover:text-lithon-red"
+                        />
+                      </Link>
                     </li>
                   ))}
                 </ul>

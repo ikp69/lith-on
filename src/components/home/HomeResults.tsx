@@ -2,9 +2,9 @@ import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { CountUp } from "@/components/motion/CountUp";
-import { Reveal } from "@/components/motion/Reveal";
 import { Button } from "@/components/system/Button";
 import { SectionIntro } from "@/components/system/SectionIntro";
+import { DeploymentsShowcase } from "./DeploymentsShowcase";
 
 /**
  * HOME-07 Results (audit §5). Editorial feature for Invertis University, the
@@ -143,28 +143,8 @@ export function HomeResults() {
         </div>
 
         {/* Deployments: genuine installation photographs */}
-        <div className="mt-20 grid gap-8 border-t border-line pt-10 lg:mt-28 lg:grid-cols-12 lg:gap-6">
-          <div className="lg:col-span-3">
-            <h3 className="text-heading-3 text-ink">Deployed for</h3>
-            <p className="mt-3 text-small text-ink-2">Also RVUNL, Jaipur, and PwC, New Delhi.</p>
-          </div>
-          <ul className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 [scrollbar-width:none] sm:mx-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:px-0 lg:col-span-9 lg:gap-6 [&::-webkit-scrollbar]:hidden">
-            {DEPLOYMENTS.map((d, i) => (
-              <li key={d.client} className="w-[68vw] max-w-[300px] shrink-0 snap-start sm:w-auto sm:max-w-none">
-                <Reveal delay={i * 0.1}>
-                  <figure>
-                    <div className="relative aspect-[4/5] overflow-hidden rounded-media bg-surface">
-                      <Image src={d.src} alt={d.alt} fill sizes="(min-width: 1024px) 26vw, (min-width: 640px) 33vw, 68vw" quality={75} className="object-cover" />
-                    </div>
-                    <figcaption className="mt-3">
-                      <span className="block text-body font-[500] text-ink">{d.client}</span>
-                      <span className="mt-0.5 block text-small text-ink-3">{d.where}</span>
-                    </figcaption>
-                  </figure>
-                </Reveal>
-              </li>
-            ))}
-          </ul>
+        <div className="mt-20 lg:mt-28">
+          <DeploymentsShowcase items={DEPLOYMENTS} also="Also RVUNL, Jaipur; PwC, New Delhi; and RSPL, Kanpur." />
         </div>
       </div>
     </section>

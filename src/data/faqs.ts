@@ -61,6 +61,12 @@ export const FAQ_GROUPS: FaqGroup[] = [
         answer:
           "Start with your power consumption, required backup duration and connected equipment. For commercial and industrial sites, peak demand, charging sources and future expansion also matter. A technical assessment can identify the right configuration.",
       },
+      {
+        id: "sizing-inputs",
+        question: "What do you need from us to size a system?",
+        answer:
+          "Five things: how much power the site uses each day or month, its operating hours, the roof or ground area free for solar, your grid tariff, and how long power cuts usually last each day. If you don't have them to hand, our engineers will work them out with you during the energy audit.",
+      },
     ],
   },
   {
@@ -114,6 +120,12 @@ export const FAQ_GROUPS: FaqGroup[] = [
         question: "Can Lith-On systems operate in 50 °C+ summer heat?",
         answer:
           "Yes. With the IceBattery® thermal shield, Lith-On enclosures maintain internal thermal equilibrium and are rated for continuous operation in ambient temperatures up to 60 °C without thermal curtailment or HVAC overload.",
+      },
+      {
+        id: "cold",
+        question: "Does the IceBattery® coating help in cold weather?",
+        answer:
+          "Yes. In heat it reflects sunlight and radiates heat away. In cold weather its ceramic surface stays close to the outside temperature, which reduces heat lost through the enclosure walls, useful on high-altitude sites such as Kashmir.",
       },
       {
         id: "cell-fault",
@@ -211,6 +223,12 @@ export const FAQ_GROUPS: FaqGroup[] = [
         answer:
           "A BESS stores and releases electrical energy, while a diesel generator produces electricity from fuel. Battery storage responds rapidly and works alongside solar power; generators can supply longer-duration power while fuel is available. The two can also complement each other.",
       },
+      {
+        id: "ev-throttling",
+        question: "Why do EV charging stations slow their chargers down, and how does storage help?",
+        answer:
+          "To keep their grid draw under the contracted limit, operators turn chargers down at busy times, so a 30-minute charge can take 90 minutes. A battery supplies the peaks, so chargers run at full power on a smaller grid connection and the station avoids the maximum demand charge.",
+      },
     ],
   },
   {
@@ -234,6 +252,12 @@ export const FAQ_GROUPS: FaqGroup[] = [
         question: "How much space does a residential BESS need compared with a DG set?",
         answer:
           "A Lith-On BESS needs up to 50% less floor space than an equivalent diesel generator set, with no bulk diesel storage tanks or exhaust chimney piping.",
+      },
+      {
+        id: "inside-society",
+        question: "Can a battery system be installed inside a housing society?",
+        answer:
+          "Yes. It runs almost silently and burns no fuel on site, so it can stand close to the towers. It needs up to 50% less space than diesel generators and their fuel tanks, and the space freed can be used for EV charging or parking.",
       },
     ],
   },

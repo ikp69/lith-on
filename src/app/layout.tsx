@@ -73,7 +73,7 @@ export default function RootLayout({
         ],
         address: {
           "@type": "PostalAddress",
-          streetAddress: "Arihant Business Centre, Sector 136",
+          streetAddress: "A-162, Arihant Business Centre, 7th Floor, Sector 136",
           addressLocality: "Noida",
           addressRegion: "Uttar Pradesh",
           postalCode: "201304",
@@ -91,7 +91,7 @@ export default function RootLayout({
         email: "tech@lith-onbharat.com",
         address: {
           "@type": "PostalAddress",
-          streetAddress: "Arihant Business Centre, Sector 136",
+          streetAddress: "A-162, Arihant Business Centre, 7th Floor, Sector 136",
           addressLocality: "Noida",
           addressRegion: "Uttar Pradesh",
           postalCode: "201304",

@@ -21,7 +21,7 @@ export const metadata: Metadata = {
  * content/warranty-and-support.md (support hours) and LITHON_DATA_VAULT.md §1.
  */
 
-const NOIDA = "Arihant Business Centre, Sector 136, Noida 201304, Uttar Pradesh, India";
+const NOIDA = "A-162, Arihant Business Centre, 7th Floor, Sector 136, Noida 201304, Uttar Pradesh, India";
 const FOSHAN = "C11-6, Foshan Innovation Torchpark, Jihua 2 Road, Chancheng, Foshan, Guangdong, China";
 const mapsLink = (address: string) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
 

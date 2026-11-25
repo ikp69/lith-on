@@ -53,12 +53,25 @@ const THERMAL: StoryChapter[] = [
   },
 ];
 
+/* Deck content (src/data/deck-content): tech-thermal-system, tech-icebattery-modes, tech-ems-modes. */
+const THERMAL_MORE = [
+  { title: "Coating plus active cooling", text: "Outside, the coating cuts solar heat gain. Inside, liquid cooling or HVAC control removes the heat the batteries make, holding cells near 20 °C." },
+  { title: "Warm in cold weather too", text: "The ceramic surface stays close to the outside air temperature, which reduces heat lost through the walls on cold sites such as Kashmir." },
+  { title: "Inside surfaces", text: "Applied inside, the coating cools quickly once air conditioning starts and holds back heat given off by the structure." },
+];
+
+const MORE_MODES = [
+  { name: "Renewable firming", text: "Smooths solar output into steady supply." },
+  { name: "Off-grid and hybrid operation", text: "Runs a site on its own, or alongside the grid and generators." },
+  { name: "Forecast-based charging", text: "Charges ahead of predicted demand and time-of-use prices." },
+];
+
 const SUBSYSTEMS = [
   { name: "LFP battery racks", fact: "Lithium iron phosphate cells rated for more than 6,000 cycles at 88–90% depth of discharge." },
-  { name: "Battery management (BMS)", fact: "Three-tier cell-level active balancing, telemetry and multi-stage isolation for voltage, current and temperature faults." },
+  { name: "Battery management (BMS)", fact: "Monitors every cell's voltage, temperature, current, state of charge and state of health, with three-tier active balancing and isolation on over-temperature, over-voltage or over-current." },
   { name: "Power conversion (PCS)", fact: "Bi-directional inverters with four-quadrant grid support and synthetic inertia." },
-  { name: "Energy management (EMS)", fact: "An edge controller running six automatic operating modes." },
-  { name: "Cloud SCADA", fact: "Real-time monitoring with predictive anomaly detection, cell-level state-of-health tracking and alarms." },
+  { name: "Energy management (EMS)", fact: "An edge controller running six automatic operating modes, plus renewable firming, off-grid operation and forecast-based charging." },
+  { name: "Cloud SCADA", fact: "Real-time monitoring at cell, module, rack and system level, with remote diagnostics, predictive anomaly detection, alarm handling and performance analytics." },
   { name: "IceBattery® shield", fact: "A 300–400 µm ceramic coating on the enclosure that keeps the cabinet 15–30 °C cooler inside." },
 ];
 
@@ -116,6 +129,14 @@ export default function TechnologyPage() {
               />
             }
           />
+          <dl className="mt-12 grid gap-x-6 border-t border-line pt-2 md:grid-cols-3">
+            {THERMAL_MORE.map((t) => (
+              <div key={t.title} className="py-5">
+                <dt className="text-body font-[500] text-ink">{t.title}</dt>
+                <dd className="mt-1.5 text-small text-ink-2">{t.text}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </section>
 
@@ -140,6 +161,17 @@ export default function TechnologyPage() {
           <div id="flow" className="scroll-mt-28">
             <ModeDiagram />
           </div>
+          <div className="mt-12 grid gap-6 border-t border-line pt-8 lg:grid-cols-12">
+            <h3 className="text-heading-3 text-ink lg:col-span-4">The EMS can also run</h3>
+            <dl className="grid gap-x-6 gap-y-5 sm:grid-cols-3 lg:col-span-8">
+              {MORE_MODES.map((m) => (
+                <div key={m.name}>
+                  <dt className="text-body font-[500] text-ink">{m.name}</dt>
+                  <dd className="mt-1 text-small text-ink-2">{m.text}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
         </div>
       </section>
 
@@ -150,7 +182,7 @@ export default function TechnologyPage() {
           <StatBand
             stats={[
               { value: 6000, prefix: ">", unit: "cycles", label: "At 88–90% depth of discharge", note: "15–20 year design life" },
-              { value: 10, unit: "years", label: "Standard manufacturer warranty" },
+              { value: 90, unit: "%", label: "Depth of discharge supported" },
               { value: 95, prefix: ">", unit: "%", label: "Round-trip efficiency" },
               { value: 2.5, decimals: 1, prefix: "<", unit: "% / month", label: "Self-discharge", note: "Against 10–15% for lead-acid" },
             ]}

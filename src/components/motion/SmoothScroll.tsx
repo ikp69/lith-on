@@ -58,6 +58,32 @@ export function SmoothScroll() {
     };
   }, []);
 
+  // Content above a pinned section can change height after its trigger was
+  // measured (images loading, ScrollStory inserting its spacer). Stale start
+  // positions made the product rail pin on top of the city hero, so re-measure
+  // whenever the page height actually changes.
+  useEffect(() => {
+    let lastHeight = document.body.scrollHeight;
+    let id = 0;
+    const ro = new ResizeObserver(() => {
+      const h = document.body.scrollHeight;
+      if (Math.abs(h - lastHeight) < 2) {
+        return;
+      }
+      lastHeight = h;
+      window.clearTimeout(id);
+      id = window.setTimeout(() => {
+        ScrollTrigger.refresh();
+        lastHeight = document.body.scrollHeight;
+      }, 150);
+    });
+    ro.observe(document.body);
+    return () => {
+      ro.disconnect();
+      window.clearTimeout(id);
+    };
+  }, []);
+
   // Route changes: Next.js resets scroll natively; keep Lenis in step and re-measure triggers.
   // Skipped on first load, so a reload keeps its position and scrolling
   // during load is never yanked back to the top.

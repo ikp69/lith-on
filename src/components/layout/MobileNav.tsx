@@ -139,7 +139,7 @@ export function MobileNav({ open, onOpenChange, pathname }: { open: boolean; onO
               <a href="mailto:tech@lith-onbharat.com" className="inline-flex min-h-11 items-center text-lithon-blue">
                 tech@lith-onbharat.com
               </a>
-              <p>Arihant Business Centre, Sector 136, Noida</p>
+              <p>A-162, Arihant Business Centre, Sector 136, Noida</p>
             </div>
           </nav>
 

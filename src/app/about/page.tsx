@@ -7,6 +7,7 @@ import { HorizontalRail, RailItem } from "@/components/system/HorizontalRail";
 import { PageHero } from "@/components/system/PageHero";
 import { SectionIntro } from "@/components/system/SectionIntro";
 import { StatBand } from "@/components/system/Stat";
+import { getDeckBlock } from "@/data/deck-content";
 
 export const metadata: Metadata = {
   title: "About Lith-On Bharat Energy | Battery Storage Manufacturer in Noida",
@@ -24,13 +25,19 @@ export const metadata: Metadata = {
  */
 
 const TIMELINE = [
-  { year: "2022", title: "Lith-On established", text: "Founded as Neoclo Energy Private Limited, with a vision to redefine energy storage in India." },
-  { year: "2023", title: "First lithium battery", text: "Launched for the inverter segment." },
-  { year: "2024", title: "First 50 kWh systems", text: "Production capacity scaled to 150 kWh." },
+  { year: "2022", title: "Lith-On established", text: "Founded as Neoclo Energy Private Limited, with a vision to redefine energy storage in India. BESS production started." },
+  { year: "2023", title: "First lithium battery", text: "Launched for the inverter segment. The first 100 kWh industrial BESS was delivered, and white-label supply for established brands began." },
+  { year: "2024", title: "First 50 kWh systems", text: "Production capacity scaled to 150 kWh. Systems delivered to NTPC, the Indian Army, fuel stations and hospitals; products for homes launched." },
   { year: "2025", title: "Critical BESS commissioned", text: "For PSUs, Defence and large corporates, with capacities up to 1.5 MWh." },
   { year: "Jul 2025", title: "Eco and Premium series", text: "Launched for different affordability and performance needs." },
-  { year: "Oct 2025", title: "Fully integrated BESS", text: "Introduced with PCS, BMS, fire protection and complete enclosures." },
+  { year: "Oct 2025", title: "Fully integrated BESS", text: "Introduced with PCS, BMS, fire protection and complete enclosures, including liquid-cooled systems." },
+  { year: "2026", title: "100+ industrial projects", text: "More than 100 industrial projects delivered, and proprietary thermal management introduced." },
 ];
+
+/* Mission and vision: src/data/deck-content (about-mission). Corporate Deck p.2 and catalogue p.5; wording under owner review (docs/OWNER_REVIEW.md R8). */
+const missionBlock = getDeckBlock("about-mission");
+const MISSION = missionBlock.points?.[0]?.text ?? "";
+const VISION = missionBlock.points?.[2]?.text ?? "";
 
 const VALUES = [
   { title: "Engineered for Indian conditions", text: "Systems designed for summer heat up to 60 °C ambient, unstable grids and diesel restrictions." },
@@ -76,6 +83,7 @@ export default function AboutPage() {
               { value: 20000, label: "Sq. ft. assembly and testing plant", note: "Sector 136, Noida" },
               { value: 500, unit: "+ MWh", label: "Deployed globally" },
               { value: 25, unit: "+", label: "Countries", note: "Asia, Middle East, Africa, N. America" },
+              { value: 100, unit: "+", label: "Industrial projects delivered", note: "By 2026" },
             ]}
           />
         </div>
@@ -102,6 +110,14 @@ export default function AboutPage() {
                 IIT alumni lead the company alongside energy storage specialists with more than 40 years of combined Indian grid engineering experience. The battery
                 management, power conversion, energy management and SCADA software are developed in-house.
               </p>
+            </div>
+            <div>
+              <h3 className="text-heading-3 text-ink">Our mission</h3>
+              <p className="mt-3 text-body text-ink-2">{MISSION}</p>
+            </div>
+            <div>
+              <h3 className="text-heading-3 text-ink">Our vision</h3>
+              <p className="mt-3 text-body text-ink-2">{VISION}</p>
             </div>
           </div>
         </div>

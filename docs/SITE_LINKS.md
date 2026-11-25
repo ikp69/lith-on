@@ -90,6 +90,7 @@ Last updated 20 Nov 2026. Local links work while `npm run dev` is running; live 
 **Industries**
 - Manufacturing: http://localhost:3000/industries#manufacturing
 - Commercial: http://localhost:3000/industries#commercial
+- Residential societies: http://localhost:3000/industries#residential
 - Healthcare: http://localhost:3000/industries#healthcare
 - Education: http://localhost:3000/industries#education
 - EV infrastructure: http://localhost:3000/industries#ev-infrastructure

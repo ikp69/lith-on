@@ -65,6 +65,7 @@
 ### Case Study A: Invertis University (Bareilly, U.P.) — Hybrid Solar + BESS Microgrid
 - **Baseline Challenge**: 2,500 kVA Diesel Generator infrastructure consuming massive fuel, generating severe pollution, and subject to NCR/UP pollution bans.
 - **Lith-On Solution**: 1,000 kWh (1 MWh) Lith-On BESS coupled with 900 kWp rooftop solar PV.
+- **Operational facts (Corporate Deck p.9, added 25 Nov 2026)**: 500 kW backup support for up to 2 hours during outages; powers 700+ hostel rooms, 140 classrooms and 8 offices; direct green energy export to the grid.
 - **Financial Return Metrics**:
   - Baseline Annual DG Diesel Expense: **₹4.14 Crore / year**.
   - BESS + Solar Operating Cost: **₹1.88 Crore / year**.
@@ -87,7 +88,7 @@
   - Full compliance with Commission for Air Quality Management (CAQM) Graded Response Action Plan (**GRAP Stage II, III, IV bans on diesel generators**).
 
 ### Case Study C: High-Power EV Fast-Charging Hub (Hyundai Commercial Station Model)
-- **Baseline Grid Challenge**: 60 kW to 350 kW simultaneous EV charging spikes trigger massive Maximum Demand Charges (40% to 60% of total utility bill) under DHBVN HT commercial tariffs (baseline ₹2.41 Lakh/month fixed demand penalties alone).
+- **Baseline Grid Challenge**: 60 kW to 350 kW simultaneous EV charging spikes trigger massive Maximum Demand Charges (40% to 60% of total utility bill) under DHBVN HT commercial tariffs (baseline bill ₹2.42 Lakh/month, of which demand charges are ₹96,000/month = 240 kVA × ₹400; corrected 25 Nov 2026 from Hyundai deck slide 9).
 - **Lith-On BESS Solution**: 450 kWh / 150 kW BESS acting as a power buffer (charging during off-peak hours and discharging instantaneously during multi-vehicle EV charging spikes).
 - **Financial Return Metrics**:
   - **BESS-Only Integration**: 100% demand charge elimination; annual savings of **₹12.91 Lakh / year**; payback in ~4 years.

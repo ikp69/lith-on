@@ -67,6 +67,8 @@ const CHAPTERS: StoryChapter[] = [
           "Takes over in under 10 milliseconds when the grid fails, so lifts and pumps keep running.",
           "Compliant with CAQM GRAP Stages I–IV, which restrict diesel generators in Delhi-NCR during air-quality emergencies.",
           "The energy management system runs a diesel-minimisation mode where a generator is kept for long outages.",
+          "A 500 kVA generator burns 105–150 litres of diesel an hour, so each kWh it makes costs ₹25–40; fuel is 75–80% of the cost of generating.",
+          "Storage needs up to 50% less space than generators and their fuel tanks.",
         ]}
         caseLink={{ href: "/case-studies/residential-society-500", label: "Gurugram case study" }}
       />
@@ -117,6 +119,7 @@ const CHAPTERS: StoryChapter[] = [
           "Annual energy cost fell from ₹4.14 Cr with diesel generators to ₹1.88 Cr with storage and solar.",
           "Round-trip efficiency above 95%, so little of the stored solar is lost.",
           "A solar self-consumption mode in the energy management system schedules charge and discharge automatically.",
+          "Three steps: solar powers the building by day, the surplus charges the battery, and the battery supplies the building at peak-tariff hours and during outages.",
         ]}
         caseLink={{ href: "/case-studies/invertis-university", label: "Invertis case study" }}
       />
@@ -125,7 +128,7 @@ const CHAPTERS: StoryChapter[] = [
   {
     id: "microgrids",
     title: "Microgrids",
-    body: "For remote and off-grid sites, storage with solar cuts the diesel that has to be trucked in and keeps power steady when there is no grid at all.",
+    body: "A microgrid combines solar, batteries and generators and runs alone or alongside the grid. For remote and off-grid sites, it cuts the diesel that has to be trucked in and keeps power steady when there is no grid at all.",
     image: { src: "/images/installations/catalogue/indian-army-jk.webp", alt: "Two Lith-On outdoor storage cabinets installed for the Indian Army in Jammu and Kashmir" },
     aside: (
       <Detail
@@ -133,6 +136,7 @@ const CHAPTERS: StoryChapter[] = [
           "Installed for the Indian Army at forward operational bases in Srinagar and Jammu & Kashmir.",
           "The IceBattery® thermal shield allows full-power operation at ambient temperatures up to 60 °C.",
           "In-house battery management, power conversion and control software, monitored remotely over cloud SCADA.",
+          "Off-grid systems serve sites without a reliable grid and critical infrastructure, built for harsh conditions with low running cost.",
         ]}
       />
     ),

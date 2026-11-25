@@ -134,7 +134,11 @@ export function ScrollStory({
               lifted && "lg:absolute lg:inset-x-0 lg:top-0 lg:h-(--intro-track)"
             )}
           >
-            <div ref={introRef} className={cn("pointer-events-auto lg:pt-6 lg:pb-2", lifted && "lg:sticky lg:top-20", introBg)}>
+            <div ref={introRef} className={cn("pointer-events-auto lg:pt-6 lg:pb-2", lifted &&
+                  "lg:sticky lg:top-20 lg:before:pointer-events-none lg:before:absolute lg:before:inset-x-0 lg:before:bottom-full lg:before:h-20 lg:before:bg-inherit lg:before:content-['']",
+                introBg
+              )}
+            >
               {intro}
             </div>
           </div>

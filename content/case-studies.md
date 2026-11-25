@@ -68,7 +68,7 @@ Every Lith-On deployment is backed by rigorous empirical data, real electrical e
 - **Customer Profile**: Commercial highway fast-charging plaza hosting four 60 kW DC fast chargers and high-rate chargers.
 - **The Baseline Challenge**:
   - Simultaneous EV charging sessions trigger massive, unpredictable 15-minute demand spikes.
-  - Under DHBVN HT commercial tariffs, Maximum Demand Charges account for **40% to 60% of the entire electricity bill**—incurring a baseline penalty of **₹2.41 Lakhs/month** even during low vehicle volume months.
+  - Under DHBVN HT commercial tariffs, Maximum Demand Charges account for **40% to 60% of the entire electricity bill**. In the modelled station (240 kW peak, 18,000 kWh a month) the demand charge is **₹96,000/month** (240 kVA × ₹400) out of a total bill of **₹2.42 Lakhs/month** (₹29.02 Lakhs/year). *(Corrected 25 Nov 2026 from Hyundai deck slide 9: ₹2.41 Lakhs is the total monthly bill, not the demand charge.)*
   - Local distribution utility required an expensive ₹45+ Lakh transformer enhancement with an 18-month civil delay before permitting additional charging points.
 - **Lith-On Engineered Solution**:
   - Deployed an **LT215 / 450 kWh / 150 kW BESS** configured as a dynamic power buffer.

@@ -4,6 +4,7 @@ import { DeliverySteps } from "@/components/services/DeliverySteps";
 import { ClosingCTA } from "@/components/system/ClosingCTA";
 import { PageHero } from "@/components/system/PageHero";
 import { SectionIntro } from "@/components/system/SectionIntro";
+import { getDeckBlock } from "@/data/deck-content";
 
 export const metadata: Metadata = {
   title: "Financing | Rent, EMI or Purchase Battery Storage | Lith-On",
@@ -27,6 +28,10 @@ export const metadata: Metadata = {
  * /calc (owner, 20 Nov 2026). Still unsourced and left out: insurance, accelerated depreciation, MNRE subsidies
  * and ROI claims.
  */
+
+/* Deck content (src/data/deck-content), shown for the initial review. */
+const payPerUnit = getDeckBlock("fin-pay-per-unit");
+const facilityFit = getDeckBlock("fin-facility-fit");
 
 const MODELS = [
   {
@@ -165,6 +170,32 @@ export default function FinancingPage() {
             ))}
           </div>
           <p className="mt-6 max-w-3xl text-small text-ink-3">Rent and EMI are financed through our Japanese partners and do not affect your CIBIL record. Terms depend on the system size and are set out in your proposal.</p>
+        </div>
+      </section>
+
+      {/* Deck content: fin-pay-per-unit, fin-facility-fit (under owner review R13, R14) */}
+      <section aria-labelledby="more-models-title" className="section-tight">
+        <div className="container-site grid gap-10 lg:grid-cols-12 lg:gap-6">
+          <div className="lg:col-span-5">
+            <h2 id="more-models-title" className="text-heading-2 text-ink">
+              {payPerUnit.heading}
+            </h2>
+            <ul className="mt-4 space-y-3 text-body text-ink-2">
+              {payPerUnit.points?.map((p) => (
+                <li key={p.text}>{p.text}</li>
+              ))}
+            </ul>
+          </div>
+          <div className="lg:col-span-6 lg:col-start-7">
+            <h2 className="text-heading-2 text-ink">{facilityFit.heading}</h2>
+            <ul className="mt-4 border-t border-line">
+              {facilityFit.points?.map((p) => (
+                <li key={p.text} className="border-b border-line py-3 text-body text-ink-2">
+                  {p.text}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 

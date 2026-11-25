@@ -23,7 +23,10 @@ export const metadata: Metadata = {
  */
 
 const STEPS = [
-  { title: "Energy audit", text: "Second-by-second power logging to find peak demand, generator run hours and time-of-day tariff penalties." },
+  {
+    title: "Energy audit",
+    text: "Second-by-second power logging to find peak demand, generator run hours and time-of-day tariff penalties. To start, we need your monthly consumption, operating hours, roof or ground area for solar, grid tariff and how long power cuts last each day.",
+  },
   { title: "Sizing and payback", text: "Battery capacity, inverter rating and any solar matched to your site, with a transparent payback projection." },
   { title: "Build and install", text: "Systems are built and tested in Noida, then installed: foundations, DC and AC cabling, switchgear, transformer and fire suppression." },
   { title: "Approvals", text: "Documents for state discom approval, Chief Electrical Inspectorate (CEIG) compliance and net-metering permits." },

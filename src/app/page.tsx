@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { CityHero } from '@/components/hero2/CityHero';
 import { HomeProof } from '@/components/home/HomeProof';
+import { HomeAbout } from '@/components/home/HomeAbout';
 import { HomeChallenges } from '@/components/home/HomeChallenges';
 import { HomeProducts } from '@/components/home/HomeProducts';
 import { HomeEngineering } from '@/components/home/HomeEngineering';
@@ -34,6 +35,9 @@ export default function HomePage() {
 
       {/* 02 — PROOF (HOME-02): open stat band */}
       <HomeProof />
+
+      {/* 02b — ABOUT: who Lith-On is, why Lith-On, route to /about */}
+      <HomeAbout />
 
       {/* 03 — CHALLENGES (HOME-03): scroll story with live diagrams */}
       <HomeChallenges />

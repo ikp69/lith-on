@@ -1,6 +1,7 @@
 "use client";
 
 import { useGSAP } from "@gsap/react";
+import { ArrowDown, RotateCcw } from "lucide-react";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { gsap, ScrollTrigger } from "@/animations/gsap-register";
@@ -34,6 +35,33 @@ const DIVE_ZOOM = 1.7;
 /** Height the camera travels at between districts: wide enough to read the city. */
 const TRAVEL_ZOOM = 1.12;
 const ASPECT = CITY_OVERVIEW.width / CITY_OVERVIEW.height;
+/** Set once a visitor has watched or skipped the hero. */
+const HERO_SEEN_KEY = "lithon-hero-seen";
+
+function heroSeen() {
+  try {
+    return window.localStorage.getItem(HERO_SEEN_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+function markHeroSeen() {
+  try {
+    window.localStorage.setItem(HERO_SEEN_KEY, "1");
+  } catch {
+    // Storage blocked: nothing to remember.
+  }
+}
+
+function jumpTo(top: number) {
+  const lenis = getLenis();
+  if (lenis) {
+    lenis.scrollTo(top, { immediate: true, force: true });
+  } else {
+    window.scrollTo({ top, behavior: "instant" });
+  }
+}
 const pad = (n: number) => String(n + 1).padStart(2, "0");
 
 interface Cam {
@@ -112,6 +140,24 @@ function CinematicStage() {
   const stopsRef = useRef<number[]>([]);
   const [active, setActive] = useState(-1);
   const [hovered, setHovered] = useState<string | null>(null);
+  /** "skip" while the intro plays, "play" once on the final frame. */
+  const [control, setControl] = useState<"hidden" | "skip" | "play">("hidden");
+
+  /** Jump to the final frame (skip) or back to the very top (play intro). */
+  const jump = (to: "end" | "start") => {
+    const st = triggerRef.current;
+    if (!st || flyingRef.current) {
+      return;
+    }
+    if (to === "end") {
+      markHeroSeen();
+    }
+    // Stay a couple of pixels inside the pin so the final frame stays on screen.
+    const top = to === "end" ? st.end - 2 : 0;
+    jumpTo(top);
+    ScrollTrigger.update();
+    st.getTween()?.progress(1);
+  };
 
   useGSAP(
     () => {
@@ -222,10 +268,46 @@ function CinematicStage() {
               }
             }
             setActive((prev) => (prev === next ? prev : next));
+            // Skip once the intro copy has scrolled away; Play on the final frame.
+            let mode: "hidden" | "skip" | "play" = "hidden";
+            if (self.isActive && self.progress >= 0.95) {
+              mode = "play";
+              markHeroSeen();
+            } else if (self.isActive && self.progress >= 0.03) {
+              mode = "skip";
+            }
+            setControl((prev) => (prev === mode ? prev : mode));
+          },
+          onToggle: (self) => {
+            if (!self.isActive) {
+              setControl("hidden");
+            }
           },
         });
 
+        // This pin adds ~8.5 screens of spacing. Pinned sections further down
+        // (e.g. the product rail) may have measured before it existed and
+        // would pin on top of the hero, so re-order and re-measure them.
+        ScrollTrigger.sort();
+        ScrollTrigger.refresh();
+
+        // Returning visitors open on the final frame, unless the browser
+        // restored a scroll position or a link targets a section.
+        let opener: gsap.core.Tween | null = null;
+        if (heroSeen() && window.scrollY < 10 && !window.location.hash) {
+          // Next tick, so smooth scroll has attached and won't reset to 0.
+          opener = gsap.delayedCall(0.05, () => {
+            const st = triggerRef.current;
+            if (st && window.scrollY < 10) {
+              jumpTo(st.end - 2);
+              ScrollTrigger.update();
+              st.getTween()?.progress(1);
+            }
+          });
+        }
+
         return () => {
+          opener?.kill();
           triggerRef.current?.kill();
           triggerRef.current = null;
         };
@@ -394,7 +476,7 @@ function CinematicStage() {
         {/* Closing line once the camera is back out */}
         <div
           data-outro
-          className="invisible absolute top-6 left-1/2 w-[min(640px,calc(100%-48px))] -translate-x-1/2 rounded-media bg-white/95 px-8 py-7 opacity-0 shadow-[0_24px_60px_rgba(17,24,39,0.16)] backdrop-blur-md"
+          className="invisible absolute top-[60%] left-1/2 w-[min(640px,calc(100%-48px))] -translate-x-1/2 -translate-y-1/2 rounded-media bg-white/95 px-8 py-7 opacity-0 shadow-[0_24px_60px_rgba(17,24,39,0.16)] backdrop-blur-md"
         >
           <div className="flex items-center justify-between gap-8">
             <div>
@@ -406,6 +488,30 @@ function CinematicStage() {
             </Button>
           </div>
         </div>
+
+        {/* Skip the pinned intro */}
+        <button
+          type="button"
+          onClick={() => jump(control === "play" ? "start" : "end")}
+          inert={control === "hidden"}
+          className={cn(
+            "absolute top-5 right-5 z-10 inline-flex min-h-10 items-center gap-2 rounded-full border border-line bg-white/90 px-4 font-medium text-[13px] text-ink shadow-[0_6px_20px_rgba(17,24,39,0.10)] backdrop-blur-md",
+            "transition-[opacity,translate,background-color] duration-250 ease-out hover:bg-white focus-visible:outline-2 focus-visible:outline-lithon-blue focus-visible:outline-offset-2",
+            control === "hidden" ? "pointer-events-none -translate-y-1 opacity-0" : "translate-y-0 opacity-100"
+          )}
+        >
+          {control === "play" ? (
+            <>
+              Play intro
+              <RotateCcw aria-hidden="true" className="size-3.5" strokeWidth={1.75} />
+            </>
+          ) : (
+            <>
+              Skip intro
+              <ArrowDown aria-hidden="true" className="size-3.5" strokeWidth={1.75} />
+            </>
+          )}
+        </button>
 
         {/* Chapter index */}
         <nav
@@ -449,10 +555,11 @@ function CinematicStage() {
       </div>
 
       {/* Intro copy over the white canvas, above the window */}
-      <div data-intro className="absolute inset-x-0 top-0 h-[44%]">
-        <div className="container-site flex h-full items-end justify-between gap-12 pb-8">
+      {/* Matches the window's 42% top inset so the copy sits centred in the white band */}
+      <div data-intro className="absolute inset-x-0 top-0 h-[42%]">
+        <div className="container-site flex h-full items-center justify-between gap-12 py-6">
           <Headline />
-          <div className="max-w-[400px] pb-2">
+          <div className="max-w-[400px]">
             <p className="text-ink-2 text-lead">{LEAD}</p>
             <Actions className="mt-6" />
           </div>

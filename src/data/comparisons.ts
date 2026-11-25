@@ -56,8 +56,16 @@ export const DG_VS_BESS: Comparison = {
         { parameter: "Energy use", ours: "Higher, with further savings when paired with renewables", theirs: "Lower, due to higher losses" },
       ],
     },
+    {
+      title: "Site",
+      rows: [
+        /* Housing Society deck p.3–4 (src/data/deck-content: sol-footprint). */
+        { parameter: "Space", ours: "Up to 50% less space than generators and their fuel tanks", theirs: "Generator rooms and fuel storage take space that could hold EV charging or parking" },
+        { parameter: "Noise", ours: "Near-silent, so it can be installed close to buildings", theirs: "75–90 dB while running" },
+      ],
+    },
   ],
-  note: "General comparison from the Lith-On product catalogue. Lith-On systems are specified for round-trip efficiency above 95%, more than 6,000 cycles and a 15–20 year design life.",
+  note: "General comparison from the Lith-On product catalogue; space and noise from the housing society presentation. Lith-On systems are specified for round-trip efficiency above 95%, more than 6,000 cycles and a 15–20 year design life.",
 };
 
 export const LEAD_ACID_VS_LITHIUM: Comparison = {

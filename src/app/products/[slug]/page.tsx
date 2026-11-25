@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { getDeckBlock } from "@/data/deck-content";
 import { LineReveal } from "@/components/motion/LineReveal";
 import { Reveal } from "@/components/motion/Reveal";
 import { ProductAssistantDrawer } from "@/components/products/ProductAssistantDrawer";
@@ -33,6 +34,9 @@ function splitCapacity(capacity: string) {
 export function generateStaticParams() {
   return PRODUCTS_DATA.map((product) => ({ slug: product.slug }));
 }
+
+/* Where each system fits on a campus: universities deck p.4 (src/data/deck-content: prod-where-it-fits). */
+const WHERE_IT_FITS = new Map((getDeckBlock("prod-where-it-fits").points ?? []).map((pt) => [pt.href?.replace("/products/", "") ?? "", pt.text]));
 
 /** Meta description within 160 characters; long taglines fall back to a shorter form. */
 function describe(product: { tagline: string; name: string; capacity: string; powerRating: string }): string {
@@ -111,6 +115,7 @@ export default async function ProductDetailPage({ params }: Props) {
 
   const { main, note } = splitCapacity(product.capacity);
   const groups = SpecGroups(product);
+  const fit = WHERE_IT_FITS.get(product.slug);
   const hiddenRows = [product.acVoltage, product.efficiency, product.switchoverTime, product.cycleLife, product.thermalTech].some((v) => !known(v));
   const datasheet = product.documents.find((d) => d.type === "datasheet");
   const quoteHref = `/contact?type=assessment&product=${product.slug}`;
@@ -217,6 +222,12 @@ export default async function ProductDetailPage({ params }: Props) {
               ))}
             </ul>
             <p className="mt-6 text-small text-ink-3">{product.typicalUser}</p>
+            {fit && (
+              <div className="mt-8 border-t border-line pt-6">
+                <h3 className="text-heading-3 text-ink">Where it fits on a campus</h3>
+                <p className="mt-2 text-body text-ink-2">{fit}</p>
+              </div>
+            )}
           </div>
         </div>
       </section>

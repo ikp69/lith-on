@@ -1,0 +1,87 @@
+import { type DeckBlock, SHARED, src } from "./types";
+
+/** Route `/about`. */
+export const ABOUT_BLOCKS: readonly DeckBlock[] = [
+  {
+    id: "about-mission",
+    route: "/about",
+    placement: "Our story section, one line after the opening statement",
+    component: "About page (story block)",
+    heading: "Mission and vision",
+    points: [
+      {
+        title: "Mission (Corporate Deck)",
+        text: "To empower businesses, utilities and communities with efficient, reliable and eco-friendly energy storage systems, driving the global shift toward renewable energy and sustainability.",
+        source: src("corporate", 2),
+      },
+      {
+        title: "Mission (Catalogue)",
+        text: "To empower industries and communities with cutting-edge energy storage solutions that are reliable, sustainable and efficient.",
+        source: src("catalogue", 5),
+      },
+      {
+        title: "Vision (Catalogue)",
+        text: "To be a global leader in next-generation lithium battery technology, driving the shift towards a greener, smarter energy ecosystem.",
+        source: src("catalogue", 5),
+      },
+    ],
+    sources: [src("corporate", 2), src("catalogue", 5)],
+    status: "confirm",
+    onSite: true,
+    note: "Two different mission lines exist. Publish one mission (and optionally the vision); owner decision C8. 'Global leader' is an aspiration, so keep it framed as the vision, never as a claim.",
+  },
+  {
+    id: "about-stats",
+    route: "/about",
+    alsoOn: ["/"],
+    placement: "Stat band under the hero",
+    component: "StatBand",
+    heading: "Lith-On in numbers",
+    figures: [
+      { value: "50 MWh", label: "In-house BESS production capacity a year", source: SHARED.intro[0] },
+      { value: "200 MWh", label: "Battery pack production capacity a year", source: SHARED.intro[0] },
+      { value: "20,000 sq ft", label: "Production facility, Noida", source: src("corporate", 2) },
+      { value: "500+ MWh", label: "Installed base", source: SHARED.intro[0] },
+      { value: "25+", label: "Countries", source: SHARED.best[0] },
+    ],
+    sources: [...SHARED.intro, src("corporate", 2)],
+    status: "ready",
+    onSite: true,
+    note: "Already on the site. The Corporate Deck (p.2) labels 500+ MWh as 'In-house BESS set-up in progress' instead of installed base; owner decision C3.",
+  },
+  {
+    id: "about-timeline-additions",
+    route: "/about",
+    placement: "Timeline rail: milestones to merge into the existing six entries",
+    component: "HorizontalRail (TIMELINE)",
+    heading: "Company timeline: milestones not yet shown",
+    points: [
+      { title: "2022", text: "Founded as Neoclo Energy; BESS production started." },
+      { title: "2023", text: "White-label supply for established battery brands began; first industrial BESS of 100 kWh delivered; 200 kWh BESS production started." },
+      { title: "2024", text: "Systems delivered to NTPC, the Indian Army, fuel stations and hospitals; products for homes launched." },
+      { title: "2025", text: "BESS with liquid cooling and integrated PCS introduced." },
+      { title: "2026", text: "More than 100 industrial projects delivered; proprietary thermal management introduced." },
+    ],
+    sources: SHARED.intro,
+    status: "confirm",
+    onSite: true,
+    note: "This is the timeline in six decks. The site shows the Corporate Deck timeline (p.4), which describes 2023 differently ('first lithium battery for the inverter segment'). Merge only after owner decision C5. The Corporate Deck (p.2) also says 'Founded in 2023' and '20+ years' of experience (the site uses 2022 and 40+): C4.",
+  },
+  {
+    id: "about-values",
+    route: "/about",
+    placement: "Values grid",
+    component: "About page (VALUES)",
+    heading: "Why customers choose Lith-On",
+    points: [
+      { title: "LiFePO4 specialists", text: "Batteries and storage built for long life, reliable performance and safety." },
+      { title: "Made in India control systems", text: "Battery and energy management engineered and made in India." },
+      { title: "Safety and environment", text: "Products designed to reduce emissions and to be recycled." },
+      { title: "Support after installation", text: "Professional installation followed by ongoing maintenance." },
+    ],
+    sources: [src("corporate", 3)],
+    status: "ready",
+    onSite: true,
+    note: "Covered by the current values. Do not carry over the slide's 'global quality standards including ISO' (ISO was removed, CLAIMS_REVIEW §1).",
+  },
+];

@@ -60,7 +60,7 @@ export function LegalAddress({ email }: { email: string }) {
     <address className="border-l-2 border-line pl-4 not-italic">
       <strong>Lith-On Bharat Energy Private Limited</strong>
       <br />
-      Arihant Business Centre, Sector 136, Noida - 201304, Uttar Pradesh, India
+      A-162, Arihant Business Centre, 7th Floor, Sector 136, Noida - 201304, Uttar Pradesh, India
       <br />
       Email: <a href={`mailto:${email}`}>{email}</a>
       <br />

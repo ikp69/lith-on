@@ -16,7 +16,7 @@ export function HomeRange() {
       <div className="container-site">
         <SectionIntro
           title={<span id="home-range-title">Home &amp; small business</span>}
-          lead="Wall-mount and stackable batteries, a lead-acid replacement, and solar inverters with built-in lithium batteries, for homes, shops and offices."
+          lead="Wall-mount and stackable batteries, a lead-acid replacement that works with home inverters, an e-rickshaw battery, and solar inverters with built-in lithium batteries, for homes, shops and offices."
           split
           className="mb-10 lg:mb-12"
         />

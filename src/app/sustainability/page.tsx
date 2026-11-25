@@ -29,6 +29,8 @@ const DIESEL_COSTS = [
   { value: "PM2.5", label: "Fine particulates that reach deep into the lungs and add to winter smog" },
   { value: "NOx · SOx", label: "Nitrogen and sulphur oxides released at ground level, near homes and air intakes" },
   { value: "75–95", unit: "dB", label: "Typical sound level of industrial diesel generators" },
+  /* Universities deck p.3 (src/data/deck-content: sus-diesel-health). */
+  { value: "Group 1", label: "Diesel exhaust is classified as carcinogenic to humans by the International Agency for Research on Cancer (IARC)" },
 ];
 
 const LIFECYCLE = [
@@ -82,7 +84,7 @@ export default function SustainabilityPage() {
       <section id="cost-of-diesel" aria-labelledby="diesel-title" className="section scroll-mt-24 bg-canvas-warm">
         <div className="container-site">
           <SectionIntro title={<span id="diesel-title">What a diesel generator puts out</span>} lead="Backup generators burn fuel next to the buildings they serve." split className="mb-10 lg:mb-14" />
-          <dl className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+          <dl className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
             {DIESEL_COSTS.map((d) => (
               <div key={d.label} className="border-t border-ink pt-6">
                 <dt className="sr-only">{d.label}</dt>

@@ -3,10 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BeforeAfter } from "@/components/case-studies/BeforeAfter";
+import { DeckFigures } from "@/components/deck/DeckFigures";
+import { DeckTable } from "@/components/deck/DeckTable";
 import { ClosingCTA } from "@/components/system/ClosingCTA";
 import { PageHero } from "@/components/system/PageHero";
 import { SectionIntro } from "@/components/system/SectionIntro";
 import { type StatData, StatBand } from "@/components/system/Stat";
+import { getDeckBlock, SHOW_REVIEW_CONTENT } from "@/data/deck-content";
 
 /**
  * /case-studies/[slug] (audit §6.7). Hero (CSD-01) with four figures →
@@ -52,6 +55,9 @@ const CASES: CaseDetail[] = [
       { label: "Before", value: "2,500 kVA of diesel generators, with heavy fuel use, pollution and exposure to NCR/UP diesel restrictions" },
       { label: "System", value: "1,000 kWh Lith-On battery storage coupled with 900 kWp of rooftop solar" },
       { label: "Result", value: "Annual operating cost down from ₹4.14 Cr to ₹1.88 Cr" },
+      { label: "Backup", value: "500 kW of backup for up to 2 hours during power outages" },
+      { label: "Campus served", value: "More than 700 hostel rooms, 140 classrooms and 8 offices" },
+      { label: "Solar export", value: "Surplus solar is exported directly to the grid, reducing electricity bills" },
     ],
     description: "Invertis University in Bareilly cut its annual energy operating cost from ₹4.14 Cr to ₹1.88 Cr with 1 MWh of Lith-On storage and 900 kWp of rooftop solar.",
   },
@@ -97,12 +103,13 @@ const CASES: CaseDetail[] = [
       { value: 3.9, decimals: 1, unit: "years", label: "Payback with solar" },
     ],
     economics: {
-      before: { label: "Fixed demand charges", value: 2.41, display: "₹2.41 lakh a month", note: "Demand charges were 40–60% of the electricity bill under DHBVN HT commercial tariffs" },
-      after: { label: "With Lith-On storage", value: 0, display: "Removed", note: "Storage-only model: 100% of demand charges eliminated" },
-      caption: "Monthly fixed demand charges.",
+      before: { label: "Demand charges", value: 96_000, display: "₹96,000 a month", note: "240 kVA peak at ₹400 per kVA under the DHBVN HT commercial tariff, out of a total bill of ₹2.42 lakh a month" },
+      after: { label: "With Lith-On storage", value: 0, display: "₹0", note: "Storage-only model: the 150 kW charger runs through the battery, so the grid never reaches the peak" },
+      caption: "Monthly demand charges. Removing them saves ₹11.52 lakh a year.",
     },
     facts: [
       { label: "Challenge", value: "Several chargers drawing 60–350 kW at once set a high maximum demand charge" },
+      { label: "Baseline bill", value: "₹2.42 lakh a month for 18,000 kWh: energy ₹1.26 lakh, demand ₹96,000, fuel surcharge ₹9,000, electricity duty ₹10,800" },
       { label: "System", value: "450 kWh / 150 kW storage, charging off-peak and discharging through charging spikes" },
       { label: "Storage only", value: "₹12.91 lakh a year saved, payback in about four years" },
       { label: "With 75 kWp solar", value: "₹20.26 lakh a year, 3.9-year payback, 153% 10-year ROI, more than ₹2.0 Cr net savings over 10 years" },
@@ -110,6 +117,12 @@ const CASES: CaseDetail[] = [
     description: "A highway EV fast-charging hub removed 100% of its demand charges with a 450 kWh Lith-On buffer, saving ₹20.26 lakh a year with solar and paying back in 3.9 years.",
   },
 ];
+
+/* Extra economics from the source decks (src/data/deck-content), keyed by case slug. */
+const DECK_ECONOMICS: Record<string, string> = {
+  "ev-charging-hub": "cs-ev-bill",
+  "residential-society-500": "cs-gurugram-five-year",
+};
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -135,6 +148,9 @@ export default async function CaseStudyPage({ params }: Props) {
     notFound();
   }
   const others = CASES.filter((x) => x.slug !== c.slug);
+  const extraId = DECK_ECONOMICS[c.slug];
+  const extraBlock = extraId ? getDeckBlock(extraId) : undefined;
+  const extra = extraBlock && (extraBlock.status === "ready" || SHOW_REVIEW_CONTENT) ? extraBlock : undefined;
   const crumbs = [{ label: "Home", href: "/" }, { label: "Case studies", href: "/case-studies" }, { label: c.short }];
 
   return (
@@ -177,6 +193,24 @@ export default async function CaseStudyPage({ params }: Props) {
           </div>
         </div>
       </section>
+
+      {/* CSD-02b: bill or cost breakdown from the source deck */}
+      {extra && (
+        <section aria-labelledby="breakdown-title" className="section-tight">
+          <div className="container-site grid gap-10 lg:grid-cols-12 lg:gap-6">
+            <div className="lg:col-span-4">
+              <h2 id="breakdown-title" className="text-heading-1 text-ink">
+                {extra.heading}
+              </h2>
+              {extra.lead && <p className="mt-4 text-body text-ink-2">{extra.lead}</p>}
+            </div>
+            <div className="min-w-0 lg:col-span-8">
+              {extra.table && <DeckTable table={extra.table} sources={extra.sources} totalRow={c.slug === "ev-charging-hub"} />}
+              {extra.figures && <DeckFigures figures={extra.figures} className="mt-10 lg:grid-cols-2" />}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* CSD-03 */}
       <section aria-labelledby="facts-title" className="section-tight">

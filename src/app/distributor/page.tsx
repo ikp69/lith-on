@@ -30,6 +30,8 @@ const BENEFITS = [
   { title: "One range, every customer", text: "Home and small-business batteries, commercial cabinets and 5 MWh utility containers, so you can serve each site you win." },
   { title: "Engineering behind every bid", text: "Our team sizes the system and models the payback for your customer's load profile before you quote." },
   { title: "Backed after handover", text: "Each system carries a manufacturer warranty set for its product and is monitored 24/7 from Noida over cloud SCADA." },
+  /* Six-deck timeline, 2023 (src/data/deck-content: dist-white-label); under owner review R10. */
+  { title: "OEM and white-label supply", text: "Lith-On has supplied white-label battery storage to established brands since 2023." },
 ];
 
 const link = "text-lithon-blue underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lithon-blue rounded-sm";

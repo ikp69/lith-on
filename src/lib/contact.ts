@@ -75,9 +75,14 @@ export const ASSESSMENT_STEPS: StepDef[] = [
     note: "All optional. If you don't have these to hand, continue and our engineers will work them out with you.",
     fields: [
       { name: "load", label: "Sanctioned load (kW or kVA)", type: "number" },
+      { name: "consumption", label: "Monthly consumption (kWh)", type: "number" },
+      { name: "hours", label: "Operating hours a day", type: "number" },
+      { name: "tariff", label: "Grid tariff (₹ per kWh)", type: "number" },
       { name: "dg", label: "Diesel generator capacity (kVA)", type: "number" },
       { name: "outage", label: "Daily outage or backup hours", type: "number" },
       { name: "solar", label: "Solar on site", type: "select", options: ["No", "Yes, under 100 kWp", "Yes, 100–500 kWp", "Yes, over 500 kWp", "Planned"] },
+      /* Sizing inputs from the school deck p.10 (src/data/deck-content: svc-sizing-inputs). */
+      { name: "area", label: "Roof or ground area free for solar (sq ft)", type: "number" },
     ],
   },
   { title: "Your details", fields: contactFields() },
@@ -89,7 +94,7 @@ export const ASSESSMENT_STEPS: StepDef[] = [
         label: "Notes (optional)",
         type: "textarea",
         wide: true,
-        placeholder: "Space available, monthly consumption, peak demand charges, GRAP deadlines, documents you need…",
+        placeholder: "Peak demand charges, GRAP deadlines, documents you need…",
       },
     ],
   },

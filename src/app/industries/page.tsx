@@ -5,18 +5,21 @@ import { type HeroSector, IndustriesHero } from "@/components/industries/Industr
 import { Reveal } from "@/components/motion/Reveal";
 import { Button } from "@/components/system/Button";
 import { ClosingCTA } from "@/components/system/ClosingCTA";
+import { DeckFigures } from "@/components/deck/DeckFigures";
+import { DeckTable } from "@/components/deck/DeckTable";
 import { Stat } from "@/components/system/Stat";
+import { getDeckBlock } from "@/data/deck-content";
 import { PRODUCTS_DATA } from "@/data/products";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Industries We Serve | Battery Energy Storage | Lith-On",
   description:
-    "Battery storage for campuses, factories, commercial buildings, hospitals, EV charging and data centres, with documented results where available.",
+    "Battery storage for campuses, factories, commercial buildings, residential societies, hospitals, EV charging and data centres, with documented results where available.",
 };
 
 /**
- * /industries (audit §6.4). Hero with sector switch (IND-01) → six split
+ * /industries (audit §6.4). Hero with sector switch (IND-01) → seven split
  * chapters (IND-03; IND-02 removed) → defence band (IND-04, the page's
  * stage-dark use) → inline closing (IND-05). Chapter ids keep existing
  * anchors. Figures from LITHON_DATA_VAULT.md only.
@@ -29,6 +32,53 @@ interface Sector extends HeroSector {
   product: string;
   caseLink?: { href: string; label: string };
   caption: string;
+  /** Full-width detail under the chapter (tables, models, diagrams). */
+  detail?: React.ReactNode;
+}
+
+/* Deck content (src/data/deck-content): sources cited on each block. */
+const campusZones = getDeckBlock("ind-education-zones");
+const campusModel = getDeckBlock("ind-education-model");
+const evConnection = getDeckBlock("ind-ev-connection");
+const evPolicy = getDeckBlock("ind-ev-policy");
+const otherSectors = getDeckBlock("ind-other-sectors");
+
+function EducationDetail() {
+  return (
+    <div className="grid gap-12 border-t border-line pt-10 lg:grid-cols-12 lg:gap-6">
+      <div className="lg:col-span-6">
+        <h3 className="text-heading-3 text-ink">{campusZones.heading}</h3>
+        {campusZones.table && <DeckTable table={campusZones.table} sources={campusZones.sources} className="mt-4" />}
+      </div>
+      <div className="lg:col-span-5 lg:col-start-8">
+        <h3 className="text-heading-3 text-ink">{campusModel.heading}</h3>
+        <p className="mt-2 text-small text-ink-2">{campusModel.lead}</p>
+        {campusModel.figures && <DeckFigures figures={campusModel.figures.slice(2)} className="mt-6 lg:grid-cols-2" />}
+        {campusModel.table && <DeckTable table={campusModel.table} sources={campusModel.sources} totalRow className="mt-8" />}
+      </div>
+    </div>
+  );
+}
+
+function EvDetail() {
+  return (
+    <div className="grid gap-12 border-t border-line pt-10 lg:grid-cols-12 lg:gap-6">
+      <div className="lg:col-span-7">
+        <h3 className="text-heading-3 text-ink">{evConnection.heading}</h3>
+        {evConnection.table && <DeckTable table={evConnection.table} sources={evConnection.sources} className="mt-4" />}
+      </div>
+      <div className="lg:col-span-4 lg:col-start-9">
+        <h3 className="text-heading-3 text-ink">{evPolicy.heading}</h3>
+        <ul className="mt-4 space-y-2 text-small text-ink-2">
+          {evPolicy.points?.map((p) => (
+            <li key={p.text} className="border-l-2 border-line pl-3">
+              {p.text}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
 }
 
 const SECTORS: Sector[] = [
@@ -41,9 +91,15 @@ const SECTORS: Sector[] = [
     caption: "Illustrative scene",
     challenge: "Hostels, labs and computing centres need power around the clock, and diesel backup is noisy and costly to run.",
     stat: { value: 2.26, decimals: 2, prefix: "₹", unit: "Cr a year", label: "Saved at Invertis University", note: "1 MWh of storage with 900 kWp of rooftop solar" },
-    outcomes: ["Annual energy cost down from ₹4.14 Cr to ₹1.88 Cr", "Midday solar stored for evening use", "Cutover in under 10 ms when the grid fails"],
+    outcomes: [
+      "Annual energy cost down from ₹4.14 Cr to ₹1.88 Cr",
+      "500 kW of backup for up to 2 hours across 700+ hostel rooms, 140 classrooms and 8 offices",
+      "Midday solar stored for evening use, with the surplus exported to the grid",
+      "Cutover in under 10 ms when the grid fails",
+    ],
     product: "magna-ci",
     caseLink: { href: "/case-studies/invertis-university", label: "Invertis case study" },
+    detail: <EducationDetail />,
   },
   {
     id: "manufacturing",
@@ -64,9 +120,28 @@ const SECTORS: Sector[] = [
     alt: "Battery storage cabinets outside an office and commercial building",
     illustrative: true,
     caption: "Illustrative scene",
-    challenge: "Lifts, pumps and common areas need backup, and CAQM GRAP restricts diesel generators in Delhi-NCR.",
+    challenge: "Lifts, pumps and common areas need backup, air-conditioning drives up demand charges, and CAQM GRAP restricts diesel generators in Delhi-NCR.",
+    stat: { value: 10, prefix: "<", unit: "ms", label: "Grid-to-battery cutover", note: "Lifts keep moving and computers stay on" },
+    outcomes: ["Daytime peak shaving of air-conditioning demand charges", "Compliant with CAQM GRAP Stages I–IV", "Installed for PwC, New Delhi"],
+    product: "magna-ci",
+  },
+  {
+    id: "residential",
+    name: "Residential societies",
+    image: "/images/hero-2/residential.webp",
+    alt: "An apartment block with a Lith-On storage container beside it",
+    illustrative: true,
+    caption: "Illustrative scene",
+    challenge:
+      "Diesel generators leave 10–30 seconds of blackout, run at 75–90 dB, and with their fuel tanks take space that could hold EV charging or parking. Fuel alone is 75–80% of what they cost to run.",
     stat: { value: 73, unit: "%", label: "Lower annual energy cost", note: "500-flat society in Gurugram: ₹6.52 Cr to ₹1.76 Cr a year" },
-    outcomes: ["Simple payback of about 1.6 years at the Gurugram society", "Compliant with CAQM GRAP Stages I–IV", "Lifts keep moving through grid failures"],
+    outcomes: [
+      "Stores grid power at normal rates for outages, so monthly common-area maintenance bills fall",
+      "Switchover in under 10 ms: lifts do not stall and Wi-Fi routers do not drop",
+      "Near-silent with no fuel burned on site, so it can stand close to the towers, in up to 50% less space",
+      "No moving parts; the BMS runs regular digital health checks",
+      "Keeps supplying power through every CAQM GRAP stage",
+    ],
     product: "lithon-50",
     caseLink: { href: "/case-studies/residential-society-500", label: "Gurugram case study" },
   },
@@ -91,9 +166,16 @@ const SECTORS: Sector[] = [
     caption: "Installed at a fuel retail station",
     challenge: "Several fast chargers starting at once set a high maximum demand charge, often 40–60% of the bill.",
     stat: { value: 100, unit: "%", label: "Of demand charges removed", note: "Highway EV fast-charging hub, storage-only model" },
-    outcomes: ["With 75 kWp of solar: ₹20.26 lakh a year saved", "3.9-year payback on the hybrid system", "Avoids waiting for a transformer upgrade"],
+    outcomes: [
+      "Chargers run at full power: without storage, operators throttle them and a 30-minute charge can take 90 minutes",
+      "Solar charges the battery by day and off-peak grid power by night; the EMS charges ahead of forecast demand",
+      "Stations keep charging in an outage, in island mode",
+      "With 75 kWp of solar: ₹20.26 lakh a year saved, 3.9-year payback",
+      "Avoids waiting for a transformer upgrade",
+    ],
     product: "lt215",
     caseLink: { href: "/case-studies/ev-charging-hub", label: "EV hub case study" },
+    detail: <EvDetail />,
   },
   {
     id: "data-centers",
@@ -150,7 +232,9 @@ export default function IndustriesPage() {
                 <figcaption className="mt-2 text-small text-ink-3">{s.caption}</figcaption>
               </figure>
               <div className={cn("lg:col-span-5", i % 2 === 0 ? "lg:col-start-8 lg:pl-6" : "lg:order-1 lg:pr-6")}>
-                <p className="tabular text-small text-ink-3">{String(i + 1).padStart(2, "0")} / 06</p>
+                <p className="tabular text-small text-ink-3">
+                  {String(i + 1).padStart(2, "0")} / {String(SECTORS.length).padStart(2, "0")}
+                </p>
                 <h2 id={`${s.id}-title`} className="mt-2 text-heading-1 text-ink">
                   {s.name}
                 </h2>
@@ -174,10 +258,31 @@ export default function IndustriesPage() {
                   </div>
                 )}
               </div>
+              {s.detail && <div className="lg:order-3 lg:col-span-12">{s.detail}</div>}
             </article>
           ))}
         </div>
       </div>
+
+      {/* Also suited to (deck content: ind-other-sectors, ind-dg-market) */}
+      <section aria-labelledby="also-title" className="section-tight bg-canvas-warm">
+        <div className="container-site grid gap-8 lg:grid-cols-12 lg:gap-6">
+          <div className="lg:col-span-4">
+            <h2 id="also-title" className="text-heading-1 text-ink">
+              {otherSectors.heading}
+            </h2>
+            <p className="mt-4 text-body text-ink-2">India has more than 70,000 MW of legacy diesel generators. Any site that runs one is worth assessing.</p>
+          </div>
+          <dl className="grid gap-x-6 sm:grid-cols-3 lg:col-span-8">
+            {otherSectors.points?.map((p) => (
+              <div key={p.title} className="border-t border-line py-5">
+                <dt className="text-body font-[500] text-ink">{p.title}</dt>
+                <dd className="mt-1.5 text-small text-ink-2">{p.text}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
 
       {/* IND-04 Defence band (the page's stage-dark use) */}
       <section id="defence" aria-labelledby="defence-title" className="scroll-mt-24 bg-stage-dark text-on-dark">

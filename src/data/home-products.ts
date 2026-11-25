@@ -60,6 +60,21 @@ export const HOME_PRODUCTS: HomeProduct[] = [
     alt: "Lith-On lithium battery unit beside a bed",
   },
   {
+    /* Catalogue p.28 (src/data/deck-content: prod-erickshaw). Availability under owner review (docs/OWNER_REVIEW.md R11). */
+    id: "erickshaw",
+    name: "E-rickshaw battery",
+    kind: "Mobility battery",
+    headline: "51.2",
+    headlineUnit: "V",
+    specs: [
+      { label: "Capacity", value: "86 Ah to 200 Ah LiFePO4, with embedded BMS" },
+      { label: "Life", value: "> 3,500 cycles; calendar life over 10 years" },
+      { label: "Weight", value: "About 50% lighter and 40% smaller than lead-AGM" },
+    ],
+    image: "/images/products/home/erickshaw-battery.webp",
+    alt: "Two Lith-On e-rickshaw battery packs, one upright and one flat",
+  },
+  {
     id: "inverter-600va",
     name: "600 VA solar inverter",
     kind: "Off-grid inverter with built-in lithium battery",
