@@ -5,7 +5,7 @@
  * - General answers: the client's FAQ document, data-sources/FAQs.docx
  *   (also docs-data/faqs.md). Questions that duplicate a Lith-On-specific one
  *   are left out; where the two disagree (warranty: "depends on the product" vs
- *   10 years), the owner chose "depends on the product" (20 Nov 2026).
+ *   10 years), the owner chose 10 years (26 Nov 2026; was "depends" on 20 Nov).
  */
 
 export interface Faq {
@@ -317,7 +317,7 @@ export const FAQ_GROUPS: FaqGroup[] = [
         id: "warranty",
         question: "What warranty do Lith-On batteries carry?",
         answer:
-          "It depends on the product. Each system has its own warranty term and coverage, which we set out in your quotation. Warranties apply when the system is operated within factory guidelines for temperature and charge rate.",
+          "Every Lith-On storage system carries a 10-year manufacturer warranty, backed by cells rated for more than 6,000 cycles at 88–90% depth of discharge. The warranty applies when the system is operated within factory guidelines for temperature and charge rate.",
       },
       {
         id: "monitoring",

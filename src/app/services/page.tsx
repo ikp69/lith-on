@@ -116,7 +116,7 @@ export default function ServicesPage() {
             <p className="mt-4 text-body text-ink-2">Every commercial and industrial system connects to our cloud SCADA platform over encrypted cellular or industrial Ethernet links.</p>
             <div className="mt-8 border-t border-line pt-6">
               <p className="tabular text-heading-1 text-ink">6,000+ cycles</p>
-              <p className="mt-1 text-small text-ink-2">Cell rating at 88–90% depth of discharge. Warranty terms depend on the product.</p>
+              <p className="mt-1 text-small text-ink-2">Cell rating at 88–90% depth of discharge, with a 10-year manufacturer warranty.</p>
               <div className="mt-4">
                 <Button href="/warranty-and-support" variant="tertiary">
                   Warranty and support

@@ -1,15 +1,13 @@
 import { ArrowRight } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { CountUp } from "@/components/motion/CountUp";
 import { Button } from "@/components/system/Button";
+import { PhotoNeeded } from "@/components/system/PhotoNeeded";
 import { SectionIntro } from "@/components/system/SectionIntro";
-import { DeploymentsShowcase } from "./DeploymentsShowcase";
 
 /**
  * HOME-07 Results (audit §5). Editorial feature for Invertis University, the
- * other two case studies as hairline rows, then genuine installation
- * photographs (client catalogue) for deployments the vault lists as verified.
+ * other two case studies as hairline rows.
  * Figures from LITHON_DATA_VAULT.md §3 case studies A–D only.
  */
 
@@ -30,27 +28,6 @@ const MORE = [
   },
 ];
 
-const DEPLOYMENTS = [
-  {
-    src: "/images/installations/catalogue/indian-army-jk.webp",
-    alt: "Two Lith-On outdoor energy storage cabinets on a hillside among pine trees",
-    client: "Indian Army",
-    where: "Forward bases, Jammu & Kashmir",
-  },
-  {
-    src: "/images/installations/catalogue/ntpc-cabinet.webp",
-    alt: "A large white Lith-On energy storage cabinet installed indoors at an NTPC facility",
-    client: "NTPC",
-    where: "Lucknow, Shravasti and Jammu & Kashmir",
-  },
-  {
-    src: "/images/installations/catalogue/fuel-station.webp",
-    alt: "An outdoor Lith-On energy storage cabinet installed at a fuel station",
-    client: "Fuel retail networks",
-    where: "Lucknow, Ghaziabad and Patna",
-  },
-];
-
 export function HomeResults() {
   return (
     <section aria-labelledby="home-results-title" className="section bg-canvas-warm">
@@ -58,7 +35,7 @@ export function HomeResults() {
         <div className="lg:flex lg:items-end lg:justify-between lg:gap-10">
           <SectionIntro
             title={<span id="home-results-title">Results from installed systems</span>}
-            lead="Documented savings from campuses, housing and EV charging, and deployments across India."
+            lead="Documented savings from campuses, housing and EV charging."
             className="mb-6 lg:mb-12"
           />
           <div className="mb-10 lg:mb-12 lg:shrink-0">
@@ -71,28 +48,20 @@ export function HomeResults() {
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-6">
           {/* Feature: Invertis University */}
           <article aria-labelledby="result-invertis" className="lg:col-span-8">
-            <div className="relative overflow-hidden rounded-media bg-surface">
-              <div className="relative aspect-[16/9] sm:aspect-[2/1] lg:aspect-[1070/420]">
-                <Image
-                  src="/images/installations/invertis-bess-yard.jpg"
-                  alt="Lith-On battery storage cabinets in the equipment yard at Invertis University"
-                  fill
-                  sizes="(min-width: 1024px) 66vw, 100vw"
-                  quality={75}
-                  className="object-cover"
-                />
-              </div>
-              <div aria-hidden="true" className="absolute inset-0 hidden bg-gradient-to-t from-black/70 via-black/25 to-transparent sm:block" />
-              <div className="p-5 sm:absolute sm:inset-x-0 sm:bottom-0 sm:p-8">
-                <p className="tabular flex flex-wrap items-baseline gap-x-[0.08em] text-stat-xl text-ink sm:text-white">
-                  <span>₹</span>
-                  <CountUp value={2.26} decimals={2} />
-                  <span className="ml-2 text-[0.3em] font-[500] tracking-normal">Cr a year saved</span>
-                </p>
-                <h3 id="result-invertis" className="mt-2 text-body font-[500] text-ink-2 sm:text-white/90">
-                  Invertis University, Bareilly
-                </h3>
-              </div>
+            <PhotoNeeded
+              subject="Invertis University storage yard and solar array, wide landscape"
+              size="2400 × 1000 px or larger"
+              className="aspect-[16/9] sm:aspect-[2/1] lg:aspect-[1070/420]"
+            />
+            <div className="pt-6">
+              <p className="tabular flex flex-wrap items-baseline gap-x-[0.08em] text-stat-xl text-ink">
+                <span>₹</span>
+                <CountUp value={2.26} decimals={2} />
+                <span className="ml-2 text-[0.3em] font-[500] tracking-normal">Cr a year saved</span>
+              </p>
+              <h3 id="result-invertis" className="mt-2 text-body font-[500] text-ink-2">
+                Invertis University, Bareilly
+              </h3>
             </div>
             <dl className="mt-6 grid grid-cols-1 gap-x-6 gap-y-4 border-t border-line pt-5 sm:grid-cols-3">
               <div>
@@ -140,11 +109,6 @@ export function HomeResults() {
               ))}
             </ul>
           </div>
-        </div>
-
-        {/* Deployments: genuine installation photographs */}
-        <div className="mt-20 lg:mt-28">
-          <DeploymentsShowcase items={DEPLOYMENTS} also="Also RVUNL, Jaipur; PwC, New Delhi; and RSPL, Kanpur." />
         </div>
       </div>
     </section>

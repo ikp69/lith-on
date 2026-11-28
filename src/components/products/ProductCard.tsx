@@ -1,5 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
+import { PhotoNeeded } from "@/components/system/PhotoNeeded";
 import Link from "next/link";
 import type { ProductDetail } from "@/data/products";
 
@@ -26,14 +27,18 @@ export function ProductCard({ product }: { product: ProductDetail }) {
       className="group flex h-full flex-col rounded-media focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lithon-blue"
     >
       <span className="relative isolate flex aspect-[4/3] items-center justify-center overflow-hidden rounded-media bg-surface">
-        <Image
-          src={product.image}
-          alt={`${product.name}`}
-          width={640}
-          height={640}
-          sizes="(min-width: 1280px) 400px, (min-width: 768px) 45vw, 90vw"
-          className="h-[72%] w-auto max-w-[80%] object-contain mix-blend-multiply transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03] motion-reduce:transition-none"
-        />
+        {product.image ? (
+          <Image
+            src={product.image}
+            alt={`${product.name}`}
+            width={640}
+            height={640}
+            sizes="(min-width: 1280px) 400px, (min-width: 768px) 45vw, 90vw"
+            className="h-[72%] w-auto max-w-[80%] object-contain mix-blend-multiply transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03] motion-reduce:transition-none"
+          />
+        ) : (
+          <PhotoNeeded fill subject={`${product.name} product cut-out`} size="1600 × 1600 px, white or transparent background" />
+        )}
         <span className="absolute top-4 left-4 rounded-full bg-white px-2.5 py-1 text-[12px] text-ink-2">{product.category}</span>
       </span>
       <span className="mt-5 flex flex-1 flex-col">

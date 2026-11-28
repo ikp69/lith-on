@@ -39,12 +39,23 @@ Related files: `docs/DECK_CONTENT_AUDIT.md` (the audit), `content/deck-content.m
 ### R6. "Seven certifications"
 - Five decks say "hold seven international certifications" but name only IEC 61508, IEC 61850 and BIS.
 - **What the site shows for review:** the three named standards only.
-- **Answer (list the seven, with certificates):**
+- **Update 26 Nov 2026:** the owner approved showing Investor slide 5 as-is on `/why-lith-on#at-a-glance`, so "seven international certifications" now appears there, while the rest of the site names three. Which is correct site-wide?
+- **Answer (26 Nov 2026):** three: IEC 61508, IEC 61850 and BIS. The site keeps the three; Investor slide 5 stays on `/why-lith-on` as-is, with its "seven" wording.
 
 ### R7. Invertis baseline
 - The case-study page says Invertis replaced **2,500 kVA** of diesel costing **₹4.14 Cr → ₹1.88 Cr** a year. These figures come from `content/case-studies.md`; no deck contains them. "2,500 kVA" appears only in the universities deck's *model* campus.
 - **What the site shows for review:** unchanged, plus the confirmed Corporate Deck facts (500 kW backup for 2 hours, 700+ hostel rooms, 140 classrooms, 8 offices, solar export).
 - **Answer:**
+
+### R17. Warranty: 10 years, or depends on the product? (added 26 Nov 2026)
+- On 20 Nov 2026 the owner said the warranty depends on the product, and every "10-year warranty" line was removed (CLAIMS_REVIEW item 20).
+- On 26 Nov 2026 the owner approved showing Investor slides 5 and 14 as-is on `/why-lith-on`; both say "10-year warranty". The vault also says a standard 10-year warranty.
+- **Answer (26 Nov 2026):** 10-year warranty, site-wide. Done: Warranty page, FAQ, About, Why Lith-On, Services, Distributor, Financing, comparisons note, all 12 product pages and `claims.ts`. No capacity floor is stated.
+
+### R18. Adani row on the competitor slide (added 26 Nov 2026)
+- Investor slide 14 says Lith-On's stack with IceBattery reduces operating cost "by <20%"; the vault says HVAC cooling energy falls by ">20%".
+- **What the site shows now:** the slide as-is on `/why-lith-on#competitors`.
+- **Answer (26 Nov 2026):** the vault is right (>20%). The slide image on the site was corrected to ">20%"; the source deck still says "<20%".
 
 ## Wording and permissions
 

@@ -1,6 +1,6 @@
 # Lith-On website: all links
 
-Last updated 20 Nov 2026. Local links work while `npm run dev` is running; live links use the confirmed domain, **lith-on.com**.
+Last updated 26 Nov 2026. Local links work while `npm run dev` is running; live links use the confirmed domain, **lith-on.com**.
 
 - Local: http://localhost:3000
 - Live: https://www.lith-on.com
@@ -22,6 +22,10 @@ Last updated 20 Nov 2026. Local links work while `npm run dev` is running; live 
 | Case studies | http://localhost:3000/case-studies | https://www.lith-on.com/case-studies |
 | Resources (catalogue and datasheets) | http://localhost:3000/resources | https://www.lith-on.com/resources |
 | FAQs | http://localhost:3000/faqs | https://www.lith-on.com/faqs |
+| Insights (blog) | http://localhost:3000/blog | https://www.lith-on.com/blog |
+| Insights: housing society diesel to storage | http://localhost:3000/blog/housing-society-diesel-to-storage | https://www.lith-on.com/blog/housing-society-diesel-to-storage |
+| Insights: how the IceBattery® coating works | http://localhost:3000/blog/how-icebattery-coating-works | https://www.lith-on.com/blog/how-icebattery-coating-works |
+| Insights: EV charging demand charges | http://localhost:3000/blog/ev-charging-demand-charges | https://www.lith-on.com/blog/ev-charging-demand-charges |
 | Sustainability | http://localhost:3000/sustainability | https://www.lith-on.com/sustainability |
 
 ## Company

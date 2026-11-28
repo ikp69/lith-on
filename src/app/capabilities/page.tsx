@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { SitesSplit } from "@/components/company/SitesSplit";
 import { Reveal } from "@/components/motion/Reveal";
 import { DeliverySteps } from "@/components/services/DeliverySteps";
@@ -7,6 +6,7 @@ import { BentoGrid, BentoTile } from "@/components/system/BentoGrid";
 import { ClosingCTA } from "@/components/system/ClosingCTA";
 import { HorizontalRail, RailItem } from "@/components/system/HorizontalRail";
 import { PageHero } from "@/components/system/PageHero";
+import { PhotoNeeded } from "@/components/system/PhotoNeeded";
 import { SectionIntro } from "@/components/system/SectionIntro";
 
 export const metadata: Metadata = {
@@ -19,7 +19,8 @@ export const metadata: Metadata = {
  * /capabilities (audit §6, CAP-01–06). INTERIM version: plant photography
  * (assets A2, A3) is still outstanding, so the hero is editorial with a small
  * genuine photo rather than a full-bleed assembly-floor image, and the
- * assembly line pairs the three existing factory photos with text-only stages.
+ * assembly line shows a PhotoNeeded slot per stage (the deck crops had slide
+ * text baked in).
  * Swap in plant photos when they arrive (CAP-01 image hero, CAP-03 one photo
  * per stage, CAP-04 lab photos, CAP-06 plant exterior).
  *
@@ -33,32 +34,26 @@ const STAGES = [
   {
     title: "Cell sorting and grading",
     text: "Every incoming Tier-1 cell is tested for internal resistance, open-circuit voltage and capacity, then matched within tight tolerances for uniform ageing.",
-    photo: null,
   },
   {
     title: "Module assembly",
     text: "Matched cells go into high-impact structural frames with fire-retardant polymers and high-strength aluminium side plates.",
-    photo: { src: "/images/factory/battery-pack-assembly.jpg", alt: "A technician in gloves wiring cell connections inside an open battery pack" },
   },
   {
     title: "Laser busbar welding",
     text: "Cell terminals are laser-welded to nickel-plated copper busbars, a low-resistance bond that resists vibration and thermal cycling.",
-    photo: null,
   },
   {
     title: "BMS and sensor harness",
     text: "Voltage sensing leads, dual-point thermistors and active balancing harnesses are routed and secured with automotive-grade locking connectors.",
-    photo: { src: "/images/factory/integrated-bess-assembly.jpg", alt: "A cabinet enclosure being assembled at a workbench" },
   },
   {
     title: "IceBattery® coating",
     text: "The proprietary inorganic ceramic shield is applied to the enclosure for high solar reflectance and far-infrared heat radiation.",
-    photo: null,
   },
   {
     title: "Burn-in and end-of-line validation",
     text: "Complete systems run on multi-channel cyclers for 100% capacity verification, insulation and dielectric testing, and automatic safety-trip checks.",
-    photo: { src: "/images/factory/testing-quality-assurance.jpg", alt: "An engineer reviewing a system model at a workstation in the testing area" },
   },
 ];
 
@@ -92,9 +87,7 @@ export default function CapabilitiesPage() {
         secondary={{ label: "See the process", href: "#process" }}
         visual={
           <figure>
-            <div className="relative aspect-[3/2] overflow-hidden rounded-media bg-surface">
-              <Image src="/images/factory/integrated-bess-assembly.jpg" alt="Cabinet assembly at the Lith-On plant in Noida" fill priority sizes="(min-width: 1024px) 30vw, 100vw" quality={80} className="object-cover" />
-            </div>
+            <PhotoNeeded subject="Cabinet assembly on the Noida plant floor" size="2400 × 1600 px, landscape" ratio="3/2" />
             <figcaption className="mt-2 text-small text-ink-3">Cabinet assembly, Noida</figcaption>
           </figure>
         }
@@ -119,15 +112,7 @@ export default function CapabilitiesPage() {
             {STAGES.map((s, i) => (
               <RailItem key={s.title} className="w-[min(80vw,340px)] lg:w-[360px]">
                 <article>
-                  <div className="relative aspect-[4/3] overflow-hidden rounded-media bg-surface">
-                    {s.photo ? (
-                      <Image src={s.photo.src} alt={s.photo.alt} fill sizes="360px" quality={80} className="object-cover" />
-                    ) : (
-                      <span aria-hidden="true" className="tabular absolute right-6 bottom-4 text-[120px] leading-none font-[300] tracking-[-0.04em] text-line-strong">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                    )}
-                  </div>
+                  <PhotoNeeded subject={`${s.title}, on the Noida line`} size="1600 × 1200 px" ratio="4/3" />
                   <p className="tabular mt-5 text-small text-ink-3">Step {i + 1} of 6</p>
                   <h3 className="mt-1 text-heading-3 text-ink">{s.title}</h3>
                   <p className="mt-2 text-small text-ink-2">{s.text}</p>
@@ -173,7 +158,7 @@ export default function CapabilitiesPage() {
         lead="See cell grading, assembly and testing on the floor, and meet the engineers who will build your system."
         primary={{ label: "Book a plant visit", href: "/contact?type=factory-visit" }}
         secondary={{ label: "Certifications", href: "/certifications" }}
-        image={{ src: "/images/factory/noida-facility-bench-photo.jpg", alt: "Lith-On home and commercial battery units at the Noida facility" }}
+        image={{ needed: "Noida plant: exterior or assembly floor", size: "2000 × 1500 px" }}
       />
     </div>
   );

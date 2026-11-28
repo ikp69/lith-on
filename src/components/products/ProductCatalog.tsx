@@ -64,7 +64,7 @@ export function ProductCatalog() {
             >
               <span className="relative block aspect-[4/3] overflow-hidden rounded-media bg-stage-dark">
                 <Image
-                  src="/images/products/bess-3d-cutaway.jpg"
+                  src="/images/deck/container-cutaway.webp"
                   alt=""
                   fill
                   sizes="(min-width: 1280px) 400px, (min-width: 768px) 45vw, 90vw"

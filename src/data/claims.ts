@@ -131,9 +131,9 @@ export const CLAIMS_REGISTRY: Record<string, ClaimRecord> = {
   warranty_10yr: {
     id: "warranty_10yr",
     claim: "10-Year Manufacturer Performance Warranty",
-    status: "under_review",
+    status: "verified",
     category: "warranty",
-    approvedPublicWording: "Warranty terms depend on the product and are set out in each quotation (owner decision, 20 Nov 2026; data-sources/FAQs.docx).",
+    approvedPublicWording: "A 10-year manufacturer warranty on every Lith-On storage system (owner decision, 26 Nov 2026; vault §2).",
     supportingEvidence: "Lith-On Standard Limited Warranty Agreement and cell manufacturer cycle-testing datasets.",
     owner: "After-Sales & Warranty Director",
     lastReviewed: "2026-10-05",

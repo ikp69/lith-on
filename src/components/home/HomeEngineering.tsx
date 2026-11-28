@@ -123,8 +123,8 @@ export function HomeEngineering() {
           <BentoTile cols={12} wide surface="plain" className="rounded-media bg-white p-6 lg:p-8">
             <ActiveOnView className="flex flex-col gap-8 xl:flex-row xl:gap-12">
               <div className="max-w-xl xl:w-[28%] xl:shrink-0">
-                <h3 className="text-body font-[500] text-ink">Control electronics built in-house</h3>
-                <p className="mt-2 text-small text-ink-2">Lith-On develops all four layers itself, so they are designed to work together.</p>
+                <h3 className="text-body font-[500] text-ink">Control and safety, built in</h3>
+                <p className="mt-2 text-small text-ink-2">Lith-On develops all four control layers itself, so they are designed to work together. Fire suppression is integrated into the system.</p>
                 <div className="mt-5">
                   <Button href="/technology#stack" variant="tertiary">
                     The control stack

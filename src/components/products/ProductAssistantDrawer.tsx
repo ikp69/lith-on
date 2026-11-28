@@ -3,6 +3,7 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { SlidersHorizontal, X } from "lucide-react";
 import Image from "next/image";
+import { PhotoNeeded } from "@/components/system/PhotoNeeded";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/system/Button";
@@ -150,7 +151,11 @@ export function ProductAssistantDrawer({ preselectedProduct, triggerLabel = "Siz
                 <p className="text-small text-ink-3">Suggested starting point</p>
                 <div className="mt-3 grid grid-cols-[96px_1fr] items-center gap-5">
                   <div className="relative aspect-square rounded-control bg-surface">
-                    <Image src={product.image} alt="" fill sizes="96px" className="object-contain p-2 mix-blend-multiply" />
+                    {product.image ? (
+                      <Image src={product.image} alt="" fill sizes="96px" className="object-contain p-2 mix-blend-multiply" />
+                    ) : (
+                      <PhotoNeeded fill compact subject={`${product.name} product cut-out`} className="rounded-control p-2" />
+                    )}
                   </div>
                   <div>
                     <h3 id="assistant-result" className="text-heading-3 text-ink">

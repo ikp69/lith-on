@@ -4,12 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { LineReveal } from "@/components/motion/LineReveal";
+import { PhotoNeeded } from "@/components/system/PhotoNeeded";
 import { cn } from "@/lib/utils";
 
 export interface HeroSector {
   id: string;
   name: string;
-  image: string;
+  /** A photograph, or `{ needed, size }` for a PhotoNeeded slot until one arrives. */
+  image: string | { needed: string; size?: string };
   alt: string;
   illustrative: boolean;
 }
@@ -27,22 +29,34 @@ export function IndustriesHero({ sectors }: { sectors: HeroSector[] }) {
     <section aria-labelledby="industries-title" className="relative overflow-hidden bg-canvas lg:min-h-[calc(100svh-80px)]">
       {/* Image stack */}
       <div className="relative aspect-[16/10] lg:absolute lg:inset-y-0 lg:right-0 lg:left-[40%] lg:aspect-auto">
-        {sectors.map((s, i) => (
-          <Image
-            key={s.id}
-            src={s.image}
-            alt={i === active ? s.alt : ""}
-            fill
-            priority={i === 0}
-            sizes="100vw"
-            quality={70}
-            className={cn("object-cover transition-opacity duration-500 ease-out motion-reduce:transition-none", i === active ? "opacity-100" : "opacity-0")}
-          />
-        ))}
+        {sectors.map((s, i) =>
+          typeof s.image === "string" ? (
+            <Image
+              key={s.id}
+              src={s.image}
+              alt={i === active ? s.alt : ""}
+              fill
+              priority={i === 0}
+              sizes="100vw"
+              quality={70}
+              className={cn("object-cover transition-opacity duration-500 ease-out motion-reduce:transition-none", i === active ? "opacity-100" : "opacity-0")}
+            />
+          ) : (
+            <PhotoNeeded
+              key={s.id}
+              fill
+              subject={s.image.needed}
+              size={s.image.size}
+              className={cn("rounded-none transition-opacity duration-500 ease-out motion-reduce:transition-none", i === active ? "opacity-100" : "pointer-events-none opacity-0")}
+            />
+          )
+        )}
         <div aria-hidden="true" className="absolute inset-y-0 left-0 hidden w-2/5 bg-gradient-to-r from-canvas to-transparent lg:block" />
-        <span className="absolute right-4 bottom-4 rounded-full bg-black/55 px-2.5 py-1 text-[12px] text-white/90">
-          {current.illustrative ? "Illustrative scene" : "Installed system"}
-        </span>
+        {typeof current.image === "string" && (
+          <span className="absolute right-4 bottom-4 rounded-full bg-black/55 px-2.5 py-1 text-[12px] text-white/90">
+            {current.illustrative ? "Illustrative scene" : "Installed system"}
+          </span>
+        )}
       </div>
 
       {/* Copy and sector list */}

@@ -22,7 +22,7 @@ export function ProductJsonLd({ product }: Props) {
     },
     category: "Battery Energy Storage System",
     model: product.modelCode,
-    image: `https://www.lith-on.com${product.image}`,
+    ...(product.image ? { image: `https://www.lith-on.com${product.image}` } : {}),
     url: `https://www.lith-on.com/products/${product.slug}`,
     additionalProperty: [
       {

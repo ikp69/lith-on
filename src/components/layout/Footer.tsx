@@ -30,9 +30,9 @@ const COLUMNS = [
     links: [
       { label: "Solutions", href: "/solutions" },
       { label: "Industries", href: "/industries" },
+      { label: "Services and commissioning", href: "/services" },
       { label: "Grid services", href: "/grid-services" },
       { label: "Financing", href: "/financing" },
-      { label: "Case studies", href: "/case-studies" },
     ],
   },
   {
@@ -40,9 +40,9 @@ const COLUMNS = [
     links: [
       { label: "Technology", href: "/technology" },
       { label: "Datasheets and downloads", href: "/resources" },
+      { label: "Insights", href: "/blog" },
       { label: "FAQs", href: "/faqs" },
       { label: "Warranty and support", href: "/warranty-and-support" },
-      { label: "Sustainability", href: "/sustainability" },
     ],
   },
   {
@@ -50,7 +50,10 @@ const COLUMNS = [
     links: [
       { label: "About", href: "/about" },
       { label: "Manufacturing", href: "/capabilities" },
+      { label: "Case studies", href: "/case-studies" },
+      { label: "Why Lith-On", href: "/why-lith-on" },
       { label: "Certifications", href: "/certifications" },
+      { label: "Sustainability", href: "/sustainability" },
       { label: "Distributors", href: "/distributor" },
       { label: "Careers", href: "/careers" },
       { label: "Contact", href: "/contact" },

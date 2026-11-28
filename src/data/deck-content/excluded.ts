@@ -5,19 +5,14 @@ export const EXCLUDED: readonly ExcludedItem[] = [
   {
     id: "competitor-table",
     content: "Competitor table: Tata Power, Adani Energy, JSW Energy, Exide Energy vs Lith-On",
-    reason: "Unverified comparative claims (AGENTS.md). The Adani row also contradicts the vault ('<20%' vs '>20%').",
+    reason: "Unverified comparative claims (AGENTS.md). The Adani row also contradicts the vault ('<20%' vs '>20%'). Owner decision 26 Nov 2026: the slide (investor 14) is shown on /why-lith-on with the Adani figure corrected to '>20%' (R18); the comparison is not rebuilt as page copy.",
     sources: SHARED.moats,
   },
-  {
-    id: "ten-year-warranty",
-    content: "'Transparent 10-year warranty' and the '10-year warranty' moat",
-    reason: "The owner says the warranty depends on the product (20 Nov 2026); the site shows terms per quotation.",
-    sources: [...SHARED.best, ...SHARED.moats],
-  },
+  // ten-year-warranty: removed 26 Nov 2026; the owner approved a 10-year warranty site-wide (OWNER_REVIEW R17).
   {
     id: "seven-certifications",
     content: "'The 7 Certification Compliance Wall: hold seven international certifications'",
-    reason: "Only IEC 61508, IEC 61850 and BIS are named or verified. Owner decision C6.",
+    reason: "Only IEC 61508, IEC 61850 and BIS are named or verified. Owner decision C6. Owner decision 26 Nov 2026: three certifications confirmed (R6); investor slide 5 is shown as-is with its 'seven' wording.",
     sources: SHARED.best,
   },
   {
@@ -82,8 +77,8 @@ export const EXCLUDED: readonly ExcludedItem[] = [
   },
   {
     id: "renders-and-cartoons",
-    content: "Container cutaway render, solution renders (containers among wind turbines and mountains), cartoon campus and society scenes, catalogue cover art",
-    reason: "Not real Lith-On hardware (AGENTS.md: no fictional renderings presented as products).",
+    content: "Solution renders (containers among wind turbines and mountains), cartoon campus and society scenes, catalogue cover art",
+    reason: "Not real Lith-On hardware (AGENTS.md: no fictional renderings presented as products). Owner decision 26 Nov 2026: the container cutaway (investor slide 13) and the catalogue container field (p5) may be used, always with an 'Illustrative render' or 'Illustrative scene' label (design.md §12).",
     sources: [...SHARED.technology, ...SHARED.intro, src("corporate", 5), src("catalogue", 1, 2)],
   },
   {

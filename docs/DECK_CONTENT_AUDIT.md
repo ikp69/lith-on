@@ -210,16 +210,40 @@ The existing `TelemetryPanel` (warranty) and `ModeDiagram` (technology) already 
 
 ---
 
+## 6b. Slides now shown as images (26 Nov 2026, owner decision)
+
+The owner approved showing deck slides as-is, text included (visual audit §11.10). Each sits in a `SlideFigure` with caption, source slide and a full-size link; files in `public/images/deck/`.
+
+| Slide | File | Page |
+|---|---|---|
+| Investor 13, system architecture (annotated cutaway) | `system-architecture.webp` | `/technology#cutaway`, labelled "Illustrative render" |
+| Investor 13, cutaway only | `container-cutaway.webp` | Product catalogue card and product diagram images |
+| Catalogue p5, container field | `container-field.webp` | `/products` closing, labelled "Illustrative scene" |
+| Investor 5, "What makes Lith-On best" | `what-makes-lithon-best.webp` | `/why-lith-on#at-a-glance` |
+| Investor 14, competitive landscape and moats | `competitive-landscape.webp` | `/why-lith-on#competitors` |
+| Business 5, solar + storage energy cycle | `solar-energy-cycle.webp` | `/solutions#solar-cycle` |
+| Hyundai 4, hybrid solution for EV charging | `ev-hybrid-solution.webp` | `/industries#ev-infrastructure` (detail) |
+| Housing 10, cost and financial viability | `housing-cost-analysis.webp` | `/case-studies/residential-society-500` |
+| Hyundai 11, solar + storage cost analysis | `ev-solar-bess-cost-analysis.webp` | `/case-studies/ev-charging-hub` |
+
+Conflicts these slides raised, answered by the owner on 26 Nov 2026 (OWNER_REVIEW R6, R17, R18):
+- Warranty: 10 years site-wide (was "depends on the product"). All pages updated.
+- Certifications: three (IEC 61508, IEC 61850, BIS). Investor 5 stays as-is with its "seven" wording.
+- Adani row: the vault's ">20%" is right; the site's copy of Investor 14 was corrected from "<20%".
+- Business 5: "power classrooms" corrected to "power the business" in the site's copy (the deck text came from the school deck).
+
 ## 7. Needs a decision from the owner
 
 1. C1: are Gurugram and the EV hub built projects or modelled proposals?
 2. C2: export countries (the named list includes Europe; the site says North America).
 3. C3: does 500+ MWh mean installed, or a build-out in progress?
 4. C4/C5: founding year (2022 or 2023), 20+ or 40+ years, and which timeline.
-5. C6: the list of seven certifications, with certificates.
+5. C6: the list of seven certifications, with certificates. **Answered 26 Nov 2026: three (IEC 61508, IEC 61850, BIS).**
 6. C7: India financing partners, and whether a PPA / pay-per-unit model is offered in India.
 7. C8: which mission (and vision) line to publish.
 8. C10: the Invertis baseline (2,500 kVA and ₹4.14 Cr appear in no deck).
 9. Permission to show client names and logos (Army, NTPC, RVUNL, PwC, RSPL).
 10. Is the e-rickshaw battery still sold? Is "compatible with all inverters" accurate?
 11. Is "white label for reputed brands" OK to state on `/distributor`?
+12. Warranty (R17). **Answered 26 Nov 2026: 10 years site-wide.**
+13. Adani row (R18). **Answered 26 Nov 2026: >20%; slide corrected.**

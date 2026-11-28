@@ -10,6 +10,7 @@ import { CompareSection } from "@/components/system/CompareTable";
 import { PageHero } from "@/components/system/PageHero";
 import { ScrollStory, type StoryChapter } from "@/components/system/ScrollStory";
 import { SectionIntro } from "@/components/system/SectionIntro";
+import { SlideFigure } from "@/components/system/SlideFigure";
 import { Stat } from "@/components/system/Stat";
 import { DG_VS_BESS } from "@/data/comparisons";
 
@@ -172,6 +173,21 @@ export default function SolutionsPage() {
                 className="lg:mb-8"
               />
             }
+          />
+        </div>
+      </section>
+
+      {/* SOL-02b: the solar-plus-storage cycle, as the deck presents it */}
+      <section id="solar-cycle" aria-labelledby="solar-cycle-title" className="pb-20 scroll-mt-24 lg:pb-32">
+        <div className="container-site">
+          <SectionIntro title={<span id="solar-cycle-title">The solar-plus-storage cycle</span>} lead="How solar shifting runs through a day, in three steps." split className="mb-8 lg:mb-10" />
+          <SlideFigure
+            src="/images/deck/solar-energy-cycle.webp"
+            width={2400}
+            height={1350}
+            alt="Solar plus storage, the business energy cycle in three steps. Step 1, daytime solar generation: solar panels power the facility directly. Step 2, smart energy storage: excess solar generated during the day charges the battery system. Step 3, strategic battery discharge: the battery supplies stored power to the business during grid outages and peak-tariff hours."
+            caption="Daytime solar, storing the surplus, and discharging at peak tariff or in an outage"
+            source="Lith-On presentation for business applications, slide 5"
           />
         </div>
       </section>

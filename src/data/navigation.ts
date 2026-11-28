@@ -104,6 +104,10 @@ export const MAIN_NAVIGATION: NavItem[] = [
       { label: "Control stack", href: "/technology#stack", description: "In-house BMS, PCS, EMS and SCADA" },
       { label: "LFP cells", href: "/technology#lifepo4", description: "More than 6,000 cycles at 88–90% depth of discharge" },
     ],
+    more: [
+      { label: "Insights", href: "/blog" },
+      { label: "FAQs", href: "/faqs" },
+    ],
   },
   {
     label: "Company",
@@ -111,7 +115,6 @@ export const MAIN_NAVIGATION: NavItem[] = [
     overview: "About Lith-On",
     description: "Who we are and where we build",
     children: [
-      { label: "About", href: "/about", description: "Our story and leadership" },
       { label: "Manufacturing", href: "/capabilities", description: "Our 20,000 sq. ft. plant in Noida" },
       { label: "Case studies", href: "/case-studies", description: "Documented results from installed systems" },
       { label: "Certifications", href: "/certifications", description: "IEC 61508, IEC 61850 and BIS" },

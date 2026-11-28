@@ -165,7 +165,7 @@ Generated from `src/data/deck-content/` on 25 Nov 2026. **Edit the copy here.** 
 - **Long cycle life:** More than 6,000 charge and discharge cycles.
 - **One integrated stack:** BMS, PCS, EMS and SCADA developed in-house so every part works together.
 
-> **Editor note:** The slide's '7 certification compliance wall' and '10-year warranty' stay off until confirmed (C6; warranty depends on the product).
+> **Editor note:** The slide's '7 certification compliance wall' stays off as page copy: the owner confirmed three certifications (26 Nov 2026). The 10-year warranty is approved site-wide (26 Nov 2026).
 
 ---
 
@@ -899,7 +899,6 @@ Usually 10 to 30 seconds, long enough to stop lifts and restart computers. Lith-
 | Content | Why | Source |
 |---|---|---|
 | Competitor table: Tata Power, Adani Energy, JSW Energy, Exide Energy vs Lith-On | Unverified comparative claims (AGENTS.md). The Adani row also contradicts the vault ('<20%' vs '>20%'). | BESS presentation for universities p.12; BESS in Housing Society Presentation (500 Flats) p.11; Hyundai Lith-On presentation (EV charging) p.13; Lith-On presentation for business applications (Kenya) p.12; Lith-On presentation for school application in Kenya p.11; Lith-On BESS presentation for Investors (Kenya) p.14 |
-| 'Transparent 10-year warranty' and the '10-year warranty' moat | The owner says the warranty depends on the product (20 Nov 2026); the site shows terms per quotation. | BESS presentation for universities p.5; BESS in Housing Society Presentation (500 Flats) p.5; Hyundai Lith-On presentation (EV charging) p.5; Lith-On presentation for business applications (Kenya) p.8; Lith-On presentation for school application in Kenya p.6; Lith-On BESS presentation for Investors (Kenya) p.5; BESS presentation for universities p.12; BESS in Housing Society Presentation (500 Flats) p.11; Hyundai Lith-On presentation (EV charging) p.13; Lith-On presentation for business applications (Kenya) p.12; Lith-On presentation for school application in Kenya p.11; Lith-On BESS presentation for Investors (Kenya) p.14 |
 | 'The 7 Certification Compliance Wall: hold seven international certifications' | Only IEC 61508, IEC 61850 and BIS are named or verified. Owner decision C6. | BESS presentation for universities p.5; BESS in Housing Society Presentation (500 Flats) p.5; Hyundai Lith-On presentation (EV charging) p.5; Lith-On presentation for business applications (Kenya) p.8; Lith-On presentation for school application in Kenya p.6; Lith-On BESS presentation for Investors (Kenya) p.5 |
 | ISO (Corporate Deck pp.3, 7), 'IEC, ISO, ROHS, UN38.3' (e-rickshaw page), Make in India badge | Removed earlier as unsupported (CLAIMS_REVIEW §1–2). | Lith-On Corporate Deck p.3, 7; Lith-On BESS Products Catalogue p.1, 28 |
 | 'No thermal runaway, no fire or explosion risks' | Rejected wording in src/data/claims.ts; use 'high thermal stability'. | Lith-On BESS Products Catalogue p.28 |

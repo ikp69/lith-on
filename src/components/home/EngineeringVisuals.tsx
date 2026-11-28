@@ -107,9 +107,11 @@ const STACK = [
   { abbr: "PCS", name: "Power conversion", line: "Bi-directional, four-quadrant grid support" },
   { abbr: "EMS", name: "Energy management", line: "Six automatic modes, from peak shaving to backup" },
   { abbr: "SCADA", name: "Remote monitoring", line: "Cloud telemetry and automated alarms" },
+  // content/faqs.md: "Integrated aerosol or clean-agent fire extinguishing systems with multi-gas detection sensors."
+  { abbr: "Fire", name: "Fire suppression", line: "Aerosol or clean-agent, with multi-gas detection" },
 ];
 
-/** In-house control stack: four layers joined by one line that draws across. */
+/** Control and safety stack: four in-house control layers plus integrated fire suppression, joined by one line that draws across. */
 export function StackVisual() {
   return (
     <div className="relative">
@@ -117,7 +119,7 @@ export function StackVisual() {
         aria-hidden="true"
         className={`absolute top-[5px] right-0 left-0 hidden h-px origin-left scale-x-0 bg-line-strong group-data-[active=true]:scale-x-100 motion-safe:transition-transform motion-safe:duration-[1200ms] ${EASE} motion-reduce:scale-x-100 md:block`}
       />
-      <ol className="grid gap-6 sm:grid-cols-2 md:grid-cols-4 md:gap-8">
+      <ol className="grid gap-6 sm:grid-cols-2 md:grid-cols-5 md:gap-8">
         {STACK.map((s, i) => (
           <li key={s.abbr} className="relative border-l border-line pl-5 md:border-l-0 md:pl-0">
             <span

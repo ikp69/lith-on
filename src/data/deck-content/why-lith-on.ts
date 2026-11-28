@@ -43,6 +43,6 @@ export const WHY_BLOCKS: readonly DeckBlock[] = [
     sources: SHARED.best,
     status: "ready",
     onSite: true,
-    note: "The slide's '7 certification compliance wall' and '10-year warranty' stay off until confirmed (C6; warranty depends on the product).",
+    note: "The slide's '7 certification compliance wall' stays off: the owner confirmed three certifications (26 Nov 2026). The 10-year warranty is approved site-wide (26 Nov 2026).",
   },
 ];

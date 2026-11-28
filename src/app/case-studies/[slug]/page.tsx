@@ -7,7 +7,9 @@ import { DeckFigures } from "@/components/deck/DeckFigures";
 import { DeckTable } from "@/components/deck/DeckTable";
 import { ClosingCTA } from "@/components/system/ClosingCTA";
 import { PageHero } from "@/components/system/PageHero";
+import { PhotoNeeded } from "@/components/system/PhotoNeeded";
 import { SectionIntro } from "@/components/system/SectionIntro";
+import { SlideFigure } from "@/components/system/SlideFigure";
 import { type StatData, StatBand } from "@/components/system/Stat";
 import { getDeckBlock, SHOW_REVIEW_CONTENT } from "@/data/deck-content";
 
@@ -25,7 +27,9 @@ interface CaseDetail {
   short: string;
   place: string;
   lead: string;
-  hero: { kind: "image"; src: string; alt: string } | { kind: "none" };
+  hero: { kind: "image"; src: string; alt: string } | { kind: "needed"; subject: string; size: string } | { kind: "none" };
+  /** The proposal slide behind the figures, shown as-is with a full-size link. */
+  slide?: { src: string; width: number; height: number; alt: string; caption: string; source: string };
   stats: StatData[];
   economics: React.ComponentProps<typeof BeforeAfter>;
   facts: { label: string; value: string }[];
@@ -39,7 +43,7 @@ const CASES: CaseDetail[] = [
     short: "Invertis University",
     place: "Bareilly, Uttar Pradesh",
     lead: "1 MWh of Lith-On storage with 900 kWp of rooftop solar replaced a 2,500 kVA diesel generator setup.",
-    hero: { kind: "image", src: "/images/installations/invertis-bess-yard.jpg", alt: "Lith-On storage cabinets in the equipment yard at Invertis University" },
+    hero: { kind: "needed", subject: "Invertis University storage yard, on site", size: "1600 × 1200 px or larger" },
     stats: [
       { value: 2.26, decimals: 2, prefix: "₹", unit: "Cr a year", label: "Net annual cash savings" },
       { value: 4.14, decimals: 2, prefix: "₹", unit: "Cr", label: "Annual diesel cost before" },
@@ -68,6 +72,14 @@ const CASES: CaseDetail[] = [
     place: "Gurugram, Delhi-NCR",
     lead: "A 7 MWh Lith-On system replaced four 750 kVA diesel generators across 14 towers.",
     hero: { kind: "none" },
+    slide: {
+      src: "/images/deck/housing-cost-analysis.webp",
+      width: 2400,
+      height: 1350,
+      alt: "Proposal slide: a 7,000 kWh, 2,400 kW system at 90% depth of discharge and 95% efficiency. Diesel against storage: capital cost ₹1.8 Cr against ₹8.3 Cr, annual operating cost ₹6.5 Cr against ₹1.7 Cr. Incremental capital ₹7.84 Cr, annual savings ₹4.76 Cr, simple payback about 1.6 years, about 204% return over 5 years and 508% over 10.",
+      caption: "The cost and payback model from the society proposal",
+      source: "BESS in Housing Society Presentation, slide 10",
+    },
     stats: [
       { value: 4.76, decimals: 2, prefix: "₹", unit: "Cr a year", label: "Net annual savings" },
       { value: 73, unit: "%", label: "Lower annual energy cost" },
@@ -96,6 +108,14 @@ const CASES: CaseDetail[] = [
     place: "NH-48 corridor, Haryana",
     lead: "A 450 kWh / 150 kW Lith-On buffer absorbs 60–350 kW charging spikes, removing the hub's demand charges.",
     hero: { kind: "none" },
+    slide: {
+      src: "/images/deck/ev-solar-bess-cost-analysis.webp",
+      width: 2400,
+      height: 1350,
+      alt: "Proposal slide: 75 kWp of solar with 450 kWh of storage. Annual saving ₹20.26 lakh, payback 4 years with storage only and 3.9 years with solar, 10-year return 140% and 153%.",
+      caption: "The solar-plus-storage cost model from the EV charging proposal",
+      source: "Hyundai Lith-On presentation, slide 11",
+    },
     stats: [
       { value: 100, unit: "%", label: "Of demand charges removed", note: "Storage-only model" },
       { value: 12.91, decimals: 2, prefix: "₹", unit: "lakh a year", label: "Saved, storage only" },
@@ -162,14 +182,18 @@ export default async function CaseStudyPage({ params }: Props) {
         title={[c.title]}
         lead={c.lead}
         visual={
-          c.hero.kind === "image" ? (
+          c.hero.kind === "none" ? undefined : (
             <figure>
-              <div className="relative aspect-[4/3] overflow-hidden rounded-media bg-surface">
-                <Image src={c.hero.src} alt={c.hero.alt} fill priority sizes="(min-width: 1024px) 30vw, 100vw" quality={80} className="object-cover" />
-              </div>
+              {c.hero.kind === "image" ? (
+                <div className="relative aspect-[4/3] overflow-hidden rounded-media bg-surface">
+                  <Image src={c.hero.src} alt={c.hero.alt} fill priority sizes="(min-width: 1024px) 30vw, 100vw" quality={80} className="object-cover" />
+                </div>
+              ) : (
+                <PhotoNeeded subject={c.hero.subject} size={c.hero.size} ratio="4/3" />
+              )}
               <figcaption className="mt-2 text-small text-ink-3">On site at {c.short}</figcaption>
             </figure>
-          ) : undefined
+          )
         }
       />
       <section aria-label="Key figures" className="pb-14 lg:pb-24">
@@ -208,6 +232,18 @@ export default async function CaseStudyPage({ params }: Props) {
               {extra.table && <DeckTable table={extra.table} sources={extra.sources} totalRow={c.slug === "ev-charging-hub"} />}
               {extra.figures && <DeckFigures figures={extra.figures} className="mt-10 lg:grid-cols-2" />}
             </div>
+          </div>
+        </section>
+      )}
+
+      {/* CSD-02c: the source slide, as presented to the client */}
+      {c.slide && (
+        <section aria-labelledby="slide-title" className="section-tight">
+          <div className="container-site">
+            <h2 id="slide-title" className="mb-8 text-heading-2 text-ink">
+              The original model
+            </h2>
+            <SlideFigure {...c.slide} />
           </div>
         </section>
       )}

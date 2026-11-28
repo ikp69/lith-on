@@ -723,7 +723,7 @@ Status values: Not started · Exploring · Designed · Built · Reviewed · Done
 | FAQs | FAQ-01–04 | 4 sections | Improve | Basic | P2 | Not started |
 | Careers | CAR-01–04 | 4 sections | Improve | Basic | P2 | Not started |
 | Distributor | DIS-01–03 | 3 sections | Improve / Merge | Basic | P2 | Not started |
-| Blog | BLG | Whole page | Remove for now | — | P1 | Done (307 → /resources, §11.6) |
+| Blog | BLG | Whole page | Remove for now; restored 26 Nov 2026 as Insights | — | P1 | Done (307 → /resources, §11.6); superseded by §11.11 |
 | Legal | LEG | 2 pages | Retain | — | P3 | Not started |
 
 ### 9.2a Phase 1 tracker (foundation)
@@ -742,7 +742,7 @@ Status values: Not started · Exploring · Designed · Built · Reviewed · Done
 | 10 | ClosingCTA, 3 variants | Done | `components/system/ClosingCTA.tsx` |
 | 11 | Motion integration (GSAP, Motion, Lenis, ViewTransition) | Done (M7 diagrams built per section) | `components/motion/*`, `app/template.tsx`, `docs/MOTION_SYSTEM.md` |
 | 12 | Component showcase | Done | `/design-system`; screenshots in [`screens/phase1/`](screens/phase1/) |
-| — | Blog unpublish strategy | Done | §11.6 |
+| — | Blog unpublish strategy | Superseded (blog restored) | §11.6, §11.11 |
 | — | Asset brief | Done | `docs/ASSET_BRIEF.md` |
 
 **Next:** Phase 2 begins with HOME-01 after Phase 1 review.
@@ -796,6 +796,7 @@ Status values: Not started · Exploring · Designed · Built · Reviewed · Done
 - **Motion:** M7. Each tile's diagram draws once on entering view via `ActiveOnView`. That component server-renders the final state, resets it only if the tile starts below the fold, and shows the final state without JavaScript or with reduced motion. M8: hovering a tile grows its link underline.
 - **Phones:** one column, IceBattery first. The thermal diagram's labels move to a key below it.
 - **Tests:** all four tiles draw at 1440, 1024, 768, 375 and 320. Also checked: reduced motion and no JS (final state), no overflow, no console errors. `npx eslint src`, `tsc` and `npm run build` pass.
+- **Update (27 November 2026, owner request):** the control-stack strip gains a fifth item, "Fire suppression: aerosol or clean-agent, with multi-gas detection". This partly reverses the deviation above. The source is `content/faqs.md` (Safety, item 4), not the vault. The 270 °C runaway onset, UL 9540A and NFPA 855 stay out. The strip heading changes from "Control electronics built in-house" to "Control and safety, built in". The "in-house" claim now covers only the four control layers, because no source says Lith-On makes the suppression system itself. The grid goes from four to five columns at md and up.
 
 ### 9.2g HOME-06 build record (18 November 2026)
 
@@ -910,7 +911,7 @@ Status values: Not started · Exploring · Designed · Built · Reviewed · Done
 
 - **Built:** `src/app/technology/page.tsx`, with new `ThermalStep.tsx`, `CutoverCompare.tsx` and `ModeDiagram.tsx` in `src/components/technology/`. All anchors kept (`#cutaway`, `#icebattery`, `#waveform`, `#stack`, `#flow`, `#lifepo4`).
 - **TEC-01:** `PageHero` editorial with "How a Lith-On / system works", one sentence, and a four-item numbered index to the chapters.
-- **TEC-02 (interim):** "Inside the system": the cutaway render cropped to the interior (`products/cutaway-interior.webp`, labelled "Illustrative render"; two faint baked leader lines remain), with six subsystem rows from the vault (LFP racks, BMS, PCS, EMS, SCADA, IceBattery). It replaces the hotspot explorer, whose specs were unsourced (">270 °C onset", "±1 mV", "±0.2%", "98.8% conversion efficiency", "Kalman filtering"). The spec's scroll-driven exploded view waits for a real layout drawing.
+- **TEC-02 (interim):** "Inside the system": the cutaway render cropped to the interior (`products/cutaway-interior.webp`, labelled "Illustrative render"; two faint baked leader lines remain), with seven subsystem rows (LFP racks, BMS, fire suppression, PCS, EMS, SCADA, IceBattery). The fire suppression row (added 27 Nov 2026) uses the wording in `content/faqs.md` (aerosol or clean-agent extinguishing with multi-gas detection). It replaces the hotspot explorer, whose specs were unsourced (">270 °C onset", "±1 mV", "±0.2%", "98.8% conversion efficiency", "Kalman filtering"). The spec's scroll-driven exploded view waits for a real layout drawing.
 - **TEC-03:** IceBattery as a four-chapter `ScrollStory` (the page's only scroll experience), driven by one SVG in four states: bare steel heats up; the 300–400 µm coating reflects NIR; heat radiates at 8–13 µm (emissivity > 0.92); result 15–30 °C cooler, full power to 60 °C, > 20% less cooling energy. This retires the interactive toggle with unsourced "68 °C / 38 °C", the baked-text infographic and the four cards.
 - **TEC-04:** two full-width waveforms drawn on view (`ActiveOnView`, M7). Lith-On continues through the cutover, with a band showing under 10 ms against a 20 ms cycle. The diesel generator drops to zero for "10–30 s (not to scale)". Vault line beneath: lifts, routers and servers keep running. This retires the oscilloscope panel's unsourced "8.2 ms" and "42 lifts halted".
 - **TEC-05:** "One control stack, six modes". The six vault EMS modes (peak shaving, time-of-day tariffs, diesel minimisation, solar self-consumption, critical backup, zero feed-in) are a segmented control. It reconfigures a flow diagram (Solar, Grid, Diesel, Load around a Lith-On hub; animated flows, off under reduced motion), with a live description. It is a schematic with no kW values; the old visualiser's invented power figures and six mode cards are gone.
@@ -1038,18 +1039,22 @@ Rules for the redesign:
 ---
 
 <a id="11-decisions-needed"></a>
-## 11. Decisions (all approved 17 November 2026)
+## 11. Decisions (11.1–11.8 approved 17 November 2026; 11.9–11.12 added 26 November 2026)
 
 | # | Decision | Status and implementation |
 |---|---|---|
 | 11.1 | Design system: 17px body, less monospace, two-tone headline once per page, larger headings, Manrope only | **Approved, done.** design.md v3.0 §5, §6, §16, §17; tokens in `globals.css`. |
 | 11.2 | One dark photographic band per page | **Approved, done.** `stage-dark` token; design.md §11: storytelling only, never a CTA background. Closing CTAs are light (`ClosingCTA`). |
-| 11.3 | Rendered environments as interim imagery | **Approved, done.** `illustrative` prop on `MediaFrame`, `PageHero` and `ScrollStory` renders a visible "Illustrative scene" label. |
+| 11.3 | Rendered environments as interim imagery | **Approved, done.** `illustrative` prop on `MediaFrame`, `PageHero` and `ScrollStory` renders a visible "Illustrative scene" label. **Extended 26 Nov 2026:** the deck's container cutaway and the catalogue container field may be shown, labelled "Illustrative render" or "Illustrative scene" (`SlideFigure` has the same prop). |
 | 11.4 | Lenis | **Approved, done.** `lenis@1.3.27`; synced with ScrollTrigger; off for reduced motion and touch devices (`docs/MOTION_SYSTEM.md` §6). |
 | 11.5 | Page transitions | **Approved, done.** Next 16 docs reviewed; React `<ViewTransition>` in `src/app/template.tsx`, subtle fade + 12px rise, header anchored, instant for reduced motion. |
-| 11.6 | Unpublish `/blog` | **Approved, done.** Temporary 307 redirect `/blog` and `/blog/*` → `/resources` in `next.config.ts` (keeps inbound links working, signals a temporary move, no redirect chain later). Removed from footer and sitemap. Page source kept in `src/app/blog/` for when real articles exist; restoring = delete the two redirect entries and re-add the sitemap/footer links. |
+| 11.6 | Unpublish `/blog` | **Superseded 26 Nov 2026 by 11.11.** Was: **Approved, done.** Temporary 307 redirect `/blog` and `/blog/*` → `/resources` in `next.config.ts` (keeps inbound links working, signals a temporary move, no redirect chain later). Removed from footer and sitemap. Page source kept in `src/app/blog/` for when real articles exist; restoring = delete the two redirect entries and re-add the sitemap/footer links. |
 | 11.7 | Photography and CAD | **Approved in principle.** Brief and shot list: [`docs/ASSET_BRIEF.md`](../ASSET_BRIEF.md). Not blocking. |
 | 11.8 | Five-item header | **Approved, done.** Products · Solutions · Industries · Technology · Company in `src/data/navigation.ts`; supporting pages regrouped; phone number moved into the menus. Full mega-menu redesign remains G2 (Phase 4). |
+| 11.9 | Visible photo placeholders (owner, 26 Nov 2026) | **Approved, done.** Images too small for their frame, cropped from slides or not genuine are replaced by `PhotoNeeded` (dashed frame, what to shoot, minimum size). Open slots listed in `docs/ASSET_BRIEF.md` §5; design.md §12. |
+| 11.10 | Deck slides shown as images (owner, 26 Nov 2026) | **Approved, done.** Overrides the Hallmark "no text baked into pictures" rule. `SlideFigure` shows a slide with caption, source and full-size link; crops in `public/images/deck/`. Placed: /technology (architecture), /why-lith-on ("What makes Lith-On best", competitor landscape), /solutions (solar cycle), /industries EV (hybrid solution), housing and EV case studies (cost models). Owner answers the same day: 10-year warranty site-wide (R17); three certifications on the site, Investor 5 shown as-is (R6); competitor slide shown, Adani figure corrected to ">20%" (R18); Business 5 text corrected from "classrooms" to "the business". |
+| 11.11 | Restore `/blog` as Insights (26 Nov 2026) | **Done.** Three articles from vault figures (`src/data/blog.ts`), `/blog/[slug]` pages, redirect removed from `next.config.ts`, back in footer and sitemap. |
+| 11.12 | Navigation regroup (26 Nov 2026) | **Done.** Technology menu holds Insights and FAQs; duplicate "About" removed from Company; footer mirrors the menus. design.md §9. |
 
 ### Guardrails added with the approval
 - **A. Intentional motion, not maximal motion:** design.md §13 budget (≤ 2 scroll experiences per page, some sections static).

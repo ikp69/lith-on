@@ -1,6 +1,7 @@
 import { ArrowRight, ChevronDown } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
+import { PhotoNeeded } from "@/components/system/PhotoNeeded";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getDeckBlock } from "@/data/deck-content";
@@ -182,15 +183,19 @@ export default async function ProductDetailPage({ params }: Props) {
             <div className="order-first lg:order-none lg:col-span-6">
               <Reveal distance={32}>
                 <div className="relative isolate flex aspect-[4/3] items-center justify-center overflow-hidden rounded-media bg-surface">
-                  <Image
-                    src={product.image}
-                    alt={`${product.name}`}
-                    width={900}
-                    height={900}
-                    priority
-                    sizes="(min-width: 1024px) 55vw, 100vw"
-                    className="h-[78%] w-auto max-w-[86%] object-contain mix-blend-multiply"
-                  />
+                  {product.image ? (
+                    <Image
+                      src={product.image}
+                      alt={`${product.name}`}
+                      width={900}
+                      height={900}
+                      priority
+                      sizes="(min-width: 1024px) 55vw, 100vw"
+                      className="h-[78%] w-auto max-w-[86%] object-contain mix-blend-multiply"
+                    />
+                  ) : (
+                    <PhotoNeeded fill subject={`${product.name} product cut-out`} size="1600 × 1600 px, white or transparent background" />
+                  )}
                 </div>
               </Reveal>
             </div>
@@ -308,7 +313,7 @@ export default async function ProductDetailPage({ params }: Props) {
             className="group grid items-center gap-6 border-y border-line py-6 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lithon-blue sm:grid-cols-[200px_1fr_auto]"
           >
             <span className="relative block aspect-[16/9] overflow-hidden rounded-control bg-stage-dark">
-              <Image src="/images/products/bess-3d-cutaway.jpg" alt="" fill sizes="200px" className="object-cover" />
+              <Image src="/images/deck/container-cutaway.webp" alt="" fill sizes="200px" className="object-cover" />
             </span>
             <span>
               <span className="block text-body font-[500] text-ink group-hover:text-lithon-blue">See inside a Lith-On system</span>

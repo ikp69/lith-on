@@ -10,6 +10,7 @@ const twMerge = extendTailwindMerge({
   extend: {
     theme: {
       text: ["display-xl", "display-l", "heading-1", "heading-2", "heading-3", "lead", "body", "small", "label", "stat-xl", "stat-l"],
+      radius: ["media", "control"],
     },
   },
 });

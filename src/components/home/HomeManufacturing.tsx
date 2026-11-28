@@ -1,14 +1,15 @@
-import Image from "next/image";
 import { Reveal } from "@/components/motion/Reveal";
 import { Button } from "@/components/system/Button";
+import { PhotoNeeded } from "@/components/system/PhotoNeeded";
 import { SectionIntro } from "@/components/system/SectionIntro";
 import { cn } from "@/lib/utils";
 
 /**
  * HOME-06 Made in Noida (audit §5). Interim layout while plant photography is
  * outstanding (ASSET_BRIEF priority 1): the documented six-step process beside
- * an overlapping collage of the three genuine factory photographs, each shown
- * near its native size. No scroll-driven motion: the homepage's two scroll
+ * an overlapping collage of three photo slots. The deck crops that filled them
+ * (200–444 px wide) were too small; each slot now shows PhotoNeeded until new
+ * plant photography arrives. No scroll-driven motion: the homepage's two scroll
  * experiences are HOME-03 and HOME-04. Steps from content/capabilities.md.
  */
 
@@ -23,24 +24,24 @@ const STEPS = [
 
 const PHOTOS = [
   {
-    src: "/images/factory/battery-pack-assembly-photo.jpg",
-    width: 444,
-    height: 230,
-    alt: "A technician in gloves wiring cell connections inside an open battery pack on the Noida assembly line",
+    id: "pack-assembly",
+    subject: "Battery pack assembly: a technician wiring cell connections on the Noida line",
+    size: "2400 × 1250 px, landscape",
+    ratio: "444 / 230",
     frame: "col-span-2 lg:absolute lg:top-0 lg:left-0 lg:w-[72%]",
   },
   {
-    src: "/images/factory/integrated-bess-assembly-photo.jpg",
-    width: 322,
-    height: 230,
-    alt: "Cabinet enclosure being assembled at a workbench with tools and parts bins",
+    id: "cabinet-integration",
+    subject: "Cabinet integration at the workbench",
+    size: "1600 × 1150 px",
+    ratio: "322 / 230",
     frame: "lg:absolute lg:top-[40%] lg:right-0 lg:w-[46%]",
   },
   {
-    src: "/images/factory/testing-quality-assurance-photo.jpg",
-    width: 200,
-    height: 230,
-    alt: "An engineer reviewing a system model on a workstation in the testing area",
+    id: "testing",
+    subject: "End-of-line testing on the cyclers",
+    size: "1200 × 1400 px, portrait",
+    ratio: "200 / 230",
     frame: "lg:absolute lg:bottom-0 lg:left-[8%] lg:w-[29%]",
   },
 ];
@@ -56,18 +57,12 @@ export function HomeManufacturing() {
         />
 
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-6">
-          {/* Collage: real photographs, never enlarged far beyond native size */}
+          {/* Collage: three photo slots awaiting plant photography */}
           <figure className="max-w-[560px] lg:col-span-7 lg:col-start-6 lg:row-start-1 lg:max-w-none">
             <div className="grid grid-cols-2 items-start gap-3 sm:gap-4 lg:relative lg:block lg:aspect-[760/600] lg:max-w-[760px]">
               {PHOTOS.map((p, i) => (
-                <Reveal key={p.src} delay={i * 0.12} className={cn("min-w-0", p.frame)}>
-                  <div
-                    className="relative overflow-hidden rounded-media bg-surface outline outline-1 -outline-offset-1 outline-black/5 lg:shadow-[0_0_0_6px_#fff]"
-                    style={{ aspectRatio: `${p.width} / ${p.height}` }}
-                  >
-                    {/* Served unoptimised: the originals are already small (200–444 px). */}
-                    <Image src={p.src} alt={p.alt} fill unoptimized className="object-cover" />
-                  </div>
+                <Reveal key={p.id} delay={i * 0.12} className={cn("min-w-0", p.frame)}>
+                  <PhotoNeeded subject={p.subject} size={p.size} ratio={p.ratio} className="lg:shadow-[0_0_0_6px_#fff]" />
                 </Reveal>
               ))}
             </div>

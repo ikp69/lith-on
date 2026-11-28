@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { ClosingCTA } from "@/components/system/ClosingCTA";
 import { CompareSection } from "@/components/system/CompareTable";
 import { PageHero } from "@/components/system/PageHero";
 import { ScrollStory, type StoryChapter } from "@/components/system/ScrollStory";
 import { SectionIntro } from "@/components/system/SectionIntro";
+import { SlideFigure } from "@/components/system/SlideFigure";
 import { StatBand } from "@/components/system/Stat";
 import { CutoverCompare } from "@/components/technology/CutoverCompare";
 import { ModeDiagram } from "@/components/technology/ModeDiagram";
@@ -69,6 +69,7 @@ const MORE_MODES = [
 const SUBSYSTEMS = [
   { name: "LFP battery racks", fact: "Lithium iron phosphate cells rated for more than 6,000 cycles at 88–90% depth of discharge." },
   { name: "Battery management (BMS)", fact: "Monitors every cell's voltage, temperature, current, state of charge and state of health, with three-tier active balancing and isolation on over-temperature, over-voltage or over-current." },
+  { name: "Fire suppression", fact: "An integrated aerosol or clean-agent fire extinguishing system, with multi-gas detection sensors inside the enclosure." },
   { name: "Power conversion (PCS)", fact: "Bi-directional inverters with four-quadrant grid support and synthetic inertia." },
   { name: "Energy management (EMS)", fact: "An edge controller running six automatic operating modes, plus renewable firming, off-grid operation and forecast-based charging." },
   { name: "Cloud SCADA", fact: "Real-time monitoring at cell, module, rack and system level, with remote diagnostics, predictive anomaly detection, alarm handling and performance analytics." },
@@ -96,12 +97,15 @@ export default function TechnologyPage() {
       <section id="cutaway" aria-labelledby="cutaway-title" className="section-tight scroll-mt-24">
         <div className="container-site">
           <SectionIntro title={<span id="cutaway-title">Inside the system</span>} lead="What sits inside a Lith-On cabinet or container, and what each part does." split className="mb-8 lg:mb-10" />
-          <figure>
-            <div className="relative aspect-[1522/560] overflow-hidden rounded-media bg-stage-dark">
-              <Image src="/images/products/cutaway-interior.webp" alt="Cutaway render of a containerised system showing battery racks, control and power conversion cabinets" fill sizes="(min-width: 1360px) 1360px, 100vw" quality={75} className="object-cover" />
-              <span className="absolute bottom-3 left-3 rounded-full bg-white/90 px-2.5 py-1 text-[12px] text-ink-2">Illustrative render</span>
-            </div>
-          </figure>
+          <SlideFigure
+            src="/images/deck/system-architecture.webp"
+            width={2800}
+            height={1271}
+            alt="Annotated cutaway of a Lith-On container. Thermal management: IceBattery coating on the exterior plus liquid or HVAC cooling inside, holding cells near 20 °C. Battery chemistry: LFP cells, 90% depth of discharge, more than 6,000 cycles at 88% depth of discharge. Battery management system: in-house, cell-level monitoring of voltage, temperature, current, state of charge and state of health, with protection against over-temperature, over-voltage and over-current. Energy management system: peak shaving, load shifting, backup, renewable firming, off-grid and hybrid operation, zero feed-in. SCADA: real-time monitoring at cell, module, rack and system level."
+            caption="Thermal management, LFP cells, BMS, EMS and SCADA in one container"
+            source="Lith-On BESS presentation for Investors, slide 13"
+            illustrative
+          />
           <dl className="mt-10 grid gap-x-6 sm:grid-cols-2 lg:grid-cols-3">
             {SUBSYSTEMS.map((s) => (
               <div key={s.name} className="border-t border-line py-5">

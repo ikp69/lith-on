@@ -85,3 +85,20 @@ Client permission is required for every customer site; record it with the files.
 2. Contact sheet review → selects → retouched finals.
 3. Files delivered to `data-sources/photography/<area>/`; web derivatives are generated into `public/images/` during implementation.
 4. Each placement in the site is logged in `ASSET_MANIFEST.md` with source, consent and date.
+
+## 5. Open photo slots on the site (26 Nov 2026)
+
+Each slot shows a dashed "Photo needed" frame (`PhotoNeeded`). `grep -rn "PhotoNeeded" src` lists them in code. Replace the component with the photograph once it arrives, then tick it here.
+
+| Done | Page | Slot | What to shoot | Minimum size |
+| :-: | --- | --- | --- | --- |
+| [ ] | Home | Made in Noida collage (3) | Pack assembly; cabinet integration; end-of-line testing | 2400 × 1250; 1600 × 1150; 1200 × 1400 portrait |
+| [ ] | Home, /case-studies, Invertis case study | Invertis feature and case-study header | Invertis storage yard and solar array, wide landscape | 2400 × 1250 |
+| [ ] | /capabilities | Hero | Cabinet assembly on the plant floor | 2400 × 1600 |
+| [ ] | /capabilities | Six process steps | One photo per stage: cell grading, module assembly, laser welding, BMS harness, IceBattery coating, end-of-line test | 1600 × 1200 each |
+| [ ] | /capabilities | Closing | Plant exterior or assembly floor | 2000 × 1500 |
+| [ ] | /careers | Hero | Team at work on the plant floor | 2400 × 1600 |
+| [ ] | /case-studies | Closing | Engineer on site with a client at a running system | 2000 × 1500 |
+| [ ] | /industries | EV charging sector (hero and section) | Cabinet at a fuel station or EV hub, landscape | 2400 × 1500 |
+| [ ] | /industries | Data centres and telecom (hero and section) | Indoor installation in a server or telecom room, landscape | 2400 × 1500 |
+| [ ] | Products | Tele-Rack 100, Resi-Shield 120, Solar-Hybrid 500, Mega-40HC | Product cut-out on white or transparent background | 1600 × 1600 |

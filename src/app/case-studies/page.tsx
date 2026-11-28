@@ -9,6 +9,7 @@ import { Button } from "@/components/system/Button";
 import { ClosingCTA } from "@/components/system/ClosingCTA";
 import { HorizontalRail, RailItem } from "@/components/system/HorizontalRail";
 import { PageHero } from "@/components/system/PageHero";
+import { PhotoNeeded } from "@/components/system/PhotoNeeded";
 import { SectionIntro } from "@/components/system/SectionIntro";
 import { Stat } from "@/components/system/Stat";
 import { cn } from "@/lib/utils";
@@ -45,9 +46,7 @@ const FEATURES: Feature[] = [
     href: "/case-studies/invertis-university",
     media: (
       <figure>
-        <div className="relative aspect-[1070/560] overflow-hidden rounded-media bg-surface">
-          <Image src="/images/installations/invertis-bess-yard.jpg" alt="Lith-On storage cabinets in the equipment yard at Invertis University" fill sizes="(min-width: 1024px) 58vw, 100vw" quality={75} className="object-cover" />
-        </div>
+        <PhotoNeeded subject="Invertis University storage yard and solar array, wide landscape" size="2400 × 1250 px or larger" ratio="1070/560" />
         <figcaption className="mt-2 text-small text-ink-3">The storage yard at Invertis University</figcaption>
       </figure>
     ),
@@ -225,7 +224,7 @@ export default function CaseStudiesPage() {
         lead="Share your diesel run hours, demand charges or solar output. We will model savings and payback for your site."
         primary={{ label: "Request a model", href: "/contact?type=assessment" }}
         secondary={{ label: "Use the calculator", href: "/calculator" }}
-        image={{ src: "/images/installations/catalogue/ntpc-cabinet.webp", alt: "A large Lith-On storage cabinet installed indoors at an NTPC site" }}
+        image={{ needed: "A Lith-On engineer on site with a client, reviewing a running system", size: "2000 × 1500 px" }}
       />
     </div>
   );

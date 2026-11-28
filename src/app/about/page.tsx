@@ -42,7 +42,7 @@ const VISION = missionBlock.points?.[2]?.text ?? "";
 const VALUES = [
   { title: "Engineered for Indian conditions", text: "Systems designed for summer heat up to 60 °C ambient, unstable grids and diesel restrictions." },
   { title: "Safety at every level", text: "LFP chemistry, multi-stage electrical isolation, cell-level telemetry and the IceBattery® thermal shield." },
-  { title: "Built to last", text: "More than 6,000 cycles at 88–90% depth of discharge, a 15–20 year design life and a warranty set for each product." },
+  { title: "Built to last", text: "More than 6,000 cycles at 88–90% depth of discharge, a 15–20 year design life and a 10-year manufacturer warranty." },
   { title: "With you after commissioning", text: "Cloud SCADA monitoring with predictive anomaly detection, cell-level health tracking and alarms." },
 ];
 

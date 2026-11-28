@@ -14,19 +14,8 @@ const nextConfig: NextConfig = {
         destination: "/industries",
         permanent: true,
       },
-      // /blog is unpublished until real articles exist (audit decision 11.6).
-      // Temporary (307) so search engines keep the URL and it can return
-      // without a redirect chain. Source kept in src/app/blog for restoring.
-      {
-        source: "/blog",
-        destination: "/resources",
-        permanent: false,
-      },
-      {
-        source: "/blog/:path*",
-        destination: "/resources",
-        permanent: false,
-      },
+      // /blog was redirected to /resources until real articles existed (audit
+      // decision 11.6). Restored on 26 Nov 2026 with three articles (src/data/blog.ts).
       // The /hero-2 prototype became the homepage hero (20 Nov 2026).
       {
         source: "/hero-2",

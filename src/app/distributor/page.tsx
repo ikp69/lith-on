@@ -15,7 +15,7 @@ export const metadata: Metadata = {
  * above the fold (DIS-01, with DIS-03 "who can apply" merged into the left
  * column) → four-item editorial list of benefits (DIS-02).
  *
- * Sources: 250 MWh plant capacity, 24/7 SCADA (vault §1–2); warranty "depends on the product" (owner, 20 Nov 2026);
+ * Sources: 250 MWh plant capacity, 24/7 SCADA (vault §1–2); 10-year warranty (owner, 26 Nov 2026);
  * sizing and financial modelling (content/capabilities.md); product range
  * (src/data/products.ts). Removed as unsourced: protected or exclusive
  * territories, "zero broker markups", "guaranteed cell availability",
@@ -29,7 +29,7 @@ const BENEFITS = [
   { title: "Supply from the Noida plant", text: "Systems come straight from our 20,000 sq. ft. plant in Noida, with 250 MWh of annual production capacity." },
   { title: "One range, every customer", text: "Home and small-business batteries, commercial cabinets and 5 MWh utility containers, so you can serve each site you win." },
   { title: "Engineering behind every bid", text: "Our team sizes the system and models the payback for your customer's load profile before you quote." },
-  { title: "Backed after handover", text: "Each system carries a manufacturer warranty set for its product and is monitored 24/7 from Noida over cloud SCADA." },
+  { title: "Backed after handover", text: "Each system carries a 10-year manufacturer warranty and is monitored 24/7 from Noida over cloud SCADA." },
   /* Six-deck timeline, 2023 (src/data/deck-content: dist-white-label); under owner review R10. */
   { title: "OEM and white-label supply", text: "Lith-On has supplied white-label battery storage to established brands since 2023." },
 ];

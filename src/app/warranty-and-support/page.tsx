@@ -11,15 +11,15 @@ import { TelemetryPanel } from "@/components/warranty/TelemetryPanel";
 export const metadata: Metadata = {
   title: "Warranty and Support | Product Warranty and 24/7 Monitoring | Lith-On",
   description:
-    "Lith-On warranty terms by product, cells rated for 6,000+ cycles, 24/7 cloud monitoring from Noida and 4–8 hour on-site response in Delhi-NCR.",
+    "Lith-On's 10-year manufacturer warranty, cells rated for 6,000+ cycles, 24/7 cloud monitoring from Noida and 4–8 hour on-site response in Delhi-NCR.",
 };
 
 /**
  * /warranty-and-support (audit §6.17). Editorial hero with the cycle rating as
  * the visual (WAR-01) → how the warranty works: what sets the terms, coverage,
- * conditions (WAR-02). Owner decision 20 Nov 2026: warranty "depends on the
- * product" (data-sources/FAQs.docx), so no single term or capacity floor is
- * stated (CLAIMS_REVIEW §5 item 20) → telemetry illustration and 99.9% (WAR-03) → response-time scale
+ * conditions (WAR-02). Owner decision 26 Nov 2026: a 10-year manufacturer
+ * warranty site-wide (vault §2; replaces the 20 Nov "depends on the product"
+ * decision, CLAIMS_REVIEW item 20). No capacity floor is stated → telemetry illustration and 99.9% (WAR-03) → response-time scale
  * (WAR-04) → one support panel (WAR-05/06 merged). Sources:
  * content/warranty-and-support.md; 99.9% availability from
  * content/why-lith-on.md (kept per CLAIMS_REVIEW §3).
@@ -31,8 +31,8 @@ const COVERAGE = [
 ];
 
 const TERMS = [
-  { title: "The product", text: "Each system, from a home battery to a 5 MWh container, has its own warranty term." },
-  { title: "How it is used", text: "The cycling pattern and depth of discharge the system is sized for." },
+  { title: "Ten years", text: "Every Lith-On storage system carries a 10-year manufacturer warranty from commissioning." },
+  { title: "Backed by cycle life", text: "Cells are rated for more than 6,000 cycles at 88–90% depth of discharge, with a 15–20 year design life." },
   { title: "Operating conditions", text: "Operation within the recommended temperature and C-rate limits." },
 ];
 
@@ -47,7 +47,7 @@ export default function WarrantyAndSupportPage() {
         breadcrumb={[{ label: "Home", href: "/" }, { label: "Warranty and support" }]}
         title={["Warranty", "and support"]}
         emphasisLine={1}
-        lead="Every Lith-On system carries a manufacturer warranty set for its product, backed by documented cycle-life testing, and is monitored around the clock from Noida."
+        lead="Every Lith-On system carries a 10-year manufacturer warranty, backed by documented cycle-life testing, and is monitored around the clock from Noida."
         visual={
           <div className="border-t border-ink pt-4">
             <p className="tabular text-[clamp(140px,18vw,240px)] leading-[0.85] font-[300] tracking-[-0.05em] text-lithon-blue">
@@ -62,10 +62,10 @@ export default function WarrantyAndSupportPage() {
       {/* WAR-02 */}
       <section id="warranty" aria-labelledby="warranty-title" className="section scroll-mt-24 bg-canvas-warm">
         <div className="container-site">
-          <SectionIntro title={<span id="warranty-title">How the warranty works</span>} lead="Warranty terms depend on the product. Your quotation sets out the term and coverage for the system you buy." split className="mb-10 lg:mb-14" />
+          <SectionIntro title={<span id="warranty-title">How the warranty works</span>} lead="A 10-year manufacturer warranty on every system, backed by more than 6,000 rated cycles." split className="mb-10 lg:mb-14" />
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-6">
             <div className="lg:col-span-7">
-              <h3 className="text-heading-3 text-ink">What sets your terms</h3>
+              <h3 className="text-heading-3 text-ink">The terms</h3>
               <ol className="mt-4 border-t border-ink">
                 {TERMS.map((t, i) => (
                   <li key={t.title} className="flex gap-5 border-b border-line py-6">
@@ -94,7 +94,7 @@ export default function WarrantyAndSupportPage() {
                   <ChevronDown className="h-4 w-4 transition-transform group-open:rotate-180 motion-reduce:transition-none" aria-hidden="true" />
                 </summary>
                 <ul className="mt-3 space-y-2 border-l-2 border-line pl-4 text-small text-ink-2">
-                  <li>The term and coverage depend on the product and are stated in your quotation.</li>
+                  <li>The warranty runs for 10 years from commissioning.</li>
                   <li>It applies when the system is operated within its recommended temperature and C-rate limits.</li>
                   <li>Cells are rated for more than 6,000 cycles at 88–90% depth of discharge.</li>
                   <li>

@@ -6,6 +6,7 @@ import { ClosingCTA } from "@/components/system/ClosingCTA";
 import { PageHero } from "@/components/system/PageHero";
 import { ScrollStory, type StoryChapter } from "@/components/system/ScrollStory";
 import { SectionIntro } from "@/components/system/SectionIntro";
+import { SlideFigure } from "@/components/system/SlideFigure";
 import { MOAT_LAYERS, MoatStack } from "@/components/why/MoatStack";
 import { ReplicateChart } from "@/components/why/ReplicateChart";
 
@@ -86,13 +87,13 @@ const MOATS: (Omit<StoryChapter, "title" | "visual"> & { body: string })[] = [
   },
   {
     id: "warranty",
-    body: "Every system carries a manufacturer warranty set for its product and backed by documented cycle-life testing, the security long-term project finance needs.",
+    body: "Every system carries a 10-year manufacturer warranty backed by documented cycle-life testing, the security long-term project finance needs.",
     aside: (
       <Evidence
         value="6,000+"
         label="Cycles at 88–90% depth of discharge"
         points={[
-          "Warranty terms depend on the product and are set out in each quotation.",
+          "A 10-year manufacturer warranty on every system.",
           "Cells are rated for more than 6,000 cycles at 88–90% depth of discharge, with a 15–20 year design life.",
         ]}
       />
@@ -199,8 +200,23 @@ export default function WhyLithOnPage() {
         </div>
       </section>
 
+      {/* WHY-03b: the deck's summary slide, as presented to customers */}
+      <section id="at-a-glance" aria-labelledby="glance-title" className="section scroll-mt-24">
+        <div className="container-site">
+          <SectionIntro title={<span id="glance-title">At a glance</span>} lead="The six points we lead with in every customer presentation." split className="mb-8 lg:mb-10" />
+          <SlideFigure
+            src="/images/deck/what-makes-lithon-best.webp"
+            width={2800}
+            height={1564}
+            alt="What makes Lith-On's storage best: native engineering for extreme heat, rated for ambient heat up to 60 °C; IceBattery® coating that lowers internal temperature by 15–30 °C and cuts cooling cost; a wall of seven international certifications including IEC 61850 and IEC 61508; proven global trust from exports to 25+ countries, with more than 6,000 cycles, over 98% efficiency and under 2.5% self-discharge a month; more than 6,000 charge cycles with a transparent 10-year warranty; and an in-house BMS, PCS, EMS and SCADA stack."
+            caption="Heat engineering, IceBattery®, certifications, export record, cycle life and the in-house control stack"
+            source="Lith-On BESS presentation for Investors, slide 5"
+          />
+        </div>
+      </section>
+
       {/* WHY-04 */}
-      <section id="certifications" aria-labelledby="trifecta-title" className="section scroll-mt-24">
+      <section id="certifications" aria-labelledby="trifecta-title" className="section scroll-mt-24 bg-canvas-warm">
         <div className="container-site">
           <SectionIntro
             title={<span id="trifecta-title">The certification trifecta</span>}
@@ -228,7 +244,7 @@ export default function WhyLithOnPage() {
       </section>
 
       {/* WHY-05 */}
-      <section id="time-to-replicate" aria-labelledby="replicate-title" className="section scroll-mt-24 bg-canvas-warm">
+      <section id="time-to-replicate" aria-labelledby="replicate-title" className="section scroll-mt-24">
         <div className="container-site grid gap-10 lg:grid-cols-12 lg:gap-6">
           <div className="lg:col-span-4">
             <h2 id="replicate-title" className="text-heading-1 text-ink">
@@ -239,6 +255,21 @@ export default function WhyLithOnPage() {
           <div className="lg:col-span-8">
             <ReplicateChart />
           </div>
+        </div>
+      </section>
+
+      {/* WHY-05b: competitor comparison slide (owner approved 26 Nov 2026) */}
+      <section id="competitors" aria-labelledby="competitors-title" className="section scroll-mt-24 bg-canvas-warm">
+        <div className="container-site">
+          <SectionIntro title={<span id="competitors-title">How we compare</span>} lead="Lith-On beside India's large storage players, and the barriers a new entrant faces." split className="mb-8 lg:mb-10" />
+          <SlideFigure
+            src="/images/deck/competitive-landscape.webp"
+            width={2800}
+            height={1564}
+            alt="Competitive landscape. Tata Power: utility and grid-scale, 100 MW / 200 MWh Jaisalmer project; Lith-On is modular and deploys sub-MW systems for EV stations three times faster. Adani Energy: giga-scale hybrid, 1,126 MW / 3,530 MWh Khavda project; Lith-On has an in-house BMS, EMS, PCS and SCADA with IceBattery coating. JSW Energy: utility integration, 500 MWh in Maharashtra and Karnataka; Lith-On holds Indian commercial and industrial certifications. Exide Energy: EV supply and grid, 12 GWh Bengaluru gigafactory; Lith-On provides a 10-year warranty. Lith-On: EV, commercial and industrial, 500+ MWh installed. Moats: tier-1 technology tie-ups, a 10-year warranty, 40+ years of combined team experience, the IEC 61508, IEC 61850 and BIS certification trifecta, a global service network, modular architecture from 51.2 kWh to megawatt-hours, and in-house manufacturing in a 20,000 sq. ft. facility. Time to replicate: manufacturing 18 months, certifications 36 months, team experience decades."
+            caption="Market focus and flagship projects of Tata Power, Adani, JSW and Exide beside Lith-On, with the time a new entrant needs to catch up"
+            source="Lith-On BESS presentation for Investors, slide 14"
+          />
         </div>
       </section>
 

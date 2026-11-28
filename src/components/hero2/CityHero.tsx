@@ -3,7 +3,7 @@
 import { useGSAP } from "@gsap/react";
 import { ArrowDown, RotateCcw } from "lucide-react";
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { type CSSProperties, useRef, useState } from "react";
 import { gsap, ScrollTrigger } from "@/animations/gsap-register";
 import { getLenis } from "@/components/motion/SmoothScroll";
 import { Button } from "@/components/system/Button";
@@ -26,6 +26,12 @@ gsap.registerPlugin(useGSAP);
  * Clicking a building marker or the chapter index flies the camera straight
  * there (zoom out, travel, zoom in), skipping the chapters in between.
  *
+ * Returning visitors (localStorage flag, set on finishing or skipping the
+ * tour) get a short opener instead: the window opens, the markers pop in and
+ * the closing line appears, over about a screen of scroll. Markers still fly
+ * to a chapter; scrolling or Escape brings the camera back out to the city.
+ * "Play intro" rebuilds the full tour for that page view.
+ *
  * Phones, touch devices and reduced motion get the same chapters as a
  * swipeable carousel, one complete chapter per slide (design.md §13).
  */
@@ -35,8 +41,15 @@ const DIVE_ZOOM = 1.7;
 /** Height the camera travels at between districts: wide enough to read the city. */
 const TRAVEL_ZOOM = 1.12;
 const ASPECT = CITY_OVERVIEW.width / CITY_OVERVIEW.height;
-/** Set once a visitor has watched or skipped the hero. */
+/**
+ * Set once a visitor has watched or skipped the hero; returning visitors then
+ * get the short opener. Change the key (e.g. add ":v2") to show everyone the
+ * full tour once more after a major change to it.
+ */
 const HERO_SEEN_KEY = "lithon-hero-seen";
+/** Pin length, in screens, of the full tour and of the returning-visitor opener. */
+const FULL_PIN = 8.5;
+const SHORT_PIN = 1.25;
 
 function heroSeen() {
   try {
@@ -142,6 +155,12 @@ function CinematicStage() {
   const [hovered, setHovered] = useState<string | null>(null);
   /** "skip" while the intro plays, "play" once on the final frame. */
   const [control, setControl] = useState<"hidden" | "skip" | "play">("hidden");
+  /** True once "Play intro" asks a returning visitor for the full tour. */
+  const [replay, setReplay] = useState(false);
+  /** Which timeline is built: the short opener or the full tour. */
+  const shortRef = useRef(false);
+  /** Short opener only: a chapter opened from a marker is on screen. */
+  const chapterOpenRef = useRef(false);
 
   /** Jump to the final frame (skip) or back to the very top (play intro). */
   const jump = (to: "end" | "start") => {
@@ -152,6 +171,11 @@ function CinematicStage() {
     if (to === "end") {
       markHeroSeen();
     }
+    if (to === "start" && shortRef.current) {
+      // Rebuild with the full tour; the new timeline scrolls back to the top.
+      setReplay(true);
+      return;
+    }
     // Stay a couple of pixels inside the pin so the final frame stays on screen.
     const top = to === "end" ? st.end - 2 : 0;
     jumpTo(top);
@@ -159,10 +183,41 @@ function CinematicStage() {
     st.getTween()?.progress(1);
   };
 
+  /** Short opener: close an open chapter and pull the camera back out to the city. */
+  const backToCity = () => {
+    const root = rootRef.current;
+    if (!(root && chapterOpenRef.current) || flyingRef.current) {
+      return;
+    }
+    chapterOpenRef.current = false;
+    flyingRef.current = true;
+    setActive(-1);
+    const q = gsap.utils.selector(root);
+    const camera = q("[data-camera]");
+    const cam = camRef.current;
+    const render = () => gsap.set(camera, cameraFor(cam.x, cam.y, cam.z));
+    gsap
+      .timeline({
+        defaults: { ease: "power2.inOut" },
+        onComplete: () => {
+          flyingRef.current = false;
+        },
+      })
+      .to(q("[data-caption]"), { autoAlpha: 0, y: -24, duration: 0.3, ease: "power2.in" }, 0)
+      .to(q("[data-detail]"), { autoAlpha: 0, duration: 0.5 }, 0.1)
+      .to(cam, { x: 0.5, y: 0.5, z: 1, duration: 1.1, onUpdate: render }, 0.15)
+      .to(q("[data-marker]"), { autoAlpha: 1, scale: 1, duration: 0.3, stagger: 0.04, ease: "back.out(2)" }, 0.9)
+      .to(q("[data-outro]"), { autoAlpha: 1, y: 0, duration: 0.45, ease: "power2.out" }, 1);
+  };
+
   useGSAP(
     () => {
       const mm = gsap.matchMedia();
       mm.add(CINEMATIC, () => {
+        const short = heroSeen() && !replay;
+        shortRef.current = short;
+        chapterOpenRef.current = false;
+        flyingRef.current = false;
         const q = gsap.utils.selector(rootRef);
         const camera = q("[data-camera]");
         const markers = q("[data-marker]");
@@ -218,35 +273,44 @@ function CinematicStage() {
             .to(detailImg(d), { scale: 1.08, duration: 0.55, ease: "power2.in" }, at + 0.1);
         };
 
-        // 2. Dive from the overview into the first district.
-        let t = 1.9;
-        tl.to(markers, { autoAlpha: 0, scale: 0.6, duration: 0.25, ease: "power2.in" }, t);
-        move({ x: first.focus.x, y: first.focus.y }, 1.3, t);
-        move({ z: DIVE_ZOOM }, 1.3, t, "power2.in");
-        arrive(first, t + 0.85);
-        stops.push(t + 1.9);
-        t += 2.7;
+        if (short) {
+          // Returning visitor: straight to the closing line once the markers are in.
+          tl.fromTo(q("[data-outro]"), { autoAlpha: 0, y: 32 }, { autoAlpha: 1, y: 0, duration: 0.45, ease: "power2.out" }, 1.3)
+            // Placed explicitly: the timeline's end is still 1.2 here, so a bare .to() would overlap the outro.
+            .to({}, { duration: 0.3 }, 1.75);
+          // Every close-up stays hidden until a marker is clicked.
+          gsap.set(q("[data-detail], [data-caption]"), { autoAlpha: 0 });
+        } else {
+          // 2. Dive from the overview into the first district.
+          let t = 1.9;
+          tl.to(markers, { autoAlpha: 0, scale: 0.6, duration: 0.25, ease: "power2.in" }, t);
+          move({ x: first.focus.x, y: first.focus.y }, 1.3, t);
+          move({ z: DIVE_ZOOM }, 1.3, t, "power2.in");
+          arrive(first, t + 0.85);
+          stops.push(t + 1.9);
+          t += 2.7;
 
-        // 3. District to district: zoom out, travel across the city, zoom in.
-        for (let i = 1; i < DISTRICTS.length; i++) {
-          const prev = DISTRICTS[i - 1];
-          const d = DISTRICTS[i];
-          leave(prev, t);
-          move({ z: TRAVEL_ZOOM }, 0.8, t + 0.1, "power2.out");
-          move({ x: d.focus.x, y: d.focus.y }, 1.2, t + 0.45);
-          move({ z: DIVE_ZOOM }, 0.8, t + 1.25, "power2.in");
-          arrive(d, t + 1.6);
-          stops.push(t + 2.6);
-          t += 3.4;
+          // 3. District to district: zoom out, travel across the city, zoom in.
+          for (let i = 1; i < DISTRICTS.length; i++) {
+            const prev = DISTRICTS[i - 1];
+            const d = DISTRICTS[i];
+            leave(prev, t);
+            move({ z: TRAVEL_ZOOM }, 0.8, t + 0.1, "power2.out");
+            move({ x: d.focus.x, y: d.focus.y }, 1.2, t + 0.45);
+            move({ z: DIVE_ZOOM }, 0.8, t + 1.25, "power2.in");
+            arrive(d, t + 1.6);
+            stops.push(t + 2.6);
+            t += 3.4;
+          }
+
+          // 4. Pull back out to the whole city, closing line.
+          leave(last, t);
+          move({ z: 1 }, 1.3, t + 0.1);
+          move({ x: 0.5, y: 0.5 }, 1.3, t + 0.1);
+          tl.to(markers, { autoAlpha: 1, scale: 1, duration: 0.3, stagger: 0.04, ease: "back.out(2)" }, t + 1.2)
+            .fromTo(q("[data-outro]"), { autoAlpha: 0, y: 32 }, { autoAlpha: 1, y: 0, duration: 0.45, ease: "power2.out" }, t + 1.2)
+            .to({}, { duration: 0.4 });
         }
-
-        // 4. Pull back out to the whole city, closing line.
-        leave(last, t);
-        move({ z: 1 }, 1.3, t + 0.1);
-        move({ x: 0.5, y: 0.5 }, 1.3, t + 0.1);
-        tl.to(markers, { autoAlpha: 1, scale: 1, duration: 0.3, stagger: 0.04, ease: "back.out(2)" }, t + 1.2)
-          .fromTo(q("[data-outro]"), { autoAlpha: 0, y: 32 }, { autoAlpha: 1, y: 0, duration: 0.45, ease: "power2.out" }, t + 1.2)
-          .to({}, { duration: 0.4 });
 
         const total = tl.duration();
         stopsRef.current = stops.map((s) => s / total);
@@ -255,11 +319,15 @@ function CinematicStage() {
           trigger: rootRef.current,
           animation: tl,
           start: "top 80px",
-          end: () => `+=${window.innerHeight * 8.5}`,
+          end: () => `+=${window.innerHeight * (short ? SHORT_PIN : FULL_PIN)}`,
           pin: true,
           scrub: 0.8,
           invalidateOnRefresh: true,
           onUpdate: (self) => {
+            // Short opener: any scroll while a chapter is open returns to the city.
+            if (short && chapterOpenRef.current) {
+              backToCity();
+            }
             const now = self.progress * total;
             let next = -1;
             for (let i = 0; i < stops.length; i++) {
@@ -270,11 +338,12 @@ function CinematicStage() {
             setActive((prev) => (prev === next ? prev : next));
             // Skip once the intro copy has scrolled away; Play on the final frame.
             let mode: "hidden" | "skip" | "play" = "hidden";
+            // Returning visitors already know the tour: offer to play it, never to skip it.
             if (self.isActive && self.progress >= 0.95) {
               mode = "play";
               markHeroSeen();
             } else if (self.isActive && self.progress >= 0.03) {
-              mode = "skip";
+              mode = short ? "play" : "skip";
             }
             setControl((prev) => (prev === mode ? prev : mode));
           },
@@ -291,30 +360,33 @@ function CinematicStage() {
         ScrollTrigger.sort();
         ScrollTrigger.refresh();
 
-        // Returning visitors open on the final frame, unless the browser
-        // restored a scroll position or a link targets a section.
-        let opener: gsap.core.Tween | null = null;
-        if (heroSeen() && window.scrollY < 10 && !window.location.hash) {
-          // Next tick, so smooth scroll has attached and won't reset to 0.
-          opener = gsap.delayedCall(0.05, () => {
-            const st = triggerRef.current;
-            if (st && window.scrollY < 10) {
-              jumpTo(st.end - 2);
-              ScrollTrigger.update();
-              st.getTween()?.progress(1);
-            }
-          });
+        // "Play intro" from the short opener: the full tour now exists, start it from the top.
+        if (replay) {
+          jumpTo(0);
+          ScrollTrigger.update();
+          triggerRef.current?.getTween()?.progress(1);
+        }
+
+        // Short opener: Escape closes a chapter opened from a marker.
+        const onKey = (e: KeyboardEvent) => {
+          if (e.key === "Escape" && chapterOpenRef.current) {
+            backToCity();
+          }
+        };
+        if (short) {
+          window.addEventListener("keydown", onKey);
         }
 
         return () => {
-          opener?.kill();
+          window.removeEventListener("keydown", onKey);
           triggerRef.current?.kill();
           triggerRef.current = null;
         };
       });
       return () => mm.revert();
     },
-    { scope: rootRef }
+    // Rebuilt with the full tour when a returning visitor presses "Play intro".
+    { scope: rootRef, dependencies: [replay], revertOnUpdate: true }
   );
 
   /**
@@ -325,10 +397,13 @@ function CinematicStage() {
    */
   const goTo = (i: number) => {
     const st = triggerRef.current;
-    const p = stopsRef.current[i];
+    const short = shortRef.current;
+    // The short opener has no chapter positions: the chapter plays over the
+    // current scroll position and scrolling (or Escape) returns to the city.
+    const p = short ? undefined : stopsRef.current[i];
     const root = rootRef.current;
     const d = DISTRICTS[i];
-    if (!(st && root && d) || p === undefined || flyingRef.current) {
+    if (!(st && root && d) || (p === undefined && !short) || flyingRef.current) {
       return;
     }
     // Settle any scroll catch-up still running before taking over.
@@ -343,7 +418,7 @@ function CinematicStage() {
     const q = gsap.utils.selector(root);
     const camera = q("[data-camera]");
     const render = () => gsap.set(camera, cameraFor(cam.x, cam.y, cam.z));
-    const top = st.start + p * (st.end - st.start);
+    const top = st.start + (p ?? 0) * (st.end - st.start);
     const lenis = getLenis();
     flyingRef.current = true;
     lenis?.stop();
@@ -352,6 +427,12 @@ function CinematicStage() {
     const flight = gsap.timeline({
       defaults: { ease: "power2.inOut" },
       onComplete: () => {
+        if (short) {
+          lenis?.start();
+          chapterOpenRef.current = true;
+          flyingRef.current = false;
+          return;
+        }
         if (lenis) {
           lenis.start();
           lenis.scrollTo(top, { immediate: true, force: true });
@@ -438,7 +519,10 @@ function CinematicStage() {
                       hovered === d.id ? "bg-white/15" : "bg-lithon-red/10"
                     )}
                   >
-                    <span className="size-2 rounded-full bg-lithon-red" />
+                    <span
+                      className="city-marker__dot size-2 rounded-full bg-lithon-red"
+                      style={{ "--wave-delay": `${i * 0.3}s` } as CSSProperties}
+                    />
                   </span>
                   <span aria-hidden="true">
                     <span className={cn("tabular mr-1.5", hovered === d.id ? "text-white/70" : "text-lithon-blue")}>{pad(i)}</span>

@@ -6,6 +6,7 @@ import { Reveal } from "@/components/motion/Reveal";
 import { cn } from "@/lib/utils";
 import { Button } from "./Button";
 import { MediaFrame } from "./MediaFrame";
+import { PhotoNeeded } from "./PhotoNeeded";
 import type { HeroAction } from "./PageHero";
 
 interface BaseCTAProps {
@@ -23,7 +24,8 @@ interface StatementCTAProps extends BaseCTAProps {
 }
 interface SplitCTAProps extends BaseCTAProps {
   variant: "split";
-  image: { src: string; alt: string; illustrative?: boolean };
+  /** A photograph, or `{ needed, size }` to show a PhotoNeeded slot until the photograph arrives. */
+  image: { src: string; alt: string; illustrative?: boolean } | { needed: string; size?: string };
 }
 interface InlineCTAProps extends BaseCTAProps {
   variant: "inline";
@@ -119,7 +121,11 @@ export function ClosingCTA(props: ClosingCTAProps) {
             </Reveal>
           </div>
           <div className="lg:col-span-6">
-            <MediaFrame src={props.image.src} alt={props.image.alt} ratio="4/3" illustrative={props.image.illustrative} sizes="(max-width: 1024px) 100vw, 50vw" />
+            {"needed" in props.image ? (
+              <PhotoNeeded subject={props.image.needed} size={props.image.size} ratio="4/3" />
+            ) : (
+              <MediaFrame src={props.image.src} alt={props.image.alt} ratio="4/3" illustrative={props.image.illustrative} sizes="(max-width: 1024px) 100vw, 50vw" />
+            )}
           </div>
         </div>
       </section>

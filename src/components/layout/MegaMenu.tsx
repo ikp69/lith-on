@@ -220,10 +220,10 @@ export function MegaPanelContent({ item }: { item: NavItem }) {
           feature={
             <PhotoFeature
               href="/capabilities"
-              src="/images/factory/battery-pack-assembly-photo.jpg"
-              width={444}
-              height={230}
-              alt="A technician wiring a battery pack on the Noida assembly line"
+              src="/images/factory/noida-facility-bench-photo.jpg"
+              width={1165}
+              height={525}
+              alt="Lith-On home and commercial battery units at the Noida facility"
               title="Made in Noida"
               note="Assembled and tested at our Sector 136 plant"
             />

@@ -78,7 +78,7 @@ export default function ProductsPage() {
         lead="Our Noida engineers size systems and battery packs to your load profile, from a single cabinet to a multi-container site."
         primary={{ label: "Talk to an engineer", href: "/contact?type=assessment" }}
         secondary={{ label: "Call +91 70000 13009", href: "tel:+917000013009" }}
-        image={{ src: "/images/installations/catalogue/indian-army-jk.webp", alt: "Two Lith-On outdoor storage cabinets installed for the Indian Army in Jammu and Kashmir" }}
+        image={{ src: "/images/deck/container-field.webp", alt: "Three white Lith-On containerised storage units on a grass field under a blue sky", illustrative: true }}
       />
     </div>
   );

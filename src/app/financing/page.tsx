@@ -23,7 +23,7 @@ export const metadata: Metadata = {
  * Rent model (PTPQ quarterly rent, security deposit, end-of-term buyout) from
  * Lith-On's own lease calculator at lith-onbharat.com/calc; maintenance by the
  * provider follows the Energy-as-a-Service model in data-sources; warranty
- * "depends on the product" (owner); sizing and turnkey EPC,
+ * 10 years (owner, 26 Nov 2026); sizing and turnkey EPC,
  * content/capabilities.md. EMI: 10% down payment, 5-year tenure, rate as in
  * /calc (owner, 20 Nov 2026). Still unsourced and left out: insurance, accelerated depreciation, MNRE subsidies
  * and ROI claims.
@@ -48,7 +48,7 @@ const MODELS = [
     upfront: "A 10% down payment",
     payment: "Monthly instalments over 5 years",
     owner: "You",
-    upkeep: "You, backed by the product warranty",
+    upkeep: "You, backed by the 10-year warranty",
   },
   {
     name: "Purchase",
@@ -56,7 +56,7 @@ const MODELS = [
     upfront: "The full system cost",
     payment: "None after purchase",
     owner: "You",
-    upkeep: "You, backed by the product warranty",
+    upkeep: "You, backed by the 10-year warranty",
   },
 ] as const;
 

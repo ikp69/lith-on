@@ -41,7 +41,7 @@ _Last updated: 20 November 2026_
 ## Phase 2 — Homepage and global ✅
 
 **Homepage**
-- [x] HOME-01 Hero: replaced 20 Nov by the city tour from the `/hero-2` prototype (`CityHero`; pinned scroll dive on desktop). Phones, tablets, touch and reduced motion: the six sectors as a swipeable carousel, one complete chapter per slide (scroll-snap), with counter, dots and arrows below; the city overview image is left out there so two images no longer stack. `/hero-2` now redirects to `/`; the previous `HomeHero` is kept in `src/components/home/` in case it is needed again
+- [x] HOME-01 Hero: replaced 20 Nov by the city tour from the `/hero-2` prototype (`CityHero`; pinned scroll dive on desktop). Phones, tablets, touch and reduced motion: the six sectors as a swipeable carousel, one complete chapter per slide (scroll-snap), with counter, dots and arrows below; the city overview image is left out there so two images no longer stack. `/hero-2` now redirects to `/`; the previous `HomeHero` is kept in `src/components/home/` in case it is needed again. 26 Nov: returning desktop visitors (localStorage `lithon-hero-seen`, set on finishing or skipping the tour) get a short opener (~1.25 screens: window opens, markers, closing line) instead of the 8.5-screen tour; markers still fly to a chapter, and scrolling or Escape returns to the city; returning visitors only ever see "Play intro" (never "Skip intro"), which rebuilds the full tour. Marker dots pulse with a staggered ripple to show they are clickable
 - [x] HOME-02 Proof stat band
 - [x] HOME-03 Challenges scroll story with live diagrams
 - [x] HOME-04 Product rail with capacity axis (catalogue renders)
@@ -95,7 +95,7 @@ Order follows the audit (§9.1). Each page is reviewed before the next starts.
   - [x] IND-05 Inline closing
 - [~] **Technology** `/technology`, built 19 Nov, awaiting review
   - [x] TEC-01 Editorial hero with numbered chapter index
-  - [!] TEC-02 Inside the system: interim version (cutaway render, labelled, plus six sourced subsystem rows). The scroll-driven exploded view needs a real layout drawing (asset).
+  - [!] TEC-02 Inside the system: interim version (cutaway render, labelled, plus seven sourced subsystem rows, fire suppression added 27 Nov 2026). The scroll-driven exploded view needs a real layout drawing (asset).
   - [x] TEC-03 IceBattery four-step scroll story (one animated SVG)
   - [x] TEC-04 Lith-On vs diesel cutover waveforms, drawn on view
   - [x] TEC-05 Six EMS modes as controls for one flow diagram
@@ -212,7 +212,7 @@ Order follows the audit (§9.1). Each page is reviewed before the next starts.
   - [x] CAP-04 Testing bento, one figure per test (3,000 V DC, −20 to +60 °C, < 10 ms, < 3% THD)
   - [x] CAP-05 EPC stepper, line draws on view
   - [x] CAP-06 Split closing "Visit the plant in Noida" ([!] plant exterior photo needs A2)
-- [x] **Blog** `/blog`: hidden, 307 redirect to `/resources` (decision §11.6)
+- [x] **Blog** `/blog`: hidden, 307 redirect to `/resources` (decision §11.6). Restored 26 Nov 2026 as Insights with three articles (§11.11)
 - [x] **Applications** `/applications`: redirect to `/industries` kept
 
 ## Phase 4 — Interaction polish 🔶
@@ -263,6 +263,16 @@ From [ASSET_BRIEF.md](ASSET_BRIEF.md):
 - **25 Nov 2026:** Deck content audit (`docs/DECK_CONTENT_AUDIT.md`): all 129 slides across 8 decks mapped to the 28 routes. Found one site error (EV hub ₹2.41 lakh is the total monthly bill, not the demand charge), two CLAIMS_REVIEW corrections, ten conflicts for the owner, and per-page additions (Residential sector, campus zone map, Invertis facts, SCADA/EMS detail, IceBattery heat retention, full Noida address). No code changed.
 - **25 Nov 2026:** Audit corrections applied: EV hub page now shows demand charges ₹96,000 → ₹0 with the bill breakdown; Invertis page gains 500 kW / 2 h backup, 700+ hostel rooms, 140 classrooms, 8 offices and solar export (Corporate Deck p.9); vault, `content/case-studies.md` and CLAIMS_REVIEW items 2, 10 and 13 corrected. Deck content distributed into `src/data/deck-content/` (per-page blocks with deck and slide citations, `ready`/`confirm` status, and an excluded list) for later components.
 - **25 Nov 2026:** Deck content implemented for the initial review (Steps 1–10 of `docs/DECK_IMPLEMENTATION_PLAN.md`): full Noida address; RSPL; About mission/vision, merged timeline, 100+ projects; Technology BMS/SCADA/EMS/IceBattery additions and the leftover 10-year warranty stat removed; Solutions diesel facts and DG vs BESS "Site" rows; Industries Residential sector, campus zone map and model, EV detail, "Also suited to"; case-study breakdown tables; product "Where it fits" and e-rickshaw card; sizing form fields; Grid, Financing, Distributor, Sustainability and FAQ additions. Open questions: `docs/OWNER_REVIEW.md` (R1–R19).
+
+- **26 Nov 2026:** Owner answers applied: 10-year manufacturer warranty restored site-wide (Warranty page, FAQ, About, Why Lith-On, Services, Distributor, Financing, comparisons, 12 products, claims.ts); three certifications kept; competitor slide's Adani figure corrected to ">20%"; energy-cycle slide's "classrooms" corrected to "the business". OWNER_REVIEW R6, R17, R18 answered; CLAIMS_REVIEW item 20 reversed; DECK_CONTENT_AUDIT, visual audit §11.10, excluded.ts and content/deck-content.md updated.
+
+- **26 Nov 2026:** Four more slides placed with `SlideFigure`: "What makes Lith-On best" and the competitor landscape on /why-lith-on (new sections #at-a-glance and #competitors), the solar + storage cycle on /solutions (#solar-cycle), and the EV hybrid solution in the /industries EV detail. Decision docs updated: visual audit §11.3, §11.6 superseded, §11.9–11.12 added; DECK_CONTENT_AUDIT §6b; OWNER_REVIEW R6, R17, R18; CLAIMS_REVIEW item 20 reopened; ASSET_BRIEF §5 open photo slots; excluded.ts.
+
+- **26 Nov 2026:** Navigation pass: Insights and FAQs added to the Technology menu (they were in no menu); duplicate "About" removed from the Company menu; footer now mirrors the menus (adds Services and Why Lith-On, moves Case studies and Sustainability to Company); Company panel photo swapped for the larger Noida bench photo. design.md §9 updated. `excluded.ts` renders entry narrowed to match the owner decision on the cutaway and container field.
+
+- **26 Nov 2026:** Image pass (Hallmark audit of the decks). New `PhotoNeeded` slots replace weak images: homepage factory collage, Invertis feature (home, /case-studies, detail hero), Capabilities hero, process rail and closing, Careers, Industries EV and data-centre sectors, case-studies closing, and four products without genuine photos (Tele-Rack 100, Resi-Shield 120, Solar-Hybrid 500, Mega-40HC). New `SlideFigure` shows deck slides as-is: system architecture on /technology (investor slide 13) and the cost models on the housing and EV case studies. New crops in `public/images/deck/`: catalogue container field (products closing), container cutaway (catalogue card and product diagrams, replacing the AI factory render on LT215). Industries residential now uses the apartment scene. /blog rebuilt as Insights with three articles from vault figures, redirect removed, linked in footer and sitemap. `design.md` §12 and §16 updated. Unused images listed for manual review in `docs/UNUSED_IMAGES.md`.
+
+- **26 Nov 2026:** Homepage "Deployed for" photo showcase removed from HomeResults at owner request; `DeploymentsShowcase` component deleted. The /case-studies deployments map is unchanged.
 
 - **20 Nov 2026:** Owner review applied. Approved: Grid services, FAQs, Careers, sizing assistant, header scroll state, hovers. Grid services diagrams animated. Financing: lease-rent estimator modelled on lith-onbharat.com/calc, Japanese financing partners and CIBIL line. Warranty now "depends on the product" site-wide (Warranty page reworked; 10-year claims removed from 12 files and all product pages). Legal mailboxes now contact@lith-onbharat.com. Power ratings from the catalogue (Magna-C&I 125 kW, Lith-On-50 48 kW, LT215 110 kW, Max-20HC-5000 2.5 MW). All 12 products plus the home range now in the mega menu, mobile menu, footer and homepage. Catalogue download dialog added. Two unused Radix packages uninstalled. Later the same day: homepage hero replaced by the /hero-2 city tour; click feedback added; domain confirmed as lith-on.com; EMI mode added to the financing estimator (10% down, 5 years, PTPQ rate).
 

@@ -1,7 +1,7 @@
 import { ShieldAlert } from "lucide-react";
 import type { Metadata } from "next";
-import Image from "next/image";
 import { PageHero } from "@/components/system/PageHero";
+import { PhotoNeeded } from "@/components/system/PhotoNeeded";
 import { SectionIntro } from "@/components/system/SectionIntro";
 
 export const metadata: Metadata = {
@@ -60,9 +60,7 @@ export default function CareersPage() {
         secondary={{ label: "Teams we hire for", href: "#teams" }}
         visual={
           <figure>
-            <div className="relative aspect-[3/2] overflow-hidden rounded-media bg-surface">
-              <Image src="/images/factory/battery-pack-assembly.jpg" alt="A Lith-On technician assembling a battery pack at the Noida plant" fill priority sizes="(min-width: 1024px) 30vw, 100vw" quality={80} className="object-cover" />
-            </div>
+            <PhotoNeeded subject="Lith-On team at work on the Noida plant floor" size="2400 × 1600 px, landscape" ratio="3/2" />
             <figcaption className="mt-2 text-small text-ink-3">Battery pack assembly, Noida</figcaption>
           </figure>
         }

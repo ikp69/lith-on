@@ -644,3 +644,36 @@ html[data-nav-pending], html[data-nav-pending] * { cursor: progress !important; 
   aspect-ratio: 2048 / 1143;
   translate: -50% -50%;
 }
+/* Live dot on each district marker: the dot breathes and two rings ripple out
+   from it, so the markers read as clickable. --wave-delay staggers the markers
+   so the pulse travels across the city instead of firing all at once. */
+.city-marker__dot {
+  position: relative;
+  animation: marker-blink 2.4s ease-in-out var(--wave-delay, 0s) infinite;
+}
+.city-marker__dot::before,
+.city-marker__dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: var(--color-lithon-red);
+  opacity: 0;
+  animation: marker-wave 2.4s cubic-bezier(0.2, 0.6, 0.35, 1) var(--wave-delay, 0s) infinite;
+}
+.city-marker__dot::after {
+  animation-delay: calc(var(--wave-delay, 0s) + 0.8s);
+}
+@keyframes marker-wave {
+  0% { transform: scale(1); opacity: 0.5; }
+  100% { transform: scale(3); opacity: 0; }
+}
+@keyframes marker-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .city-marker__dot,
+  .city-marker__dot::before,
+  .city-marker__dot::after { animation: none; }
+}

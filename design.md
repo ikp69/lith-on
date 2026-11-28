@@ -171,7 +171,7 @@ Rules:
 
 ## 9. Navigation & Header
 
-- **Five primary items:** Products · Solutions · Industries · Technology · Company. Supporting pages live inside their groups: Company holds About, Capabilities, Why Lith-On, Case Studies, Certifications, Sustainability, Careers and Contact; Products holds Resources, Calculator and Warranty; Solutions holds Services, Grid Services and Financing.
+- **Five primary items:** Products · Solutions · Industries · Technology · Company. Supporting pages live inside their groups: Company holds About, Capabilities, Why Lith-On, Case Studies, Certifications, Sustainability, Distributors, Careers and Contact; Products holds Resources, Calculator and Warranty; Solutions holds Services, Grid Services and Financing; Technology holds Insights (`/blog`) and FAQs. Every public page sits in exactly one group, and a panel never lists its own overview page twice. The footer mirrors these groups (updated 26 Nov 2026).
 - **Header:** white, compact; becomes translucent (`bg-white/85` + blur) with a hairline after scrolling. Logo left, nav centre, one primary action right ("Get quote"). The phone number lives inside the menus, not in the bar.
 - **Mega-menus:** full-width panels that can show product cut-outs or a featured image; open on hover and on keyboard focus; close on Escape.
 - **Mobile:** full-screen sheet with large rows and the primary action anchored at the bottom.
@@ -227,6 +227,9 @@ Each page ends with one of three light, editorial `ClosingCTA` variants: **State
   - Noida 20,000 sq. ft. manufacturing facility and testing bays.
 - **Image Processing**: Clean, natural color balance with true daylight tones. Avoid hyper-saturated cybernetic filters or artificial lens flares.
 - **Accessibility**: All images must include descriptive, informative `alt` text. Purely decorative elements must carry empty `alt=""`.
+- **Fit the frame to the photo**: Portrait photographs go in portrait frames (4:5 or taller). Never stretch a photo much past its native pixel size or crop a portrait into a wide frame.
+- **Photo-needed slots** (owner decision, 26 Nov 2026): Where the only available image is too small for its frame, carries slide text, or is not genuine, show `PhotoNeeded` instead. It is a deliberately visible reminder (dashed frame, "Photo needed", what to shoot and the minimum size) and stays until the photograph arrives. `grep -rn "PhotoNeeded" src` lists every open slot. Replace all of them before launch.
+- **Slides and infographics** (owner decision, 26 Nov 2026): Deck slides, infographics and catalogue crops may be shown as-is, text included, through `SlideFigure`: a caption, the source deck and slide, a link to the full-size file, and `alt` text that summarises the figures. Their numbers must match `LITHON_DATA_VAULT.md`. Use them as supporting figures inside a page, never as a hero. Crops live in `public/images/deck/`.
 
 ---
 
@@ -299,6 +302,8 @@ Built once in `src/components/system/` and previewed at `/design-system` (intern
 | `PageHero` | Four variants (§8) |
 | `SectionIntro` | Heading + optional one-sentence lead; no eyebrow pill |
 | `MediaFrame` | Image frame: aspect ratio, caption, optional parallax (M6), `illustrative` label, cut-out mode on `surface` |
+| `PhotoNeeded` | Visible placeholder for a photograph still owed (§12) |
+| `SlideFigure` | A deck slide or infographic with caption, source and full-size link (§12) |
 | `Stat`, `StatBand` | Statistics with tabular figures and optional count-up (M3); the band is open, separated by hairlines |
 | `BentoGrid`, `BentoTile` | Asymmetric 12-column compositions |
 | `HorizontalRail` | Scroll-driven rail on desktop (M5), native swipe with snap on phones, keyboard-operable |

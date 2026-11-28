@@ -6,7 +6,7 @@ export const HOME_BLOCKS: readonly DeckBlock[] = [
     id: "home-deployments",
     route: "/",
     placement: "Results section, the list of installed sites beside the three photographs",
-    component: "HomeResults (DeploymentsShowcase)",
+    component: "None (DeploymentsShowcase removed from HomeResults on 2026-11-26)",
     heading: "Where Lith-On systems are installed",
     points: [
       { title: "Indian Army", text: "Forward bases, Jammu & Kashmir" },
@@ -21,7 +21,7 @@ export const HOME_BLOCKS: readonly DeckBlock[] = [
     ],
     sources: [...SHARED.installs, src("catalogue", 31, 32)],
     status: "ready",
-    onSite: true,
+    onSite: false,
     note: "All names except RSPL Kanpur are already on the site. RSPL appears in the Corporate Deck (p.10, which drops PwC) and the catalogue photos. Show names as text; client logos need permission, and the Indian Army crest must not be used without authorisation.",
   },
   {

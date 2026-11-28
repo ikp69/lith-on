@@ -7,6 +7,8 @@ import { Button } from "@/components/system/Button";
 import { ClosingCTA } from "@/components/system/ClosingCTA";
 import { DeckFigures } from "@/components/deck/DeckFigures";
 import { DeckTable } from "@/components/deck/DeckTable";
+import { PhotoNeeded } from "@/components/system/PhotoNeeded";
+import { SlideFigure } from "@/components/system/SlideFigure";
 import { Stat } from "@/components/system/Stat";
 import { getDeckBlock } from "@/data/deck-content";
 import { PRODUCTS_DATA } from "@/data/products";
@@ -63,6 +65,15 @@ function EducationDetail() {
 function EvDetail() {
   return (
     <div className="grid gap-12 border-t border-line pt-10 lg:grid-cols-12 lg:gap-6">
+      <SlideFigure
+        className="lg:col-span-12"
+        src="/images/deck/ev-hybrid-solution.webp"
+        width={2400}
+        height={1350}
+        alt="Lith-On hybrid energy solution for EV charging stations. Solar panels charge the LFP battery during the day, topped up with low-cost off-peak grid power at night. The battery, with integrated EMS and BMS, discharges instantly to DC fast chargers to avoid peak demand tariffs. Real-time EMS monitoring switches to island mode in a grid outage. Core features: peak shaving and load shifting, zero feed-in solar self-consumption, and forecast-based battery charging."
+        caption="Solar and off-peak grid charge the battery; the battery feeds the fast chargers at peak"
+        source="Hyundai Lith-On presentation, slide 4"
+      />
       <div className="lg:col-span-7">
         <h3 className="text-heading-3 text-ink">{evConnection.heading}</h3>
         {evConnection.table && <DeckTable table={evConnection.table} sources={evConnection.sources} className="mt-4" />}
@@ -128,8 +139,8 @@ const SECTORS: Sector[] = [
   {
     id: "residential",
     name: "Residential societies",
-    image: "/images/hero-2/residential.webp",
-    alt: "An apartment block with a Lith-On storage container beside it",
+    image: "/images/hero-sec/scene-residential.webp",
+    alt: "Apartment towers with a solar carport and a paved forecourt",
     illustrative: true,
     caption: "Illustrative scene",
     challenge:
@@ -160,10 +171,10 @@ const SECTORS: Sector[] = [
   {
     id: "ev-infrastructure",
     name: "EV charging",
-    image: "/images/installations/catalogue/fuel-station.webp",
+    image: { needed: "Lith-On cabinet at a fuel station or EV charging hub, landscape", size: "2400 × 1500 px" },
     alt: "A Lith-On outdoor storage cabinet installed at a fuel station",
     illustrative: false,
-    caption: "Installed at a fuel retail station",
+    caption: "Photograph to be supplied",
     challenge: "Several fast chargers starting at once set a high maximum demand charge, often 40–60% of the bill.",
     stat: { value: 100, unit: "%", label: "Of demand charges removed", note: "Highway EV fast-charging hub, storage-only model" },
     outcomes: [
@@ -180,10 +191,10 @@ const SECTORS: Sector[] = [
   {
     id: "data-centers",
     name: "Data centres and telecom",
-    image: "/images/installations/catalogue/ntpc-cabinet.webp",
+    image: { needed: "Indoor Lith-On installation in a server or telecom room, landscape", size: "2400 × 1500 px" },
     alt: "A large Lith-On storage cabinet installed indoors",
     illustrative: false,
-    caption: "Indoor installation, NTPC",
+    caption: "Photograph to be supplied",
     challenge: "Servers and network equipment must ride through outages without rebooting.",
     stat: { value: 10, prefix: "<", unit: "ms", label: "Grid-to-battery cutover", note: "Servers run without a separate double-conversion UPS" },
     outcomes: ["Wi-Fi routers and IT servers keep running", "Lith-On-50 cabinets for telecom towers", "480 V telecom battery systems and rack modules"],
@@ -202,7 +213,11 @@ function ProductLink({ slug }: { slug: string }) {
       className="group mt-6 flex items-center gap-4 rounded-media border border-line p-3 pr-5 transition-colors hover:border-line-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lithon-blue"
     >
       <span className="relative isolate flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-control bg-surface">
-        <Image src={p.image} alt="" width={64} height={64} className="h-[80%] w-auto object-contain mix-blend-multiply transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03] motion-reduce:transition-none" />
+        {p.image ? (
+          <Image src={p.image} alt="" width={64} height={64} className="h-[80%] w-auto object-contain mix-blend-multiply transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03] motion-reduce:transition-none" />
+        ) : (
+          <PhotoNeeded fill compact subject={`${p.name} product cut-out`} className="rounded-control p-2" />
+        )}
       </span>
       <span className="min-w-0">
         <span className="block text-small text-ink-3">Typical system</span>
@@ -226,7 +241,11 @@ export default function IndustriesPage() {
               <figure className={cn("lg:col-span-7", i % 2 === 1 && "lg:order-2 lg:col-start-6")}>
                 <Reveal>
                   <div className="relative aspect-[16/10] overflow-hidden rounded-media bg-surface">
-                    <Image src={s.image} alt={s.alt} fill sizes="(min-width: 1024px) 58vw, 100vw" quality={70} className="object-cover" />
+                    {typeof s.image === "string" ? (
+                      <Image src={s.image} alt={s.alt} fill sizes="(min-width: 1024px) 58vw, 100vw" quality={70} className="object-cover" />
+                    ) : (
+                      <PhotoNeeded fill subject={s.image.needed} size={s.image.size} />
+                    )}
                   </div>
                 </Reveal>
                 <figcaption className="mt-2 text-small text-ink-3">{s.caption}</figcaption>

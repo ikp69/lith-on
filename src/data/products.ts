@@ -12,7 +12,8 @@ export interface ProductDetail {
   modelCode: string;
   tagline: string;
   category: "Commercial" | "Industrial" | "Utility" | "Modular";
-  image: string;
+  /** Product cut-out. `null` while no genuine photograph exists: pages show a PhotoNeeded slot. */
+  image: string | null;
   diagramImage?: string;
   capacity: string;
   powerRating: string;
@@ -51,7 +52,7 @@ export const PRODUCTS_DATA: ProductDetail[] = [
     tagline: "All-in-One Outdoor BESS Cabinet with Integrated Bi-directional PCS",
     category: "Commercial",
     image: "/images/products/catalogue/magna-ci-260.webp",
-    diagramImage: "/images/products/bess-3d-cutaway.jpg",
+    diagramImage: "/images/deck/container-cutaway.webp",
     capacity: "260 kWh",
     powerRating: "125 kW",
     chemistry: "Tier-1 LiFePO4 (LFP)",
@@ -69,7 +70,7 @@ export const PRODUCTS_DATA: ProductDetail[] = [
     dcVoltage: "672V–864V DC Bus",
     efficiency: ">95% System Round-Trip AC-to-AC",
     operatingTemp: "-10°C to +60°C Ambient",
-    warranty: "Product-specific; term and coverage set out in your quotation",
+    warranty: "10-year manufacturer warranty",
     certifications: ["IEC 61508 SIL 2 Conformance", "IEC 61850 SCADA Ready", "BIS Certified"],
     applications: [
       "Commercial Demand Limiting & Peak Shaving",
@@ -146,7 +147,7 @@ export const PRODUCTS_DATA: ProductDetail[] = [
     dcVoltage: "1P 240S configuration",
     efficiency: "Contact us for details",
     operatingTemp: "Charging 0–45 °C; discharging −20–50 °C",
-    warranty: "Product-specific; term and coverage set out in your quotation",
+    warranty: "10-year manufacturer warranty",
     certifications: [
       "Functional safety class B"
     ],
@@ -182,7 +183,7 @@ export const PRODUCTS_DATA: ProductDetail[] = [
     tagline: "Modular Commercial & Institutional Battery Storage System",
     category: "Modular",
     image: "/images/products/catalogue/lithon-50.webp",
-    diagramImage: "/images/products/bess-3d-cutaway.jpg",
+    diagramImage: "/images/deck/container-cutaway.webp",
     capacity: "48 kWh (Scalable to 192 kWh)",
     powerRating: "48 kW",
     chemistry: "Tier-1 LiFePO4 (LFP)",
@@ -200,7 +201,7 @@ export const PRODUCTS_DATA: ProductDetail[] = [
     dcVoltage: "384V–512V DC",
     efficiency: ">95% Round-Trip Efficiency",
     operatingTemp: "-10°C to +55°C Ambient",
-    warranty: "Product-specific; term and coverage set out in your quotation",
+    warranty: "10-year manufacturer warranty",
     certifications: ["BIS Certified"],
     applications: [
       "Branch Banking & Retail Fuel Station Continuity",
@@ -250,7 +251,7 @@ export const PRODUCTS_DATA: ProductDetail[] = [
     tagline: "High-Density Liquid-Cooled Industrial Energy Storage Cabinet",
     category: "Industrial",
     image: "/images/products/catalogue/lt215.webp",
-    diagramImage: "/images/installations/commercial-campus-bess-photo.jpg",
+    diagramImage: "/images/deck/container-cutaway.webp",
     capacity: "215 kWh",
     powerRating: "110 kW",
     chemistry: "Tier-1 LiFePO4 (LFP)",
@@ -268,7 +269,7 @@ export const PRODUCTS_DATA: ProductDetail[] = [
     dcVoltage: "768V DC Nominal Bus",
     efficiency: ">95% Round-Trip AC Efficiency",
     operatingTemp: "-20°C to +60°C Heavy Industrial",
-    warranty: "Product-specific; term and coverage set out in your quotation",
+    warranty: "10-year manufacturer warranty",
     certifications: ["IEC 61508 SIL 2 Conformance", "IEC 61850", "BIS Certified"],
     applications: [
       "Industrial HT Tariff Maximum Demand Shaving",
@@ -341,7 +342,7 @@ export const PRODUCTS_DATA: ProductDetail[] = [
     dcVoltage: "900–1500 V DC",
     efficiency: "Contact us for details",
     operatingTemp: "Charging 0–45 °C; discharging −20–50 °C",
-    warranty: "Product-specific; term and coverage set out in your quotation",
+    warranty: "10-year manufacturer warranty",
     certifications: [
       "Functional safety class B",
       "IEC 62619, IEC 62933, IEC 61000, UL 1973, UL 9540A (listed in catalogue)"
@@ -395,7 +396,7 @@ export const PRODUCTS_DATA: ProductDetail[] = [
     dcVoltage: "900–1500 V DC",
     efficiency: "Contact us for details",
     operatingTemp: "Charging 0–45 °C; discharging −20–50 °C",
-    warranty: "Product-specific; term and coverage set out in your quotation",
+    warranty: "10-year manufacturer warranty",
     certifications: [
       "Functional safety class B",
       "IEC 62619, IEC 62933, IEC 61000, UL 1973, UL 9540A (listed in catalogue)"
@@ -449,7 +450,7 @@ export const PRODUCTS_DATA: ProductDetail[] = [
     dcVoltage: "900–1500 V DC",
     efficiency: "> 95% DC charge and discharge (catalogue)",
     operatingTemp: "Charging 0–45 °C; discharging −20–50 °C",
-    warranty: "Product-specific; term and coverage set out in your quotation",
+    warranty: "10-year manufacturer warranty",
     certifications: [
       "Functional safety class B",
       "IEC 62619, IEC 62933, IEC 61000, UL 1973, UL 9540A (listed in catalogue)"
@@ -483,7 +484,7 @@ export const PRODUCTS_DATA: ProductDetail[] = [
     tagline: "20-ft High-Cube Containerized Utility-Scale Battery Energy Storage System",
     category: "Utility",
     image: "/images/products/catalogue/max-20hc-5000.webp",
-    diagramImage: "/images/products/bess-3d-cutaway.jpg",
+    diagramImage: "/images/deck/container-cutaway.webp",
     capacity: "5,000 kWh (5.0 MWh)",
     powerRating: "2,500 kW (2 × 1.25 MW or 6 × 417 kW PCS)",
     chemistry: "Tier-1 LiFePO4 (LFP)",
@@ -501,7 +502,7 @@ export const PRODUCTS_DATA: ProductDetail[] = [
     dcVoltage: "1,152V–1,500V DC Utility High-Voltage",
     efficiency: ">95% System Round-Trip Efficiency",
     operatingTemp: "-30°C to +60°C Extreme Ambient",
-    warranty: "Product-specific; term and coverage set out in your quotation",
+    warranty: "10-year manufacturer warranty",
     certifications: ["IEC 61508 SIL 2 Conformance", "IEC 61850 Grid Protocol", "BIS Certified"],
     applications: [
       "Utility Grid Frequency Regulation & Synthetic Inertia",
@@ -560,8 +561,8 @@ export const PRODUCTS_DATA: ProductDetail[] = [
     modelCode: "LO-TR-100",
     tagline: "48V Telecom & Edge Computing Rack-Mount Lithium Module",
     category: "Modular",
-    image: "/images/products/lithon-module-clean.png",
-    diagramImage: "/images/products/bess-3d-cutaway.jpg",
+    image: null,
+    diagramImage: "/images/deck/container-cutaway.webp",
     capacity: "10 kWh (51.2V / 200Ah)",
     powerRating: "5 kW Continuous / 10 kW Peak",
     chemistry: "Tier-1 LiFePO4 (LFP)",
@@ -579,7 +580,7 @@ export const PRODUCTS_DATA: ProductDetail[] = [
     dcVoltage: "48V / 51.2V DC Nominal",
     efficiency: ">97% DC Round-Trip Efficiency",
     operatingTemp: "-10°C to +55°C Ambient",
-    warranty: "Product-specific; term and coverage set out in your quotation",
+    warranty: "10-year manufacturer warranty",
     certifications: ["BIS Certified"],
     applications: [
       "Telecom BTS / Macro Cell Site Battery Replacement",
@@ -628,8 +629,8 @@ export const PRODUCTS_DATA: ProductDetail[] = [
     modelCode: "LO-RS-120",
     tagline: "High-Rise Residential Society BESS for Elevator & Common Area Continuity",
     category: "Commercial",
-    image: "/images/products/bess-cabinet-clean.png",
-    diagramImage: "/images/products/bess-3d-cutaway.jpg",
+    image: null,
+    diagramImage: "/images/deck/container-cutaway.webp",
     capacity: "120 kWh",
     powerRating: "60 kW / 75 kW",
     chemistry: "Tier-1 LiFePO4 (LFP)",
@@ -647,7 +648,7 @@ export const PRODUCTS_DATA: ProductDetail[] = [
     dcVoltage: "384V–512V DC Bus",
     efficiency: ">95% System Round-Trip AC-to-AC",
     operatingTemp: "-10°C to +60°C Ambient",
-    warranty: "Product-specific; term and coverage set out in your quotation",
+    warranty: "10-year manufacturer warranty",
     certifications: ["BIS Certified", "IP55 Rated"],
     applications: [
       "High-Rise Elevator & Fire Pump Continuity",
@@ -700,8 +701,8 @@ export const PRODUCTS_DATA: ProductDetail[] = [
     modelCode: "LO-SH-500",
     tagline: "Integrated Solar PV + BESS Hybrid System for C&I Self-Consumption",
     category: "Commercial",
-    image: "/images/products/container-bess-clean.png",
-    diagramImage: "/images/products/bess-3d-cutaway.jpg",
+    image: null,
+    diagramImage: "/images/deck/container-cutaway.webp",
     capacity: "500 kWh",
     powerRating: "250 kW PCS + 300 kWp Solar Inverter",
     chemistry: "Tier-1 LiFePO4 (LFP)",
@@ -719,7 +720,7 @@ export const PRODUCTS_DATA: ProductDetail[] = [
     dcVoltage: "672V–864V DC Battery Bus + 580V–850V DC Solar String",
     efficiency: ">95% Battery RTE, >98.5% Solar Inverter Efficiency",
     operatingTemp: "-10°C to +60°C Ambient",
-    warranty: "Product-specific; term and coverage set out in your quotation",
+    warranty: "10-year manufacturer warranty",
     certifications: ["IEC 61508 SIL 2", "BIS Certified"],
     applications: [
       "C&I Solar Self-Consumption Maximisation (80%–90% utilisation)",
@@ -779,8 +780,8 @@ export const PRODUCTS_DATA: ProductDetail[] = [
     modelCode: "LO-MEGA-10000",
     tagline: "40-ft High-Cube Containerised Utility-Scale BESS for Grid & Renewable Parks",
     category: "Utility",
-    image: "/images/products/container-bess-clean.png",
-    diagramImage: "/images/products/bess-3d-cutaway.jpg",
+    image: null,
+    diagramImage: "/images/deck/container-cutaway.webp",
     capacity: "10,000 kWh (10.0 MWh)",
     powerRating: "2,500 kW / 5,000 kW",
     chemistry: "Tier-1 LiFePO4 (LFP)",
@@ -798,7 +799,7 @@ export const PRODUCTS_DATA: ProductDetail[] = [
     dcVoltage: "1,500V DC Utility High-Voltage Bus",
     efficiency: ">95% System Round-Trip Efficiency",
     operatingTemp: "-30°C to +60°C Extreme Ambient",
-    warranty: "Product-specific; term and coverage set out in your quotation",
+    warranty: "10-year manufacturer warranty",
     certifications: ["IEC 61508 SIL 2", "IEC 61850 Grid Protocol", "BIS Certified"],
     applications: [
       "Utility-Scale Renewable Energy Firming (Solar + Wind)",
